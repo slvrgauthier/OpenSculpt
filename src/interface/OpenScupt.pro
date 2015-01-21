@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         fenprincipal.cpp \
     initialisationmodele.cpp \
-    parametragemodele.cpp
+    parametragemodele.cpp \
+    glwidget.cpp
 
 HEADERS  += fenprincipal.h \
     initialisationmodele.h \
-    parametragemodele.h
+    parametragemodele.h \
+    glwidget.h
 
 FORMS    += fenprincipal.ui \
     initialisationmodele.ui \
@@ -27,3 +29,5 @@ FORMS    += fenprincipal.ui \
 
 RESOURCES += \
     ressources.qrc
+
+macx:QMAKE_LIBS_OPENGL += -framework GLUT -lobjc
