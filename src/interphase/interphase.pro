@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    Fenprincipale.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    Fenprincipale.h
 
 FORMS    += mainwindow.ui

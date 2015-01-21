@@ -5,23 +5,15 @@
 #include <QPushButton>
 #include <QBoxLayout>
 #include <QLabel>
+#include "FenPrincipale.h"
+
 int main(int argv, char **args)
 {
         QApplication app(argv, args);
 
-        QPushButton subButton("Subdiviser");
-        subButton.setToolTip("permet de subdiviser");
+        FenPrincipale fenetre;
+        fenetre.show();
 
-        QPushButton *selectButton = new QPushButton( "Selectionner");
-        selectButton->setIcon( QIcon("Curseur.png") );
-        selectButton->setToolTip("selectionne l'objet");
 
-        QVBoxLayout layout;
-        layout.addWidget(&subButton);
-        layout.addWidget(selectButton);
-
-        QWidget window;
-        window.setLayout(&layout);
-        window.show();
         return app.exec();
 }
