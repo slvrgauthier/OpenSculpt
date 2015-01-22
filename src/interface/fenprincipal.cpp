@@ -7,7 +7,7 @@ FenPrincipal::FenPrincipal(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //ui->openGLWidget permet d'afficher la figure opengl
+    //ui->openGLWidget; //permet d'afficher la figure opengl
 }
 
 FenPrincipal::~FenPrincipal()
