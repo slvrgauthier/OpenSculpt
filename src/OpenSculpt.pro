@@ -16,12 +16,14 @@ SOURCES += main.cpp\
     gui/fenprincipal.cpp \
     gui/initialisationmodele.cpp \
     gui/parametragemodele.cpp \
-    gui/glwidget.cpp
+    gui/glwidget.cpp \
+    model/VBOManager.cpp
 
 HEADERS += gui/fenprincipal.h \
     gui/initialisationmodele.h \
     gui/parametragemodele.h \
-    gui/glwidget.h
+    gui/glwidget.h \
+    model/VBOManager.h
 
 FORMS += gui/fenprincipal.ui \
     gui/initialisationmodele.ui \
