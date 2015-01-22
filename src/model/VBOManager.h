@@ -1,36 +1,45 @@
 #ifndef VBOMANAGER_H
 #define VBOMANAGER_H
 
-/*#include <GL/glew.h>
+#include <GL/glew.h>
 #include <string>
 #include <vector>
 
+using namespace std;
+
+typedef struct VBO {
+    GLuint m_id;
+    string m_name;
+    unsigned int m_size;
+} VBO;
+
 class VBOManager {
 private :
-    vector<string> names;
-    vector<GLuint> vbos;
+    vector<VBO> m_vbos;
 
 private:
-    bool alloc(GLuint vbo, GLsizei size);
-    bool realloc(GLuint vbo, GLsizei size);
+    void alloc(GLuint vbo, GLsizei size);
+    //void realloc(GLuint vbo, GLsizei size);
 
 public:
     VBOManager();
     ~VBOManager();
 
-    GLuint newVbo(string name = vbos.size().toString());
-    GLuint newVbo(unsigned int size, GLenum type, string name = vbos.size().toString());
+    GLuint newVBO();
+    GLuint newVBO(string name);
+    GLuint newVBO(unsigned int size, GLenum type);
+    GLuint newVBO(unsigned int size, GLenum type, string name);
 
-    void deleteVbo(GLuint vbo);
+    void deleteVBO(GLuint &vbo);
 
-    GLuint getVbo(string name) const;
-    GLuint getVbo(int index) const;
+    GLuint getVBO(string name) const;
+    GLuint getVBO(unsigned int index) const;
 
-public slots:
+//public slots:
 
 
-signals:
+//signals:
 
-};*/
+};
 
 #endif // VBOMANAGER_H
