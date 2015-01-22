@@ -1,9 +1,9 @@
-#include "gui/initialisationmodele.h"
-#include "ui_initialisationmodele.h"
+#include "gui/initModel.h"
+#include "ui_initModel.h"
 
-InitialisationModele::InitialisationModele(QWidget *parent) :
+InitModel::InitModel(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::InitialisationModele)
+    ui(new Ui::InitModel)
 {
     ui->setupUi(this);
     m_model = new QStandardItemModel;
@@ -20,12 +20,12 @@ InitialisationModele::InitialisationModele(QWidget *parent) :
     m_model->appendRow(m_listElem);
 }
 
-InitialisationModele::~InitialisationModele()
+InitModel::~InitModel()
 {
     delete ui;
 }
 
-void InitialisationModele::on_next_clicked()
+void InitModel::on_next_clicked()
 {
 
     qDebug() << ui->choosemodel->currentIndex().row();
@@ -34,11 +34,11 @@ void InitialisationModele::on_next_clicked()
         close();
 }
 
-void InitialisationModele::on_choosemodel_clicked(const QModelIndex &index)
+void InitModel::on_choosemodel_clicked(const QModelIndex &index)
 {
     QMessageBox::information(this, "ok", "Tu as cliqué");
 }
-TYPE InitialisationModele::getType() const
+TYPE InitModel::getType() const
 {
     return m_type;
 }

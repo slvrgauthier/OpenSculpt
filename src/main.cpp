@@ -1,4 +1,4 @@
-#include "gui/fenprincipal.h"
+#include "gui/mainWindow.h"
 #include <QApplication>
 
 #if defined(__APPLE__) && (__MACH__)
@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 {
     glutInit(&argc,argv);
     QApplication a(argc, argv);
-    FenPrincipal w;
+    MainWindow w;
     w.show();
 
     return a.exec();

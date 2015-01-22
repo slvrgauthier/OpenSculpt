@@ -1,34 +1,34 @@
-#include "gui/fenprincipal.h"
-#include "ui_fenprincipal.h"
+#include "gui/mainWindow.h"
+#include "ui_mainWindow.h"
 
-FenPrincipal::FenPrincipal(QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::FenPrincipal)
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
     //ui->openGLWidget; //permet d'afficher la figure opengl
 }
 
-FenPrincipal::~FenPrincipal()
+MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-void FenPrincipal::on_actionOpen_triggered()
+void MainWindow::on_actionOpen_triggered()
 {
     QFileDialog::getOpenFileName(this,"choix du ficher", "/Users/Yann/Documents/Programmation/OpenScupt/Enregistrement");
 }
 
 
-void FenPrincipal::on_actionNew_triggered()
+void MainWindow::on_actionNew_triggered()
 {
-    InitialisationModele m_new;
+    InitModel m_new;
     m_new.exec();
 
     TYPE type = m_new.getType();
 
-    ParametrageModele param(type);
+    SettingModel param(type);
     param.exec();
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>InitialisationModele</class>
- <widget class="QDialog" name="InitialisationModele">
+ <class>InitModel</class>
+ <widget class="QDialog" name="InitModel">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -32,7 +32,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QOpenGLWidget" name="showModel">
+       <widget class="QGLWidget" name="showModel">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -84,7 +84,7 @@
   <connection>
    <sender>cancel</sender>
    <signal>clicked()</signal>
-   <receiver>InitialisationModele</receiver>
+   <receiver>InitModel</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

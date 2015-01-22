@@ -1,6 +1,6 @@
 #ifndef GLWIDGET_H
 #define GLWIDGET_H
-#include<QGLWidget>
+#include <QGLWidget>
 #include <QTimer>
 
 class GLWidget : public QGLWidget

@@ -12,25 +12,25 @@ TARGET = OpenSculpt
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-    gui/fenprincipal.cpp \
-    gui/initialisationmodele.cpp \
-    gui/parametragemodele.cpp \
+SOURCES += main.cpp \
+    gui/mainWindow.cpp \
+    gui/initModel.cpp \
+    gui/settingModel.cpp \
     gui/glwidget.cpp \
     model/VBOManager.cpp
 
-HEADERS += gui/fenprincipal.h \
-    gui/initialisationmodele.h \
-    gui/parametragemodele.h \
+HEADERS += gui/mainWindow.h \
+    gui/initModel.h \
+    gui/settingModel.h \
     gui/glwidget.h \
     model/VBOManager.h
 
-FORMS += gui/fenprincipal.ui \
-    gui/initialisationmodele.ui \
-    gui/parametragemodele.ui
+FORMS += gui/mainWindow.ui \
+    gui/initModel.ui \
+    gui/settingModel.ui
 
 RESOURCES += \
     data/ressources.qrc
 
 macx:QMAKE_LIBS_OPENGL += -framework GLUT -lobjc
-//QMAKE_LIBS_OPENGL += -lGL -lGLU -lglut -lm
+linux:QMAKE_LIBS_OPENGL += -lGL -lGLU -lglut -lm
