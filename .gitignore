@@ -4,7 +4,5 @@
 *.out
 *~
 *build*
-*test
-*tmp
-*.save
+*tmp*
 *.bak
