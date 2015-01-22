@@ -1,0 +1,10 @@
+*.aux
+*.log
+*.toc
+*.out
+*~
+*build
+*test
+*tmp
+*.save
+*.bak
