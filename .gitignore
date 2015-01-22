@@ -3,7 +3,7 @@
 *.toc
 *.out
 *~
-*build
+build
 *test
 *tmp
 *.save
