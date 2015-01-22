@@ -6,7 +6,7 @@
 #include <QMessageBox>
 #include <QDebug>
 
-#include "parametragemodele.h"
+#include "gui/parametragemodele.h"
 
 namespace Ui {
 class InitialisationModele;

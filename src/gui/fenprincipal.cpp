@@ -1,4 +1,4 @@
-#include "fenprincipal.h"
+#include "gui/fenprincipal.h"
 #include "ui_fenprincipal.h"
 
 FenPrincipal::FenPrincipal(QWidget *parent) :

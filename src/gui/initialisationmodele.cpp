@@ -1,4 +1,4 @@
-#include "initialisationmodele.h"
+#include "gui/initialisationmodele.h"
 #include "ui_initialisationmodele.h"
 
 InitialisationModele::InitialisationModele(QWidget *parent) :

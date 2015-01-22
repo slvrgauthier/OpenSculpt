@@ -1,6 +1,6 @@
-#include "fenprincipal.h"
+#include "gui/fenprincipal.h"
 #include <QApplication>
-#include <GLUT/glut.h>
+#include <GL/glut.h>
 
 int main(int argc, char *argv[])
 {

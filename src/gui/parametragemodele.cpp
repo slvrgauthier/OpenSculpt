@@ -1,4 +1,4 @@
-#include "parametragemodele.h"
+#include "gui/parametragemodele.h"
 #include "ui_parametragemodele.h"
 
 ParametrageModele::ParametrageModele(TYPE type, QWidget *parent) :

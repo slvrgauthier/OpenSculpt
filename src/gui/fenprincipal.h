@@ -2,9 +2,9 @@
 #define FENPRINCIPAL_H
 
 #include <QMainWindow>
-#include<QFileDialog>
+#include <QFileDialog>
 
-#include "initialisationmodele.h"
+#include "gui/initialisationmodele.h"
 
 namespace Ui {
 class FenPrincipal;

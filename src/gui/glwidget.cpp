@@ -1,5 +1,5 @@
-#include "glwidget.h" 
-#include <GLUT/glut.h>
+#include "gui/glwidget.h"
+#include <GL/glut.h>
 
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
