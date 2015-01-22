@@ -19,8 +19,8 @@ public:
     ~FenPrincipal();
 
 private slots:
-    void on_actionOuvrir_triggered();
-    void on_actionNouveau_triggered();
+    void on_actionOpen_triggered();
+    void on_actionNew_triggered();
 
 private:
     Ui::FenPrincipal *ui;

@@ -14,7 +14,7 @@ public:
     void resizeGL(int w, int h);
 
 private:
-    QTimer timer;
+    QTimer m_timer;
 };
 
 #endif // GLWIDGET_H

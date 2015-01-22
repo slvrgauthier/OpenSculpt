@@ -10,8 +10,8 @@
 
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
-    connect(&timer, SIGNAL(timeout()),this, SLOT(updateGL()));
-    timer.start(16);
+    connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
+    m_timer.start(16);
 }
 
 

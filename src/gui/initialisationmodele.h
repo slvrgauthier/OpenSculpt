@@ -23,15 +23,15 @@ public:
     TYPE getType() const;
 
 private slots:
-    void on_suivant_clicked();
+    void on_next_clicked();
 
-    void on_choixmodele_clicked(const QModelIndex &index);
+    void on_choosemodel_clicked(const QModelIndex &index);
 
 private:
     Ui::InitialisationModele *ui;
-    QStandardItemModel* modele;
+    QStandardItemModel* m_model;
 
-    TYPE type;
+    TYPE m_type;
 };
 
 #endif // INITIALISATIONMODELE_H

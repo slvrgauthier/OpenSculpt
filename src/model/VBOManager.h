@@ -1,7 +1,7 @@
 #ifndef VBOMANAGER_H
 #define VBOMANAGER_H
 
-#include <GL/glew.h>
+/*#include <GL/glew.h>
 #include <string>
 #include <vector>
 
@@ -31,6 +31,6 @@ public slots:
 
 signals:
 
-};
+};*/
 
 #endif // VBOMANAGER_H

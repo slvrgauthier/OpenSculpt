@@ -28,21 +28,21 @@
        <widget class="QWidget" name="widget" native="true">
         <layout class="QFormLayout" name="formLayout">
          <item row="1" column="0">
-          <widget class="QLabel" name="labellongueur">
+          <widget class="QLabel" name="labelwidth">
            <property name="text">
             <string>Longeur</string>
            </property>
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="labellongeur">
+          <widget class="QLabel" name="labelheight">
            <property name="text">
             <string>Hauteur</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QDoubleSpinBox" name="longeurint">
+          <widget class="QDoubleSpinBox" name="widthint">
            <property name="buttonSymbols">
             <enum>QAbstractSpinBox::UpDownArrows</enum>
            </property>
@@ -52,7 +52,7 @@
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QDoubleSpinBox" name="hauteurint">
+          <widget class="QDoubleSpinBox" name="heightint">
            <property name="singleStep">
             <double>0.100000000000000</double>
            </property>
@@ -92,14 +92,14 @@
           </widget>
          </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="labelhauteur">
+          <widget class="QLabel" name="labelheight_2">
            <property name="text">
             <string>Hauteur</string>
            </property>
           </widget>
          </item>
          <item row="2" column="1">
-          <widget class="QDoubleSpinBox" name="doubleSpinhauteur">
+          <widget class="QDoubleSpinBox" name="doubleSpinheight">
            <property name="singleStep">
             <double>0.100000000000000</double>
            </property>
@@ -128,14 +128,14 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="annulerparam">
+       <widget class="QPushButton" name="cancelparam">
         <property name="text">
          <string>Annuler</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="validerparam">
+       <widget class="QPushButton" name="validateparam">
         <property name="text">
          <string>Valider</string>
         </property>
@@ -149,7 +149,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>annulerparam</sender>
+   <sender>cancelparam</sender>
    <signal>clicked()</signal>
    <receiver>ParametrageModele</receiver>
    <slot>reject()</slot>

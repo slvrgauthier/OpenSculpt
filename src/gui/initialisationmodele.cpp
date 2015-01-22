@@ -6,18 +6,18 @@ InitialisationModele::InitialisationModele(QWidget *parent) :
     ui(new Ui::InitialisationModele)
 {
     ui->setupUi(this);
-    modele = new QStandardItemModel;
-    modele->setColumnCount(2);
-    modele->setHorizontalHeaderLabels(QStringList() << "Modele" << "Description");
-    ui->choixmodele->setModel(modele);
-    ui->choixmodele->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_model = new QStandardItemModel;
+    m_model->setColumnCount(2);
+    m_model->setHorizontalHeaderLabels(QStringList() << "Modele" << "Description");
+    ui->choosemodel->setModel(m_model);
+    ui->choosemodel->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     /*Pour ajouter des modeles (stockés dans un fichier par exemple*/
 
-    QList<QStandardItem*> listeElem;
-    listeElem << new QStandardItem("Modele1") << new QStandardItem("Description Modele1");
+    QList<QStandardItem*> m_listElem;
+    m_listElem << new QStandardItem("Modele1") << new QStandardItem("Description Modele1");
 
-    modele->appendRow(listeElem);
+    m_model->appendRow(m_listElem);
 }
 
 InitialisationModele::~InitialisationModele()
@@ -25,20 +25,20 @@ InitialisationModele::~InitialisationModele()
     delete ui;
 }
 
-void InitialisationModele::on_suivant_clicked()
+void InitialisationModele::on_next_clicked()
 {
 
-    qDebug() << ui->choixmodele->currentIndex().row();
-    type = CUBE;
+    qDebug() << ui->choosemodel->currentIndex().row();
+    m_type = CUBE;
 
         close();
 }
 
-void InitialisationModele::on_choixmodele_clicked(const QModelIndex &index)
+void InitialisationModele::on_choosemodel_clicked(const QModelIndex &index)
 {
     QMessageBox::information(this, "ok", "Tu as cliqué");
 }
 TYPE InitialisationModele::getType() const
 {
-    return type;
+    return m_type;
 }

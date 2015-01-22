@@ -15,18 +15,18 @@ FenPrincipal::~FenPrincipal()
     delete ui;
 }
 
-void FenPrincipal::on_actionOuvrir_triggered()
+void FenPrincipal::on_actionOpen_triggered()
 {
     QFileDialog::getOpenFileName(this,"choix du ficher", "/Users/Yann/Documents/Programmation/OpenScupt/Enregistrement");
 }
 
 
-void FenPrincipal::on_actionNouveau_triggered()
+void FenPrincipal::on_actionNew_triggered()
 {
-    InitialisationModele nouveau;
-    nouveau.exec();
+    InitialisationModele m_new;
+    m_new.exec();
 
-    TYPE type = nouveau.getType();
+    TYPE type = m_new.getType();
 
     ParametrageModele param(type);
     param.exec();
