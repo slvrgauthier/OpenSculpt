@@ -161,13 +161,11 @@ maillages sous différents formats tels que le OBJ ou le STL par exemple.
 							\hline
 							Structure par demi-arêtes & - Parcours de maillage très pratiques & - Coût de stockage excessif\\
 							\hline
-							Vertex Buffer Object (VBO) & - Optimisé pour le rendu OpenGL & \\
-							 & - Utilise le GPU & \\
+							Vertex Array (VAO) & - Optimisé pour le rendu OpenGL & - Utilise le CPU et la RAM\\
+							 & - Simple d'utilisation & \\
 							\hline
-							 & - Optimisé pour le rendu OpenGL & \\
-							Vertex Arrays (VAO) & - Utilise le GPU & \\
-							 & - Regroupe plusieurs VBOs & \\
-							 & - Stockage d'information sur les VBOs & \\
+							Vertex Buffer Object (VBO) & - Optimisé pour le rendu OpenGL & \\
+							 & - Utilise le GPU et la VRAM & \\
 							\hline
 						\end{tabular}
 					\end{small}
