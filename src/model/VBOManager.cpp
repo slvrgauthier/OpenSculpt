@@ -1,3 +1,11 @@
+/*
+ * VBOManager.cpp
+ * @author : GAUTHIER Silvère
+ *
+ * Definition file of VBOManager.h.
+ *
+ */
+
 #include <iostream>
 #include "model/VBOManager.h"
 

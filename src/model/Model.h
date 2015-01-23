@@ -43,6 +43,8 @@ public:
 
     string getName() const;
     ModelType getType() const;
+    unsigned int getSize() const;
+    Node* getNode(unsigned int index);
 
     void setName(string name);
 

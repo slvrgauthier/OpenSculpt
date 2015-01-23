@@ -1,3 +1,11 @@
+/*
+ * Model.cpp
+ * @author : GAUTHIER Silvère
+ *
+ * Definition file of Model.h.
+ *
+ */
+
 #include "model/Model.h"
 #include "func/functions.h"
 
@@ -17,8 +25,10 @@ Model::~Model(){
 
 string Model::getName() const { return m_name; }
 ModelType Model::getType() const { return m_type; }
+unsigned int Model::getSize() const { return m_data.size(); }
+Node* Model::getNode(unsigned int index) { return &m_data[index]; }
 
-void Model::setName(string name){ m_name = name; }
+void Model::setName(string name) { m_name = name; }
 
 void Model::makeCube(float width, float height, float depth, unsigned int resolution){
 
