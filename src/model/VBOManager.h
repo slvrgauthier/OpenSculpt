@@ -1,7 +1,17 @@
+/*
+ * VBOManager.h
+ * @author : GAUTHIER Silvère
+ *
+ * VBOid is a structure storing informations about a buffer.
+ * VBOManager controls a list of QOpenGLBuffers and gives member functions for rendering.
+ *
+ * A VBOManager must be given to a ModelManager to render models.
+ *
+ */
+
 #ifndef VBOMANAGER_H
 #define VBOMANAGER_H
 
-#include <GL/glew.h>
 #include <QOpenGLBuffer>
 #include <string>
 #include <vector>
@@ -10,7 +20,7 @@ using namespace std;
 
 typedef struct VBOid {
     string name;
-    unsigned int size;
+    int size;
 } VBOid;
 
 class VBOManager {
@@ -22,21 +32,12 @@ public:
     VBOManager();
     ~VBOManager();
 
-    QOpenGLBuffer* newVBO();
-    QOpenGLBuffer* newVBO(string name);
-    QOpenGLBuffer* newVBO(unsigned int size, GLenum type);
-    QOpenGLBuffer* newVBO(unsigned int size, GLenum type, string name);
-    QOpenGLBuffer* newVBO(unsigned int size, GLenum type, const void *data);
-    QOpenGLBuffer* newVBO(unsigned int size, GLenum type, const void* data, string name);
+    QOpenGLBuffer* newVBO(QOpenGLBuffer::Type type);
+    QOpenGLBuffer* newVBO(QOpenGLBuffer::Type type, string name, int size);
+    QOpenGLBuffer* newVBO(QOpenGLBuffer::Type type, string name, int size, const void* data);
 
     QOpenGLBuffer* getVBO(string name);
     QOpenGLBuffer* getVBO(unsigned int index);
-
-//public slots:
-
-
-//signals:
-
 };
 
 #endif // VBOMANAGER_H

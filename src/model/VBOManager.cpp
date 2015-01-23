@@ -1,5 +1,5 @@
 #include <iostream>
-#include "VBOManager.h"
+#include "model/VBOManager.h"
 
 using namespace std;
 
@@ -13,29 +13,17 @@ VBOManager::~VBOManager(){
 }
 
 
-QOpenGLBuffer* VBOManager::newVBO(){
-    return this->newVBO(0, GL_FLOAT, NULL, NULL);
+QOpenGLBuffer* VBOManager::newVBO(QOpenGLBuffer::Type type){
+    return this->newVBO(type, string(), 0, NULL);
 }
 
-QOpenGLBuffer* VBOManager::newVBO(string name){
-    return this->newVBO(0, GL_FLOAT, NULL, name);
+QOpenGLBuffer* VBOManager::newVBO(QOpenGLBuffer::Type type, string name, int size){
+    return this->newVBO(type, name, size, NULL);
 }
 
-QOpenGLBuffer* VBOManager::newVBO(unsigned int size, GLenum type){
-    return this->newVBO(size, type, NULL, NULL);
-}
+QOpenGLBuffer* VBOManager::newVBO(QOpenGLBuffer::Type type, string name, int size, const void *data){
 
-QOpenGLBuffer* VBOManager::newVBO(unsigned int size, GLenum type, string name){
-    return this->newVBO(size, type, NULL, name);
-}
-
-QOpenGLBuffer* VBOManager::newVBO(unsigned int size, GLenum type, const void *data){
-    return this->newVBO(size, type, data, NULL);
-}
-
-QOpenGLBuffer* VBOManager::newVBO(unsigned int size, GLenum type, const void *data, string name){
-
-    QOpenGLBuffer vbo(QOpenGLBuffer::VertexBuffer);
+    QOpenGLBuffer vbo(type);
     vbo.setUsagePattern(QOpenGLBuffer::StreamDraw);
 
     if(!vbo.bind()){
@@ -49,17 +37,17 @@ QOpenGLBuffer* VBOManager::newVBO(unsigned int size, GLenum type, const void *da
 
     VBOid id;
     id.name = name;
-    id.size = size * sizeof(type);
+    id.size = size;
 
     m_ids.push_back(id);
     m_vbos.push_back(vbo);
 
     if(size > 0) {
         if(data != NULL) {
-            vbo.allocate(data, id.size);
+            vbo.allocate(data, size);
         }
         else {
-            vbo.allocate(id.size);
+            vbo.allocate(size);
         }
     }
 
