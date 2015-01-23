@@ -2,38 +2,35 @@
 #define VBOMANAGER_H
 
 #include <GL/glew.h>
+#include <QOpenGLBuffer>
 #include <string>
 #include <vector>
 
 using namespace std;
 
-typedef struct VBO {
-    GLuint m_id;
-    string m_name;
-    unsigned int m_size;
-} VBO;
+typedef struct VBOid {
+    string name;
+    unsigned int size;
+} VBOid;
 
 class VBOManager {
 private :
-    vector<VBO> m_vbos;
-
-private:
-    void alloc(GLuint vbo, GLsizei size);
-    //void realloc(GLuint vbo, GLsizei size);
+    vector<VBOid> m_ids;
+    vector<QOpenGLBuffer> m_vbos;
 
 public:
     VBOManager();
     ~VBOManager();
 
-    GLuint newVBO();
-    GLuint newVBO(string name);
-    GLuint newVBO(unsigned int size, GLenum type);
-    GLuint newVBO(unsigned int size, GLenum type, string name);
+    QOpenGLBuffer* newVBO();
+    QOpenGLBuffer* newVBO(string name);
+    QOpenGLBuffer* newVBO(unsigned int size, GLenum type);
+    QOpenGLBuffer* newVBO(unsigned int size, GLenum type, string name);
+    QOpenGLBuffer* newVBO(unsigned int size, GLenum type, const void *data);
+    QOpenGLBuffer* newVBO(unsigned int size, GLenum type, const void* data, string name);
 
-    void deleteVBO(GLuint &vbo);
-
-    GLuint getVBO(string name) const;
-    GLuint getVBO(unsigned int index) const;
+    QOpenGLBuffer* getVBO(string name);
+    QOpenGLBuffer* getVBO(unsigned int index);
 
 //public slots:
 

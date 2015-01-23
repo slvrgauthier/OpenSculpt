@@ -1,80 +1,88 @@
+#include <iostream>
 #include "VBOManager.h"
 
-/** PRIVATE MEMBERS **/
-
-void VBOManager::alloc(GLuint vbo, GLsizei size){
-    //glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    //glBufferData(GL_ARRAY_BUFFER, size, NULL, GL_STREAM_DRAW);
-    //glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-//void VBOManager::realloc(GLuint vbo, GLsizei size){}
-
-
-/** PUBLIC MEMBERS **/
+using namespace std;
 
 VBOManager::VBOManager(){
-    m_vbos = vector<VBO>();
+    m_ids = vector<VBOid>();
+    m_vbos = vector<QOpenGLBuffer>();
 }
 
 VBOManager::~VBOManager(){
-    for(unsigned int i=0 ; i < m_vbos.size() ; ++i) {
-        this->deleteVBO(m_vbos[0].m_id);
-        m_vbos.erase(m_vbos.begin());
+    // TODO
+}
+
+
+QOpenGLBuffer* VBOManager::newVBO(){
+    return this->newVBO(0, GL_FLOAT, NULL, NULL);
+}
+
+QOpenGLBuffer* VBOManager::newVBO(string name){
+    return this->newVBO(0, GL_FLOAT, NULL, name);
+}
+
+QOpenGLBuffer* VBOManager::newVBO(unsigned int size, GLenum type){
+    return this->newVBO(size, type, NULL, NULL);
+}
+
+QOpenGLBuffer* VBOManager::newVBO(unsigned int size, GLenum type, string name){
+    return this->newVBO(size, type, NULL, name);
+}
+
+QOpenGLBuffer* VBOManager::newVBO(unsigned int size, GLenum type, const void *data){
+    return this->newVBO(size, type, data, NULL);
+}
+
+QOpenGLBuffer* VBOManager::newVBO(unsigned int size, GLenum type, const void *data, string name){
+
+    QOpenGLBuffer vbo(QOpenGLBuffer::VertexBuffer);
+    vbo.setUsagePattern(QOpenGLBuffer::StreamDraw);
+
+    if(!vbo.bind()){
+        cout << "Error : Unable to bind the buffer to the current QOpenGLContext" << endl;
+        exit(1);
     }
-}
+    if(!vbo.create()){
+        cout << "Error : Unable to create the buffer" << endl;
+        exit(1);
+    }
 
+    VBOid id;
+    id.name = name;
+    id.size = size * sizeof(type);
 
-GLuint VBOManager::newVBO(){
-    return this->newVBO(0, GL_FLOAT, NULL);
-}
-
-GLuint VBOManager::newVBO(string name){
-    return this->newVBO(0, GL_FLOAT, name);
-}
-
-GLuint VBOManager::newVBO(unsigned int size, GLenum type){
-    return this->newVBO(size, type, NULL);
-}
-
-GLuint VBOManager::newVBO(unsigned int size, GLenum type, string name){
-    GLuint id = 0;
-    //glGenBuffers(1, &id);
-
-    VBO vbo;
-    vbo.m_id = id;
-    vbo.m_name = name;
-    vbo.m_size = size * sizeof(type);
-
+    m_ids.push_back(id);
     m_vbos.push_back(vbo);
 
     if(size > 0) {
-        this->alloc(id, vbo.m_size);
+        if(data != NULL) {
+            vbo.allocate(data, id.size);
+        }
+        else {
+            vbo.allocate(id.size);
+        }
     }
 
-    return id;
+    vbo.release();
+
+    return &m_vbos.back();
 }
 
 
-void VBOManager::deleteVBO(GLuint &vbo){
-    //glDeleteBuffers(1, vbo);
-}
-
-
-GLuint VBOManager::getVBO(string name) const{
+QOpenGLBuffer* VBOManager::getVBO(string name) {
     for(unsigned int i=0 ; i < m_vbos.size() ; ++i) {
-        if(name == m_vbos[i].m_name) {
-            return m_vbos[i].m_id;
+        if(name == m_ids[i].name) {
+            return &m_vbos[i];
         }
     }
     return 0;
 }
 
-GLuint VBOManager::getVBO(unsigned int index) const{
+QOpenGLBuffer* VBOManager::getVBO(unsigned int index) {
     if(index < m_vbos.size()) {
-        return m_vbos[index].m_id;
+        return &m_vbos[index];
     }
     else {
-        return 0;
+        return NULL;
     }
 }

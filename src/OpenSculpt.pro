@@ -17,13 +17,15 @@ SOURCES += main.cpp \
     gui/initModel.cpp \
     gui/settingModel.cpp \
     gui/glwidget.cpp \
-    model/VBOManager.cpp
+    model/VBOManager.cpp \
+    model/ModelManager.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/initModel.h \
     gui/settingModel.h \
     gui/glwidget.h \
-    model/VBOManager.h
+    model/VBOManager.h \
+    model/ModelManager.h
 
 FORMS += gui/mainWindow.ui \
     gui/initModel.ui \
