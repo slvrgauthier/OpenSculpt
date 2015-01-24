@@ -38,4 +38,5 @@ RESOURCES += \
     data/ressources.qrc
 
 macx:QMAKE_LIBS_OPENGL += -framework GLUT -lobjc
-linux:QMAKE_LIBS_OPENGL += -lGL -lGLU -lglut -lm
+unix:QMAKE_LIBS_OPENGL += -lGL -lGLU -lglut -lm
+win32:QMAKE_LIBS_OPENGL += -lfreeglut
