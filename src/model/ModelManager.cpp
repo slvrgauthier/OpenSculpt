@@ -1,6 +1,6 @@
 /*
  * ModelManager.cpp
- * @author : GAUTHIER Silvère
+ * @author : Team OpenSculpt
  *
  * Definition file of ModelManager.h.
  *

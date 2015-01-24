@@ -1,6 +1,6 @@
 /*
  * Model.cpp
- * @author : GAUTHIER Silvère
+ * @author : Team OpenSculpt
  *
  * Definition file of Model.h.
  *
@@ -8,7 +8,13 @@
 
 #include "model/Model.h"
 #include "model/func.h"
-#include <GL/glut.h>
+#if defined(__APPLE__) && (__MACH__)
+    #include <GLUT/glut.h>
+#elif defined(__WINDOWS__)
+    #include <GL/glut.h>
+#else
+    #include <GL/glut.h>
+#endif
 
 Model::Model(QWidget *parent):
     QGLWidget(parent),
