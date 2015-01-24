@@ -11,10 +11,22 @@
 
 using namespace std;
 
-ModelManager::ModelManager(VBOManager *vboManager){
-    m_vboManager = vboManager;
-}
+ModelManager::ModelManager(){}
 ModelManager::~ModelManager(){}
+
+void ModelManager::initializeGL()
+{
+    for(int i = 0 ; i < m_models.size() ; ++i) {
+        m_models[i]->initializeGL();
+    }
+}
+
+void ModelManager::paintGL()
+{
+    for(int i = 0 ; i < m_models.size() ; ++i) {
+        m_models[i]->paintGL();
+    }
+}
 
 void ModelManager::addModel(Model *model){
 

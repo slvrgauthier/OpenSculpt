@@ -1,5 +1,5 @@
 /*
- * functions.h
+ * func.h
  * @author : Team OpenSculpt
  *
  * This file gives some useful functions outside any class.

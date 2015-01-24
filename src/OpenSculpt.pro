@@ -17,18 +17,18 @@ SOURCES += main.cpp \
     gui/initModel.cpp \
     gui/settingModel.cpp \
     gui/glwidget.cpp \
-    model/VBOManager.cpp \
     model/ModelManager.cpp \
-    model/Model.cpp
+    model/Model.cpp \
+    model/MCube.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/initModel.h \
     gui/settingModel.h \
     gui/glwidget.h \
-    model/VBOManager.h \
     model/ModelManager.h \
     model/Model.h \
-    func/functions.h
+    model/func.h \
+    model/MCube.h
 
 FORMS += gui/mainWindow.ui \
     gui/initModel.ui \

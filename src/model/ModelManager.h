@@ -13,24 +13,25 @@
 #define MODELMANAGER_H
 
 #include <QVector>
-#include "model/VBOManager.h"
 #include "model/Model.h"
+#include "model/MCube.h"
 
 using namespace std;
 
-class ModelManager {
+class ModelManager
+{
 private:
-    VBOManager *m_vboManager;
     QVector<Model*> m_models;
 
 public:
-    ModelManager(VBOManager *vboManager);
+    ModelManager();
     ~ModelManager();
+
+    void initializeGL();
+    void paintGL();
 
     void addModel(Model *model);
     void removeModel(Model *model);
-
-//private:
 
 };
 

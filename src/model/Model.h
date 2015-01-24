@@ -24,7 +24,6 @@
 using namespace std;
 /*
 typedef struct Node {
-    float position[3];
     QVector<Node*> neighbours;
 } Node;*/
 
@@ -33,44 +32,16 @@ class Model : public QGLWidget
     Q_OBJECT
 public:
     explicit Model(QWidget *parent = 0);
-    ~Model();
 
 public:
-    void initializeGL();
-    void paintGL();
-    void resizeGL(int width, int height);
+    virtual void initializeGL();
+    virtual void paintGL();
 
-    void keyPressEvent(QKeyEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void wheelEvent(QWheelEvent *event);
-
-private:
-    void rotateBy(int x, int y, int z);
-
-
-public:
     QString getName() const;
     void setName(QString name);
-    /*
-    ModelType getType() const;
-    unsigned int getSize() const;
-    Node* getNode(unsigned int index);
 
-    // The four functions below erase the previous data.
-    void makeCube(float width, float height, float depth, unsigned int resolution);
-    void makeSphere(float radius, unsigned int resolution);
-    void makeCylinder(float radius1, float radius2, float height, unsigned int resolution);
-    void makeTorus(float radius1, float radius2, unsigned int resolution);
-    */
-private:
+protected:
     // Model infos
-    int vertices_by_x;
-    int vertices_by_y;
-    int vertices_by_z;
-    int quads_by_x;
-    int quads_by_y;
-    int quads_by_z;
     QString m_name;
     //QVector<Node> m_data;
 
@@ -82,16 +53,6 @@ private:
     // GPU Buffer
     QGLBuffer m_vertexbuffer;
     QGLBuffer m_indicebuffer;
-
-    // View & rotation settings
-    QPoint last_pos;
-    float  distance;
-    qreal  x_rot;
-    qreal  y_rot;
-    qreal  z_rot;
-
-    // Render settings
-    bool mode_fill;
 };
 
 #endif // MODEL_H
