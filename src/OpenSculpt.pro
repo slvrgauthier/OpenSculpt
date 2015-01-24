@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     gui/glwidget.cpp \
     model/VBOManager.cpp \
     model/ModelManager.cpp \
-    model/Model.cpp
+    model/Model.cpp \
+    model/heightMap.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/initModel.h \
@@ -28,7 +29,8 @@ HEADERS += gui/mainWindow.h \
     model/VBOManager.h \
     model/ModelManager.h \
     model/Model.h \
-    func/functions.h
+    func/functions.h \
+    model/heightMap.h
 
 FORMS += gui/mainWindow.ui \
     gui/initModel.ui \
@@ -38,5 +40,5 @@ RESOURCES += \
     data/ressources.qrc
 
 macx:QMAKE_LIBS_OPENGL += -framework GLUT -lobjc
-unix:QMAKE_LIBS_OPENGL += -lGL -lGLU -lglut -lm
+linux:QMAKE_LIBS_OPENGL += -lGL -lGLU -lglut -lm
 win32:QMAKE_LIBS_OPENGL += -lfreeglut

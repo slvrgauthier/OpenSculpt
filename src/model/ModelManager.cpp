@@ -19,7 +19,7 @@ ModelManager::~ModelManager(){}
 void ModelManager::addModel(Model *model){
 
     m_models.push_back(model);
-
+/*
     ModelType type = model->getType();
     int size = model->getSize();
 
@@ -54,4 +54,5 @@ void ModelManager::addModel(Model *model){
 
     delete[] vertices;
     delete[] indices;
+*/
 }

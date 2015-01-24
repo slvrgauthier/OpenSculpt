@@ -142,7 +142,7 @@
    </property>
    <property name="icon">
     <iconset resource="../data/ressources.qrc">
-     <normaloff>:/new/icon/icons/Curseur.png</normaloff>:/new/icon/icons/Curseur.png</iconset>
+     <normaloff>:/icons/Curseur.png</normaloff>:/icons/Curseur.png</iconset>
    </property>
    <property name="text">
     <string>souris</string>
@@ -154,7 +154,7 @@
   <action name="actionMove">
    <property name="icon">
     <iconset resource="../data/ressources.qrc">
-     <normaloff>:/new/icon/icons/quatre-fleches_318-10750.jpg</normaloff>:/new/icon/icons/quatre-fleches_318-10750.jpg</iconset>
+     <normaloff>:/icons/quatre-fleches_318-10750.jpg</normaloff>:/icons/quatre-fleches_318-10750.jpg</iconset>
    </property>
    <property name="text">
     <string>deplacer</string>
@@ -166,7 +166,7 @@
   <action name="actionRotation">
    <property name="icon">
     <iconset resource="../data/ressources.qrc">
-     <normaloff>:/new/icon/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/new/icon/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
+     <normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
    </property>
    <property name="text">
     <string>rotation</string>

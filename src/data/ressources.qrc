@@ -1,7 +1,9 @@
 <RCC>
-    <qresource prefix="/new/icon">
+    <qresource prefix="/">
         <file>icons/Curseur.png</file>
         <file>icons/quatre-fleches_318-10750.jpg</file>
         <file>icons/symbole-de-rotation-a-droite_318-9143.jpg</file>
+        <file>heightmap.png</file>
+        <file>texture.png</file>
     </qresource>
 </RCC>
