@@ -1,10 +1,17 @@
-#include "glwidget.h" 
-#include <GLUT/glut.h>
+#include "gui/glwidget.h"
+
+#if defined(__APPLE__) && (__MACH__)
+    #include <GLUT/glut.h>
+#elif defined(__WINDOWS__)
+    #include <GL/glut.h>
+#else
+    #include <GL/glut.h>
+#endif
 
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
-    connect(&timer, SIGNAL(timeout()),this, SLOT(updateGL()));
-    timer.start(16);
+    connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
+    m_timer.start(16);
 }
 
 

@@ -1,9 +1,9 @@
-#include "parametragemodele.h"
-#include "ui_parametragemodele.h"
+#include "gui/settingModel.h"
+#include "ui_settingModel.h"
 
-ParametrageModele::ParametrageModele(TYPE type, QWidget *parent) :
+SettingModel::SettingModel(TYPE type, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ParametrageModele)
+    ui(new Ui::SettingModel)
 {
     ui->setupUi(this);
 
@@ -19,7 +19,7 @@ ParametrageModele::ParametrageModele(TYPE type, QWidget *parent) :
     }
 }
 
-ParametrageModele::~ParametrageModele()
+SettingModel::~SettingModel()
 {
     delete ui;
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FenPrincipal</class>
- <widget class="QMainWindow" name="FenPrincipal">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -37,16 +37,16 @@
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFichier">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>Fichier</string>
     </property>
-    <addaction name="actionNouveau"/>
-    <addaction name="actionOuvrir"/>
-    <addaction name="actionEnregistrer_sous"/>
-    <addaction name="actionQuitter"/>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave_as"/>
+    <addaction name="actionQuit"/>
    </widget>
-   <addaction name="menuFichier"/>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -55,8 +55,8 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="souris"/>
-   <addaction name="actionDeplacer"/>
+   <addaction name="mouse"/>
+   <addaction name="actionMove"/>
    <addaction name="actionRotation"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -67,7 +67,7 @@
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
-      <widget class="QWidget" name="widgetbouttonconplexe" native="true">
+      <widget class="QWidget" name="widgetbuttonconplex" native="true">
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="QPushButton" name="widgetsubdiviser">
@@ -116,34 +116,33 @@
     </layout>
    </widget>
   </widget>
-  <action name="actionNouveau">
+  <action name="actionNew">
    <property name="text">
     <string>Nouveau</string>
    </property>
   </action>
-  <action name="actionOuvrir">
+  <action name="actionOpen">
    <property name="text">
     <string>Ouvrir</string>
    </property>
   </action>
-  <action name="actionEnregistrer_sous">
+  <action name="actionSave_as">
    <property name="text">
     <string>Enregistrer sous...</string>
    </property>
   </action>
-  <action name="actionQuitter">
+  <action name="actionQuit">
    <property name="text">
     <string>Quitter</string>
    </property>
   </action>
-  <action name="souris">
+  <action name="mouse">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset>
-     <normalon>:/new/icon/Curseur.png</normalon>
-    </iconset>
+    <iconset resource="../data/ressources.qrc">
+     <normaloff>:/new/icon/icons/Curseur.png</normaloff>:/new/icon/icons/Curseur.png</iconset>
    </property>
    <property name="text">
     <string>souris</string>
@@ -152,10 +151,10 @@
     <string>Selectionner</string>
    </property>
   </action>
-  <action name="actionDeplacer">
+  <action name="actionMove">
    <property name="icon">
-    <iconset resource="ressources.qrc">
-     <normaloff>:/new/icon/quatre-fleches_318-10750.jpg</normaloff>:/new/icon/quatre-fleches_318-10750.jpg</iconset>
+    <iconset resource="../data/ressources.qrc">
+     <normaloff>:/new/icon/icons/quatre-fleches_318-10750.jpg</normaloff>:/new/icon/icons/quatre-fleches_318-10750.jpg</iconset>
    </property>
    <property name="text">
     <string>deplacer</string>
@@ -166,8 +165,8 @@
   </action>
   <action name="actionRotation">
    <property name="icon">
-    <iconset resource="ressources.qrc">
-     <normaloff>:/new/icon/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/new/icon/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
+    <iconset resource="../data/ressources.qrc">
+     <normaloff>:/new/icon/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/new/icon/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
    </property>
    <property name="text">
     <string>rotation</string>
@@ -182,18 +181,18 @@
   <customwidget>
    <class>GLWidget</class>
    <extends>QWidget</extends>
-   <header>glwidget.h</header>
+   <header>gui/glwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="ressources.qrc"/>
+  <include location="../data/ressources.qrc"/>
  </resources>
  <connections>
   <connection>
-   <sender>actionQuitter</sender>
+   <sender>actionQuit</sender>
    <signal>triggered()</signal>
-   <receiver>FenPrincipal</receiver>
+   <receiver>MainWindow</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

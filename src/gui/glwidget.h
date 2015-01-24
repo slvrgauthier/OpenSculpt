@@ -1,6 +1,6 @@
 #ifndef GLWIDGET_H
 #define GLWIDGET_H
-#include<QGLWidget>
+#include <QGLWidget>
 #include <QTimer>
 
 class GLWidget : public QGLWidget
@@ -14,7 +14,7 @@ public:
     void resizeGL(int w, int h);
 
 private:
-    QTimer timer;
+    QTimer m_timer;
 };
 
 #endif // GLWIDGET_H
