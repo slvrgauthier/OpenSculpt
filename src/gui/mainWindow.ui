@@ -14,10 +14,10 @@
    <string>OpenSculpt</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_7">
     <item>
      <widget class="QWidget" name="widget_2" native="true">
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="GLWidget" name="widgetfenetre" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_2"/>
@@ -46,7 +46,21 @@
     <addaction name="actionSave_as"/>
     <addaction name="actionQuit"/>
    </widget>
+   <widget class="QMenu" name="menuEdition">
+    <property name="title">
+     <string>Edition</string>
+    </property>
+    <addaction name="actionRedo"/>
+   </widget>
+   <widget class="QMenu" name="menuAide">
+    <property name="title">
+     <string>Aide</string>
+    </property>
+    <addaction name="actionA_propos"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdition"/>
+   <addaction name="menuAide"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -60,7 +74,7 @@
    <addaction name="actionRotation"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="dockWidgetWindow">
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
@@ -77,9 +91,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="widgetsmooth">
           <property name="text">
-           <string>PushButton</string>
+           <string>Lisser</string>
           </property>
          </widget>
         </item>
@@ -98,6 +112,29 @@
          </widget>
         </item>
         <item>
+         <widget class="QWidget" name="widget" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <widget class="QLabel" name="sizeObject">
+             <property name="text">
+              <string>Zoom :</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSlider" name="horizontalSlider">
+             <property name="sliderPosition">
+              <number>50</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -112,6 +149,61 @@
         </item>
        </layout>
       </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidgetObjet">
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QPushButton" name="select">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/new/icon/icons/Curseur.png</normaloff>:/new/icon/icons/Curseur.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="rotation">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/new/icon/icons/rotation.jpeg</normaloff>:/new/icon/icons/rotation.jpeg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="redo">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/new/icon/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/new/icon/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </widget>
@@ -166,13 +258,23 @@
   <action name="actionRotation">
    <property name="icon">
     <iconset resource="../data/ressources.qrc">
-     <normaloff>:/new/icon/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/new/icon/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
+     <normaloff>:/new/icon/icons/rotation.jpeg</normaloff>:/new/icon/icons/rotation.jpeg</iconset>
    </property>
    <property name="text">
     <string>rotation</string>
    </property>
    <property name="toolTip">
     <string>permet de tourner l'objet</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="text">
+    <string>Redo</string>
+   </property>
+  </action>
+  <action name="actionA_propos">
+   <property name="text">
+    <string>A propos</string>
    </property>
   </action>
  </widget>

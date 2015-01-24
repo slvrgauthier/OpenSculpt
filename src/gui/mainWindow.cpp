@@ -32,3 +32,5 @@ void MainWindow::on_actionNew_triggered()
     param.exec();
 
 }
+
+
