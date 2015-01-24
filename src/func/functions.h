@@ -1,6 +1,6 @@
 /*
  * functions.h
- * @author : GAUTHIER Silvère
+ * @author : Team OpenSculpt
  *
  * This file gives some useful functions outside any class.
  *

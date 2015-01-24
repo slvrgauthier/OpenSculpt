@@ -1,6 +1,6 @@
 /*
  * ModelManager.h
- * @author : GAUTHIER Silvère
+ * @author : Team OpenSculpt
  *
  * ModelManager controls a list of Models and links these with a VBOManager for rendering.
  * Its the class used by the sculpting tools.

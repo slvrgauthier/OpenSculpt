@@ -19,8 +19,7 @@ SOURCES += main.cpp \
     gui/glwidget.cpp \
     model/VBOManager.cpp \
     model/ModelManager.cpp \
-    model/Model.cpp \
-    model/heightMap.cpp
+    model/Model.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/initModel.h \
@@ -29,8 +28,7 @@ HEADERS += gui/mainWindow.h \
     model/VBOManager.h \
     model/ModelManager.h \
     model/Model.h \
-    func/functions.h \
-    model/heightMap.h
+    func/functions.h
 
 FORMS += gui/mainWindow.ui \
     gui/initModel.ui \

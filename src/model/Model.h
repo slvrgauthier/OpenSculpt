@@ -1,6 +1,6 @@
 /*
  * Model.h
- * @author : GAUTHIER Silvère
+ * @author : Team OpenSculpt
  *
  * Node represent a node of our internal mesh, with 3D position and neighbourhood.
  * Model is a mesh defined by a list of Nodes and let the user create base meshes.
