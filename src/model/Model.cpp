@@ -11,24 +11,24 @@
 
 Model::Model(){
     m_name = "";
-    m_data = vector<Node>();
+    m_data = QVector<Node>();
 }
 
-Model::Model(string name){
+Model::Model(QString name){
     m_name = name;
-    m_data = vector<Node>();
+    m_data = QVector<Node>();
 }
 
 Model::~Model(){
     // TODO
 }
 
-string Model::getName() const { return m_name; }
+QString Model::getName() const { return m_name; }
 ModelType Model::getType() const { return m_type; }
 unsigned int Model::getSize() const { return m_data.size(); }
 Node* Model::getNode(unsigned int index) { return &m_data[index]; }
 
-void Model::setName(string name) { m_name = name; }
+void Model::setName(QString name) { m_name = name; }
 
 void Model::makeCube(float width, float height, float depth, unsigned int resolution){
 
@@ -91,12 +91,12 @@ void Model::makeCube(float width, float height, float depth, unsigned int resolu
         }
     }
 
-    for(unsigned int i = 0 ; i < m_data.size()-1 ; ++i) {
-        for(unsigned int j = i+1 ; j < m_data.size() ; ++j) {
+    for(int i = 0 ; i < m_data.size()-1 ; ++i) {
+        for(int j = i+1 ; j < m_data.size() ; ++j) {
             if(i != j && !contains(m_data[i].neighbours, &m_data[j])) {
-                if(abs(m_data[i].position[0] - m_data[j].position[0]) == width/resolution
-                        || abs(m_data[i].position[1] - m_data[j].position[1]) == height/resolution
-                        || abs(m_data[i].position[2] - m_data[j].position[2]) == depth/resolution) {
+                if((unsigned)(m_data[i].position[0] - m_data[j].position[0]) == width/resolution
+                        || (unsigned)(m_data[i].position[1] - m_data[j].position[1]) == height/resolution
+                        || (unsigned)(m_data[i].position[2] - m_data[j].position[2]) == depth/resolution) {
                     m_data[i].neighbours.push_back(&m_data[j]);
                     m_data[j].neighbours.push_back(&m_data[i]);
                 }

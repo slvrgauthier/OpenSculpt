@@ -12,8 +12,8 @@
 using namespace std;
 
 VBOManager::VBOManager(){
-    m_ids = vector<VBOid>();
-    m_vbos = vector<QOpenGLBuffer>();
+    m_ids = QVector<VBOid>();
+    m_vbos = QVector<QOpenGLBuffer>();
 }
 
 VBOManager::~VBOManager(){
@@ -22,14 +22,14 @@ VBOManager::~VBOManager(){
 
 
 QOpenGLBuffer* VBOManager::newVBO(QOpenGLBuffer::Type type){
-    return this->newVBO(type, string(), 0, NULL);
+    return this->newVBO(type, QString(), 0, NULL);
 }
 
-QOpenGLBuffer* VBOManager::newVBO(QOpenGLBuffer::Type type, string name, int size){
+QOpenGLBuffer* VBOManager::newVBO(QOpenGLBuffer::Type type, QString name, int size){
     return this->newVBO(type, name, size, NULL);
 }
 
-QOpenGLBuffer* VBOManager::newVBO(QOpenGLBuffer::Type type, string name, int size, const void *data){
+QOpenGLBuffer* VBOManager::newVBO(QOpenGLBuffer::Type type, QString name, int size, const void *data){
 
     QOpenGLBuffer vbo(type);
     vbo.setUsagePattern(QOpenGLBuffer::StreamDraw);
@@ -65,8 +65,8 @@ QOpenGLBuffer* VBOManager::newVBO(QOpenGLBuffer::Type type, string name, int siz
 }
 
 
-QOpenGLBuffer* VBOManager::getVBO(string name) {
-    for(unsigned int i=0 ; i < m_vbos.size() ; ++i) {
+QOpenGLBuffer* VBOManager::getVBO(QString name) {
+    for(int i=0 ; i < m_vbos.size() ; ++i) {
         if(name == m_ids[i].name) {
             return &m_vbos[i];
         }
@@ -74,7 +74,7 @@ QOpenGLBuffer* VBOManager::getVBO(string name) {
     return 0;
 }
 
-QOpenGLBuffer* VBOManager::getVBO(unsigned int index) {
+QOpenGLBuffer* VBOManager::getVBO(int index) {
     if(index < m_vbos.size()) {
         return &m_vbos[index];
     }

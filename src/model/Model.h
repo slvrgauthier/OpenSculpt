@@ -13,8 +13,8 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include <vector>
-#include <string>
+#include <QVector>
+#include <QString>
 
 using namespace std;
 
@@ -27,26 +27,26 @@ enum ModelType {
 
 typedef struct Node {
     float position[3];
-    vector<Node*> neighbours;
+    QVector<Node*> neighbours;
 } Node;
 
 class Model {
 private:
-    string m_name;
+    QString m_name;
     ModelType m_type;
-    vector<Node> m_data;
+    QVector<Node> m_data;
 
 public:
     Model();
-    Model(string name);
+    Model(QString name);
     ~Model();
 
-    string getName() const;
+    QString getName() const;
     ModelType getType() const;
     unsigned int getSize() const;
     Node* getNode(unsigned int index);
 
-    void setName(string name);
+    void setName(QString name);
 
     /* The four functions below erase the previous data. */
     void makeCube(float width, float height, float depth, unsigned int resolution);

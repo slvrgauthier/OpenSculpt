@@ -12,7 +12,7 @@
 #ifndef MODELMANAGER_H
 #define MODELMANAGER_H
 
-#include <vector>
+#include <QVector>
 #include "model/VBOManager.h"
 #include "model/Model.h"
 
@@ -21,7 +21,7 @@ using namespace std;
 class ModelManager {
 private:
     VBOManager *m_vboManager;
-    vector<Model*> m_models;
+    QVector<Model*> m_models;
 
 public:
     ModelManager(VBOManager *vboManager);

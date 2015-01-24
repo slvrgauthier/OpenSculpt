@@ -13,31 +13,31 @@
 #define VBOMANAGER_H
 
 #include <QOpenGLBuffer>
-#include <string>
-#include <vector>
+#include <QString>
+#include <QVector>
 
 using namespace std;
 
 typedef struct VBOid {
-    string name;
+    QString name;
     int size;
 } VBOid;
 
 class VBOManager {
 private :
-    vector<VBOid> m_ids;
-    vector<QOpenGLBuffer> m_vbos;
+    QVector<VBOid> m_ids;
+    QVector<QOpenGLBuffer> m_vbos;
 
 public:
     VBOManager();
     ~VBOManager();
 
     QOpenGLBuffer* newVBO(QOpenGLBuffer::Type type);
-    QOpenGLBuffer* newVBO(QOpenGLBuffer::Type type, string name, int size);
-    QOpenGLBuffer* newVBO(QOpenGLBuffer::Type type, string name, int size, const void* data);
+    QOpenGLBuffer* newVBO(QOpenGLBuffer::Type type, QString name, int size);
+    QOpenGLBuffer* newVBO(QOpenGLBuffer::Type type, QString name, int size, const void* data);
 
-    QOpenGLBuffer* getVBO(string name);
-    QOpenGLBuffer* getVBO(unsigned int index);
+    QOpenGLBuffer* getVBO(QString name);
+    QOpenGLBuffer* getVBO(int index);
 };
 
 #endif // VBOMANAGER_H
