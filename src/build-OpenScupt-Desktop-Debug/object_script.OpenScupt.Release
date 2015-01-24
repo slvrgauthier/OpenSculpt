@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\fenprincipal.o
+./release\initialisationmodele.o
+./release\parametragemodele.o
+./release\glwidget.o
+./release\moc_fenprincipal.o
+./release\moc_initialisationmodele.o
+./release\moc_parametragemodele.o
+./release\moc_glwidget.o
+./release\qrc_ressources.o
+);

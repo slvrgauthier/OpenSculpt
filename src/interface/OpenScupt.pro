@@ -31,3 +31,5 @@ RESOURCES += \
     ressources.qrc
 
 macx:QMAKE_LIBS_OPENGL += -framework GLUT -lobjc
+
+LIBS += -lfreeglut

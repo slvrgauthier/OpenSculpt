@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\fenprincipal.o
+./debug\initialisationmodele.o
+./debug\parametragemodele.o
+./debug\glwidget.o
+./debug\moc_fenprincipal.o
+./debug\moc_initialisationmodele.o
+./debug\moc_parametragemodele.o
+./debug\moc_glwidget.o
+./debug\qrc_ressources.o
+);
