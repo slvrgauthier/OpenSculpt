@@ -1,6 +1,6 @@
 /*
  * VBOManager.h
- * @author : GAUTHIER Silvère
+ * @author : Team OpenSculpt
  *
  * VBOid is a structure storing informations about a buffer.
  * VBOManager controls a list of QOpenGLBuffers and gives member functions for rendering.

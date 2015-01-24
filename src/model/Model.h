@@ -1,6 +1,6 @@
 /*
  * Model.h
- * @author : GAUTHIER Silvère
+ * @author : Team OpenSculpt
  *
  * ModelType enumerate the different possibilities to make a base mesh.
  * Node represent a node of our internal mesh, with 3D position and neighbourhood.
