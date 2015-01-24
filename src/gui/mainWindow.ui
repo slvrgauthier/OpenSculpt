@@ -169,7 +169,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>:/new/icon/icons/Curseur.png</normaloff>:/new/icon/icons/Curseur.png</iconset>
+         <normaloff>:/icons/Curseur.png</normaloff>:/icons/Curseur.png</iconset>
        </property>
       </widget>
      </item>
@@ -180,7 +180,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>:/new/icon/icons/rotation.jpeg</normaloff>:/new/icon/icons/rotation.jpeg</iconset>
+         <normaloff>:/icons/rotation.jpeg</normaloff>:/icons/rotation.jpeg</iconset>
        </property>
       </widget>
      </item>
@@ -191,7 +191,7 @@
        </property>
        <property name="icon">
         <iconset>
-         <normaloff>:/new/icon/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/new/icon/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
+         <normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
        </property>
       </widget>
      </item>
