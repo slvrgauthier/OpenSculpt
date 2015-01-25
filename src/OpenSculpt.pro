@@ -19,7 +19,18 @@ SOURCES += main.cpp \
     gui/glwidget.cpp \
     model/ModelManager.cpp \
     model/Model.cpp \
-    model/MCube.cpp
+    model/MCube.cpp \
+    tool/LTMove.cpp \
+    tool/Tool.cpp \
+    tool/GTMove.cpp \
+    model/MCylinder.cpp \
+    model/MTorus.cpp \
+    model/MSphere.cpp \
+    tool/GTRotate.cpp \
+    tool/GTScale.cpp \
+    tool/LTInflate.cpp \
+    tool/LTPinch.cpp \
+    tool/LTSmooth.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/initModel.h \
@@ -28,7 +39,18 @@ HEADERS += gui/mainWindow.h \
     model/ModelManager.h \
     model/Model.h \
     model/func.h \
-    model/MCube.h
+    model/MCube.h \
+    tool/Tool.h \
+    tool/GTMove.h \
+    tool/LTMove.h \
+    model/MCylinder.h \
+    model/MSphere.h \
+    model/MTorus.h \
+    tool/LTSmooth.h \
+    tool/GTRotate.h \
+    tool/LTPinch.h \
+    tool/LTInflate.h \
+    tool/GTScale.h
 
 FORMS += gui/mainWindow.ui \
     gui/initModel.ui \

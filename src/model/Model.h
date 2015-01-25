@@ -34,8 +34,8 @@ public:
     explicit Model(QWidget *parent = 0);
 
 public:
-    virtual void initializeGL();
-    virtual void paintGL();
+    virtual void initializeGL() = 0;
+    virtual void paintGL() = 0;
 
     QString getName() const;
     void setName(QString name);

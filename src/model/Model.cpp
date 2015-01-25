@@ -22,8 +22,8 @@ Model::Model(QWidget *parent):
     m_indicebuffer(QGLBuffer::IndexBuffer)
 {}
 
-void Model::initializeGL() { this->initializeGL(); }
-void Model::paintGL() { this->paintGL(); }
+//void Model::initializeGL() { this->initializeGL(); }
+//void Model::paintGL() { this->paintGL(); }
 
 QString Model::getName() const { return m_name; }
 void Model::setName(QString name) { m_name = name; }
