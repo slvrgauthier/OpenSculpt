@@ -4,5 +4,6 @@
         <file>icons/quatre-fleches_318-10750.jpg</file>
         <file>icons/symbole-de-rotation-a-droite_318-9143.jpg</file>
         <file>icons/rotation.jpeg</file>
+        <file>icons/zoom.png</file>
     </qresource>
 </RCC>

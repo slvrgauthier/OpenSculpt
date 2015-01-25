@@ -15,7 +15,6 @@ TEMPLATE = app
 SOURCES += main.cpp \
     gui/mainWindow.cpp \
     gui/initModel.cpp \
-    gui/settingModel.cpp \
     gui/glwidget.cpp \
     model/ModelManager.cpp \
     model/Model.cpp \
@@ -34,7 +33,6 @@ SOURCES += main.cpp \
 
 HEADERS += gui/mainWindow.h \
     gui/initModel.h \
-    gui/settingModel.h \
     gui/glwidget.h \
     model/ModelManager.h \
     model/Model.h \
@@ -53,8 +51,7 @@ HEADERS += gui/mainWindow.h \
     tool/GTScale.h
 
 FORMS += gui/mainWindow.ui \
-    gui/initModel.ui \
-    gui/settingModel.ui
+    gui/initModel.ui
 
 RESOURCES += \
     data/ressources.qrc

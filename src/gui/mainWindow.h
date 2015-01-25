@@ -24,6 +24,14 @@ private slots:
 
 
 
+    void on_actionA_propos_triggered();
+
+    void on_select_pressed();
+
+    void on_rotation_pressed();
+
+    void on_zoom_pressed();
+
 private:
     Ui::MainWindow *ui;
 };

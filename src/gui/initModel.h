@@ -6,7 +6,7 @@
 #include <QMessageBox>
 #include <QDebug>
 
-#include "gui/settingModel.h"
+
 
 namespace Ui {
 class InitModel;
@@ -20,10 +20,10 @@ public:
     explicit InitModel(QWidget *parent = 0);
     ~InitModel();
 
-    TYPE getType() const;
+
 
 private slots:
-    void on_next_clicked();
+    //void on_next_clicked();
 
     void on_choosemodel_clicked(const QModelIndex &index);
 
@@ -31,7 +31,7 @@ private:
     Ui::InitModel *ui;
     QStandardItemModel* m_model;
 
-    TYPE m_type;
+
 };
 
 #endif // INITMODEL_H

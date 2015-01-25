@@ -115,29 +115,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widget" native="true">
-          <layout class="QVBoxLayout" name="verticalLayout_6">
-           <item>
-            <widget class="QLabel" name="sizeObject">
-             <property name="text">
-              <string>Zoom :</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSlider" name="horizontalSlider">
-             <property name="sliderPosition">
-              <number>50</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -168,8 +145,11 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/Curseur.png</normaloff>:/icons/Curseur.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -179,8 +159,11 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/rotation.jpeg</normaloff>:/icons/rotation.jpeg</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -190,8 +173,25 @@
         <string/>
        </property>
        <property name="icon">
-        <iconset>
+        <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="zoom">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/zoom.png</normaloff>:/icons/zoom.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -247,6 +247,9 @@
    </property>
   </action>
   <action name="actionMove">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../data/ressources.qrc">
      <normaloff>:/icons/quatre-fleches_318-10750.jpg</normaloff>:/icons/quatre-fleches_318-10750.jpg</iconset>
@@ -259,6 +262,9 @@
    </property>
   </action>
   <action name="actionRotation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="../data/ressources.qrc">
      <normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>

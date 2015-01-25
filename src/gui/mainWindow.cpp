@@ -26,11 +26,30 @@ void MainWindow::on_actionNew_triggered()
     InitModel m_new;
     m_new.exec();
 
-    TYPE type = m_new.getType();
 
-    SettingModel param(type);
-    param.exec();
 
 }
 
 
+
+void MainWindow::on_actionA_propos_triggered()
+{
+   QMessageBox::information(this, "a propos", "Ce logiciel a été conçu dans un but pédagogique par : GAUTHIER, LAMEIRA, PELADAN");
+}
+
+void MainWindow::on_select_pressed()
+{
+
+
+}
+
+
+void MainWindow::on_rotation_pressed()
+{
+
+}
+
+void MainWindow::on_zoom_pressed()
+{
+
+}
