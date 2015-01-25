@@ -5,6 +5,7 @@
 #include <QFileDialog>
 
 #include "gui/initModel.h"
+#include "gui/glwidget.h"
 
 namespace Ui {
 class MainWindow;

@@ -1,6 +1,7 @@
 #include "gui/mainWindow.h"
 #include "ui_mainWindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -51,5 +52,9 @@ void MainWindow::on_rotation_pressed()
 
 void MainWindow::on_zoom_pressed()
 {
+
+
+
+
 
 }

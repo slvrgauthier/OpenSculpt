@@ -22,6 +22,7 @@ public:
     void mouseMoveEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
 
+
 private:
     void rotateBy(int x, int y, int z);
 

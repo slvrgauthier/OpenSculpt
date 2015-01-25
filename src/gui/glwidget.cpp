@@ -104,3 +104,6 @@ void GLWidget::rotateBy(int x, int y, int z)
     y_rot += y;
     z_rot += z;
 }
+
+
+
