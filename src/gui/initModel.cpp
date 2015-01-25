@@ -1,5 +1,12 @@
 #include "gui/initModel.h"
 #include "ui_initModel.h"
+#if defined(__APPLE__) && (__MACH__)
+    #include <GLUT/glut.h>
+#elif defined(__WINDOWS__)
+    #include <GL/glut.h>
+#else
+    #include <GL/glut.h>
+#endif
 
 InitModel::InitModel(QWidget *parent) :
     QDialog(parent),
@@ -27,14 +34,6 @@ InitModel::~InitModel()
     delete ui;
 }
 
-/*void InitModel::on_next_clicked()
-{
-
-    qDebug() << ui->choosemodel->currentIndex().row();
-    m_type = CYLINDRE;
-
-        close();
-}*/
 
 void InitModel::on_choosemodel_clicked(const QModelIndex &index)
 {
@@ -55,6 +54,7 @@ void InitModel::on_choosemodel_clicked(const QModelIndex &index)
 
         ui->widgetCylindre->setEnabled(true);
         ui->widgetCube->setEnabled(false);
+        glutWireTeapot(0.6);
     }
 
 

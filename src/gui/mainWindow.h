@@ -33,6 +33,14 @@ private slots:
 
     void on_zoom_pressed();
 
+    void on_select_clicked();
+
+    void on_rotation_clicked();
+
+    void on_redo_clicked();
+
+    void on_zoom_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

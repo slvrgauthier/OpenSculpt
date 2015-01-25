@@ -41,7 +41,6 @@ void MainWindow::on_actionA_propos_triggered()
 void MainWindow::on_select_pressed()
 {
 
-
 }
 
 
@@ -53,8 +52,86 @@ void MainWindow::on_rotation_pressed()
 void MainWindow::on_zoom_pressed()
 {
 
+}
 
 
+void MainWindow::on_select_clicked()
+{
+    if(ui->redo->isEnabled() && ui->rotation->isEnabled() && ui->zoom->isEnabled())
+    {
+        ui->redo->setEnabled(false);
+        ui->rotation->setEnabled(false);
+        ui->zoom->setEnabled(false);
+        qDebug("llaaadff");
 
+    }
 
+    else if(!ui->redo->isEnabled() && !ui->rotation->isEnabled() && !ui->zoom->isEnabled())
+    {
+        qDebug("llaaa");
+        ui->redo->setEnabled(true);
+        ui->rotation->setEnabled(true);
+        ui->zoom->setEnabled(true);
+    }
+
+}
+
+void MainWindow::on_rotation_clicked()
+{
+    if(ui->redo->isEnabled() && ui->select->isEnabled() && ui->zoom->isEnabled())
+    {
+        ui->redo->setEnabled(false);
+        ui->select->setEnabled(false);
+        ui->zoom->setEnabled(false);
+        qDebug("llaaadff");
+
+    }
+
+    else if(!ui->redo->isEnabled() && !ui->select->isEnabled() && !ui->zoom->isEnabled())
+    {
+        qDebug("llaaa");
+        ui->redo->setEnabled(true);
+        ui->select->setEnabled(true);
+        ui->zoom->setEnabled(true);
+    }
+}
+
+void MainWindow::on_redo_clicked()
+{
+    if(ui->select->isEnabled() && ui->rotation->isEnabled() && ui->zoom->isEnabled())
+    {
+        ui->select->setEnabled(false);
+        ui->rotation->setEnabled(false);
+        ui->zoom->setEnabled(false);
+        qDebug("llaaadff");
+
+    }
+
+    else if(!ui->select->isEnabled() && !ui->rotation->isEnabled() && !ui->zoom->isEnabled())
+    {
+        qDebug("llaaa");
+        ui->select->setEnabled(true);
+        ui->rotation->setEnabled(true);
+        ui->zoom->setEnabled(true);
+    }
+}
+
+void MainWindow::on_zoom_clicked()
+{
+    if(ui->redo->isEnabled() && ui->rotation->isEnabled() && ui->select->isEnabled())
+    {
+        ui->redo->setEnabled(false);
+        ui->rotation->setEnabled(false);
+        ui->select->setEnabled(false);
+        qDebug("llaaadff");
+
+    }
+
+    else if(!ui->redo->isEnabled() && !ui->rotation->isEnabled() && !ui->select->isEnabled())
+    {
+        qDebug("llaaa");
+        ui->redo->setEnabled(true);
+        ui->rotation->setEnabled(true);
+        ui->select->setEnabled(true);
+    }
 }

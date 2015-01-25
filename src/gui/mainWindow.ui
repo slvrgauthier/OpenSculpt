@@ -98,9 +98,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="widgetsmooth">
+         <widget class="QPushButton" name="widgetsmoothgeneral">
           <property name="text">
-           <string>Lisser</string>
+           <string>LissageGénéral</string>
           </property>
          </widget>
         </item>
@@ -141,7 +141,7 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_3">
+   <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
       <widget class="QPushButton" name="select">

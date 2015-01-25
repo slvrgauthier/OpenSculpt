@@ -5,6 +5,7 @@
 #include <QStandardItemModel>
 #include <QMessageBox>
 #include <QDebug>
+#include"glwidget.h"
 
 
 
@@ -23,7 +24,6 @@ public:
 
 
 private slots:
-    //void on_next_clicked();
 
     void on_choosemodel_clicked(const QModelIndex &index);
 
