@@ -5,6 +5,16 @@
 #include <QTimer>
 #include <QtGui/QMouseEvent>
 #include "model/ModelManager.h"
+#include "mainWindow.h"
+
+enum ETAT
+{
+    ZOOM,
+    ROTATION,
+    SELECT,
+    REDO,
+    VOID
+};
 
 class GLWidget : public QGLWidget
 {
@@ -15,13 +25,12 @@ public:
     void initializeGL();
     void paintGL();
     void resizeGL(int w, int h);
-
-public:
     void keyPressEvent(QKeyEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
 
+    void setEtat(ETAT m_etat);
 
 private:
     void rotateBy(int x, int y, int z);
@@ -39,6 +48,8 @@ private:
 
     // Render settings
     bool mode_fill;
+
+    ETAT etat;
 };
 
 #endif // GLWIDGET_H

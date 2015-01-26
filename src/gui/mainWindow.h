@@ -22,23 +22,10 @@ public:
 private slots:
     void on_actionOpen_triggered();
     void on_actionNew_triggered();
-
-
-
     void on_actionA_propos_triggered();
-
-    void on_select_pressed();
-
-    void on_rotation_pressed();
-
-    void on_zoom_pressed();
-
     void on_select_clicked();
-
     void on_rotation_clicked();
-
     void on_redo_clicked();
-
     void on_zoom_clicked();
 
 private:

@@ -10,13 +10,14 @@
 
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
-    connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
-    m_timer.start(16);
-
-    // Render mode set up
+    etat = VOID;
     mode_fill = false;
 
     m_manager.addModel(new MCube());
+
+    connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
+
+    m_timer.start(16);
 }
 
 
@@ -87,9 +88,31 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 
     if (event->buttons() & Qt::RightButton)
     {
-        rotateBy(dy*8, 0, 0);
-        rotateBy(0, dx*8, 0);
+        if(etat == ROTATION)
+        {
+            qDebug() << "ROTATION";
+            rotateBy(dy*8, 0, 0);
+            rotateBy(0, dx*8, 0);
+        }
+        else if(etat == ZOOM)
+        {
+            qDebug() << "ZOOM";
+            distance *= 1.0 - (1.0 * dy / 1200.0);
+        }
+        else if(etat == REDO)
+        {
+            qDebug() << "REDO";
+        }
+        else if(etat == SELECT)
+        {
+            qDebug() << "SELECT";
+        }
+        else
+        {
+            qDebug() << "VOID";
+        }
     }
+
     last_pos = event->pos();
 }
 
@@ -105,5 +128,7 @@ void GLWidget::rotateBy(int x, int y, int z)
     z_rot += z;
 }
 
-
-
+void GLWidget::setEtat(ETAT m_etat)
+{
+    etat = m_etat;
+}
