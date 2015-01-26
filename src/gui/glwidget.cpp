@@ -98,6 +98,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         {
             qDebug() << "ZOOM";
             distance *= 1.0 - (1.0 * dy / 1200.0);
+            qDebug() << event->pos();
         }
         else if(etat == REDO)
         {
