@@ -135,3 +135,4 @@ void GLWidget::setEtat(ETAT m_etat)
     etat = m_etat;
 }
 
+void GLWidget::addmodel() { m_manager.addModel(new MCube());}

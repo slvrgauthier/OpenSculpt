@@ -79,8 +79,11 @@ void MainWindow::on_showmesh_triggered()
 
 void MainWindow::on_actionCube_triggered()
 {
-    ModelManager model;
-    model.addModel(new MCube());
-    model.initializeGL();
-    model.paintGL();
+    ui->widgetfenetre->addmodel();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    ui->widgetfenetre->addmodel();
+    qDebug()<<"la";
 }
