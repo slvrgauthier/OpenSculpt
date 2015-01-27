@@ -13,7 +13,7 @@ GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
     etat = VOID;
     mode_fill = false;
 
-    //m_manager.addModel(new MCube());
+    m_manager.addModel(new MCube());
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
 
@@ -89,9 +89,16 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 
     if (event->buttons() & Qt::RightButton)
     {
+        qDebug() << "ROTATION droite";
+        rotateBy(dy*8, 0, 0);
+        rotateBy(0, dx*8, 0);
+    }
+
+    if (event->buttons() & Qt::LeftButton)
+    {
         if(etat == ROTATION)
         {
-            qDebug() << "ROTATION";
+            qDebug() << "ROTATION gauche";
             rotateBy(dy*8, 0, 0);
             rotateBy(0, dx*8, 0);
         }
