@@ -79,6 +79,7 @@
    <addaction name="mouse"/>
    <addaction name="actionMove"/>
    <addaction name="actionRotation"/>
+   <addaction name="Cube"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="dockWidgetWindow">
@@ -291,6 +292,21 @@
   <action name="actionA_propos">
    <property name="text">
     <string>A propos</string>
+   </property>
+  </action>
+  <action name="Cube">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../data/ressources.qrc">
+     <normaloff>:/icons/cube.png</normaloff>:/icons/cube.png</iconset>
+   </property>
+   <property name="text">
+    <string>Cube</string>
+   </property>
+   <property name="toolTip">
+    <string>Création du Cube</string>
    </property>
   </action>
  </widget>

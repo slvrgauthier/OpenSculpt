@@ -28,6 +28,8 @@ private slots:
     void on_redo_clicked();
     void on_zoom_clicked();
 
+    void on_Cube_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

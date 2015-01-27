@@ -5,5 +5,6 @@
         <file>icons/symbole-de-rotation-a-droite_318-9143.jpg</file>
         <file>icons/rotation.jpeg</file>
         <file>icons/zoom.png</file>
+        <file>icons/cube.png</file>
     </qresource>
 </RCC>

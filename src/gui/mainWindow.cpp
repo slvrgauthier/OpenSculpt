@@ -1,6 +1,7 @@
 #include "gui/mainWindow.h"
 #include "ui_mainWindow.h"
 
+#include "gui/glwidget.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -67,4 +68,9 @@ void MainWindow::on_zoom_clicked()
     ui->zoom->setChecked(true);
 
     ui->widgetfenetre->setEtat(ZOOM);
+}
+
+void MainWindow::on_Cube_triggered()
+{
+
 }
