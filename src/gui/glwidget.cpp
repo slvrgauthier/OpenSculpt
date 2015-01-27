@@ -13,7 +13,7 @@ GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
     etat = VOID;
     mode_fill = false;
 
-    m_manager.addModel(new MCube());
+    //m_manager.addModel(new MCube());
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
 
@@ -59,6 +59,7 @@ void GLWidget::paintGL()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(30.0f, 1.0*width()/height(), 0.1f, 100.0f);
+
 
     // Draw map
     qglColor(Qt::white);
@@ -133,3 +134,4 @@ void GLWidget::setEtat(ETAT m_etat)
 {
     etat = m_etat;
 }
+

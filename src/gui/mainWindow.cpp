@@ -2,6 +2,7 @@
 #include "ui_mainWindow.h"
 
 #include "gui/glwidget.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -70,7 +71,16 @@ void MainWindow::on_zoom_clicked()
     ui->widgetfenetre->setEtat(ZOOM);
 }
 
-void MainWindow::on_Cube_triggered()
+
+void MainWindow::on_showmesh_triggered()
 {
 
+}
+
+void MainWindow::on_actionCube_triggered()
+{
+    ModelManager model;
+    model.addModel(new MCube());
+    model.initializeGL();
+    model.paintGL();
 }

@@ -27,11 +27,13 @@ private slots:
     void on_rotation_clicked();
     void on_redo_clicked();
     void on_zoom_clicked();
+    void on_showmesh_triggered();
 
-    void on_Cube_triggered();
+    void on_actionCube_triggered();
 
 private:
     Ui::MainWindow *ui;
+    ModelManager m_manager;
 };
 
 #endif // MAINWINDOW_H

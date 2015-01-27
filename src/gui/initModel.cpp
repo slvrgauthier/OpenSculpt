@@ -37,8 +37,6 @@ InitModel::~InitModel()
 
 void InitModel::on_choosemodel_clicked(const QModelIndex &index)
 {
-
-
     if(ui->choosemodel->currentIndex().row()==0)
     {
         QMessageBox::information(this, "Cube", "Tu as cliqué sur le Cube");
@@ -48,16 +46,14 @@ void InitModel::on_choosemodel_clicked(const QModelIndex &index)
 
 
     }
+
     if(ui->choosemodel->currentIndex().row()==1)
     {
         QMessageBox::information(this, "Cylindre", "Tu as cliqué sur le Cylindre");
 
         ui->widgetCylindre->setEnabled(true);
         ui->widgetCube->setEnabled(false);
-        glutWireTeapot(0.6);
+
     }
-
-
-
 }
 
