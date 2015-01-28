@@ -6,7 +6,6 @@
 #include <QtGui/QMouseEvent>
 #include "model/ModelManager.h"
 #include "mainWindow.h"
-#include "model/ModelType.h"
 
 enum ETAT
 {
@@ -16,7 +15,6 @@ enum ETAT
     REDO,
     VOID
 };
-
 
 class GLWidget : public QGLWidget
 {

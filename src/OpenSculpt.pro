@@ -48,8 +48,7 @@ HEADERS += gui/mainWindow.h \
     tool/LTPinch.h \
     tool/LTInflate.h \
     tool/GTScale.h \
-    model/MCone.h \
-    model/ModelType.h
+    model/MCone.h
 
 FORMS += gui/mainWindow.ui
 

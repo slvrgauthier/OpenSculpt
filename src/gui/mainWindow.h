@@ -31,10 +31,11 @@ private slots:
     void on_initSphere_clicked();
     void on_cancel_clicked();
     void on_valid_clicked();
+    void updateCube();//TEST
 
 private:
     Ui::MainWindow *ui;
-    ModelManager m_manager;
+    MCube* m_cube;//TEST
 };
 
 #endif // MAINWINDOW_H

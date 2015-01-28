@@ -17,6 +17,7 @@ MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
     quads_by_y = vertices_by_y - 1;
     quads_by_z = vertices_by_z - 1;
 
+    // Vertices
     QVector3D vertice;
     m_vertices.reserve(vertices_by_x * vertices_by_y * vertices_by_z);
     for(int z = 0; z < vertices_by_z; ++z)
@@ -33,10 +34,9 @@ MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
         }
     }
 
-    // Vertex array & indices
-    m_vertexarray.reserve(quads_by_x * quads_by_y * quads_by_z * 6);
+    // Indices
     m_indices.reserve(quads_by_x * quads_by_y * quads_by_z * 6);
-    for (int z = 0; z <= quads_by_z; z+=quads_by_z)
+    for (int z = 0; z <= quads_by_z; z+=quads_by_z) // Front and Back
     {
         for (int y = 0; y < quads_by_y; ++y)
         {
@@ -44,16 +44,6 @@ MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
             {
                 int i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
 
-                // VertexArray
-                m_vertexarray.push_back(m_vertices[i]);
-                m_vertexarray.push_back(m_vertices[i+vertices_by_x]);
-                m_vertexarray.push_back(m_vertices[i+1]);
-
-                m_vertexarray.push_back(m_vertices[i+1]);
-                m_vertexarray.push_back(m_vertices[i+vertices_by_x]);
-                m_vertexarray.push_back(m_vertices[i+1+vertices_by_x]);
-
-                // Indices
                 m_indices.push_back(i);
                 m_indices.push_back(i + vertices_by_x);
                 m_indices.push_back(i + 1);
@@ -64,7 +54,7 @@ MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
             }
         }
     }
-    for (int z = 0; z < quads_by_z; ++z)
+    for (int z = 0; z < quads_by_z; ++z) // Up and Down
     {
         for (int y = 0; y <= quads_by_y; y+=quads_by_y)
         {
@@ -72,16 +62,6 @@ MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
             {
                 int i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
 
-                // VertexArray
-                m_vertexarray.push_back(m_vertices[i]);
-                m_vertexarray.push_back(m_vertices[i+vertices_by_y * vertices_by_x]);
-                m_vertexarray.push_back(m_vertices[i+1]);
-
-                m_vertexarray.push_back(m_vertices[i+1]);
-                m_vertexarray.push_back(m_vertices[i+vertices_by_y * vertices_by_x]);
-                m_vertexarray.push_back(m_vertices[i+1+vertices_by_y * vertices_by_x]);
-
-                // Indices
                 m_indices.push_back(i);
                 m_indices.push_back(i + vertices_by_y * vertices_by_x);
                 m_indices.push_back(i + 1);
@@ -92,7 +72,7 @@ MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
             }
         }
     }
-    for (int z = 0; z < quads_by_z; ++z)
+    for (int z = 0; z < quads_by_z; ++z) // Left and Right
     {
         for (int y = 0; y < quads_by_y; ++y)
         {
@@ -100,16 +80,6 @@ MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
             {
                 int i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
 
-                // VertexArray
-                m_vertexarray.push_back(m_vertices[i]);
-                m_vertexarray.push_back(m_vertices[i+vertices_by_x]);
-                m_vertexarray.push_back(m_vertices[i+vertices_by_y * vertices_by_x]);
-
-                m_vertexarray.push_back(m_vertices[i+vertices_by_y * vertices_by_x]);
-                m_vertexarray.push_back(m_vertices[i+vertices_by_x]);
-                m_vertexarray.push_back(m_vertices[i+vertices_by_y * vertices_by_x+vertices_by_x]);
-
-                // Indices
                 m_indices.push_back(i);
                 m_indices.push_back(i + vertices_by_x);
                 m_indices.push_back(i + vertices_by_y * vertices_by_x);
@@ -153,9 +123,10 @@ void MCube::paintGL()
 
     glDisableClientState(GL_VERTEX_ARRAY);
 }
-
+#include <QDebug>
 void MCube::setWidth(float width)
 {
+    qDebug()<<"hey !";
     int i;
     for(int z = 0; z < vertices_by_z; ++z)
     {
@@ -169,6 +140,10 @@ void MCube::setWidth(float width)
         }
     }
     m_width = width;
+
+    m_vertexbuffer.bind();
+    m_vertexbuffer.allocate(m_vertices.constData(), m_vertices.size() * sizeof(QVector3D));
+    m_vertexbuffer.release();
 }
 
 void MCube::setHeight(float height)
@@ -186,6 +161,10 @@ void MCube::setHeight(float height)
         }
     }
     m_height = height;
+
+    m_vertexbuffer.bind();
+    m_vertexbuffer.allocate(m_vertices.constData(), m_vertices.size() * sizeof(QVector3D));
+    m_vertexbuffer.release();
 }
 
 void MCube::setDepth(float depth)
@@ -203,5 +182,9 @@ void MCube::setDepth(float depth)
         }
     }
     m_depth = depth;
+
+    m_vertexbuffer.bind();
+    m_vertexbuffer.allocate(m_vertices.constData(), m_vertices.size() * sizeof(QVector3D));
+    m_vertexbuffer.release();
 }
 

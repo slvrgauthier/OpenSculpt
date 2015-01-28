@@ -45,9 +45,8 @@ protected:
     QString m_name;
     //QVector<Node> m_data;
 
-    // 3D / 2D coords
+    // 3D coords
     QVector<QVector3D> m_vertices;
-    QVector<QVector3D> m_vertexarray;
     QVector<GLuint>    m_indices;
 
     // GPU Buffer

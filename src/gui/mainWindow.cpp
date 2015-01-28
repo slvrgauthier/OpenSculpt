@@ -101,11 +101,13 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 //Creation d'un nouveau cube dans la scene
 void MainWindow::on_initCube_clicked()
 {
+    m_cube = createModel<MCube>();
     ui->widgetheight->setVisible(true);
     ui->widgetwidth->setVisible(true);
     ui->widgetvalid->setVisible(true);
-    ui->widgetfenetre->addmodel(createModel<MCube>());
+    ui->widgetfenetre->addmodel(m_cube);
 
+    connect(ui->doubleSpinBox, SIGNAL(valueChanged(double)),this, SLOT(updateCube())); //apparemment impossible sans QObject... -> à contourner
 }
 
 //Creation d'une nouvelle sphere dans la scene
@@ -137,3 +139,5 @@ void MainWindow::on_valid_clicked()
 
     ui->widgetvalid->setVisible(false);
 }
+
+void MainWindow::updateCube() { m_cube->setWidth(ui->doubleSpinBox->value()); } //TEST
