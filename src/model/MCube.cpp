@@ -25,9 +25,9 @@ MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
         {
             for(int x = 0; x < vertices_by_x; ++x)
             {
-                vertice.setX((m_width * x / vertices_by_x) - m_width / 2);
-                vertice.setY((m_height * y / vertices_by_y) - m_height / 2);
-                vertice.setZ((m_depth * z / vertices_by_z) - m_depth / 2);
+                vertice.setX((m_width * x / quads_by_x) - m_width / 2);
+                vertice.setY((m_height * y / quads_by_y) - m_height / 2);
+                vertice.setZ((m_depth * z / quads_by_z) - m_depth / 2);
                 m_vertices.push_back(vertice);
             }
         }
@@ -164,7 +164,7 @@ void MCube::setWidth(float width)
             for(int x = 0; x < vertices_by_x; ++x)
             {
                 i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                m_vertices[i].setX((width * x / vertices_by_x) - width / 2);
+                m_vertices[i].setX((width * x / quads_by_x) - width / 2);
             }
         }
     }
@@ -181,7 +181,7 @@ void MCube::setHeight(float height)
             for(int x = 0; x < vertices_by_x; ++x)
             {
                 i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                m_vertices[i].setY((height * y / vertices_by_y) - height / 2);
+                m_vertices[i].setY((height * y / quads_by_y) - height / 2);
             }
         }
     }
@@ -198,7 +198,7 @@ void MCube::setDepth(float depth)
             for(int x = 0; x < vertices_by_x; ++x)
             {
                 i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                m_vertices[i].setZ((depth * z / vertices_by_z) - depth / 2);
+                m_vertices[i].setZ((depth * z / quads_by_z) - depth / 2);
             }
         }
     }
