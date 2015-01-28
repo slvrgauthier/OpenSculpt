@@ -33,6 +33,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void keyPressEvent(QKeyEvent *event);
+
 private:
     Ui::MainWindow *ui;
     ModelManager m_manager;

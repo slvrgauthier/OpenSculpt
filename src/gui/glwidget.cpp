@@ -29,14 +29,11 @@ void GLWidget::initializeGL()
     y_rot = 0;
     z_rot = 0;
 
-    /*glClearColor(0.2,0.2,0.2,1);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHTING);*/
-
     // GL options
     qglClearColor(Qt::black);
-    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);/*
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHTING);*/
 
     // ModelManager init
     m_manager.initializeGL();
@@ -116,7 +113,13 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         }
         else if(etat == SELECT)
         {
-            qDebug() << "SELECT";
+            QVector3D p = m_manager.getGLpos(event->pos());
+            if(p.isNull()) {
+                qDebug() << "SELECT : NULL";
+            }
+            else {
+                qDebug() << "SELECT : " << p;
+            }
         }
         else
         {

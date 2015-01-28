@@ -32,16 +32,15 @@ public:
     void wheelEvent(QWheelEvent *event);
 
     void setEtat(ETAT m_etat);
-    ModelManager m_manager;
     void addmodel();
-
 
 private:
     void rotateBy(int x, int y, int z);
 
 private:
     QTimer m_timer;
-
+    ModelManager m_manager;
+    ETAT etat;
 
     // View & rotation settings
     QPoint last_pos;
@@ -52,9 +51,6 @@ private:
 
     // Render settings
     bool mode_fill;
-
-    ETAT etat;
-
 };
 
 #endif // GLWIDGET_H

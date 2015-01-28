@@ -87,3 +87,8 @@ void MainWindow::on_pushButton_clicked()
     ui->widgetfenetre->addmodel();
     qDebug()<<"la";
 }
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    ui->widgetfenetre->keyPressEvent(event);
+}
