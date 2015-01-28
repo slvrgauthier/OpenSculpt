@@ -28,7 +28,8 @@ SOURCES += main.cpp \
     tool/GTScale.cpp \
     tool/LTInflate.cpp \
     tool/LTPinch.cpp \
-    tool/LTSmooth.cpp
+    tool/LTSmooth.cpp \
+    model/MCone.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/glwidget.h \
@@ -46,7 +47,9 @@ HEADERS += gui/mainWindow.h \
     tool/GTRotate.h \
     tool/LTPinch.h \
     tool/LTInflate.h \
-    tool/GTScale.h
+    tool/GTScale.h \
+    model/MCone.h \
+    model/ModelType.h
 
 FORMS += gui/mainWindow.ui
 

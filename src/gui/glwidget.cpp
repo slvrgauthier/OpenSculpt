@@ -13,8 +13,6 @@ GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
     etat = VOID;
     mode_fill = false;
 
-    //m_manager.addModel(new MCube());
-
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
 
     m_timer.start(16);
@@ -149,10 +147,8 @@ void GLWidget::setEtat(ETAT m_etat)
 }
 
 //Ajout d'un nouveau modele de différent type
-void GLWidget::addmodel() {
-    MCube *cube = new MCube();
-    cube->initializeGL();
-    m_manager.addModel(cube);
+void GLWidget::addmodel(Model *model) {
+    m_manager.addModel(model);
 }
 
 void GLWidget::removemodel()

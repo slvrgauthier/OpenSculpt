@@ -14,7 +14,11 @@
 
 #include <QVector>
 #include "model/Model.h"
+#include "model/MCone.h"
 #include "model/MCube.h"
+#include "model/MCylinder.h"
+#include "model/MSphere.h"
+#include "model/MTorus.h"
 
 using namespace std;
 

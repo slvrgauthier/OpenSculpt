@@ -108,5 +108,5 @@ QVector3D ModelManager::getGLpos(QPoint mouse)
 
 Model* ModelManager::pickModel(QVector3D position)
 {
-
+    return NULL;
 }

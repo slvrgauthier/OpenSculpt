@@ -28,4 +28,10 @@ bool contains(QVector<T*> v, T* ptr) {
     return false;
 }
 
+/* createModel is usable to create a new model of class T */
+template<typename T>
+T* createModel() {
+    return new T();
+}
+
 #endif // FUNCTIONS_H

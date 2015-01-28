@@ -2,6 +2,8 @@
 #include "ui_mainWindow.h"
 #include <QMessageBox>
 #include "gui/glwidget.h"
+#include "model/ModelManager.h"
+#include "model/func.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -102,7 +104,7 @@ void MainWindow::on_initCube_clicked()
     ui->widgetheight->setVisible(true);
     ui->widgetwidth->setVisible(true);
     ui->widgetvalid->setVisible(true);
-    ui->widgetfenetre->addmodel();
+    ui->widgetfenetre->addmodel(createModel<MCube>());
 
 }
 

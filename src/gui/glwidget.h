@@ -6,6 +6,7 @@
 #include <QtGui/QMouseEvent>
 #include "model/ModelManager.h"
 #include "mainWindow.h"
+#include "model/ModelType.h"
 
 enum ETAT
 {
@@ -32,7 +33,8 @@ public:
     void wheelEvent(QWheelEvent *event);
 
     void setEtat(ETAT m_etat);
-    void addmodel();
+
+    void addmodel(Model *model);
     void removemodel();
 
 private:

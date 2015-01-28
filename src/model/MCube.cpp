@@ -7,11 +7,9 @@
     #include <GL/glut.h>
 #endif
 
-const float MAP_SIZE = 5.0;
-
-void MCube::initializeGL()
+MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
 {
-    // Load model : RECODE to keep only borders
+    // Load model : RECODE to merge multiple points
     vertices_by_x = 10;
     vertices_by_y = 10;
     vertices_by_z = 10;
@@ -27,9 +25,9 @@ void MCube::initializeGL()
         {
             for(int x = 0; x < vertices_by_x; ++x)
             {
-                vertice.setX((MAP_SIZE * x / vertices_by_x) - MAP_SIZE / 2);
-                vertice.setY((MAP_SIZE * y / vertices_by_y) - MAP_SIZE / 2);
-                vertice.setZ((MAP_SIZE * z / vertices_by_z) - MAP_SIZE / 2);
+                vertice.setX((m_width * x / vertices_by_x) - m_width / 2);
+                vertice.setY((m_height * y / vertices_by_y) - m_height / 2);
+                vertice.setZ((m_depth * z / vertices_by_z) - m_depth / 2);
                 m_vertices.push_back(vertice);
             }
         }
@@ -136,6 +134,11 @@ void MCube::initializeGL()
     m_indicebuffer.release();
 }
 
+void MCube::initializeGL()
+{
+
+}
+
 void MCube::paintGL()
 {
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -151,18 +154,54 @@ void MCube::paintGL()
     glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-void setWidth(float width)
+void MCube::setWidth(float width)
 {
-
+    int i;
+    for(int z = 0; z < vertices_by_z; ++z)
+    {
+        for(int y = 0; y < vertices_by_y; ++y)
+        {
+            for(int x = 0; x < vertices_by_x; ++x)
+            {
+                i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
+                m_vertices[i].setX((width * x / vertices_by_x) - width / 2);
+            }
+        }
+    }
+    m_width = width;
 }
 
-void setHeight(float height)
+void MCube::setHeight(float height)
 {
-
+    int i;
+    for(int z = 0; z < vertices_by_z; ++z)
+    {
+        for(int y = 0; y < vertices_by_y; ++y)
+        {
+            for(int x = 0; x < vertices_by_x; ++x)
+            {
+                i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
+                m_vertices[i].setY((height * y / vertices_by_y) - height / 2);
+            }
+        }
+    }
+    m_height = height;
 }
 
-void setDepth(float depth)
+void MCube::setDepth(float depth)
 {
-
+    int i;
+    for(int z = 0; z < vertices_by_z; ++z)
+    {
+        for(int y = 0; y < vertices_by_y; ++y)
+        {
+            for(int x = 0; x < vertices_by_x; ++x)
+            {
+                i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
+                m_vertices[i].setZ((depth * z / vertices_by_z) - depth / 2);
+            }
+        }
+    }
+    m_depth = depth;
 }
 

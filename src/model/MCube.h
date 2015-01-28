@@ -8,10 +8,15 @@ using namespace std;
 class MCube : public Model
 {
 public:
+    MCube();
     void initializeGL();
     void paintGL();
 
 private:
+    float m_width;
+    float m_height;
+    float m_depth;
+
     int vertices_by_x;
     int vertices_by_y;
     int vertices_by_z;
