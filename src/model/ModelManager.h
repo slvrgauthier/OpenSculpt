@@ -31,7 +31,7 @@ public:
     void paintGL();
 
     void addModel(Model *model);
-    void removeModel(Model *model);
+    void removeModel();
     QVector3D getGLpos(QPoint mouse);
     Model* pickModel(QVector3D position);
 };

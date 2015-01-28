@@ -14,7 +14,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     gui/mainWindow.cpp \
-    gui/initModel.cpp \
     gui/glwidget.cpp \
     model/ModelManager.cpp \
     model/Model.cpp \
@@ -32,7 +31,6 @@ SOURCES += main.cpp \
     tool/LTSmooth.cpp
 
 HEADERS += gui/mainWindow.h \
-    gui/initModel.h \
     gui/glwidget.h \
     model/ModelManager.h \
     model/Model.h \
@@ -50,8 +48,7 @@ HEADERS += gui/mainWindow.h \
     tool/LTInflate.h \
     tool/GTScale.h
 
-FORMS += gui/mainWindow.ui \
-    gui/initModel.ui
+FORMS += gui/mainWindow.ui
 
 RESOURCES += \
     data/ressources.qrc

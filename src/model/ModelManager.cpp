@@ -76,6 +76,11 @@ void ModelManager::addModel(Model *model){
 */
 }
 
+void ModelManager::removeModel()
+{
+    m_models.removeLast();
+}
+
 QVector3D ModelManager::getGLpos(QPoint mouse)
 {
     GLint viewport[4];

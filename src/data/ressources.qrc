@@ -6,5 +6,6 @@
         <file>icons/rotation.jpeg</file>
         <file>icons/zoom.png</file>
         <file>icons/cube.png</file>
+        <file>icons/sphere.jpg</file>
     </qresource>
 </RCC>

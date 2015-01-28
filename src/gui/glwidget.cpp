@@ -13,7 +13,7 @@ GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
     etat = VOID;
     mode_fill = false;
 
-    m_manager.addModel(new MCube());
+    //m_manager.addModel(new MCube());
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
 
@@ -142,11 +142,20 @@ void GLWidget::rotateBy(int x, int y, int z)
     z_rot += z;
 }
 
+//Modifie l'etat associee a la souris
 void GLWidget::setEtat(ETAT m_etat)
 {
     etat = m_etat;
 }
 
+//Ajout d'un nouveau modele de différent type
 void GLWidget::addmodel() {
-    m_manager.addModel(new MCube());
+    MCube *cube = new MCube();
+    cube->initializeGL();
+    m_manager.addModel(cube);
+}
+
+void GLWidget::removemodel()
+{
+    m_manager.removeModel();
 }

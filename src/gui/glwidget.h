@@ -33,6 +33,7 @@ public:
 
     void setEtat(ETAT m_etat);
     void addmodel();
+    void removemodel();
 
 private:
     void rotateBy(int x, int y, int z);

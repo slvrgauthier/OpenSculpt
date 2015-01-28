@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>617</width>
-    <height>450</height>
+    <width>767</width>
+    <height>602</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>OpenSculpt</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_7">
+   <layout class="QHBoxLayout" name="horizontalLayout_5">
     <item>
      <widget class="QWidget" name="widget_2" native="true">
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -40,7 +40,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>617</width>
+     <width>767</width>
      <height>22</height>
     </rect>
    </property>
@@ -68,18 +68,6 @@
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
    <addaction name="menuAide"/>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="mouse"/>
-   <addaction name="actionMove"/>
-   <addaction name="actionRotation"/>
-   <addaction name="actionCube"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="dockWidgetWindow">
@@ -131,6 +119,80 @@
            </size>
           </property>
          </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QWidget" name="Initfigure" native="true">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QWidget" name="widgetheight" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QLabel" name="height">
+             <property name="text">
+              <string>Hauteur</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widgetwidth" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLabel" name="width">
+             <property name="text">
+              <string>Largeur</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widgetradius" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QLabel" name="radius">
+             <property name="text">
+              <string>Rayon</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_3"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widgetvalid" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QPushButton" name="cancel">
+             <property name="text">
+              <string>Annuler</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="valid">
+             <property name="text">
+              <string>Valider</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -204,13 +266,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <spacer name="verticalSpacer_2">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -219,6 +274,89 @@
         <size>
          <width>20</width>
          <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget">
+   <attribute name="dockWidgetArea">
+    <number>4</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="selectinit">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/Curseur.png</normaloff>:/icons/Curseur.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/quatre-fleches_318-10750.jpg</normaloff>:/icons/quatre-fleches_318-10750.jpg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="rotate">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/rotation.jpeg</normaloff>:/icons/rotation.jpeg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="initCube">
+       <property name="toolTip">
+        <string>Creation du Cube</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/cube.png</normaloff>:/icons/cube.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="initSphere">
+       <property name="toolTip">
+        <string>Création de la Sphère</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/sphere.jpg</normaloff>:/icons/sphere.jpg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
         </size>
        </property>
       </spacer>
@@ -299,21 +437,6 @@
   <action name="actionA_propos">
    <property name="text">
     <string>A propos</string>
-   </property>
-  </action>
-  <action name="actionCube">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="../data/ressources.qrc">
-     <normaloff>:/icons/cube.png</normaloff>:/icons/cube.png</iconset>
-   </property>
-   <property name="text">
-    <string>cube</string>
    </property>
   </action>
  </widget>
