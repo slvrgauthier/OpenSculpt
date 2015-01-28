@@ -27,11 +27,11 @@ typedef struct Node {
     QVector<Node*> neighbours;
 } Node;*/
 
-class Model : public QGLWidget
+class Model
 {
-    Q_OBJECT
+
 public:
-    explicit Model(QWidget *parent = 0);
+    Model();
 
 public:
     virtual void initializeGL() = 0;

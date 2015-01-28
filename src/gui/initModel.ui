@@ -35,7 +35,7 @@
        <widget class="QWidget" name="widget_3" native="true">
         <layout class="QFormLayout" name="formLayout">
          <item row="0" column="0">
-          <widget class="QOpenGLWidget" name="openGLWidget"/>
+          <widget class="QGLWidget" name="openGLWidget"/>
          </item>
         </layout>
        </widget>

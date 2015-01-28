@@ -7,8 +7,6 @@ using namespace std;
 
 class MCube : public Model
 {
-    Q_OBJECT
-
 public:
     void initializeGL();
     void paintGL();

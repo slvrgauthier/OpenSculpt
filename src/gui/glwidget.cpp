@@ -33,11 +33,13 @@ void GLWidget::initializeGL()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);*/
-    m_manager.initializeGL();
 
     // GL options
     qglClearColor(Qt::black);
     glEnable(GL_DEPTH_TEST);
+
+    // ModelManager init
+    m_manager.initializeGL();
 }
 void GLWidget::paintGL()
 {
@@ -62,7 +64,7 @@ void GLWidget::paintGL()
 
 
     // Draw map
-    qglColor(Qt::white);
+    qglColor(Qt::lightGray);
 
     m_manager.paintGL();
 }
@@ -105,7 +107,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         else if(etat == ZOOM)
         {
             qDebug() << "ZOOM";
-            distance *= 1.0 - (1.0 * dy / 1200.0);
+            distance *= 1.0 + (1.0 * dy / 300.0);
             qDebug() << event->pos();
         }
         else if(etat == REDO)
@@ -142,4 +144,6 @@ void GLWidget::setEtat(ETAT m_etat)
     etat = m_etat;
 }
 
-void GLWidget::addmodel() { m_manager.addModel(new MCube());}
+void GLWidget::addmodel() {
+    m_manager.addModel(new MCube());
+}
