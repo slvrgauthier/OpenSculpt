@@ -29,9 +29,16 @@ void MainWindow::on_actionOpen_triggered()
 //Creation d'une nouvelle fenetre avec tous les parametres reinitialises
 void MainWindow::on_actionNew_triggered()
 {
-    MainWindow *newWindow= new MainWindow();
-    newWindow->show();
 
+    MainWindow *newWindow= new MainWindow();
+    QMessageBox::StandardButton initialise;
+    initialise = QMessageBox::question(this, "initialiser", "Voulez-vous écraser cette fenetre?",QMessageBox::Yes|QMessageBox::No);
+
+    if (initialise == QMessageBox::Yes)
+    {
+        this->close();
+        newWindow->show();
+     }
 }
 
 //Ouverture d'une boite de dialogue informant sur les concepteurs du programme
