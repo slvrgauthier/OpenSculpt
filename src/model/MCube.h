@@ -18,6 +18,11 @@ private:
     int quads_by_x;
     int quads_by_y;
     int quads_by_z;
+
+public slots:
+    void setWidth(float width);
+    void setHeight(float height);
+    void setDepth(float depth);
 };
 
 #endif // MCUBE_H

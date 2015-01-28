@@ -23,3 +23,8 @@ Model::Model():
 
 QString Model::getName() const { return m_name; }
 void Model::setName(QString name) { m_name = name; }
+
+void Model::scale(float percent)
+{
+
+}

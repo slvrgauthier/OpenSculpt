@@ -150,3 +150,19 @@ void MCube::paintGL()
 
     glDisableClientState(GL_VERTEX_ARRAY);
 }
+
+void setWidth(float width)
+{
+
+}
+
+void setHeight(float height)
+{
+
+}
+
+void setDepth(float depth)
+{
+
+}
+

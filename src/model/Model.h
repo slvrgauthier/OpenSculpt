@@ -53,6 +53,9 @@ protected:
     // GPU Buffer
     QGLBuffer m_vertexbuffer;
     QGLBuffer m_indicebuffer;
+
+public slots:
+    virtual void scale(float percent);
 };
 
 #endif // MODEL_H
