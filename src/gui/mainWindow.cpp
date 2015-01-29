@@ -166,3 +166,8 @@ void MainWindow::on_actionFullscreen_triggered()
         this->showNormal();
     }
 }
+
+void MainWindow::on_actionSave_as_triggered()
+{
+
+}

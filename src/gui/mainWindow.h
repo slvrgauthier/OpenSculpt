@@ -37,6 +37,8 @@ private slots:
 
     void on_actionFullscreen_triggered();
 
+    void on_actionSave_as_triggered();
+
 private:
     Ui::MainWindow *ui;
     MCube* m_model;//TEST
