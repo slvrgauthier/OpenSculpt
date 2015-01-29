@@ -132,7 +132,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
             }
             else {
                 Model* model = m_manager.getModel("NewCube");
-                // Compensation de la perspective et Rotation autour de Y, à améliorer
+                // RECODE : Compensation de la perspective et Rotation autour de Y, manque X et Z
                 QVector3D move(-dx * cosd(y_rot) * distance/900.0, dy * distance/900.0, -dx * sind(y_rot) * distance/900.0);
                 qDebug() << "SELECT : " << distance;
                 m_tools.at(activeTool)->action(model, position, move);
