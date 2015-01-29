@@ -41,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>767</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -65,8 +65,15 @@
     </property>
     <addaction name="actionA_propos"/>
    </widget>
+   <widget class="QMenu" name="menuShow">
+    <property name="title">
+     <string>Affichage</string>
+    </property>
+    <addaction name="actionFullscreen"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
+   <addaction name="menuShow"/>
    <addaction name="menuAide"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -90,20 +97,6 @@
          <widget class="QPushButton" name="widgetsmoothgeneral">
           <property name="text">
            <string>LissageGénéral</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_4">
-          <property name="text">
-           <string>PushButton</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_5">
-          <property name="text">
-           <string>PushButton</string>
           </property>
          </widget>
         </item>
@@ -238,20 +231,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="redo">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="zoom">
        <property name="text">
         <string/>
@@ -262,13 +241,6 @@
        </property>
        <property name="checkable">
         <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="text">
-        <string>PushButton</string>
        </property>
       </widget>
      </item>
@@ -317,13 +289,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="rotate">
+      <widget class="QPushButton" name="redo">
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/rotation.jpeg</normaloff>:/icons/rotation.jpeg</iconset>
+         <normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -459,6 +434,11 @@
    </property>
    <property name="text">
     <string>cube</string>
+   </property>
+  </action>
+  <action name="actionFullscreen">
+   <property name="text">
+    <string>Plein écran/ Fenêtre</string>
    </property>
   </action>
  </widget>

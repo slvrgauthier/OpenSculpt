@@ -74,6 +74,7 @@ void GLWidget::paintGL()
 
     // Draw map
     qglColor(Qt::lightGray);
+    //glColor3d(1,0,0); // face rouge
 
     m_manager.paintGL();
 }

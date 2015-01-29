@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->widgetwidth->setVisible(false);
     ui->widgetdepth->setVisible(false);
     ui->widgetvalid->setVisible(false);
+    ui->menuShow->setVisible(true);
+
 }
 
 MainWindow::~MainWindow()
@@ -149,4 +151,23 @@ void MainWindow::updateLastModel() { //TEST
     m_model->setWidth(ui->doubleSpinBox->value());
     m_model->setHeight(ui->doubleSpinBox_2->value());
     m_model->setDepth(ui->doubleSpinBox_3->value());
+}
+
+//Permet de passer en mode plein ecran ou fenetrage
+void MainWindow::on_actionFullscreen_triggered()
+{
+
+    if(!this->isFullScreen())
+    {
+        this->showFullScreen();
+    }
+    else
+    {
+        this->showNormal();
+    }
+}
+
+void MainWindow::on_actionSave_as_triggered()
+{
+
 }
