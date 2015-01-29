@@ -17,6 +17,7 @@
 #include "tool/LTMove.h"
 #include "tool/LTPinch.h"
 #include "tool/LTSmooth.h"
+#include "model/func.h"
 
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
@@ -61,9 +62,9 @@ void GLWidget::paintGL()
               0.0, 0.0, 0.0,
               0.0, 1.0, 0.0);
 
-    glRotatef(x_rot / 16.0f, 1.0f, 0.0f, 0.0f);
-    glRotatef(y_rot / 16.0f, 0.0f, 1.0f, 0.0f);
-    glRotatef(z_rot / 16.0f, 0.0f, 0.0f, 1.0f);
+    glRotatef(x_rot, 1.0f, 0.0f, 0.0f);
+    glRotatef(y_rot, 0.0f, 1.0f, 0.0f);
+    glRotatef(z_rot, 0.0f, 0.0f, 1.0f);
 
     // Projection matrix
     glMatrixMode(GL_PROJECTION);
@@ -100,8 +101,8 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
     if (event->buttons() & Qt::RightButton)
     {
         qDebug() << "ROTATION droite";
-        rotateBy(dy*8, 0, 0);
-        rotateBy(0, dx*8, 0);
+        rotateBy(dy, 0, 0);
+        rotateBy(0, dx, 0);
     }
 
     if (event->buttons() & Qt::LeftButton)
@@ -109,8 +110,8 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         if(etat == ROTATION)
         {
             qDebug() << "ROTATION gauche";
-            rotateBy(dy*8, 0, 0);
-            rotateBy(0, dx*8, 0);
+            rotateBy(dy, 0, 0);
+            rotateBy(0, dx, 0);
         }
         else if(etat == ZOOM)
         {
@@ -124,14 +125,16 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         }
         else if(etat == SELECT)
         {
-            QVector3D p = m_manager.getGLpos(event->pos());
-            Model* m = m_manager.getModel("NewCube");
-            if(p.isNull()) {
+            QVector3D position = m_manager.getGLpos(event->pos());
+            if(position.isNull()) {
                 qDebug() << "SELECT : NULL";
             }
             else {
-                qDebug() << "SELECT : " << p;
-                m_tools.at(activeTool)->action(m, p, -dx/distance, dy/distance);
+                Model* model = m_manager.getModel("NewCube");
+                // Compensation de la perspective et Rotation autour de Y, à améliorer
+                QVector3D move(-dx * cosd(y_rot) * distance/900.0, dy * distance/900.0, -dx * sind(y_rot) * distance/900.0);
+                qDebug() << "SELECT : " << distance;
+                m_tools.at(activeTool)->action(model, position, move);
             }
         }
         else

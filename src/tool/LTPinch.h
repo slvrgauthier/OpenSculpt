@@ -6,7 +6,7 @@
 class LTPinch : public Tool
 {
 public:
-    void action(Model *model, QVector3D position, float dx, float dy);
+    void action(Model *model, QVector3D position, QVector3D move);
 };
 
 #endif // LTPINCH_H

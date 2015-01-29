@@ -11,6 +11,7 @@
 
 #include <QVector>
 #include <stdlib.h>
+#include <cmath>
 
 using namespace std;
 
@@ -33,5 +34,9 @@ template<typename T>
 T* createModel() {
     return new T();
 }
+
+/* cosinus and sinus with degrees */
+#define cosd(x) (cos(fmod((x),360) * M_PI / 180))
+#define sind(x) (sin(fmod((x),360) * M_PI / 180))
 
 #endif // FUNCTIONS_H

@@ -35,55 +35,11 @@ void ModelManager::paintGL()
     }
 }
 
-void ModelManager::addModel(Model *model){
+void ModelManager::addModel(Model *model) { m_models.push_back(model); }
 
-    m_models.push_back(model);
-/*
-    ModelType type = model->getType();
-    int size = model->getSize();
+void ModelManager::removeModel() { m_models.removeLast(); }
 
-    float *vertices = new float[3 * size];
-
-    for(int i = 0 ; i < 3 * size ; ++i) {
-        vertices[i] = model->getNode(i)->position[i % 3];
-    }
-
-    float *indices = new float[size];
-
-    switch(type) {
-    case CUBE :
-        // TODO : construct indices
-        break;
-    case SPHERE :
-        // TODO : construct indices
-        break;
-    case CYLINDER :
-        // TODO : construct indices
-        break;
-    case TORUS :
-        // TODO : construct indices
-        break;
-    default :
-        cout << "Erreur : Model added to ModelManager have a wrong type" << endl;
-    }
-
-    size *= sizeof(float);
-    m_vboManager->newVBO(QOpenGLBuffer::VertexBuffer, model->getName()+"Vertex", size, vertices);
-    m_vboManager->newVBO(QOpenGLBuffer::IndexBuffer, model->getName()+"Index", size, indices);
-
-    delete[] vertices;
-    delete[] indices;
-*/
-}
-
-void ModelManager::removeModel()
-{
-    m_models.removeLast();
-}
-
-void ModelManager::clear() {
-    m_models.clear();
-}
+void ModelManager::clear() { m_models.clear(); }
 
 Model* ModelManager::getModel(QString name) {
     for(int i=0 ; i < m_models.size() ; ++i) {
