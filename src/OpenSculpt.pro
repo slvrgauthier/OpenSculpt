@@ -57,4 +57,5 @@ RESOURCES += \
 
 macx:QMAKE_LIBS_OPENGL += -framework GLUT -lobjc
 linux:QMAKE_LIBS_OPENGL += -lGL -lGLU -lglut -lm
-win32:QMAKE_LIBS_OPENGL += -lfreeglut
+win32:QMAKE_LIBS_OPENGL += -lopengl32 -lglut32
+win32:INCLUDEPATH += "C:\Qt\Qt5.4.0\5.4\mingw491_32\include"

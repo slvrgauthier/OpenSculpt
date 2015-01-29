@@ -33,6 +33,8 @@ private slots:
     void on_valid_clicked();
     void updateLastModel();//TEST
 
+    //void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     MCube* m_model;//TEST

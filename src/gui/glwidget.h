@@ -14,7 +14,7 @@ enum ETAT
     ROTATION,
     SELECT,
     REDO,
-    VOID
+    VOIDi
 };
 
 class GLWidget : public QGLWidget
