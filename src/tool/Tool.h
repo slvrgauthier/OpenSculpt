@@ -14,7 +14,7 @@
 class Tool
 {
 public:
-    virtual void action(Model *model, QVector3D position, int dx, int dy) = 0;
+    virtual void action(Model *model, QVector3D position, float dx, float dy) = 0;
 };
 
 #endif // TOOL_H

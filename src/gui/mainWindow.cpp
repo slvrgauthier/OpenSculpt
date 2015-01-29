@@ -32,7 +32,7 @@ void MainWindow::on_actionOpen_triggered()
 void MainWindow::on_actionNew_triggered()
 {
 
-    MainWindow *newWindow= new MainWindow();
+    /*MainWindow *newWindow= new MainWindow();
     QMessageBox::StandardButton initialise;
     initialise = QMessageBox::question(this, "initialiser", "Voulez-vous écraser cette fenetre?",QMessageBox::Yes|QMessageBox::No);
 
@@ -40,7 +40,8 @@ void MainWindow::on_actionNew_triggered()
     {
         this->close();
         newWindow->show();
-     }
+     }*/
+    ui->widgetfenetre->clear();
 }
 
 //Ouverture d'une boite de dialogue informant sur les concepteurs du programme
@@ -60,7 +61,7 @@ void MainWindow::on_select_clicked()
     ui->widgetfenetre->setEtat(SELECT);
 }
 
-//Ecouteur sur le bouton ratation
+//Ecouteur sur le bouton rotation
 void MainWindow::on_rotation_clicked()
 {
     ui->select->setChecked(false);

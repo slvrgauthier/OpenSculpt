@@ -131,7 +131,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
             }
             else {
                 qDebug() << "SELECT : " << p;
-                m_tools.at(activeTool)->action(m, p, dx, dy);
+                m_tools.at(activeTool)->action(m, p, -dx/distance, dy/distance);
             }
         }
         else
@@ -169,4 +169,9 @@ void GLWidget::addmodel(Model *model) {
 void GLWidget::removemodel()
 {
     m_manager.removeModel();
+}
+
+void GLWidget::clear()
+{
+    m_manager.clear();
 }

@@ -81,6 +81,10 @@ void ModelManager::removeModel()
     m_models.removeLast();
 }
 
+void ModelManager::clear() {
+    m_models.clear();
+}
+
 Model* ModelManager::getModel(QString name) {
     for(int i=0 ; i < m_models.size() ; ++i) {
         if(m_models.at(i)->getName() == name) {

@@ -35,6 +35,7 @@ public:
 
     void addmodel(Model *model);
     void removemodel();
+    void clear();
 
 private:
     void rotateBy(int x, int y, int z);

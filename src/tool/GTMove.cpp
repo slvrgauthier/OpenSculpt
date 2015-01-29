@@ -1,7 +1,7 @@
 #include "tool/GTMove.h"
 #include <QDebug>
 
-void GTMove::action(Model *model, QVector3D position, int dx, int dy)
+void GTMove::action(Model *model, QVector3D position, float dx, float dy)
 {
     qDebug() << "GTMove action !";
     QVector3D currentPoint;

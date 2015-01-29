@@ -6,7 +6,7 @@
 class GTMove : public Tool
 {
 public:
-    void action(Model *model, QVector3D position, int dx, int dy);
+    void action(Model *model, QVector3D position, float dx, float dy);
 };
 
 #endif // GTMOVE_H
