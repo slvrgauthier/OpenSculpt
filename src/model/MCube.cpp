@@ -9,6 +9,7 @@
 
 MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
 {
+    this->setName("NewCube");
     // Load model : RECODE to merge multiple points
     vertices_by_x = 10;
     vertices_by_y = 10;
@@ -126,65 +127,64 @@ void MCube::paintGL()
 #include <QDebug>
 void MCube::setWidth(float width)
 {
-    qDebug()<<"hey !";
-    int i;
-    for(int z = 0; z < vertices_by_z; ++z)
-    {
-        for(int y = 0; y < vertices_by_y; ++y)
+    if(width != m_width) {
+        int i;
+        for(int z = 0; z < vertices_by_z; ++z)
         {
-            for(int x = 0; x < vertices_by_x; ++x)
+            for(int y = 0; y < vertices_by_y; ++y)
             {
-                i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                m_vertices[i].setX((width * x / quads_by_x) - width / 2);
+                for(int x = 0; x < vertices_by_x; ++x)
+                {
+                    i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
+                    m_vertices[i].setX((width * x / quads_by_x) - width / 2);
+                }
             }
         }
-    }
-    m_width = width;
+        m_width = width;
 
-    m_vertexbuffer.bind();
-    m_vertexbuffer.allocate(m_vertices.constData(), m_vertices.size() * sizeof(QVector3D));
-    m_vertexbuffer.release();
+        update();
+    }
 }
 
 void MCube::setHeight(float height)
 {
-    int i;
-    for(int z = 0; z < vertices_by_z; ++z)
-    {
-        for(int y = 0; y < vertices_by_y; ++y)
+    if(height != m_height) {
+        int i;
+        for(int z = 0; z < vertices_by_z; ++z)
         {
-            for(int x = 0; x < vertices_by_x; ++x)
+            for(int y = 0; y < vertices_by_y; ++y)
             {
-                i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                m_vertices[i].setY((height * y / quads_by_y) - height / 2);
+                for(int x = 0; x < vertices_by_x; ++x)
+                {
+                    i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
+                    m_vertices[i].setY((height * y / quads_by_y) - height / 2);
+                }
             }
         }
-    }
-    m_height = height;
+        m_height = height;
 
-    m_vertexbuffer.bind();
-    m_vertexbuffer.allocate(m_vertices.constData(), m_vertices.size() * sizeof(QVector3D));
-    m_vertexbuffer.release();
+        update();
+    }
 }
 
 void MCube::setDepth(float depth)
 {
-    int i;
-    for(int z = 0; z < vertices_by_z; ++z)
-    {
-        for(int y = 0; y < vertices_by_y; ++y)
+    if(depth != m_depth) {
+        int i;
+        for(int z = 0; z < vertices_by_z; ++z)
         {
-            for(int x = 0; x < vertices_by_x; ++x)
+            for(int y = 0; y < vertices_by_y; ++y)
             {
-                i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                m_vertices[i].setZ((depth * z / quads_by_z) - depth / 2);
+                for(int x = 0; x < vertices_by_x; ++x)
+                {
+                    i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
+                    m_vertices[i].setZ((depth * z / quads_by_z) - depth / 2);
+                }
             }
         }
-    }
-    m_depth = depth;
+        m_depth = depth;
 
-    m_vertexbuffer.bind();
-    m_vertexbuffer.allocate(m_vertices.constData(), m_vertices.size() * sizeof(QVector3D));
-    m_vertexbuffer.release();
+        update();
+    }
 }
 

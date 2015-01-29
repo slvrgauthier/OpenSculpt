@@ -36,8 +36,8 @@ public:
 
     void addModel(Model *model);
     void removeModel();
+    Model* getModel(QString name);
     QVector3D getGLpos(QPoint mouse);
-    Model* pickModel(QVector3D position);
 };
 
 #endif // MODELMANAGER_H

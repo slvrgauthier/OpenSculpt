@@ -5,7 +5,8 @@
 
 class LTInflate : public Tool
 {
-
+public:
+    void action(Model *model, QVector3D position, int dx, int dy);
 };
 
 #endif // LTINFLATE_H

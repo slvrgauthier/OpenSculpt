@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->widgetheight->setVisible(false);
     ui->widgetwidth->setVisible(false);
-    ui->widgetradius->setVisible(false);
+    ui->widgetdepth->setVisible(false);
     ui->widgetvalid->setVisible(false);
 }
 
@@ -101,19 +101,22 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 //Creation d'un nouveau cube dans la scene
 void MainWindow::on_initCube_clicked()
 {
-    m_cube = createModel<MCube>();
+    m_model = createModel<MCube>();
     ui->widgetheight->setVisible(true);
     ui->widgetwidth->setVisible(true);
+    ui->widgetdepth->setVisible(true);
     ui->widgetvalid->setVisible(true);
-    ui->widgetfenetre->addmodel(m_cube);
+    ui->widgetfenetre->addmodel(m_model);
 
-    connect(ui->doubleSpinBox, SIGNAL(valueChanged(double)),this, SLOT(updateCube())); //apparemment impossible sans QObject... -> à contourner
+    connect(ui->doubleSpinBox, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel())); //apparemment impossible sans QObject... -> à contourner
+    connect(ui->doubleSpinBox_2, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    connect(ui->doubleSpinBox_3, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
 }
 
 //Creation d'une nouvelle sphere dans la scene
 void MainWindow::on_initSphere_clicked()
 {
-    ui->widgetradius->setVisible(true);
+    //ui->widgetradius->setVisible(true);
     ui->widgetvalid->setVisible(true);
 }
 
@@ -122,7 +125,7 @@ void MainWindow::on_cancel_clicked()
 {
     ui->widgetheight->setVisible(false);
     ui->widgetwidth->setVisible(false);
-    ui->widgetradius->setVisible(false);
+    ui->widgetdepth->setVisible(false);
     ui->widgetvalid->setVisible(false);
     ui->widgetfenetre->removemodel();
 
@@ -131,13 +134,18 @@ void MainWindow::on_cancel_clicked()
 //Ecouteur sur le bouton valider
 void MainWindow::on_valid_clicked()
 {
-    //faire les set ici pour valider
     ui->widgetheight->setVisible(false);
     ui->widgetwidth->setVisible(false);
+    ui->widgetdepth->setVisible(false);
     ui->widgetvalid->setVisible(false);
 
-
-    ui->widgetvalid->setVisible(false);
+    disconnect(ui->doubleSpinBox, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    disconnect(ui->doubleSpinBox_2, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    disconnect(ui->doubleSpinBox_3, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
 }
 
-void MainWindow::updateCube() { m_cube->setWidth(ui->doubleSpinBox->value()); } //TEST
+void MainWindow::updateLastModel() { //TEST
+    m_model->setWidth(ui->doubleSpinBox->value());
+    m_model->setHeight(ui->doubleSpinBox_2->value());
+    m_model->setDepth(ui->doubleSpinBox_3->value());
+}

@@ -6,6 +6,7 @@
 #include <QtGui/QMouseEvent>
 #include "model/ModelManager.h"
 #include "mainWindow.h"
+#include "tool/Tool.h"
 
 enum ETAT
 {
@@ -41,6 +42,8 @@ private:
 private:
     QTimer m_timer;
     ModelManager m_manager;
+    QVector<Tool*> m_tools;
+    int activeTool;
     ETAT etat;
 
     // View & rotation settings

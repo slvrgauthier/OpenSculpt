@@ -39,6 +39,11 @@ public:
 
     QString getName() const;
     void setName(QString name);
+    QVector3D getVertex(int index) const;
+    void setVertex(int index, QVector3D vertex);
+    int getSize() const;
+
+    void update();
 
 protected:
     // Model infos
@@ -55,6 +60,10 @@ protected:
 
 public slots:
     virtual void scale(float percent);
+
+    virtual void setWidth(float width);
+    virtual void setHeight(float height);
+    virtual void setDepth(float depth);
 };
 
 #endif // MODEL_H

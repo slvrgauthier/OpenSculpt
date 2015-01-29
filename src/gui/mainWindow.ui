@@ -159,12 +159,12 @@
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widgetradius" native="true">
+         <widget class="QWidget" name="widgetdepth" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
-            <widget class="QLabel" name="radius">
+            <widget class="QLabel" name="depth">
              <property name="text">
-              <string>Rayon</string>
+              <string>Profondeur</string>
              </property>
             </widget>
            </item>

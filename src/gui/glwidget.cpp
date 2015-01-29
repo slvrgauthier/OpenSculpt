@@ -8,6 +8,14 @@
     #include <GL/glut.h>
 #endif
 
+#include "tool/GTMove.h"
+#include "tool/GTRotate.h"
+#include "tool/GTScale.h"
+#include "tool/LTInflate.h"
+#include "tool/LTMove.h"
+#include "tool/LTPinch.h"
+#include "tool/LTSmooth.h"
+
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
     etat = VOID;
@@ -16,6 +24,9 @@ GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
 
     m_timer.start(16);
+
+    m_tools.push_back(new GTMove());
+    activeTool = 0;
 }
 
 
@@ -112,11 +123,13 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         else if(etat == SELECT)
         {
             QVector3D p = m_manager.getGLpos(event->pos());
+            Model* m = m_manager.getModel("NewCube");
             if(p.isNull()) {
                 qDebug() << "SELECT : NULL";
             }
             else {
                 qDebug() << "SELECT : " << p;
+                m_tools.at(activeTool)->action(m, p, dx, dy);
             }
         }
         else

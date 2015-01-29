@@ -81,6 +81,15 @@ void ModelManager::removeModel()
     m_models.removeLast();
 }
 
+Model* ModelManager::getModel(QString name) {
+    for(int i=0 ; i < m_models.size() ; ++i) {
+        if(m_models.at(i)->getName() == name) {
+            return m_models.at(i);
+        }
+    }
+    return NULL;
+}
+
 QVector3D ModelManager::getGLpos(QPoint mouse)
 {
     GLint viewport[4];
@@ -106,7 +115,7 @@ QVector3D ModelManager::getGLpos(QPoint mouse)
     }
 }
 
-Model* ModelManager::pickModel(QVector3D position)
+/*Model* ModelManager::pickModel(QVector3D position)
 {
     return NULL;
-}
+}*/
