@@ -15,8 +15,11 @@ GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
     etat = VOIDi;
     mode_fill = false;
 
+<<<<<<< HEAD
     m_manager.addModel(new MCube());
 
+=======
+>>>>>>> 963f3ae54ae4ac9fe02d952f1fbd7ea571c8bc54
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
 
     m_timer.start(16);
@@ -31,15 +34,14 @@ void GLWidget::initializeGL()
     y_rot = 0;
     z_rot = 0;
 
-    /*glClearColor(0.2,0.2,0.2,1);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHTING);*/
-    m_manager.initializeGL();
-
     // GL options
     qglClearColor(Qt::black);
-    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);/*
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHTING);*/
+
+    // ModelManager init
+    m_manager.initializeGL();
 }
 void GLWidget::paintGL()
 {
@@ -64,7 +66,7 @@ void GLWidget::paintGL()
 
 
     // Draw map
-    qglColor(Qt::white);
+    qglColor(Qt::lightGray);
 
     m_manager.paintGL();
 }
@@ -107,7 +109,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         else if(etat == ZOOM)
         {
             qDebug() << "ZOOM";
-            distance *= 1.0 - (1.0 * dy / 1200.0);
+            distance *= 1.0 + (1.0 * dy / 300.0);
             qDebug() << event->pos();
         }
         else if(etat == REDO)
@@ -116,7 +118,13 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         }
         else if(etat == SELECT)
         {
-            qDebug() << "SELECT";
+            QVector3D p = m_manager.getGLpos(event->pos());
+            if(p.isNull()) {
+                qDebug() << "SELECT : NULL";
+            }
+            else {
+                qDebug() << "SELECT : " << p;
+            }
         }
         else
         {
@@ -139,9 +147,22 @@ void GLWidget::rotateBy(int x, int y, int z)
     z_rot += z;
 }
 
+//Modifie l'etat associee a la souris
 void GLWidget::setEtat(ETAT m_etat)
 {
     etat = m_etat;
 }
 
+<<<<<<< HEAD
 void GLWidget::addmodel() { m_manager.addModel(new MCube());}
+=======
+//Ajout d'un nouveau modele de différent type
+void GLWidget::addmodel(Model *model) {
+    m_manager.addModel(model);
+}
+
+void GLWidget::removemodel()
+{
+    m_manager.removeModel();
+}
+>>>>>>> 963f3ae54ae4ac9fe02d952f1fbd7ea571c8bc54

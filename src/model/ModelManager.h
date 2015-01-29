@@ -14,7 +14,11 @@
 
 #include <QVector>
 #include "model/Model.h"
+#include "model/MCone.h"
 #include "model/MCube.h"
+#include "model/MCylinder.h"
+#include "model/MSphere.h"
+#include "model/MTorus.h"
 
 using namespace std;
 
@@ -31,8 +35,9 @@ public:
     void paintGL();
 
     void addModel(Model *model);
-    void removeModel(Model *model);
-
+    void removeModel();
+    QVector3D getGLpos(QPoint mouse);
+    Model* pickModel(QVector3D position);
 };
 
 #endif // MODELMANAGER_H

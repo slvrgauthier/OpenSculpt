@@ -16,7 +16,6 @@ enum ETAT
     VOIDi
 };
 
-
 class GLWidget : public QGLWidget
 {
     Q_OBJECT
@@ -32,16 +31,22 @@ public:
     void wheelEvent(QWheelEvent *event);
 
     void setEtat(ETAT m_etat);
+<<<<<<< HEAD
     ModelManager m_manager;
     void addmodel();
+=======
+>>>>>>> 963f3ae54ae4ac9fe02d952f1fbd7ea571c8bc54
 
+    void addmodel(Model *model);
+    void removemodel();
 
 private:
     void rotateBy(int x, int y, int z);
 
 private:
     QTimer m_timer;
-
+    ModelManager m_manager;
+    ETAT etat;
 
     // View & rotation settings
     QPoint last_pos;
@@ -52,9 +57,6 @@ private:
 
     // Render settings
     bool mode_fill;
-
-    ETAT etat;
-
 };
 
 #endif // GLWIDGET_H

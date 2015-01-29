@@ -3,8 +3,7 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
-
-#include "gui/initModel.h"
+#include <QDebug>
 #include "gui/glwidget.h"
 
 namespace Ui {
@@ -27,15 +26,18 @@ private slots:
     void on_rotation_clicked();
     void on_redo_clicked();
     void on_zoom_clicked();
-    void on_showmesh_triggered();
-
-    void on_actionCube_triggered();
+    void keyPressEvent(QKeyEvent *event);
+    void on_initCube_clicked();
+    void on_initSphere_clicked();
+    void on_cancel_clicked();
+    void on_valid_clicked();
+    void updateCube();//TEST
 
     void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
-    ModelManager m_manager;
+    MCube* m_cube;//TEST
 };
 
 #endif // MAINWINDOW_H

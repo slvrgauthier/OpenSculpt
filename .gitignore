@@ -8,3 +8,4 @@
 *.bak
 *.user
 *IGNORE*
+*~lock*

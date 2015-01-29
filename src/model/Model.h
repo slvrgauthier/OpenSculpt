@@ -27,11 +27,11 @@ typedef struct Node {
     QVector<Node*> neighbours;
 } Node;*/
 
-class Model : public QGLWidget
+class Model
 {
-    Q_OBJECT
+
 public:
-    explicit Model(QWidget *parent = 0);
+    Model();
 
 public:
     virtual void initializeGL() = 0;
@@ -45,14 +45,16 @@ protected:
     QString m_name;
     //QVector<Node> m_data;
 
-    // 3D / 2D coords
+    // 3D coords
     QVector<QVector3D> m_vertices;
-    QVector<QVector3D> m_vertexarray;
     QVector<GLuint>    m_indices;
 
     // GPU Buffer
     QGLBuffer m_vertexbuffer;
     QGLBuffer m_indicebuffer;
+
+public slots:
+    virtual void scale(float percent);
 };
 
 #endif // MODEL_H

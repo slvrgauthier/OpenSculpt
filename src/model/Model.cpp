@@ -18,14 +18,15 @@
     #include <GL/glut.h>
 #endif
 
-Model::Model(QWidget *parent):
-    QGLWidget(parent),
+Model::Model():
     m_vertexbuffer(QGLBuffer::VertexBuffer),
     m_indicebuffer(QGLBuffer::IndexBuffer)
 {}
 
-//void Model::initializeGL() { this->initializeGL(); }
-//void Model::paintGL() { this->paintGL(); }
-
 QString Model::getName() const { return m_name; }
 void Model::setName(QString name) { m_name = name; }
+
+void Model::scale(float percent)
+{
+
+}
