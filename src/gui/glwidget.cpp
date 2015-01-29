@@ -3,17 +3,19 @@
 #if defined(__APPLE__) && (__MACH__)
     #include <GLUT/glut.h>
 #elif defined(__WINDOWS__)
+    #define GLUT_DISABLE_ATEXIT_HACK
     #include <GL/glut.h>
 #else
+    #define GLUT_DISABLE_ATEXIT_HACK
     #include <GL/glut.h>
 #endif
 
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
-    etat = VOID;
+    etat = VOIDi;
     mode_fill = false;
 
-    //m_manager.addModel(new MCube());
+    m_manager.addModel(new MCube());
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
 
@@ -89,9 +91,16 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 
     if (event->buttons() & Qt::RightButton)
     {
+        qDebug() << "ROTATION droite";
+        rotateBy(dy*8, 0, 0);
+        rotateBy(0, dx*8, 0);
+    }
+
+    if (event->buttons() & Qt::LeftButton)
+    {
         if(etat == ROTATION)
         {
-            qDebug() << "ROTATION";
+            qDebug() << "ROTATION gauche";
             rotateBy(dy*8, 0, 0);
             rotateBy(0, dx*8, 0);
         }
@@ -135,3 +144,4 @@ void GLWidget::setEtat(ETAT m_etat)
     etat = m_etat;
 }
 
+void GLWidget::addmodel() { m_manager.addModel(new MCube());}

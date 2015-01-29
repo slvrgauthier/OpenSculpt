@@ -31,6 +31,8 @@ private slots:
 
     void on_actionCube_triggered();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     ModelManager m_manager;

@@ -13,7 +13,7 @@ enum ETAT
     ROTATION,
     SELECT,
     REDO,
-    VOID
+    VOIDi
 };
 
 
@@ -33,6 +33,7 @@ public:
 
     void setEtat(ETAT m_etat);
     ModelManager m_manager;
+    void addmodel();
 
 
 private:

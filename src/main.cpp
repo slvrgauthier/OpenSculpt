@@ -4,8 +4,11 @@
 #if defined(__APPLE__) && (__MACH__)
     #include <GLUT/glut.h>
 #elif defined(__WINDOWS__)
-    #include <GL/glut.h>
+    #define GLUT_DISABLE_ATEXIT_HACK
+    #include <windows.h>
+    #include "GL/glut.h"
 #else
+    #define GLUT_DISABLE_ATEXIT_HACK
     #include <GL/glut.h>
 #endif
 
