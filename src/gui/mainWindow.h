@@ -35,6 +35,8 @@ private slots:
 
     //void on_pushButton_clicked();
 
+    void on_actionFullscreen_triggered();
+
 private:
     Ui::MainWindow *ui;
     MCube* m_model;//TEST

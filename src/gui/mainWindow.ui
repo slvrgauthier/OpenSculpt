@@ -41,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>767</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -65,8 +65,15 @@
     </property>
     <addaction name="actionA_propos"/>
    </widget>
+   <widget class="QMenu" name="menuShow">
+    <property name="title">
+     <string>Affichage</string>
+    </property>
+    <addaction name="actionFullscreen"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
+   <addaction name="menuShow"/>
    <addaction name="menuAide"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -459,6 +466,11 @@
    </property>
    <property name="text">
     <string>cube</string>
+   </property>
+  </action>
+  <action name="actionFullscreen">
+   <property name="text">
+    <string>Plein écran/ Fenêtre</string>
    </property>
   </action>
  </widget>
