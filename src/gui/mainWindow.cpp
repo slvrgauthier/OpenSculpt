@@ -60,7 +60,7 @@ void MainWindow::on_select_clicked()
     ui->redo->setChecked(false);
     ui->zoom->setChecked(false);
 
-    ui->widgetfenetre->setEtat(SELECT);
+    ui->widgetfenetre->enableTool(GTMOVE);
 }
 
 //Ecouteur sur le bouton rotation
@@ -71,7 +71,7 @@ void MainWindow::on_rotation_clicked()
     ui->redo->setChecked(false);
     ui->zoom->setChecked(false);
 
-    ui->widgetfenetre->setEtat(ROTATION);
+    ui->widgetfenetre->enableTool(WTROTATE);
 }
 
 //Ecouteur sur le bouton redo
@@ -82,7 +82,7 @@ void MainWindow::on_redo_clicked()
     ui->redo->setChecked(true);
     ui->zoom->setChecked(false);
 
-    ui->widgetfenetre->setEtat(REDO);
+    //ui->widgetfenetre->enableTool(REDO);
 }
 
 //Ecouteur sur le bouton zoom
@@ -93,7 +93,7 @@ void MainWindow::on_zoom_clicked()
     ui->redo->setChecked(false);
     ui->zoom->setChecked(true);
 
-    ui->widgetfenetre->setEtat(ZOOM);
+    ui->widgetfenetre->enableTool(WTSCALE);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)

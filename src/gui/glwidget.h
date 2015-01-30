@@ -8,13 +8,19 @@
 #include "mainWindow.h"
 #include "tool/Tool.h"
 
-enum ETAT
+enum TOOL
 {
-    ZOOM,
-    ROTATION,
-    SELECT,
-    REDO,
-    VOIDi
+    GTMOVE,
+    GTROTATE,
+    GTSCALE,
+    LTINFLATE,
+    LTMOVE,
+    LTPINCH,
+    LTSMOOTH,
+    WTSCALE,
+    WTROTATE,
+    //REDO, -> fonction à part non ?
+    NOTOOL
 };
 
 class GLWidget : public QGLWidget
@@ -31,7 +37,7 @@ public:
     void mouseMoveEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
 
-    void setEtat(ETAT m_etat);
+    void enableTool(TOOL tool);
 
     void addmodel(Model *model);
     void removemodel();
@@ -44,8 +50,7 @@ private:
     QTimer m_timer;
     ModelManager m_manager;
     QVector<Tool*> m_tools;
-    int activeTool;
-    ETAT etat;
+    TOOL activeTool;
 
     // View & rotation settings
     QPoint last_pos;

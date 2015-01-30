@@ -21,7 +21,7 @@
 
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
-    etat = VOIDi;
+    activeTool = NOTOOL;
     mode_fill = false;
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
@@ -29,14 +29,19 @@ GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
     m_timer.start(16);
 
     m_tools.push_back(new GTMove());
-    activeTool = 0;
+    m_tools.push_back(new GTRotate());
+    m_tools.push_back(new GTScale());
+    m_tools.push_back(new LTInflate());
+    m_tools.push_back(new LTMove());
+    m_tools.push_back(new LTPinch());
+    m_tools.push_back(new LTSmooth());
 }
 
 
 void GLWidget::initializeGL()
 {
     // View & rotation settings
-    distance = -12.0;
+    distance = -15.0;
     x_rot = 0;
     y_rot = 0;
     z_rot = 0;
@@ -98,45 +103,49 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 {
     int dx = event->x() - last_pos.x();
     int dy = event->y() - last_pos.y();
+    float coef = distance / 900.0; // Compensation perspective
+
+    float x,y,z, x_,y_,z_;
+    //Rotation autour de X
+    x_ = -dx, y_ = dy*cosd(x_rot), z_ = dy*sind(x_rot);
+    //Rotation autour de Y
+    x = x_*cosd(y_rot)+z_*sind(y_rot), y = y_, z = z_*cosd(y_rot)-x_*sind(y_rot);
+    //Rotation autour de Z
+    x_ = x*cosd(z_rot)-y*sind(z_rot), y_ = x*sind(z_rot)+y*cosd(z_rot), z_ = z;
+    // Mise à l'échelle
+    x = x_*coef, y = y_*coef, z = -z_*coef;
+
+    QVector3D move(x,y,z); // Mouvement dans le repère scène
 
     if (event->buttons() & Qt::RightButton)
     {
-        qDebug() << "ROTATION droite";
+        qDebug() << "WTROTATE droite";
         rotateBy(dy, 0, 0);
         rotateBy(0, dx, 0);
     }
 
     if (event->buttons() & Qt::LeftButton)
     {
-        if(etat == ROTATION)
+        if(activeTool == WTROTATE)
         {
-            qDebug() << "ROTATION gauche";
+            qDebug() << "WTROTATE gauche";
             rotateBy(dy, 0, 0);
             rotateBy(0, dx, 0);
         }
-        else if(etat == ZOOM)
+        else if(activeTool == WTSCALE)
         {
-            qDebug() << "ZOOM";
+            qDebug() << "WTSCALE";
             distance *= 1.0 + (1.0 * dy / 300.0);
             qDebug() << event->pos();
-        }
-        else if(etat == REDO)
+        }/*
+        else if(activeTool == REDO)
         {
             qDebug() << "REDO";
-        }
-        else if(etat == SELECT)
+        }*/
+        else if(activeTool != NOTOOL)
         {
-            QVector3D position = m_manager.getGLpos(event->pos());
-            if(position.isNull()) {
-                qDebug() << "SELECT : NULL";
-            }
-            else {
-                Model* model = m_manager.getModel("NewCube");
-                // RECODE : Compensation de la perspective et Rotation autour de Y, manque X et Z
-                QVector3D move(-dx * cosd(y_rot) * distance/900.0, dy * distance/900.0, -dx * sind(y_rot) * distance/900.0);
-                qDebug() << "SELECT : " << distance;
-                m_tools.at(activeTool)->action(model, position, move);
-            }
+            Model* model = m_manager.getModel("NewCube"); //RECODE : indice pris dans la hiérarchie d'objet
+            m_tools.at(activeTool)->action(model, m_manager.getGLpos(event->pos()), move);
         }
         else
         {
@@ -159,10 +168,10 @@ void GLWidget::rotateBy(int x, int y, int z)
     z_rot += z;
 }
 
-//Modifie l'etat associee a la souris
-void GLWidget::setEtat(ETAT m_etat)
+//Modifie l'outil associe a la souris
+void GLWidget::enableTool(TOOL tool)
 {
-    etat = m_etat;
+    activeTool = tool;
 }
 
 //Ajout d'un nouveau modele de différent type
