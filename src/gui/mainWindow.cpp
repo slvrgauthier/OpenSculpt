@@ -158,9 +158,9 @@ void MainWindow::updateLastModel() { //TEST
     m_model->setWidth(ui->doubleSpinBox->value());
     m_model->setHeight(ui->doubleSpinBox_2->value());
     m_model->setDepth(ui->doubleSpinBox_3->value());
-    m_model->verticesbyx(ui->horizontalSlider->value());
-    m_model->verticesbyy(ui->horizontalSlider->value());
-    m_model->verticesbyz(ui->horizontalSlider->value());
+   m_model->verticesbyx(ui->horizontalSlider->value());
+   m_model->verticesbyy(ui->horizontalSlider->value());
+   m_model->verticesbyz(ui->horizontalSlider->value());
 
 
 }

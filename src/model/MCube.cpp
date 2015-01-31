@@ -191,21 +191,63 @@ void MCube::setDepth(float depth)
 
 void MCube::verticesbyx(int m_edgex)
 {
-    vertices_by_x = m_edgex;
+    if(m_edgex != vertices_by_x)
+    {
+        for (int z = 0; z <= quads_by_z; z+=quads_by_z) // Front and Back
+        {
+            for (int y = 0; y < quads_by_y; ++y)
+            {
+                for (int x = 0; x < m_edgex-1; ++x)
+                {
+                    int i = z * vertices_by_y * m_edgex + y * m_edgex + x;
+                    m_vertices[i].setX((m_width * x / (m_edgex-1)) - m_width / 2);
+                }
+            }
+        }
+    }
+    vertices_by_x= m_edgex;
     qDebug()<<"le x vaut :"<<vertices_by_x;
     update();
 }
 
 void MCube::verticesbyy(int m_edgey)
 {
-    vertices_by_y = m_edgey;
-    qDebug()<<"le y vaut :"<<vertices_by_y;
+    if(m_edgey != vertices_by_y)
+    {
+        for (int z = 0; z <= quads_by_z; z+=quads_by_z) // Front and Back
+        {
+            for (int y = 0; y < m_edgey-1; ++y)
+            {
+                for (int x = 0; x < quads_by_x; ++x)
+                {
+                    int i = z * m_edgey * vertices_by_x + y * vertices_by_x + x;
+                    m_vertices[i].setY((m_height * y / (m_edgey-1)) - m_height / 2);
+                }
+            }
+        }
+    }
+    vertices_by_y= m_edgey;
+    qDebug()<<"le x vaut :"<<vertices_by_x;
     update();
 }
 
 void MCube::verticesbyz(int m_edgez)
 {
-    vertices_by_z = m_edgez;
-    qDebug()<<"le z vaut :"<<vertices_by_z;
+    if(m_edgez != vertices_by_z)
+    {
+        for (int z = 0; z <= m_edgez-1; z+=m_edgez-1) // Front and Back
+        {
+            for (int y = 0; y < quads_by_y; ++y)
+            {
+                for (int x = 0; x < quads_by_x; ++x)
+                {
+                    int i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
+                    m_vertices[i].setZ((m_depth * z / (m_edgez-1)) - m_depth / 2);
+                }
+            }
+        }
+    }
+    vertices_by_z= m_edgez;
+    qDebug()<<"le x vaut :"<<vertices_by_x;
     update();
 }
