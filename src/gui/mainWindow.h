@@ -33,6 +33,7 @@ private slots:
     void on_valid_clicked();
     void updateLastModel();//TEST
 
+
     //void on_pushButton_clicked();
 
     void on_actionFullscreen_triggered();
@@ -40,6 +41,7 @@ private slots:
     void on_actionSave_as_triggered();
 
     void on_actionNewObject_triggered();
+
 
 private:
     Ui::MainWindow *ui;

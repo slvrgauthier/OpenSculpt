@@ -169,6 +169,32 @@
          </widget>
         </item>
         <item>
+         <widget class="QWidget" name="widgetEdge" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <item>
+            <widget class="QLabel" name="intEdge">
+             <property name="text">
+              <string>Nombres d'arêtes :</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSlider" name="horizontalSlider">
+             <property name="minimum">
+              <number>2</number>
+             </property>
+             <property name="maximum">
+              <number>20</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <widget class="QWidget" name="widgetvalid" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>

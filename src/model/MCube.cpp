@@ -12,9 +12,9 @@ MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
 {
     this->setName("NewCube");
     // Load model : RECODE to merge multiple points
-    vertices_by_x = 10;
-    vertices_by_y = 10;
-    vertices_by_z = 10;
+    vertices_by_x = 2;
+    vertices_by_y = 2;
+    vertices_by_z = 2;
     quads_by_x = vertices_by_x - 1;
     quads_by_y = vertices_by_y - 1;
     quads_by_z = vertices_by_z - 1;
@@ -189,3 +189,23 @@ void MCube::setDepth(float depth)
     }
 }
 
+void MCube::verticesbyx(int m_edgex)
+{
+    vertices_by_x = m_edgex;
+    qDebug()<<"le x vaut :"<<vertices_by_x;
+    update();
+}
+
+void MCube::verticesbyy(int m_edgey)
+{
+    vertices_by_y = m_edgey;
+    qDebug()<<"le y vaut :"<<vertices_by_y;
+    update();
+}
+
+void MCube::verticesbyz(int m_edgez)
+{
+    vertices_by_z = m_edgez;
+    qDebug()<<"le z vaut :"<<vertices_by_z;
+    update();
+}
