@@ -48,7 +48,8 @@
     <property name="title">
      <string>Fichier</string>
     </property>
-    <addaction name="actionNew"/>
+    <addaction name="actionNewProject"/>
+    <addaction name="actionNewObject"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSave_as"/>
     <addaction name="actionQuit"/>
@@ -231,20 +232,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="zoom">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/zoom.png</normaloff>:/icons/zoom.png</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
       <spacer name="verticalSpacer_2">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -303,6 +290,20 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="zoom">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/zoom.png</normaloff>:/icons/zoom.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="initCube">
        <property name="toolTip">
         <string>Creation du Cube</string>
@@ -346,9 +347,9 @@
     </layout>
    </widget>
   </widget>
-  <action name="actionNew">
+  <action name="actionNewProject">
    <property name="text">
-    <string>Nouveau</string>
+    <string>Nouveau Projet</string>
    </property>
   </action>
   <action name="actionOpen">
@@ -439,6 +440,11 @@
   <action name="actionFullscreen">
    <property name="text">
     <string>Plein écran/ Fenêtre</string>
+   </property>
+  </action>
+  <action name="actionNewObject">
+   <property name="text">
+    <string>Nouvelle Objet</string>
    </property>
   </action>
  </widget>

@@ -20,7 +20,7 @@ public:
 
 private slots:
     void on_actionOpen_triggered();
-    void on_actionNew_triggered();
+    void on_actionNewProject_triggered();
     void on_actionA_propos_triggered();
     void on_select_clicked();
     void on_rotation_clicked();
@@ -38,6 +38,8 @@ private slots:
     void on_actionFullscreen_triggered();
 
     void on_actionSave_as_triggered();
+
+    void on_actionNewObject_triggered();
 
 private:
     Ui::MainWindow *ui;

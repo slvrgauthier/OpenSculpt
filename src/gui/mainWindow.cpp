@@ -31,10 +31,10 @@ void MainWindow::on_actionOpen_triggered()
 }
 
 //Creation d'une nouvelle fenetre avec tous les parametres reinitialises
-void MainWindow::on_actionNew_triggered()
+void MainWindow::on_actionNewProject_triggered()
 {
 
-    /*MainWindow *newWindow= new MainWindow();
+    MainWindow *newWindow= new MainWindow();
     QMessageBox::StandardButton initialise;
     initialise = QMessageBox::question(this, "initialiser", "Voulez-vous écraser cette fenetre?",QMessageBox::Yes|QMessageBox::No);
 
@@ -42,8 +42,8 @@ void MainWindow::on_actionNew_triggered()
     {
         this->close();
         newWindow->show();
-     }*/
-    ui->widgetfenetre->clear();
+     }
+
 }
 
 //Ouverture d'une boite de dialogue informant sur les concepteurs du programme
@@ -170,4 +170,9 @@ void MainWindow::on_actionFullscreen_triggered()
 void MainWindow::on_actionSave_as_triggered()
 {
 
+}
+
+void MainWindow::on_actionNewObject_triggered()
+{
+    ui->widgetfenetre->clear();
 }
