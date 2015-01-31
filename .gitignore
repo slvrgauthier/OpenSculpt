@@ -9,3 +9,7 @@
 *.user
 *IGNORE*
 *~lock*
+*.autosave
+*.BASE
+*.REMOTE
+*.LOCAL

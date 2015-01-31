@@ -31,7 +31,7 @@ private slots:
     void on_initSphere_clicked();
     void on_cancel_clicked();
     void on_valid_clicked();
-    void updateLastModel();//TEST
+    void updateLastModel();
 
 
     //void on_pushButton_clicked();
@@ -45,7 +45,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    MCube* m_model;//TEST
+    Model* m_model;
 };
 
 #endif // MAINWINDOW_H

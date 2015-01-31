@@ -30,10 +30,11 @@ public slots:
     void setWidth(float width);
     void setHeight(float height);
     void setDepth(float depth);
+    /*
     void verticesbyx(int m_edgex);
     void verticesbyy(int m_edgey);
     void verticesbyz(int m_edgez);
-
+    */
 };
 
 #endif // MCUBE_H

@@ -105,7 +105,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 //Creation d'un nouveau cube dans la scene
 void MainWindow::on_initCube_clicked()
 {
-    m_model = createModel<MCube>();
+    m_model = new MCube();
     ui->widgetheight->setVisible(true);
     ui->widgetwidth->setVisible(true);
     ui->widgetdepth->setVisible(true);
@@ -113,7 +113,12 @@ void MainWindow::on_initCube_clicked()
     ui->widgetEdge->setVisible(true);
     ui->widgetfenetre->addmodel(m_model);
 
-    connect(ui->doubleSpinBox, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel())); //apparemment impossible sans QObject... -> à contourner
+    ui->doubleSpinBox->setValue(5.0);
+    ui->doubleSpinBox_2->setValue(5.0);
+    ui->doubleSpinBox_3->setValue(5.0);
+    ui->horizontalSlider->setValue(10); // Niveau de subdivision plutôt
+
+    connect(ui->doubleSpinBox, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->doubleSpinBox_2, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->doubleSpinBox_3, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
@@ -154,15 +159,15 @@ void MainWindow::on_valid_clicked()
 
 }
 
-void MainWindow::updateLastModel() { //TEST
+void MainWindow::updateLastModel() {
     m_model->setWidth(ui->doubleSpinBox->value());
     m_model->setHeight(ui->doubleSpinBox_2->value());
     m_model->setDepth(ui->doubleSpinBox_3->value());
-   m_model->verticesbyx(ui->horizontalSlider->value());
-   m_model->verticesbyy(ui->horizontalSlider->value());
-   m_model->verticesbyz(ui->horizontalSlider->value());
-
-
+    /* On fera une subdivision à la place, dès qu'on passera en half-edge...
+    m_model->verticesbyx(ui->horizontalSlider->value());
+    m_model->verticesbyy(ui->horizontalSlider->value());
+    m_model->verticesbyz(ui->horizontalSlider->value());
+    */
 }
 
 //Permet de passer en mode plein ecran ou fenetrage

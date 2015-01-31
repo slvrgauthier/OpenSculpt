@@ -188,7 +188,7 @@ void MCube::setDepth(float depth)
         update();
     }
 }
-
+/*
 void MCube::verticesbyx(int m_edgex)
 {
     if(m_edgex != vertices_by_x)
@@ -251,3 +251,4 @@ void MCube::verticesbyz(int m_edgez)
     qDebug()<<"le x vaut :"<<vertices_by_x;
     update();
 }
+*/
