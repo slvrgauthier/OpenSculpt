@@ -91,6 +91,10 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_F)
         mode_fill = !mode_fill;
+        glClearColor(0.2,0.2,0.2,1);
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_LIGHT0);
+        glEnable(GL_LIGHTING);
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
