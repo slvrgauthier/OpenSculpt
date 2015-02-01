@@ -13,19 +13,13 @@
 #define MODEL_H
 
 #include <QtCore/QVector>
-#include <QtCore/QTimer>
-#include <QtCore/QTime>
-#include <QtGui/QVector2D>
 #include <QtGui/QVector3D>
 #include <QtOpenGL/QGLWidget>
 #include <QtOpenGL/QGLBuffer>
 #include <QString>
+#include "model/halfedge.h"
 
 using namespace std;
-/*
-typedef struct Node {
-    QVector<Node*> neighbours;
-} Node;*/
 
 class Model
 {
@@ -48,10 +42,14 @@ public:
 protected:
     // Model infos
     QString m_name;
-    //QVector<Node> m_data;
 
-    // 3D coords
-    QVector<QVector3D> m_vertices;
+    // 3D mesh
+    QVector<HalfEdge> m_edges;
+    QVector<Vertex> m_vertices;
+    QVector<Face> m_faces;
+
+    // Rendering
+    QVector<QVector3D> m_coords;
     QVector<GLuint>    m_indices;
 
     // GPU Buffer

@@ -31,7 +31,7 @@ MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
                 vertice.setX((m_width * x / quads_by_x) - m_width / 2);
                 vertice.setY((m_height * y / quads_by_y) - m_height / 2);
                 vertice.setZ((m_depth * z / quads_by_z) - m_depth / 2);
-                m_vertices.push_back(vertice);
+                m_coords.push_back(vertice);
             }
         }
     }
@@ -93,17 +93,7 @@ MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
         }
     }
 
-    // Vertex buffer init
-    m_vertexbuffer.create();
-    m_vertexbuffer.bind();
-    m_vertexbuffer.allocate(m_vertices.constData(), m_vertices.size() * sizeof(QVector3D));
-    m_vertexbuffer.release();
-
-    // Indices buffer init
-    m_indicebuffer.create();
-    m_indicebuffer.bind();
-    m_indicebuffer.allocate(m_indices.constData(), m_indices.size() * sizeof(GLuint));
-    m_indicebuffer.release();
+    update();
 }
 
 void MCube::initializeGL()
@@ -125,7 +115,7 @@ void MCube::paintGL()
 
     glDisableClientState(GL_VERTEX_ARRAY);
 }
-#include <QDebug>
+
 void MCube::setWidth(float width)
 {
     if(width != m_width) {
@@ -137,7 +127,7 @@ void MCube::setWidth(float width)
                 for(int x = 0; x < vertices_by_x; ++x)
                 {
                     i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                    m_vertices[i].setX((width * x / quads_by_x) - width / 2);
+                    m_coords[i].setX((width * x / quads_by_x) - width / 2);
                 }
             }
         }
@@ -158,7 +148,7 @@ void MCube::setHeight(float height)
                 for(int x = 0; x < vertices_by_x; ++x)
                 {
                     i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                    m_vertices[i].setY((height * y / quads_by_y) - height / 2);
+                    m_coords[i].setY((height * y / quads_by_y) - height / 2);
                 }
             }
         }
@@ -179,7 +169,7 @@ void MCube::setDepth(float depth)
                 for(int x = 0; x < vertices_by_x; ++x)
                 {
                     i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                    m_vertices[i].setZ((depth * z / quads_by_z) - depth / 2);
+                    m_coords[i].setZ((depth * z / quads_by_z) - depth / 2);
                 }
             }
         }

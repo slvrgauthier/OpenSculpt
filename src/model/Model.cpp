@@ -24,15 +24,40 @@ Model::Model():
 
 QString Model::getName() const { return m_name; }
 void Model::setName(QString name) { m_name = name; }
-QVector3D Model::getVertex(int index) const { return m_vertices.at(index); }
-void Model::setVertex(int index, QVector3D vertex) { m_vertices.replace(index, vertex); }
-int Model::getSize() const { return m_vertices.size(); }
+QVector3D Model::getVertex(int index) const { return m_coords.at(index); }
+void Model::setVertex(int index, QVector3D vertex) { m_coords.replace(index, vertex); }
+int Model::getSize() const { return m_coords.size(); }
 
 void Model::update()
 {
-    m_vertexbuffer.bind();
-    m_vertexbuffer.write(0, m_vertices.constData(), m_vertices.size() * sizeof(QVector3D));
-    m_vertexbuffer.release();
+    // Convertir le maillage interne pour le rendu
+    // ...
+
+    // Vertex buffer init
+    if(m_vertexbuffer.isCreated() && m_vertexbuffer.size() >= m_coords.size()) {
+        m_vertexbuffer.bind();
+        m_vertexbuffer.write(0, m_coords.constData(), m_coords.size() * sizeof(QVector3D));
+        m_vertexbuffer.release();
+    }
+    else {
+        m_vertexbuffer.create();
+        m_vertexbuffer.bind();
+        m_vertexbuffer.allocate(m_coords.constData(), m_coords.size() * sizeof(QVector3D));
+        m_vertexbuffer.release();
+    }
+
+    // Indices buffer init
+    if(m_indicebuffer.isCreated() && m_indicebuffer.size() >= m_indices.size()) {
+        m_indicebuffer.bind();
+        m_indicebuffer.write(0, m_indices.constData(), m_indices.size() * sizeof(GLuint));
+        m_indicebuffer.release();
+    }
+    else {
+        m_indicebuffer.create();
+        m_indicebuffer.bind();
+        m_indicebuffer.allocate(m_indices.constData(), m_indices.size() * sizeof(GLuint));
+        m_indicebuffer.release();
+    }
 }
 
 void Model::scale(float percent)
