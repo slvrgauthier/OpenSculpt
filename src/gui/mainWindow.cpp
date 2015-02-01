@@ -4,6 +4,8 @@
 #include "gui/glwidget.h"
 #include "model/ModelManager.h"
 #include "model/func.h"
+#include <QVector>
+
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -17,6 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->widgetvalid->setVisible(false);
     ui->menuShow->setVisible(true);
     ui->widgetEdge->setVisible(false);
+    ui->widgetName->setVisible(false);
+    layout = new QVBoxLayout;
+    ui->hierarchy->setLayout(layout);
+
 
 }
 
@@ -111,6 +117,7 @@ void MainWindow::on_initCube_clicked()
     ui->widgetdepth->setVisible(true);
     ui->widgetvalid->setVisible(true);
     ui->widgetEdge->setVisible(true);
+    ui->widgetName->setVisible(true);
     ui->widgetfenetre->addmodel(m_model);
 
     ui->doubleSpinBox->setValue(5.0);
@@ -122,6 +129,7 @@ void MainWindow::on_initCube_clicked()
     connect(ui->doubleSpinBox_2, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->doubleSpinBox_3, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
+
 }
 
 //Creation d'une nouvelle sphere dans la scene
@@ -139,6 +147,7 @@ void MainWindow::on_cancel_clicked()
     ui->widgetdepth->setVisible(false);
     ui->widgetvalid->setVisible(false);
     ui->widgetEdge->setVisible(false);
+    ui->widgetName->setVisible(false);
     ui->widgetfenetre->removemodel();
 
 }
@@ -151,11 +160,26 @@ void MainWindow::on_valid_clicked()
     ui->widgetdepth->setVisible(false);
     ui->widgetvalid->setVisible(false);
     ui->widgetEdge->setVisible(false);
+    ui->widgetName->setVisible(false);
 
     disconnect(ui->doubleSpinBox, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->doubleSpinBox_2, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->doubleSpinBox_3, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->horizontalSlider, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
+    QLabel* m_name = new QLabel();
+
+    m_name->setText(ui->textEditName->toPlainText());
+    m_hierarchy.push_back(m_name);
+    qDebug()<<m_hierarchy;
+
+    for(int i(0) ; i<m_hierarchy.size() ; i++)
+    {
+
+        layout->addWidget(m_hierarchy[i], 0, 0);
+
+    }
+
+    ui->hierarchy->show();
 
 }
 

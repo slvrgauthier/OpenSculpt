@@ -5,6 +5,9 @@
 #include <QFileDialog>
 #include <QDebug>
 #include "gui/glwidget.h"
+#include <QString>
+#include <QLabel>
+#include<QGridLayout>
 
 namespace Ui {
 class MainWindow;
@@ -46,6 +49,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Model* m_model;
+    QVector<QLabel*> m_hierarchy;
+    QVBoxLayout *layout;
 };
 
 #endif // MAINWINDOW_H

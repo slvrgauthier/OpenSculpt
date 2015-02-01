@@ -6,18 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>767</width>
-    <height>602</height>
+    <width>809</width>
+    <height>642</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>OpenSculpt</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_5">
+   <layout class="QVBoxLayout" name="verticalLayout_9">
     <item>
      <widget class="QWidget" name="widget_2" native="true">
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
         <widget class="GLWidget" name="widgetfenetre" native="true">
          <property name="enabled">
@@ -40,7 +40,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>767</width>
+     <width>809</width>
      <height>22</height>
     </rect>
    </property>
@@ -195,6 +195,29 @@
          </widget>
         </item>
         <item>
+         <widget class="QWidget" name="widgetName" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <item>
+            <widget class="QLabel" name="name">
+             <property name="text">
+              <string>Nom:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="textEditName">
+             <property name="maximumSize">
+              <size>
+               <width>120</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <widget class="QWidget" name="widgetvalid" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
@@ -265,10 +288,13 @@
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>40</height>
+         <height>278</height>
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QWidget" name="hierarchy" native="true"/>
      </item>
     </layout>
    </widget>
