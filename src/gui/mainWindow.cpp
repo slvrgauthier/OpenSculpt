@@ -15,10 +15,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->hideDialog();
     ui->menuShow->setVisible(true);
-    layout = new QVBoxLayout;
-    ui->hierarchy->setLayout(layout);
-
-
+    modelListLayout = new QVBoxLayout(ui->scrollArea);
+    modelList = new QWidget();
+    modelList->setLayout(modelListLayout);
+    ui->scrollArea->setWidgetResizable(true);
+    ui->scrollArea->setWidget(modelList);
 }
 
 MainWindow::~MainWindow()
@@ -134,19 +135,8 @@ void MainWindow::on_pushValid_clicked()
     disconnect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
 
-    myLabel* name = new myLabel();
-    name->setText(ui->textEditName->toPlainText());
     m_model->setName(ui->textEditName->toPlainText());
-    m_hierarchy.push_back(name);
-    qDebug()<<m_hierarchy;
-
-    for(int i(0) ; i<m_hierarchy.size() ; i++)
-    {
-
-        layout->addWidget(m_hierarchy[i], 0, 0);
-
-    }
-    ui->hierarchy->show();
+    modelListLayout->addWidget(new QPushButton(m_model->getName())); // Créer un widget spécifique
 }
 
 void MainWindow::updateLastModel() {

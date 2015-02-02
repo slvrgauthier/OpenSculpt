@@ -8,7 +8,6 @@
 #include <QString>
 #include <QLabel>
 #include<QGridLayout>
-#include"gui/mylabel.h"
 
 namespace Ui {
 class MainWindow;
@@ -51,9 +50,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Model* m_model;
-    QVector<myLabel*> m_hierarchy;
-    QVBoxLayout *layout;
+    Model *m_model;
+    QWidget *modelList;
+    QVBoxLayout *modelListLayout;
 };
 
 #endif // MAINWINDOW_H
