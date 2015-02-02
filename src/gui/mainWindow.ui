@@ -329,7 +329,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="rotate">
        <property name="text">
         <string/>
        </property>
