@@ -41,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>809</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -131,7 +131,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+             <property name="minimum">
+              <double>0.010000000000000</double>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -147,7 +151,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox">
+             <property name="minimum">
+              <double>0.010000000000000</double>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -163,7 +171,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_3"/>
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+             <property name="minimum">
+              <double>0.010000000000000</double>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

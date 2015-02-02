@@ -47,9 +47,9 @@ void GLWidget::initializeGL()
 
     // GL options
     qglClearColor(Qt::black);
-    glEnable(GL_DEPTH_TEST);/*
+    glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHTING);*/
+    //glEnable(GL_LIGHTING);
 
     // ModelManager init
     m_manager.initializeGL();
@@ -89,12 +89,15 @@ void GLWidget::resizeGL(int w, int h)
 
 void GLWidget::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_F)
+    if (event->key() == Qt::Key_F) {
         mode_fill = !mode_fill;
-        glClearColor(0.2,0.2,0.2,1);
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_LIGHT0);
-        glEnable(GL_LIGHTING);
+        if(mode_fill) {
+            glEnable(GL_LIGHTING);
+        }
+        else {
+            glDisable(GL_LIGHTING);
+        }
+    }
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
@@ -147,7 +150,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         }*/
         else if(activeTool != NOTOOL)
         {
-            Model* model = m_manager.getModel("NewCube"); //RECODE : indice pris dans la hiérarchie d'objet
+            Model* model = m_manager.getModel(0); //RECODE : indice pris dans la hiérarchie d'objet
             m_tools.at(activeTool)->action(model, m_manager.getGLpos(event->pos()), move);
         }
         else

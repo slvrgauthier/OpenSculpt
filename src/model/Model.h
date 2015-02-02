@@ -37,6 +37,7 @@ public:
     void setVertex(int index, QVector3D vertex);
     int getSize() const;
 
+    void convertToBuffer();
     void update();
 
 protected:
@@ -50,7 +51,7 @@ protected:
 
     // Rendering
     QVector<QVector3D> m_coords;
-    QVector<GLuint>    m_indices;
+    QVector<GLuint> m_indices;
 
     // GPU Buffer
     QGLBuffer m_vertexbuffer;

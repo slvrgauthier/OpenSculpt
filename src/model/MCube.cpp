@@ -10,89 +10,92 @@
 
 MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
 {
-    this->setName("NewCube");
-    // Load model : RECODE to merge multiple points
-    vertices_by_x = 2;
-    vertices_by_y = 2;
-    vertices_by_z = 2;
-    quads_by_x = vertices_by_x - 1;
-    quads_by_y = vertices_by_y - 1;
-    quads_by_z = vertices_by_z - 1;
+    // HalfEdges
+    HalfEdge edge;
+    m_edges.reserve(36);
+    for(int i=0 ; i < 36 ; ++i) { m_edges.push_back(edge); }
+
+    // Faces
+    Face face;
+    m_faces.reserve(12);
+    for(int i=0 ; i < 12 ; ++i) { face.edge = &m_edges[3*i]; m_faces.push_back(face); }
 
     // Vertices
-    QVector3D vertice;
-    m_vertices.reserve(vertices_by_x * vertices_by_y * vertices_by_z);
-    for(int z = 0; z < vertices_by_z; ++z)
-    {
-        for(int y = 0; y < vertices_by_y; ++y)
-        {
-            for(int x = 0; x < vertices_by_x; ++x)
-            {
-                vertice.setX((m_width * x / quads_by_x) - m_width / 2);
-                vertice.setY((m_height * y / quads_by_y) - m_height / 2);
-                vertice.setZ((m_depth * z / quads_by_z) - m_depth / 2);
-                m_coords.push_back(vertice);
-            }
-        }
+    Vertex vertice;
+    m_vertices.reserve(8);
+    float x = m_width / 2, y = m_height / 2, z = m_depth / 2;
+
+    vertice.coords = QVector3D(-x, -y, -z); vertice.index = 0; vertice.outgoing = &m_edges[0]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(x, -y, -z); vertice.index = 1; vertice.outgoing = &m_edges[1]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(x, y, -z); vertice.index = 2; vertice.outgoing = &m_edges[3]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(-x, y, -z); vertice.index = 3; vertice.outgoing = &m_edges[4]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(-x, -y, z); vertice.index = 4; vertice.outgoing = &m_edges[7]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(x, -y, z); vertice.index = 5; vertice.outgoing = &m_edges[6]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(x, y, z); vertice.index = 6; vertice.outgoing = &m_edges[10]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(-x, y, z); vertice.index = 7; vertice.outgoing = &m_edges[9]; m_vertices.push_back(vertice);
+
+    // HalfEdges
+    for(int i=0 ; i < 36 ; ++i) {
+        m_edges[i].face = &m_faces[i/3];
+        m_edges[i].next = (i%3 == 2)? &m_edges[i-2] : &m_edges[i+1];
+        m_edges[i].previous = (i%3 == 0)? &m_edges[i+2] : &m_edges[i-1];
     }
 
-    // Indices
-    m_indices.reserve(quads_by_x * quads_by_y * quads_by_z * 6);
-    for (int z = 0; z <= quads_by_z; z+=quads_by_z) // Front and Back
-    {
-        for (int y = 0; y < quads_by_y; ++y)
-        {
-            for (int x = 0; x < quads_by_x; ++x)
-            {
-                int i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
+    // Front
+    m_edges[0].vertex = &m_vertices[1];  m_edges[0].opposite = &m_edges[33];
+    m_edges[1].vertex = &m_vertices[2];  m_edges[1].opposite = &m_edges[22];
+    m_edges[2].vertex = &m_vertices[0];  m_edges[2].opposite = &m_edges[5];
 
-                m_indices.push_back(i);
-                m_indices.push_back(i + vertices_by_x);
-                m_indices.push_back(i + 1);
+    m_edges[3].vertex = &m_vertices[3];  m_edges[3].opposite = &m_edges[24];
+    m_edges[4].vertex = &m_vertices[0];  m_edges[4].opposite = &m_edges[13];
+    m_edges[5].vertex = &m_vertices[2];  m_edges[5].opposite = &m_edges[2];
 
-                m_indices.push_back(i + 1);
-                m_indices.push_back(i + vertices_by_x);
-                m_indices.push_back(i + 1 + vertices_by_x);
-            }
-        }
-    }
-    for (int z = 0; z < quads_by_z; ++z) // Up and Down
-    {
-        for (int y = 0; y <= quads_by_y; y+=quads_by_y)
-        {
-            for (int x = 0; x < quads_by_x; ++x)
-            {
-                int i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
+    // Back
+    m_edges[6].vertex = &m_vertices[4];  m_edges[6].opposite = &m_edges[30];
+    m_edges[7].vertex = &m_vertices[7];  m_edges[7].opposite = &m_edges[16];
+    m_edges[8].vertex = &m_vertices[5];  m_edges[8].opposite = &m_edges[11];
 
-                m_indices.push_back(i);
-                m_indices.push_back(i + vertices_by_y * vertices_by_x);
-                m_indices.push_back(i + 1);
+    m_edges[9].vertex = &m_vertices[6];  m_edges[9].opposite = &m_edges[27];
+    m_edges[10].vertex = &m_vertices[5]; m_edges[10].opposite = &m_edges[19];
+    m_edges[11].vertex = &m_vertices[7]; m_edges[11].opposite = &m_edges[8];
 
-                m_indices.push_back(i + 1);
-                m_indices.push_back(i + vertices_by_y * vertices_by_x);
-                m_indices.push_back(i + 1 + vertices_by_y * vertices_by_x);
-            }
-        }
-    }
-    for (int z = 0; z < quads_by_z; ++z) // Left and Right
-    {
-        for (int y = 0; y < quads_by_y; ++y)
-        {
-            for (int x = 0; x <= quads_by_x; x+=quads_by_x)
-            {
-                int i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
+    // Left
+    m_edges[12].vertex = &m_vertices[0]; m_edges[12].opposite = &m_edges[34];
+    m_edges[13].vertex = &m_vertices[3]; m_edges[13].opposite = &m_edges[4];
+    m_edges[14].vertex = &m_vertices[4]; m_edges[14].opposite = &m_edges[17];
 
-                m_indices.push_back(i);
-                m_indices.push_back(i + vertices_by_x);
-                m_indices.push_back(i + vertices_by_y * vertices_by_x);
+    m_edges[15].vertex = &m_vertices[7]; m_edges[15].opposite = &m_edges[28];
+    m_edges[16].vertex = &m_vertices[4]; m_edges[16].opposite = &m_edges[7];
+    m_edges[17].vertex = &m_vertices[3]; m_edges[17].opposite = &m_edges[14];
 
-                m_indices.push_back(i + vertices_by_y * vertices_by_x);
-                m_indices.push_back(i + vertices_by_x);
-                m_indices.push_back(i + vertices_by_y * vertices_by_x + vertices_by_x);
-            }
-        }
-    }
+    // Right
+    m_edges[18].vertex = &m_vertices[5]; m_edges[18].opposite = &m_edges[31];
+    m_edges[19].vertex = &m_vertices[6]; m_edges[19].opposite = &m_edges[10];
+    m_edges[20].vertex = &m_vertices[1]; m_edges[20].opposite = &m_edges[23];
 
+    m_edges[21].vertex = &m_vertices[2]; m_edges[21].opposite = &m_edges[25];
+    m_edges[22].vertex = &m_vertices[1]; m_edges[22].opposite = &m_edges[1];
+    m_edges[23].vertex = &m_vertices[6]; m_edges[23].opposite = &m_edges[20];
+
+    // Up
+    m_edges[24].vertex = &m_vertices[2]; m_edges[24].opposite = &m_edges[3];
+    m_edges[25].vertex = &m_vertices[6]; m_edges[25].opposite = &m_edges[21];
+    m_edges[26].vertex = &m_vertices[3]; m_edges[26].opposite = &m_edges[29];
+
+    m_edges[27].vertex = &m_vertices[7]; m_edges[27].opposite = &m_edges[9];
+    m_edges[28].vertex = &m_vertices[3]; m_edges[28].opposite = &m_edges[15];
+    m_edges[29].vertex = &m_vertices[6]; m_edges[29].opposite = &m_edges[26];
+
+    // Down
+    m_edges[30].vertex = &m_vertices[5]; m_edges[30].opposite = &m_edges[6];
+    m_edges[31].vertex = &m_vertices[1]; m_edges[31].opposite = &m_edges[18];
+    m_edges[32].vertex = &m_vertices[4]; m_edges[32].opposite = &m_edges[35];
+
+    m_edges[33].vertex = &m_vertices[0]; m_edges[33].opposite = &m_edges[0];
+    m_edges[34].vertex = &m_vertices[4]; m_edges[34].opposite = &m_edges[12];
+    m_edges[35].vertex = &m_vertices[1]; m_edges[35].opposite = &m_edges[32];
+
+    convertToBuffer();
     update();
 }
 
@@ -119,17 +122,11 @@ void MCube::paintGL()
 void MCube::setWidth(float width)
 {
     if(width != m_width) {
-        int i;
-        for(int z = 0; z < vertices_by_z; ++z)
-        {
-            for(int y = 0; y < vertices_by_y; ++y)
-            {
-                for(int x = 0; x < vertices_by_x; ++x)
-                {
-                    i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                    m_coords[i].setX((width * x / quads_by_x) - width / 2);
-                }
-            }
+        float x;
+        for(int i=0 ; i < m_vertices.size() ; ++i) {
+            x = m_coords[i].x() * width / m_width;
+            m_vertices[i].coords.setX(x);
+            m_coords[i].setX(x);
         }
         m_width = width;
 
@@ -140,17 +137,11 @@ void MCube::setWidth(float width)
 void MCube::setHeight(float height)
 {
     if(height != m_height) {
-        int i;
-        for(int z = 0; z < vertices_by_z; ++z)
-        {
-            for(int y = 0; y < vertices_by_y; ++y)
-            {
-                for(int x = 0; x < vertices_by_x; ++x)
-                {
-                    i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                    m_coords[i].setY((height * y / quads_by_y) - height / 2);
-                }
-            }
+        float y;
+        for(int i=0 ; i < m_vertices.size() ; ++i) {
+            y = m_coords[i].y() * height / m_height;
+            m_vertices[i].coords.setY(y);
+            m_coords[i].setY(y);
         }
         m_height = height;
 
@@ -161,84 +152,14 @@ void MCube::setHeight(float height)
 void MCube::setDepth(float depth)
 {
     if(depth != m_depth) {
-        int i;
-        for(int z = 0; z < vertices_by_z; ++z)
-        {
-            for(int y = 0; y < vertices_by_y; ++y)
-            {
-                for(int x = 0; x < vertices_by_x; ++x)
-                {
-                    i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                    m_coords[i].setZ((depth * z / quads_by_z) - depth / 2);
-                }
-            }
+        float z;
+        for(int i=0 ; i < m_vertices.size() ; ++i) {
+            z = m_coords[i].z() * depth / m_depth;
+            m_vertices[i].coords.setZ(z);
+            m_coords[i].setZ(z);
         }
         m_depth = depth;
 
         update();
     }
 }
-/*
-void MCube::verticesbyx(int m_edgex)
-{
-    if(m_edgex != vertices_by_x)
-    {
-        for (int z = 0; z <= quads_by_z; z+=quads_by_z) // Front and Back
-        {
-            for (int y = 0; y < quads_by_y; ++y)
-            {
-                for (int x = 0; x < m_edgex-1; ++x)
-                {
-                    int i = z * vertices_by_y * m_edgex + y * m_edgex + x;
-                    m_vertices[i].setX((m_width * x / (m_edgex-1)) - m_width / 2);
-                }
-            }
-        }
-    }
-    vertices_by_x= m_edgex;
-    qDebug()<<"le x vaut :"<<vertices_by_x;
-    update();
-}
-
-void MCube::verticesbyy(int m_edgey)
-{
-    if(m_edgey != vertices_by_y)
-    {
-        for (int z = 0; z <= quads_by_z; z+=quads_by_z) // Front and Back
-        {
-            for (int y = 0; y < m_edgey-1; ++y)
-            {
-                for (int x = 0; x < quads_by_x; ++x)
-                {
-                    int i = z * m_edgey * vertices_by_x + y * vertices_by_x + x;
-                    m_vertices[i].setY((m_height * y / (m_edgey-1)) - m_height / 2);
-                }
-            }
-        }
-    }
-    vertices_by_y= m_edgey;
-    qDebug()<<"le x vaut :"<<vertices_by_x;
-    update();
-}
-
-void MCube::verticesbyz(int m_edgez)
-{
-    if(m_edgez != vertices_by_z)
-    {
-        for (int z = 0; z <= m_edgez-1; z+=m_edgez-1) // Front and Back
-        {
-            for (int y = 0; y < quads_by_y; ++y)
-            {
-                for (int x = 0; x < quads_by_x; ++x)
-                {
-                    int i = z * vertices_by_y * vertices_by_x + y * vertices_by_x + x;
-                    m_vertices[i].setZ((m_depth * z / (m_edgez-1)) - m_depth / 2);
-                }
-            }
-        }
-    }
-    vertices_by_z= m_edgez;
-    qDebug()<<"le x vaut :"<<vertices_by_x;
-    update();
-}
-*/

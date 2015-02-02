@@ -18,6 +18,7 @@ typedef struct HalfEdge {
 typedef struct Vertex {
     QVector3D coords;
     HalfEdge* outgoing;
+    int index;
 } Vertex;
 
 typedef struct Face {

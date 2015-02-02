@@ -19,22 +19,10 @@ private:
     float m_height;
     float m_depth;
 
-    int vertices_by_x;
-    int vertices_by_y;
-    int vertices_by_z;
-    int quads_by_x;
-    int quads_by_y;
-    int quads_by_z;
-
 public slots:
     void setWidth(float width);
     void setHeight(float height);
     void setDepth(float depth);
-    /*
-    void verticesbyx(int m_edgex);
-    void verticesbyy(int m_edgey);
-    void verticesbyz(int m_edgez);
-    */
 };
 
 #endif // MCUBE_H

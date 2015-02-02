@@ -42,11 +42,9 @@ void ModelManager::removeModel() { m_models.removeLast(); }
 
 void ModelManager::clear() { m_models.clear(); }
 
-Model* ModelManager::getModel(QString name) {
-    for(int i=0 ; i < m_models.size() ; ++i) {
-        if(m_models.at(i)->getName() == name) {
-            return m_models.at(i);
-        }
+Model* ModelManager::getModel(unsigned int index) {
+    if(m_models.size() > index) {
+        return m_models.at(index);
     }
     return NULL;
 }

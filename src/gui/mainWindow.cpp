@@ -116,7 +116,7 @@ void MainWindow::on_initCube_clicked()
     ui->widgetwidth->setVisible(true);
     ui->widgetdepth->setVisible(true);
     ui->widgetvalid->setVisible(true);
-    ui->widgetEdge->setVisible(true);
+    ui->widgetEdge->setVisible(true); // Niveau de subdivision plutôt
     ui->widgetName->setVisible(true);
     ui->widgetfenetre->addmodel(m_model);
 
@@ -124,6 +124,7 @@ void MainWindow::on_initCube_clicked()
     ui->doubleSpinBox_2->setValue(5.0);
     ui->doubleSpinBox_3->setValue(5.0);
     ui->horizontalSlider->setValue(10); // Niveau de subdivision plutôt
+    ui->textEditName->setText("NewCube");
 
     connect(ui->doubleSpinBox, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->doubleSpinBox_2, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
@@ -187,7 +188,7 @@ void MainWindow::updateLastModel() {
     m_model->setWidth(ui->doubleSpinBox->value());
     m_model->setHeight(ui->doubleSpinBox_2->value());
     m_model->setDepth(ui->doubleSpinBox_3->value());
-    /* On fera une subdivision à la place, dès qu'on passera en half-edge...
+    /* On fera une subdivision à la place ou une décimation
     m_model->verticesbyx(ui->horizontalSlider->value());
     m_model->verticesbyy(ui->horizontalSlider->value());
     m_model->verticesbyz(ui->horizontalSlider->value());
