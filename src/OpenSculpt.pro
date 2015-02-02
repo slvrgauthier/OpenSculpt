@@ -29,7 +29,8 @@ SOURCES += main.cpp \
     tool/LTInflate.cpp \
     tool/LTPinch.cpp \
     tool/LTSmooth.cpp \
-    model/MCone.cpp
+    model/MCone.cpp \
+    gui/mylabel.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/glwidget.h \
@@ -49,7 +50,8 @@ HEADERS += gui/mainWindow.h \
     tool/LTInflate.h \
     tool/GTScale.h \
     model/MCone.h \
-    model/halfedge.h
+    model/halfedge.h \
+    gui/mylabel.h
 
 FORMS += gui/mainWindow.ui
 

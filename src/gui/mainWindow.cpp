@@ -142,11 +142,11 @@ void MainWindow::on_valid_clicked()
     disconnect(ui->doubleSpinBox_2, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->doubleSpinBox_3, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->horizontalSlider, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
-    QLabel* name = new QLabel();
 
-    name->setText(ui->textEditName->toPlainText());
+    myLabel* m_name = new myLabel();
+    m_name->setText(ui->textEditName->toPlainText());
     m_model->setName(ui->textEditName->toPlainText());
-    m_hierarchy.push_back(name);
+    m_hierarchy.push_back(m_name);
     qDebug()<<m_hierarchy;
 
     for(int i(0) ; i<m_hierarchy.size() ; i++)
@@ -155,9 +155,7 @@ void MainWindow::on_valid_clicked()
         layout->addWidget(m_hierarchy[i], 0, 0);
 
     }
-
     ui->hierarchy->show();
-
 }
 
 void MainWindow::updateLastModel() {
