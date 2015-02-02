@@ -70,6 +70,9 @@ void GLWidget::paintGL()
     glRotatef(y_rot, 0.0f, 1.0f, 0.0f);
     glRotatef(z_rot, 0.0f, 0.0f, 1.0f);
 
+    int LightPos[4] = {(int)(distance/2),0,(int)(-distance/2),1};
+    glLightiv(GL_LIGHT0,GL_POSITION,LightPos);
+
     // Projection matrix
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
