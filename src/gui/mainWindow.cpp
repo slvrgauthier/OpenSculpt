@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->hideDialog();
     ui->menuShow->setVisible(true);
     modelListLayout = new QVBoxLayout(ui->scrollArea);
+    modelListLayout->setAlignment(Qt::AlignTop);
     modelList = new QWidget();
     modelList->setLayout(modelListLayout);
     ui->scrollArea->setWidgetResizable(true);
