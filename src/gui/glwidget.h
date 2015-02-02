@@ -19,7 +19,6 @@ enum TOOL
     LTSMOOTH,
     WTSCALE,
     WTROTATE,
-    //REDO, -> fonction à part non ?
     NOTOOL
 };
 

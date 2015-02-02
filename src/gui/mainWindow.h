@@ -35,6 +35,8 @@ private slots:
     void on_cancel_clicked();
     void on_valid_clicked();
     void updateLastModel();
+    void disableTool();
+    void hideDialog();
 
 
     //void on_pushButton_clicked();

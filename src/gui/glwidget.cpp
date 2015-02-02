@@ -49,7 +49,7 @@ void GLWidget::initializeGL()
     qglClearColor(Qt::black);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHT0);
-    //glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHTING);
 
     // ModelManager init
     m_manager.initializeGL();
@@ -78,10 +78,8 @@ void GLWidget::paintGL()
     glLoadIdentity();
     gluPerspective(30.0f, 1.0*width()/height(), 0.1f, 100.0f);
 
-
     // Draw map
     qglColor(Qt::lightGray);
-    //glColor3d(1,0,0); // face rouge
 
     m_manager.paintGL();
 }
@@ -94,12 +92,6 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_F) {
         mode_fill = !mode_fill;
-        if(mode_fill) {
-            glEnable(GL_LIGHTING);
-        }
-        else {
-            glDisable(GL_LIGHTING);
-        }
     }
 }
 
@@ -146,15 +138,16 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
             qDebug() << "WTSCALE";
             distance *= 1.0 + (1.0 * dy / 300.0);
             qDebug() << event->pos();
-        }/*
-        else if(activeTool == REDO)
-        {
-            qDebug() << "REDO";
-        }*/
+        }
         else if(activeTool != NOTOOL)
         {
             Model* model = m_manager.getModel(0); //RECODE : indice pris dans la hiérarchie d'objet
-            m_tools.at(activeTool)->action(model, m_manager.getGLpos(event->pos()), move);
+            if(model != NULL) {
+                m_tools.at(activeTool)->action(model, m_manager.getGLpos(event->pos()), move);
+            }
+            else {
+                qDebug() << "Model for using tool is NULL.";
+            }
         }
         else
         {

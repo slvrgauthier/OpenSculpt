@@ -13,13 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow) //construteur du programme principal
 {
     ui->setupUi(this);
-    ui->widgetheight->setVisible(false);
-    ui->widgetwidth->setVisible(false);
-    ui->widgetdepth->setVisible(false);
-    ui->widgetvalid->setVisible(false);
+    this->hideDialog();
     ui->menuShow->setVisible(true);
-    ui->widgetEdge->setVisible(false);
-    ui->widgetName->setVisible(false);
     layout = new QVBoxLayout;
     ui->hierarchy->setLayout(layout);
 
@@ -62,44 +57,32 @@ void MainWindow::on_actionA_propos_triggered()
 //Ecouteur sur le bouton select
 void MainWindow::on_select_clicked()
 {
+    this->disableTool();
     ui->select->setChecked(true);
-    ui->rotation->setChecked(false);
-    ui->redo->setChecked(false);
-    ui->zoom->setChecked(false);
-
     ui->widgetfenetre->enableTool(GTMOVE);
 }
 
 //Ecouteur sur le bouton rotation
 void MainWindow::on_rotation_clicked()
 {
-    ui->select->setChecked(false);
+    this->disableTool();
     ui->rotation->setChecked(true);
-    ui->redo->setChecked(false);
-    ui->zoom->setChecked(false);
-
     ui->widgetfenetre->enableTool(WTROTATE);
 }
 
 //Ecouteur sur le bouton redo
 void MainWindow::on_redo_clicked()
 {
-    ui->select->setChecked(false);
-    ui->rotation->setChecked(false);
+    this->disableTool();
     ui->redo->setChecked(true);
-    ui->zoom->setChecked(false);
-
     //ui->widgetfenetre->enableTool(REDO);
 }
 
 //Ecouteur sur le bouton zoom
 void MainWindow::on_zoom_clicked()
 {
-    ui->select->setChecked(false);
-    ui->rotation->setChecked(false);
-    ui->redo->setChecked(false);
+    this->disableTool();
     ui->zoom->setChecked(true);
-
     ui->widgetfenetre->enableTool(WTSCALE);
 }
 
@@ -111,6 +94,8 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 //Creation d'un nouveau cube dans la scene
 void MainWindow::on_initCube_clicked()
 {
+    this->disableTool();
+
     m_model = new MCube();
     ui->widgetheight->setVisible(true);
     ui->widgetwidth->setVisible(true);
@@ -143,12 +128,7 @@ void MainWindow::on_initSphere_clicked()
 //Ecouteur sur le bouton annuler
 void MainWindow::on_cancel_clicked()
 {
-    ui->widgetheight->setVisible(false);
-    ui->widgetwidth->setVisible(false);
-    ui->widgetdepth->setVisible(false);
-    ui->widgetvalid->setVisible(false);
-    ui->widgetEdge->setVisible(false);
-    ui->widgetName->setVisible(false);
+    this->hideDialog();
     ui->widgetfenetre->removemodel();
 
 }
@@ -156,21 +136,17 @@ void MainWindow::on_cancel_clicked()
 //Ecouteur sur le bouton valider
 void MainWindow::on_valid_clicked()
 {
-    ui->widgetheight->setVisible(false);
-    ui->widgetwidth->setVisible(false);
-    ui->widgetdepth->setVisible(false);
-    ui->widgetvalid->setVisible(false);
-    ui->widgetEdge->setVisible(false);
-    ui->widgetName->setVisible(false);
+    this->hideDialog();
 
     disconnect(ui->doubleSpinBox, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->doubleSpinBox_2, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->doubleSpinBox_3, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->horizontalSlider, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
-    QLabel* m_name = new QLabel();
+    QLabel* name = new QLabel();
 
-    m_name->setText(ui->textEditName->toPlainText());
-    m_hierarchy.push_back(m_name);
+    name->setText(ui->textEditName->toPlainText());
+    m_model->setName(ui->textEditName->toPlainText());
+    m_hierarchy.push_back(name);
     qDebug()<<m_hierarchy;
 
     for(int i(0) ; i<m_hierarchy.size() ; i++)
@@ -219,3 +195,22 @@ void MainWindow::on_actionNewObject_triggered()
     ui->widgetfenetre->clear();
 }
 
+void MainWindow::disableTool()
+{
+    ui->select->setChecked(false);
+    ui->rotation->setChecked(false);
+    ui->redo->setChecked(false);
+    ui->zoom->setChecked(false);
+
+    ui->widgetfenetre->enableTool(NOTOOL);
+}
+
+void MainWindow::hideDialog()
+{
+    ui->widgetheight->setVisible(false);
+    ui->widgetwidth->setVisible(false);
+    ui->widgetdepth->setVisible(false);
+    ui->widgetvalid->setVisible(false);
+    ui->widgetEdge->setVisible(false);
+    ui->widgetName->setVisible(false);
+}
