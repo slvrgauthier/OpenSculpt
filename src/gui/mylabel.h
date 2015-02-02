@@ -4,6 +4,8 @@
 #include <QLabel>
 #include <QMouseEvent>
 #include <QWidget>
+#include <QString>
+
 class myLabel : public QLabel
 {
 protected:
@@ -11,6 +13,7 @@ protected:
     void mousePressEvent(QMouseEvent*event);
 public:
     myLabel();
+    QString getId();
 
 private:
 

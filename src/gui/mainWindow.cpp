@@ -137,6 +137,7 @@ void MainWindow::on_pushValid_clicked()
     myLabel* name = new myLabel();
     name->setText(ui->textEditName->toPlainText());
     m_model->setName(ui->textEditName->toPlainText());
+    name->getId();
     m_hierarchy.push_back(name);
     qDebug()<<m_hierarchy;
 
