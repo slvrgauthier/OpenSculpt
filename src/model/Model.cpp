@@ -81,7 +81,17 @@ void Model::update()
 
 void Model::scale(float percent)
 {
+    QVector3D vertice;
+    for(int i=0 ; i < m_vertices.size() ; ++i) {
+        vertice = m_coords[i];
+        vertice.setX((vertice.x()-getCenter().x())*percent + getCenter().x());
+        vertice.setY((vertice.y()-getCenter().y())*percent + getCenter().y());
+        vertice.setZ((vertice.z()-getCenter().z())*percent + getCenter().z());
 
+        m_coords[i] = vertice;
+        m_vertices[i].coords = vertice;
+    }
+    update();
 }
 
 void Model::setWidth(float width){}

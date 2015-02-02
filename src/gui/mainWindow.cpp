@@ -75,7 +75,7 @@ void MainWindow::on_zoom_clicked()
 {
     this->disableTool();
     ui->zoom->setChecked(true);
-    ui->widgetfenetre->enableTool(WTSCALE);
+    ui->widgetfenetre->enableTool(GTSCALE);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)

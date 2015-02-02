@@ -125,8 +125,8 @@ void MCube::setWidth(float width)
         float x;
         for(int i=0 ; i < m_vertices.size() ; ++i) {
             x = m_coords[i].x() * width / m_width;
-            m_vertices[i].coords.setX(x);
-            m_coords[i].setX(x);
+            m_vertices[i].coords.setX(x + getCenter().x());
+            m_coords[i].setX(x + getCenter().x());
         }
         m_width = width;
 
@@ -140,8 +140,8 @@ void MCube::setHeight(float height)
         float y;
         for(int i=0 ; i < m_vertices.size() ; ++i) {
             y = m_coords[i].y() * height / m_height;
-            m_vertices[i].coords.setY(y);
-            m_coords[i].setY(y);
+            m_vertices[i].coords.setY(y + getCenter().y());
+            m_coords[i].setY(y + getCenter().y());
         }
         m_height = height;
 
@@ -155,8 +155,8 @@ void MCube::setDepth(float depth)
         float z;
         for(int i=0 ; i < m_vertices.size() ; ++i) {
             z = m_coords[i].z() * depth / m_depth;
-            m_vertices[i].coords.setZ(z);
-            m_coords[i].setZ(z);
+            m_vertices[i].coords.setZ(z + getCenter().z());
+            m_coords[i].setZ(z + getCenter().z());
         }
         m_depth = depth;
 
