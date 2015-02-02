@@ -7,3 +7,13 @@
 #else
     #include <GL/glut.h>
 #endif
+
+MCone::MCone() : m_radius1(5.0), m_radius2(0.1), m_height(5.0)
+{
+
+}
+
+void MCone::initializeGL()
+{
+
+}

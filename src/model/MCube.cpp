@@ -104,21 +104,6 @@ void MCube::initializeGL()
 
 }
 
-void MCube::paintGL()
-{
-    glEnableClientState(GL_VERTEX_ARRAY);
-
-    m_vertexbuffer.bind();
-    glVertexPointer(3, GL_FLOAT, 0, NULL);
-    m_vertexbuffer.release();
-
-    m_indicebuffer.bind();
-    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, NULL);
-    m_indicebuffer.release();
-
-    glDisableClientState(GL_VERTEX_ARRAY);
-}
-
 void MCube::setWidth(float width)
 {
     if(width != m_width) {

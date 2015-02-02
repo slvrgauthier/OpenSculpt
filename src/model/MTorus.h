@@ -8,8 +8,12 @@ using namespace std;
 class MTorus : public Model
 {
 public:
+    MTorus();
     void initializeGL();
-    void paintGL();
+
+private:
+    float m_radius1;
+    float m_radius2;
 };
 
 #endif // MTORUS_H

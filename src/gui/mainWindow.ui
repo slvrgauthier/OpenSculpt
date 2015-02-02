@@ -19,7 +19,7 @@
      <widget class="QWidget" name="widget_2" native="true">
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <widget class="GLWidget" name="widgetfenetre" native="true">
+        <widget class="GLWidget" name="glwidget" native="true">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -121,17 +121,17 @@
       <widget class="QWidget" name="Initfigure" native="true">
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
-         <widget class="QWidget" name="widgetheight" native="true">
+         <widget class="QWidget" name="widgetHeight" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QLabel" name="height">
+            <widget class="QLabel" name="textHeight">
              <property name="text">
               <string>Hauteur</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+            <widget class="QDoubleSpinBox" name="spinBoxHeight">
              <property name="minimum">
               <double>0.010000000000000</double>
              </property>
@@ -141,17 +141,17 @@
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widgetwidth" native="true">
+         <widget class="QWidget" name="widgetWidth" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QLabel" name="width">
+            <widget class="QLabel" name="textWidth">
              <property name="text">
               <string>Largeur</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox">
+            <widget class="QDoubleSpinBox" name="spinBoxWidth">
              <property name="minimum">
               <double>0.010000000000000</double>
              </property>
@@ -161,17 +161,17 @@
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widgetdepth" native="true">
+         <widget class="QWidget" name="widgetDepth" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
-            <widget class="QLabel" name="depth">
+            <widget class="QLabel" name="textDepth">
              <property name="text">
               <string>Profondeur</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+            <widget class="QDoubleSpinBox" name="spinBoxDepth">
              <property name="minimum">
               <double>0.010000000000000</double>
              </property>
@@ -181,22 +181,25 @@
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widgetEdge" native="true">
+         <widget class="QWidget" name="widgetSubdivide" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
-            <widget class="QLabel" name="intEdge">
+            <widget class="QLabel" name="textSubdivide">
              <property name="text">
-              <string>Nombres d'arêtes :</string>
+              <string>Niveau de subdivision :</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="horizontalSlider">
+            <widget class="QSlider" name="sliderSubdivide">
              <property name="minimum">
-              <number>2</number>
+              <number>1</number>
              </property>
              <property name="maximum">
-              <number>20</number>
+              <number>10</number>
+             </property>
+             <property name="value">
+              <number>1</number>
              </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -210,9 +213,9 @@
          <widget class="QWidget" name="widgetName" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
-            <widget class="QLabel" name="name">
+            <widget class="QLabel" name="textName">
              <property name="text">
-              <string>Nom:</string>
+              <string>Nom :</string>
              </property>
             </widget>
            </item>
@@ -230,17 +233,17 @@
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widgetvalid" native="true">
+         <widget class="QWidget" name="widgetValidate" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
-            <widget class="QPushButton" name="cancel">
+            <widget class="QPushButton" name="pushCancel">
              <property name="text">
               <string>Annuler</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="valid">
+            <widget class="QPushButton" name="pushValid">
              <property name="text">
               <string>Valider</string>
              </property>
@@ -262,13 +265,16 @@
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
-      <widget class="QPushButton" name="select">
+      <widget class="QPushButton" name="gtmove">
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/Curseur.png</normaloff>:/icons/Curseur.png</iconset>
+         <normaloff>:/icons/quatre-fleches_318-10750.jpg</normaloff>:/icons/quatre-fleches_318-10750.jpg</iconset>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -279,13 +285,33 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="rotation">
+      <widget class="QPushButton" name="gtrotate">
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/rotation.jpeg</normaloff>:/icons/rotation.jpeg</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="gtscale">
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/zoom.png</normaloff>:/icons/zoom.png</iconset>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -329,7 +355,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="rotate">
+      <widget class="QPushButton" name="wtmove">
        <property name="text">
         <string/>
        </property>
@@ -347,20 +373,6 @@
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="zoom">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/zoom.png</normaloff>:/icons/zoom.png</iconset>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -508,7 +520,7 @@
   </action>
   <action name="actionNewObject">
    <property name="text">
-    <string>Nouvelle Objet</string>
+    <string>Nouvel Objet</string>
    </property>
   </action>
  </widget>

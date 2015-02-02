@@ -7,3 +7,13 @@
 #else
     #include <GL/glut.h>
 #endif
+
+MTorus::MTorus() : m_radius1(5.0), m_radius2(2.0)
+{
+
+}
+
+void MTorus::initializeGL()
+{
+
+}

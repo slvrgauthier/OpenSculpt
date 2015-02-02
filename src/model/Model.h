@@ -23,24 +23,32 @@ using namespace std;
 
 class Model
 {
-
 public:
     Model();
+    ~Model();
 
 public:
     virtual void initializeGL() = 0;
-    virtual void paintGL() = 0;
+    virtual void paintGL();
 
+    void convertToBuffer();
+    void update();
+
+public:
+    virtual void scale(float percent);
+
+    virtual void setWidth(float width);
+    virtual void setHeight(float height);
+    virtual void setDepth(float depth);
+
+public:
     QString getName() const;
     void setName(QString name);
     QVector3D getVertex(int index) const;
     void setVertex(int index, QVector3D vertex);
-    int getSize() const;
     QVector3D getCenter() const;
     void setCenter(QVector3D center);
-
-    void convertToBuffer();
-    void update();
+    int getSize() const;
 
 protected:
     // Model infos
@@ -59,13 +67,6 @@ protected:
     // GPU Buffer
     QGLBuffer m_vertexbuffer;
     QGLBuffer m_indicebuffer;
-
-public slots:
-    virtual void scale(float percent);
-
-    virtual void setWidth(float width);
-    virtual void setHeight(float height);
-    virtual void setDepth(float depth);
 };
 
 #endif // MODEL_H

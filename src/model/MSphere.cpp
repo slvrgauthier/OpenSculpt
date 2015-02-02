@@ -7,3 +7,13 @@
 #else
     #include <GL/glut.h>
 #endif
+
+MSphere::MSphere() : m_radius(5.0)
+{
+
+}
+
+void MSphere::initializeGL()
+{
+
+}

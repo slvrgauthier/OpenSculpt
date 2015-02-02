@@ -7,3 +7,13 @@
 #else
     #include <GL/glut.h>
 #endif
+
+MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
+{
+
+}
+
+void MCylinder::initializeGL()
+{
+
+}

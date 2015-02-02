@@ -8,8 +8,12 @@ using namespace std;
 class MCylinder : public Model
 {
 public:
+    MCylinder();
     void initializeGL();
-    void paintGL();
+
+private:
+    float m_radius;
+    float m_height;
 };
 
 #endif // MCYLINDER_H

@@ -8,8 +8,11 @@ using namespace std;
 class MSphere : public Model
 {
 public:
+    MSphere();
     void initializeGL();
-    void paintGL();
+
+private:
+    float m_radius;
 };
 
 #endif // MSPHERE_H

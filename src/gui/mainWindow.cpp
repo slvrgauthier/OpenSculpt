@@ -10,7 +10,7 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow) //construteur du programme principal
+    ui(new Ui::MainWindow) //constructeur du programme principal
 {
     ui->setupUi(this);
     this->hideDialog();
@@ -35,7 +35,7 @@ void MainWindow::on_actionOpen_triggered()
 //Creation d'une nouvelle fenetre avec tous les parametres reinitialises
 void MainWindow::on_actionNewProject_triggered()
 {
-    ui->widgetfenetre->clear();
+    ui->glwidget->clear();
     this->disableTool();
     this->hideDialog();
 }
@@ -47,40 +47,39 @@ void MainWindow::on_actionA_propos_triggered()
 }
 
 //Ecouteur sur le bouton select
-void MainWindow::on_select_clicked()
+void MainWindow::on_gtmove_clicked()
 {
     this->disableTool();
-    ui->select->setChecked(true);
-    ui->widgetfenetre->enableTool(GTMOVE);
+    ui->gtmove->setChecked(true);
+    ui->glwidget->enableTool(GTMOVE);
 }
 
 //Ecouteur sur le bouton rotation
-void MainWindow::on_rotation_clicked()
+void MainWindow::on_gtrotate_clicked()
 {
     this->disableTool();
-    ui->rotation->setChecked(true);
-    ui->widgetfenetre->enableTool(GTROTATE);
+    ui->gtrotate->setChecked(true);
+    ui->glwidget->enableTool(GTROTATE);
 }
 
 //Ecouteur sur le bouton redo
 void MainWindow::on_redo_clicked()
 {
-    this->disableTool();
-    ui->redo->setChecked(true);
-    //ui->widgetfenetre->enableTool(REDO);
+    ui->redo->setChecked(false);
+    // APPEL A LA FONCTION REDO
 }
 
 //Ecouteur sur le bouton zoom
-void MainWindow::on_zoom_clicked()
+void MainWindow::on_gtscale_clicked()
 {
     this->disableTool();
-    ui->zoom->setChecked(true);
-    ui->widgetfenetre->enableTool(GTSCALE);
+    ui->gtscale->setChecked(true);
+    ui->glwidget->enableTool(GTSCALE);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    ui->widgetfenetre->keyPressEvent(event);
+    ui->glwidget->keyPressEvent(event);
 }
 
 //Creation d'un nouveau cube dans la scene
@@ -89,24 +88,24 @@ void MainWindow::on_initCube_clicked()
     this->disableTool();
 
     m_model = new MCube();
-    ui->widgetheight->setVisible(true);
-    ui->widgetwidth->setVisible(true);
-    ui->widgetdepth->setVisible(true);
-    ui->widgetvalid->setVisible(true);
-    ui->widgetEdge->setVisible(true); // Niveau de subdivision plutôt
+    ui->widgetDepth->setVisible(true);
+    ui->widgetHeight->setVisible(true);
+    ui->widgetWidth->setVisible(true);
+    ui->widgetValidate->setVisible(true);
+    ui->widgetSubdivide->setVisible(true); // Niveau de subdivision plutôt
     ui->widgetName->setVisible(true);
-    ui->widgetfenetre->addmodel(m_model);
+    ui->glwidget->addmodel(m_model);
 
-    ui->doubleSpinBox->setValue(5.0);
-    ui->doubleSpinBox_2->setValue(5.0);
-    ui->doubleSpinBox_3->setValue(5.0);
-    ui->horizontalSlider->setValue(10); // Niveau de subdivision plutôt
+    ui->spinBoxDepth->setValue(5.0);
+    ui->spinBoxHeight->setValue(5.0);
+    ui->spinBoxWidth->setValue(5.0);
+    ui->sliderSubdivide->setValue(10); // Niveau de subdivision plutôt
     ui->textEditName->setText("NewCube");
 
-    connect(ui->doubleSpinBox, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
-    connect(ui->doubleSpinBox_2, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
-    connect(ui->doubleSpinBox_3, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
-    connect(ui->horizontalSlider, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
+    connect(ui->spinBoxDepth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    connect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    connect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
 
 }
 
@@ -114,31 +113,31 @@ void MainWindow::on_initCube_clicked()
 void MainWindow::on_initSphere_clicked()
 {
     //ui->widgetradius->setVisible(true);
-    ui->widgetvalid->setVisible(true);
+    ui->widgetValidate->setVisible(true);
 }
 
 //Ecouteur sur le bouton annuler
-void MainWindow::on_cancel_clicked()
+void MainWindow::on_pushCancel_clicked()
 {
     this->hideDialog();
-    ui->widgetfenetre->removemodel();
+    ui->glwidget->removemodel();
 
 }
 
 //Ecouteur sur le bouton valider
-void MainWindow::on_valid_clicked()
+void MainWindow::on_pushValid_clicked()
 {
     this->hideDialog();
 
-    disconnect(ui->doubleSpinBox, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
-    disconnect(ui->doubleSpinBox_2, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
-    disconnect(ui->doubleSpinBox_3, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
-    disconnect(ui->horizontalSlider, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
+    disconnect(ui->spinBoxDepth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    disconnect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    disconnect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    disconnect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
 
-    myLabel* m_name = new myLabel();
-    m_name->setText(ui->textEditName->toPlainText());
+    myLabel* name = new myLabel();
+    name->setText(ui->textEditName->toPlainText());
     m_model->setName(ui->textEditName->toPlainText());
-    m_hierarchy.push_back(m_name);
+    m_hierarchy.push_back(name);
     qDebug()<<m_hierarchy;
 
     for(int i(0) ; i<m_hierarchy.size() ; i++)
@@ -151,9 +150,9 @@ void MainWindow::on_valid_clicked()
 }
 
 void MainWindow::updateLastModel() {
-    m_model->setWidth(ui->doubleSpinBox->value());
-    m_model->setHeight(ui->doubleSpinBox_2->value());
-    m_model->setDepth(ui->doubleSpinBox_3->value());
+    m_model->setWidth(ui->spinBoxWidth->value());
+    m_model->setHeight(ui->spinBoxHeight->value());
+    m_model->setDepth(ui->spinBoxDepth->value());
     /* On fera une subdivision à la place ou une décimation
     m_model->verticesbyx(ui->horizontalSlider->value());
     m_model->verticesbyy(ui->horizontalSlider->value());
@@ -182,25 +181,25 @@ void MainWindow::on_actionSave_as_triggered()
 
 void MainWindow::on_actionNewObject_triggered()
 {
-    //ui->widgetfenetre->clear(); RECODE : sous-menu avec cube, sphere...etc
+    //ui->glwidget->clear(); RECODE : sous-menu avec cube, sphere...etc
 }
 
 void MainWindow::disableTool()
 {
-    ui->select->setChecked(false);
-    ui->rotation->setChecked(false);
+    ui->gtmove->setChecked(false);
+    ui->gtrotate->setChecked(false);
     ui->redo->setChecked(false);
-    ui->zoom->setChecked(false);
+    ui->gtscale->setChecked(false);
 
-    ui->widgetfenetre->enableTool(NOTOOL);
+    ui->glwidget->enableTool(NOTOOL);
 }
 
 void MainWindow::hideDialog()
 {
-    ui->widgetheight->setVisible(false);
-    ui->widgetwidth->setVisible(false);
-    ui->widgetdepth->setVisible(false);
-    ui->widgetvalid->setVisible(false);
-    ui->widgetEdge->setVisible(false);
+    ui->widgetHeight->setVisible(false);
+    ui->widgetWidth->setVisible(false);
+    ui->widgetDepth->setVisible(false);
+    ui->widgetValidate->setVisible(false);
+    ui->widgetSubdivide->setVisible(false);
     ui->widgetName->setVisible(false);
 }

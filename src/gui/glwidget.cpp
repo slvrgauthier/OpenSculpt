@@ -53,6 +53,7 @@ void GLWidget::initializeGL()
     // ModelManager init
     m_manager.initializeGL();
 }
+
 void GLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -106,7 +107,6 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 
     if (event->buttons() & Qt::RightButton)
     {
-        qDebug() << "WTROTATE droite";
         rotateBy(dy, 0, 0);
         rotateBy(0, dx, 0);
     }
@@ -115,13 +115,11 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
     {
         if(activeTool == WTROTATE)
         {
-            qDebug() << "WTROTATE gauche";
             rotateBy(dy, 0, 0);
             rotateBy(0, dx, 0);
         }
         else if(activeTool == WTSCALE)
         {
-            qDebug() << "WTSCALE";
             distance *= 1.0 + (1.0 * dy / 300.0);
             qDebug() << event->pos();
         }
@@ -132,7 +130,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
                 m_tools.at(activeTool)->action(model, last_pos, event->pos(), distance, x_rot, y_rot, z_rot);
             }
             else {
-                qDebug() << "Model for using tool is NULL.";
+                qDebug() << "Current model is NULL.";
             }
         }
         else
@@ -162,7 +160,6 @@ void GLWidget::enableTool(TOOL tool)
     activeTool = tool;
 }
 
-//Ajout d'un nouveau modele de différent type
 void GLWidget::addmodel(Model *model) {
     m_manager.addModel(model);
 }

@@ -22,6 +22,8 @@ Model::Model():
     m_center(QVector3D(0.0,0.0,0.0))
 {}
 
+Model::~Model() { m_vertexbuffer.destroy(); m_indicebuffer.destroy(); }
+
 QString Model::getName() const { return m_name; }
 void Model::setName(QString name) { m_name = name; }
 QVector3D Model::getVertex(int index) const { return m_coords.at(index); }
@@ -97,3 +99,18 @@ void Model::scale(float percent)
 void Model::setWidth(float width){}
 void Model::setHeight(float height){}
 void Model::setDepth(float depth){}
+
+void Model::paintGL()
+{
+    glEnableClientState(GL_VERTEX_ARRAY);
+
+    m_vertexbuffer.bind();
+    glVertexPointer(3, GL_FLOAT, 0, NULL);
+    m_vertexbuffer.release();
+
+    m_indicebuffer.bind();
+    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, NULL);
+    m_indicebuffer.release();
+
+    glDisableClientState(GL_VERTEX_ARRAY);
+}
