@@ -2,7 +2,8 @@
 #define TOOL_H
 
 #include "model/Model.h"
-#include <QVector3D>
+#include <QVector2D>
+#include <QPoint>
 
 /*
  * nom de classe outil :
@@ -14,7 +15,7 @@
 class Tool
 {
 public:
-    virtual void action(Model *model, QVector3D position, QVector3D move) = 0;
+    virtual void action(Model *model, QPoint last_position, QPoint current_position, float distance, float x_rot, float y_rot, float z_rot) = 0;
 };
 
 #endif // TOOL_H

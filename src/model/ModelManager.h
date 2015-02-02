@@ -37,8 +37,7 @@ public:
     void addModel(Model *model);
     void removeModel();
     void clear();
-    Model* getModel(unsigned int index);
-    QVector3D getGLpos(QPoint mouse);
+    Model* getModel(int index);
 };
 
 #endif // MODELMANAGER_H

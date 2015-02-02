@@ -19,7 +19,6 @@ SOURCES += main.cpp \
     model/Model.cpp \
     model/MCube.cpp \
     tool/LTMove.cpp \
-    tool/Tool.cpp \
     tool/GTMove.cpp \
     model/MCylinder.cpp \
     model/MTorus.cpp \
@@ -30,7 +29,8 @@ SOURCES += main.cpp \
     tool/LTPinch.cpp \
     tool/LTSmooth.cpp \
     model/MCone.cpp \
-    gui/mylabel.cpp
+    gui/mylabel.cpp \
+    model/func.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/glwidget.h \

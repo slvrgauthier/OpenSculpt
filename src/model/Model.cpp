@@ -7,7 +7,6 @@
  */
 
 #include "model/Model.h"
-#include "model/func.h"
 #if defined(__APPLE__) && (__MACH__)
     #include <GLUT/glut.h>
 #elif defined(__WIN32__)
@@ -19,7 +18,8 @@
 
 Model::Model():
     m_vertexbuffer(QGLBuffer::VertexBuffer),
-    m_indicebuffer(QGLBuffer::IndexBuffer)
+    m_indicebuffer(QGLBuffer::IndexBuffer),
+    m_center(QVector3D(0.0,0.0,0.0))
 {}
 
 QString Model::getName() const { return m_name; }
@@ -27,6 +27,8 @@ void Model::setName(QString name) { m_name = name; }
 QVector3D Model::getVertex(int index) const { return m_coords.at(index); }
 void Model::setVertex(int index, QVector3D vertex) { m_vertices[index].coords = vertex; m_coords[index] = vertex; }
 int Model::getSize() const { return m_vertices.size(); }
+QVector3D Model::getCenter() const { return m_center; }
+void Model::setCenter(QVector3D center) { m_center = center; }
 
 void Model::convertToBuffer()
 {

@@ -16,7 +16,6 @@
 #include "tool/LTMove.h"
 #include "tool/LTPinch.h"
 #include "tool/LTSmooth.h"
-#include "model/func.h"
 
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
@@ -104,19 +103,6 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 {
     int dx = event->x() - last_pos.x();
     int dy = event->y() - last_pos.y();
-    float coef = distance / 900.0; // Compensation perspective
-
-    float x,y,z, x_,y_,z_;
-    //Rotation autour de X
-    x_ = -dx, y_ = dy*cosd(x_rot), z_ = dy*sind(x_rot);
-    //Rotation autour de Y
-    x = x_*cosd(y_rot)+z_*sind(y_rot), y = y_, z = z_*cosd(y_rot)-x_*sind(y_rot);
-    //Rotation autour de Z
-    x_ = x*cosd(z_rot)-y*sind(z_rot), y_ = x*sind(z_rot)+y*cosd(z_rot), z_ = z;
-    // Mise à l'échelle
-    x = x_*coef, y = y_*coef, z = -z_*coef;
-
-    QVector3D move(x,y,z); // Mouvement dans le repère scène
 
     if (event->buttons() & Qt::RightButton)
     {
@@ -143,7 +129,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         {
             Model* model = m_manager.getModel(0); //RECODE : indice pris dans la hiérarchie d'objet
             if(model != NULL) {
-                m_tools.at(activeTool)->action(model, m_manager.getGLpos(event->pos()), move);
+                m_tools.at(activeTool)->action(model, last_pos, event->pos(), distance, x_rot, y_rot, z_rot);
             }
             else {
                 qDebug() << "Model for using tool is NULL.";

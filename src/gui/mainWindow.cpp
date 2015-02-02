@@ -35,17 +35,9 @@ void MainWindow::on_actionOpen_triggered()
 //Creation d'une nouvelle fenetre avec tous les parametres reinitialises
 void MainWindow::on_actionNewProject_triggered()
 {
-
-    MainWindow *newWindow= new MainWindow();
-    QMessageBox::StandardButton initialise;
-    initialise = QMessageBox::question(this, "initialiser", "Voulez-vous écraser cette fenetre?",QMessageBox::Yes|QMessageBox::No);
-
-    if (initialise == QMessageBox::Yes)
-    {
-        this->close();
-        newWindow->show();
-     }
-
+    ui->widgetfenetre->clear();
+    this->disableTool();
+    this->hideDialog();
 }
 
 //Ouverture d'une boite de dialogue informant sur les concepteurs du programme
@@ -67,7 +59,7 @@ void MainWindow::on_rotation_clicked()
 {
     this->disableTool();
     ui->rotation->setChecked(true);
-    ui->widgetfenetre->enableTool(WTROTATE);
+    ui->widgetfenetre->enableTool(GTROTATE);
 }
 
 //Ecouteur sur le bouton redo
@@ -190,7 +182,7 @@ void MainWindow::on_actionSave_as_triggered()
 
 void MainWindow::on_actionNewObject_triggered()
 {
-    ui->widgetfenetre->clear();
+    //ui->widgetfenetre->clear(); RECODE : sous-menu avec cube, sphere...etc
 }
 
 void MainWindow::disableTool()

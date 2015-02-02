@@ -36,6 +36,8 @@ public:
     QVector3D getVertex(int index) const;
     void setVertex(int index, QVector3D vertex);
     int getSize() const;
+    QVector3D getCenter() const;
+    void setCenter(QVector3D center);
 
     void convertToBuffer();
     void update();
@@ -43,6 +45,7 @@ public:
 protected:
     // Model infos
     QString m_name;
+    QVector3D m_center;
 
     // 3D mesh
     QVector<HalfEdge> m_edges;

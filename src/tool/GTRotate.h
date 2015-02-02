@@ -6,7 +6,7 @@
 class GTRotate : public Tool
 {
 public:
-    virtual void action(Model *model, QVector3D position, QVector3D move);
+    void action(Model *model, QPoint last_position, QPoint current_position, float distance, float x_rot, float y_rot, float z_rot);
 };
 
 #endif // GTROTATE_H

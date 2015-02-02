@@ -42,39 +42,9 @@ void ModelManager::removeModel() { m_models.removeLast(); }
 
 void ModelManager::clear() { m_models.clear(); }
 
-Model* ModelManager::getModel(unsigned int index) {
-    if(m_models.size() > index) {
+Model* ModelManager::getModel(int index) {
+    if(m_models.size() > index && index >= 0) {
         return m_models.at(index);
     }
     return NULL;
 }
-
-QVector3D ModelManager::getGLpos(QPoint mouse)
-{
-    GLint viewport[4];
-    GLdouble modelview[16];
-    GLdouble projection[16];
-    GLfloat winX, winY, winZ;
-    GLdouble posX, posY, posZ;
-    float x = mouse.x(), y = mouse.y();
-    glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
-    glGetDoublev( GL_PROJECTION_MATRIX, projection );
-    glGetIntegerv( GL_VIEWPORT, viewport );
-
-    winX = (float)x;
-    winY = (float)viewport[3] - (float)y;
-
-    glReadPixels( x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
-    if(winZ == 1 || winZ == 0) {
-        return QVector3D();
-    }
-    else {
-        gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
-        return QVector3D(posX, posY, posZ); // position 3D du pixel touché
-    }
-}
-
-/*Model* ModelManager::pickModel(QVector3D position)
-{
-    return NULL;
-}*/
