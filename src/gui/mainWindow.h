@@ -48,6 +48,12 @@ private slots:
     void on_actionNewObject_triggered();
 
 
+    void on_actionCr_er_un_Cube_triggered();
+
+    void on_rotate_clicked();
+
+    void on_zoom_clicked();
+
 private:
     Ui::MainWindow *ui;
     Model *m_model;
