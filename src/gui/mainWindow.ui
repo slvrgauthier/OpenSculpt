@@ -41,15 +41,22 @@
      <x>0</x>
      <y>0</y>
      <width>809</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>Fichier</string>
     </property>
+    <widget class="QMenu" name="menuNouvel_Objet">
+     <property name="title">
+      <string>Nouvel Objet</string>
+     </property>
+     <addaction name="actionCr_er_un_Cube"/>
+     <addaction name="actionCr_er_un_Sph_re"/>
+    </widget>
     <addaction name="actionNewProject"/>
-    <addaction name="actionNewObject"/>
+    <addaction name="menuNouvel_Objet"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSave_as"/>
     <addaction name="actionQuit"/>
@@ -58,6 +65,7 @@
     <property name="title">
      <string>Edition</string>
     </property>
+    <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
    </widget>
    <widget class="QMenu" name="menuAide">
@@ -148,6 +156,12 @@
      </item>
      <item>
       <widget class="QWidget" name="Initfigure" native="true">
+       <property name="maximumSize">
+        <size>
+         <width>200</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
          <widget class="QWidget" name="widgetHeight" native="true">
@@ -409,6 +423,37 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="rotate">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/rotation.jpeg</normaloff>:/icons/rotation.jpeg</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="zoom">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/zoom.png</normaloff>:/icons/zoom.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="initCube">
        <property name="toolTip">
         <string>Creation du Cube</string>
@@ -547,9 +592,19 @@
     <string>Plein écran/ Fenêtre</string>
    </property>
   </action>
-  <action name="actionNewObject">
+  <action name="actionCr_er_un_Cube">
    <property name="text">
-    <string>Nouvel Objet</string>
+    <string>Créer un Cube</string>
+   </property>
+  </action>
+  <action name="actionCr_er_un_Sph_re">
+   <property name="text">
+    <string>Créer un Sphère</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Undo</string>
    </property>
   </action>
  </widget>

@@ -136,9 +136,11 @@ void MainWindow::on_pushValid_clicked()
     disconnect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
-
     m_model->setName(ui->textEditName->toPlainText());
-    modelListLayout->addWidget(new QPushButton(m_model->getName())); // Créer un widget spécifique
+    QPushButton *button = new QPushButton(m_model->getName());
+    modelListLayout->addWidget(button); // Créer un widget spécifique
+    qDebug()<<modelListLayout;
+
 }
 
 void MainWindow::updateLastModel() {
@@ -194,4 +196,41 @@ void MainWindow::hideDialog()
     ui->widgetValidate->setVisible(false);
     ui->widgetSubdivide->setVisible(false);
     ui->widgetName->setVisible(false);
+}
+
+void MainWindow::on_actionCr_er_un_Cube_triggered()
+{
+    m_model = new MCube();
+    ui->widgetDepth->setVisible(true);
+    ui->widgetHeight->setVisible(true);
+    ui->widgetWidth->setVisible(true);
+    ui->widgetValidate->setVisible(true);
+    ui->widgetSubdivide->setVisible(true); // Niveau de subdivision plutôt
+    ui->widgetName->setVisible(true);
+    ui->glwidget->addmodel(m_model);
+
+    ui->spinBoxDepth->setValue(5.0);
+    ui->spinBoxHeight->setValue(5.0);
+    ui->spinBoxWidth->setValue(5.0);
+    ui->sliderSubdivide->setValue(10); // Niveau de subdivision plutôt
+    ui->textEditName->setText("NewCube");
+
+    connect(ui->spinBoxDepth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    connect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    connect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
+}
+
+void MainWindow::on_rotate_clicked()
+{
+    this->disableTool();
+    ui->rotate->setChecked(true);
+    ui->glwidget->enableTool(GTROTATE);
+}
+
+void MainWindow::on_zoom_clicked()
+{
+    this->disableTool();
+    ui->zoom->setChecked(true);
+    ui->glwidget->enableTool(GTSCALE);
 }
