@@ -7,7 +7,7 @@
 #else
     #include <GL/glut.h>
 #endif
-
+#include <QDebug>
 MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
 {
     // HalfEdges
@@ -25,14 +25,14 @@ MCube::MCube() : m_width(5.0), m_height(5.0), m_depth(5.0)
     m_vertices.reserve(8);
     float x = m_width / 2, y = m_height / 2, z = m_depth / 2;
 
-    vertice.coords = QVector3D(-x, -y, -z); vertice.index = 0; vertice.outgoing = &m_edges[0]; m_vertices.push_back(vertice);
-    vertice.coords = QVector3D(x, -y, -z); vertice.index = 1; vertice.outgoing = &m_edges[1]; m_vertices.push_back(vertice);
-    vertice.coords = QVector3D(x, y, -z); vertice.index = 2; vertice.outgoing = &m_edges[3]; m_vertices.push_back(vertice);
-    vertice.coords = QVector3D(-x, y, -z); vertice.index = 3; vertice.outgoing = &m_edges[4]; m_vertices.push_back(vertice);
-    vertice.coords = QVector3D(-x, -y, z); vertice.index = 4; vertice.outgoing = &m_edges[7]; m_vertices.push_back(vertice);
-    vertice.coords = QVector3D(x, -y, z); vertice.index = 5; vertice.outgoing = &m_edges[6]; m_vertices.push_back(vertice);
-    vertice.coords = QVector3D(x, y, z); vertice.index = 6; vertice.outgoing = &m_edges[10]; m_vertices.push_back(vertice);
-    vertice.coords = QVector3D(-x, y, z); vertice.index = 7; vertice.outgoing = &m_edges[9]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(-x, -y, z); vertice.index = 0; vertice.outgoing = &m_edges[0]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(x, -y, z); vertice.index = 1; vertice.outgoing = &m_edges[1]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(x, y, z); vertice.index = 2; vertice.outgoing = &m_edges[3]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(-x, y, z); vertice.index = 3; vertice.outgoing = &m_edges[4]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(-x, -y, -z); vertice.index = 4; vertice.outgoing = &m_edges[7]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(x, -y, -z); vertice.index = 5; vertice.outgoing = &m_edges[6]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(x, y, -z); vertice.index = 6; vertice.outgoing = &m_edges[10]; m_vertices.push_back(vertice);
+    vertice.coords = QVector3D(-x, y, -z); vertice.index = 7; vertice.outgoing = &m_edges[9]; m_vertices.push_back(vertice);
 
     // HalfEdges
     for(int i=0 ; i < 36 ; ++i) {

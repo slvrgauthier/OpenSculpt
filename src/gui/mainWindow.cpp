@@ -69,6 +69,7 @@ void MainWindow::on_redo_clicked()
 {
     ui->redo->setChecked(false);
     // APPEL A LA FONCTION REDO
+    m_model->subdivide();
 }
 
 //Ecouteur sur le bouton zoom

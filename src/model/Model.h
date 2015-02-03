@@ -35,6 +35,9 @@ public:
     void update();
 
 public:
+    virtual void subdivide();
+    virtual void decimate();
+
     virtual void scale(float percent);
 
     virtual void setWidth(float width);
@@ -49,6 +52,9 @@ public:
     QVector3D getCenter() const;
     void setCenter(QVector3D center);
     int getSize() const;
+
+public:
+    void TEST() const;
 
 protected:
     // Model infos
