@@ -135,10 +135,11 @@ void MainWindow::on_pushValid_clicked()
     disconnect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     disconnect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
-
     m_model->setName(ui->textEditName->toPlainText());
-    modelListLayout->addWidget(new QPushButton(m_model->getName())); // Créer un widget spécifique
-    qDebug()<<modelList;
+    QPushButton *button = new QPushButton(m_model->getName());
+    modelListLayout->addWidget(button); // Créer un widget spécifique
+    qDebug()<<modelListLayout;
+
 }
 
 void MainWindow::updateLastModel() {
