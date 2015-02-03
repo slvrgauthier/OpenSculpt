@@ -19,6 +19,7 @@ enum TOOL
     LTSMOOTH,
     WTSCALE,
     WTROTATE,
+    WTMOVE,
     NOTOOL
 };
 
@@ -42,6 +43,8 @@ public:
     void removemodel();
     void clear();
 
+    void resetView();
+
 private:
     void rotateBy(int x, int y, int z);
 
@@ -53,10 +56,12 @@ private:
 
     // View & rotation settings
     QPoint last_pos;
-    float  distance;
-    qreal  x_rot;
-    qreal  y_rot;
-    qreal  z_rot;
+    float distance;
+    float offsetX;
+    float offsetY;
+    qreal x_rot;
+    qreal y_rot;
+    qreal z_rot;
 
     // Render settings
     bool mode_fill;

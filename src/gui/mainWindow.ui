@@ -41,22 +41,22 @@
      <x>0</x>
      <y>0</y>
      <width>809</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>Fichier</string>
     </property>
-    <widget class="QMenu" name="menuNouvel_Objet">
+    <widget class="QMenu" name="menuNewObjet">
      <property name="title">
       <string>Nouvel Objet</string>
      </property>
-     <addaction name="actionCr_er_un_Cube"/>
-     <addaction name="actionCr_er_un_Sph_re"/>
+     <addaction name="actionNewCube"/>
+     <addaction name="actionNewSphere"/>
     </widget>
     <addaction name="actionNewProject"/>
-    <addaction name="menuNouvel_Objet"/>
+    <addaction name="menuNewObjet"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSave_as"/>
     <addaction name="actionQuit"/>
@@ -68,13 +68,13 @@
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
    </widget>
-   <widget class="QMenu" name="menuAide">
+   <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Aide</string>
     </property>
-    <addaction name="actionA_propos"/>
+    <addaction name="actionAbout"/>
    </widget>
-   <widget class="QMenu" name="menuShow">
+   <widget class="QMenu" name="menuView">
     <property name="title">
      <string>Affichage</string>
     </property>
@@ -82,8 +82,8 @@
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
-   <addaction name="menuShow"/>
-   <addaction name="menuAide"/>
+   <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="dockWidgetWindow">
@@ -374,9 +374,6 @@
        </property>
       </spacer>
      </item>
-     <item>
-      <widget class="QWidget" name="hierarchy" native="true"/>
-     </item>
     </layout>
    </widget>
   </widget>
@@ -387,7 +384,7 @@
    <widget class="QWidget" name="dockWidgetContents_3">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="selectinit">
+      <widget class="QPushButton" name="select">
        <property name="text">
         <string/>
        </property>
@@ -409,21 +406,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="redo">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="rotate">
+      <widget class="QPushButton" name="wtrotate">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -440,13 +423,27 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="zoom">
+      <widget class="QPushButton" name="wtscale">
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/zoom.png</normaloff>:/icons/zoom.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="redo">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -567,7 +564,7 @@
     <string>Redo</string>
    </property>
   </action>
-  <action name="actionA_propos">
+  <action name="actionAbout">
    <property name="text">
     <string>A propos</string>
    </property>
@@ -589,17 +586,17 @@
   </action>
   <action name="actionFullscreen">
    <property name="text">
-    <string>Plein écran/ Fenêtre</string>
+    <string>Plein écran</string>
    </property>
   </action>
-  <action name="actionCr_er_un_Cube">
+  <action name="actionNewCube">
    <property name="text">
     <string>Créer un Cube</string>
    </property>
   </action>
-  <action name="actionCr_er_un_Sph_re">
+  <action name="actionNewSphere">
    <property name="text">
-    <string>Créer un Sphère</string>
+    <string>Créer une Sphère</string>
    </property>
   </action>
   <action name="actionUndo">

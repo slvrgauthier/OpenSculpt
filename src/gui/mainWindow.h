@@ -22,37 +22,43 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_actionOpen_triggered();
-    void on_actionNewProject_triggered();
-    void on_actionA_propos_triggered();
+    // Left panel
     void on_gtmove_clicked();
     void on_gtrotate_clicked();
-    void on_redo_clicked();
     void on_gtscale_clicked();
-    void keyPressEvent(QKeyEvent *event);
+
+    // Up toolBar
+    void on_wtmove_clicked();
+    void on_wtrotate_clicked();
+    void on_wtscale_clicked();
+
+    void on_redo_clicked();
+
     void on_initCube_clicked();
     void on_initSphere_clicked();
+
+    // MenuFile
+    void on_actionNewProject_triggered();
+    void on_actionNewObject_triggered();
+    void on_actionNewCube_triggered();
+    void on_actionOpen_triggered();
+    void on_actionSave_as_triggered();
+
+    // MenuView
+    void on_actionFullscreen_triggered();
+
+    // MenuHelp
+    void on_actionAbout_triggered();
+
+    // Right panel
     void on_pushCancel_clicked();
     void on_pushValid_clicked();
+
+private slots:
+    void keyPressEvent(QKeyEvent *event);
     void updateLastModel();
     void disableTool();
     void hideDialog();
-
-
-    //void on_pushButton_clicked();
-
-    void on_actionFullscreen_triggered();
-
-    void on_actionSave_as_triggered();
-
-    void on_actionNewObject_triggered();
-
-
-    void on_actionCr_er_un_Cube_triggered();
-
-    void on_rotate_clicked();
-
-    void on_zoom_clicked();
 
 private:
     Ui::MainWindow *ui;

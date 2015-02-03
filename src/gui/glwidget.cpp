@@ -40,6 +40,8 @@ void GLWidget::initializeGL()
 {
     // View & rotation settings
     distance = -15.0;
+    offsetX = 0;
+    offsetY = 0;
     x_rot = 0;
     y_rot = 0;
     z_rot = 0;
@@ -62,8 +64,8 @@ void GLWidget::paintGL()
     // Model view matrix
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(0.0, 0.0, -distance,
-              0.0, 0.0, 0.0,
+    gluLookAt(offsetX, -offsetY, -distance,
+              offsetX, -offsetY, 0.0,
               0.0, 1.0, 0.0);
 
     glRotatef(x_rot, 1.0f, 0.0f, 0.0f);
@@ -123,6 +125,11 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
             distance *= 1.0 + (1.0 * dy / 300.0);
             qDebug() << event->pos();
         }
+        else if(activeTool == WTMOVE)
+        {
+            offsetX += (distance * dx / 600.0);
+            offsetY += (distance * dy / 600.0);
+        }
         else if(activeTool != NOTOOL)
         {
             Model* model = m_manager.getModel(0); //RECODE : indice pris dans la hiérarchie d'objet
@@ -172,4 +179,10 @@ void GLWidget::removemodel()
 void GLWidget::clear()
 {
     m_manager.clear();
+}
+
+void GLWidget::resetView()
+{
+    distance = -15.0;
+    offsetX = offsetY = x_rot = y_rot = z_rot = 0.0;
 }

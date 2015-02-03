@@ -117,7 +117,6 @@ void Model::subdivide()
             m_edges[esize-2].previous = m_faces[i].edge;
             m_edges[esize-1].previous= &m_edges[esize-2];
 
-            qDebug() << i << j << m_faces[i].edge << m_faces[i].edge->next->previous;
             m_faces[i].edge = m_faces[i].edge->next;
         }
 
