@@ -41,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>809</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -282,6 +282,13 @@
             <widget class="QPushButton" name="pushCancel">
              <property name="text">
               <string>Annuler</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushRemplace">
+             <property name="text">
+              <string>Remplacer</string>
              </property>
             </widget>
            </item>

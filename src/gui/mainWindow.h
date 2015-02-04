@@ -61,11 +61,14 @@ private slots:
     void disableTool();
     void hideDialog();
 
+    void on_pushRemplace_clicked();
+
 private:
     Ui::MainWindow *ui;
     Model *m_model;
     QWidget *modelList;
     QVBoxLayout *modelListLayout;
+    QPushButton *button;
 };
 
 #endif // MAINWINDOW_H

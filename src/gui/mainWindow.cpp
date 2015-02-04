@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     modelList->setLayout(modelListLayout);
     ui->scrollArea->setWidgetResizable(true);
     ui->scrollArea->setWidget(modelList);
+
 }
 
 MainWindow::~MainWindow()
@@ -91,6 +92,9 @@ void MainWindow::on_initCube_clicked()
     ui->widgetHeight->setVisible(true);
     ui->widgetWidth->setVisible(true);
     ui->widgetValidate->setVisible(true);
+    ui->pushCancel->setVisible(true);
+    ui->pushValid->setVisible(true);
+    ui->pushRemplace->setVisible(false);
     ui->widgetSubdivide->setVisible(true); // Niveau de subdivision plutôt
     ui->widgetName->setVisible(true);
     ui->glwidget->addmodel(m_model);
@@ -187,8 +191,8 @@ void MainWindow::on_pushValid_clicked()
     disconnect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
 
     m_model->setName(ui->textEditName->toPlainText());
-    QPushButton *button = new QPushButton(m_model->getName());
-    QObject::connect(button, SIGNAL(clicked()), this, SLOT(on_initCube_clicked()));
+    button = new QPushButton(m_model->getName());
+    QObject::connect(button, SIGNAL(clicked()), this, SLOT(show_name()));
     modelListLayout->addWidget(button); // Créer un widget spécifique
     qDebug()<<modelListLayout;
 }
@@ -228,4 +232,24 @@ void MainWindow::hideDialog()
     ui->widgetValidate->setVisible(false);
     ui->widgetSubdivide->setVisible(false);
     ui->widgetName->setVisible(false);
+}
+
+void MainWindow::show_name()
+{
+
+    ui->widgetName->setVisible(true);
+    ui->widgetValidate->setVisible(true);
+    ui->pushRemplace->setVisible(true);
+    ui->pushCancel->setVisible(false);
+    ui->pushValid->setVisible(false);
+    //m_model->setName(ui->textEditName->toPlainText());
+
+}
+
+void MainWindow::on_pushRemplace_clicked()
+{
+    button->setText(ui->textEditName->toPlainText());
+    update();
+    ui->widgetName->setVisible(false);
+    ui->pushRemplace->setVisible(false);
 }
