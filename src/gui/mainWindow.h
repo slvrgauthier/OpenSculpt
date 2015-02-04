@@ -39,7 +39,6 @@ private slots:
 
     // MenuFile
     void on_actionNewProject_triggered();
-    void on_actionNewObject_triggered();
     void on_actionNewCube_triggered();
     void on_actionOpen_triggered();
     void on_actionSave_as_triggered();
@@ -73,6 +72,8 @@ private:
     QVBoxLayout *modelListLayout;
     QMap<QPushButton*, Model*> instancelistmodel;
     Model* instanceModel;
+    QMap<Model*, int> listhierachy;
+    int i;
 };
 
 #endif // MAINWINDOW_H
