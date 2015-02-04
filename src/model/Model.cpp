@@ -367,3 +367,10 @@ void Model::TEST() const
 
     qDebug() << "TEST of model" << getName() << ":" << errors << "errors.";
 }
+
+/** Revoir les cours sur les héritages (L3 !!!!)*/
+float Model::getHeight() const {}
+
+float Model::getDepth() const {}
+
+float Model::getWidth() const {}

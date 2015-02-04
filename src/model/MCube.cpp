@@ -133,6 +133,7 @@ void MCube::setHeight(float height)
 
 void MCube::setDepth(float depth)
 {
+
     if(depth != m_depth) {
         float z;
         for(int i=0 ; i < m_vertices.size() ; ++i) {
@@ -144,4 +145,19 @@ void MCube::setDepth(float depth)
 
         update();
     }
+}
+
+float MCube::getHeight() const
+{
+    return m_height;
+}
+
+float MCube::getDepth() const
+{
+    return m_depth;
+}
+
+float MCube::getWidth() const
+{
+    return m_width;
 }
