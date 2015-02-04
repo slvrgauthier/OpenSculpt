@@ -53,10 +53,13 @@ private slots:
     // Right panel
     void on_pushCancel_clicked();
     void on_pushValid_clicked();
-    void show_name();
+    void show_param();
 
 private slots:
     void keyPressEvent(QKeyEvent *event);
+    void updateLastModelWidth();
+    void updateLastModelHeight();
+    void updateLastModelDepth();
     void updateLastModel();
     void disableTool();
     void hideDialog();
@@ -68,7 +71,8 @@ private:
     Model *m_model;
     QWidget *modelList;
     QVBoxLayout *modelListLayout;
-    QPushButton *button;
+    QMap<QPushButton*, Model*> instancelistmodel;
+    Model* instanceModel;
 };
 
 #endif // MAINWINDOW_H

@@ -16,6 +16,10 @@ public:
     void setHeight(float height);
     void setDepth(float depth);
 
+    float getWidth() const;
+    float getDepth() const;
+    float getHeight() const;
+
 private:
     float m_width;
     float m_height;

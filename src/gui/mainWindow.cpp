@@ -14,12 +14,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->hideDialog();
 
-    modelListLayout = new QVBoxLayout(ui->scrollArea);
+    /**Merci d'utiliser des formulaires*/
+
+    /*modelListLayout = new QVBoxLayout(ui->scrollArea);
     modelListLayout->setAlignment(Qt::AlignTop);
     modelList = new QWidget();
     modelList->setLayout(modelListLayout);
     ui->scrollArea->setWidgetResizable(true);
-    ui->scrollArea->setWidget(modelList);
+    ui->scrollArea->setWidget(modelList);*/
 
 }
 
@@ -105,11 +107,10 @@ void MainWindow::on_initCube_clicked()
     ui->sliderSubdivide->setValue(1); // Niveau de subdivision plutôt
     ui->textEditName->setText("NewCube");
 
-    connect(ui->spinBoxDepth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
-    connect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
-    connect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    connect(ui->spinBoxDepth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModelDepth()));
+    connect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModelHeight()));
+    connect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModelWidth()));
     connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
-
 }
 
 void MainWindow::on_initSphere_clicked()
@@ -185,16 +186,18 @@ void MainWindow::on_pushValid_clicked()
 {
     this->hideDialog();
 
-    disconnect(ui->spinBoxDepth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
-    disconnect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
-    disconnect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
-    disconnect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
+    m_model->setName(ui->textEditName->text());
+    /**Ne pas supprimer*/
+    QPushButton* selectionModele = new QPushButton(m_model->getName());
+    qDebug() << "Ajout de " << selectionModele << " en tant que " << ui->textEditName->text();
+    instancelistmodel.insert(selectionModele, m_model);
+    /**/
+    QObject::connect(selectionModele, SIGNAL(clicked()), this, SLOT(show_param()));
+    ui->controleListModel->addWidget(selectionModele); // Créer un widget spécifique
 
-    m_model->setName(ui->textEditName->toPlainText());
-    button = new QPushButton(m_model->getName());
-    QObject::connect(button, SIGNAL(clicked()), this, SLOT(show_name()));
-    modelListLayout->addWidget(button); // Créer un widget spécifique
-    qDebug()<<modelListLayout;
+    m_model->setHeight(ui->spinBoxHeight->value());
+    m_model->setDepth(ui->spinBoxDepth->value());
+    m_model->setWidth((float)ui->spinBoxWidth->value());
 }
 
 // ===================================================
@@ -208,6 +211,19 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::updateLastModel() {
     m_model->setWidth(ui->spinBoxWidth->value());
     m_model->setHeight(ui->spinBoxHeight->value());
+    m_model->setDepth(ui->spinBoxDepth->value());
+}
+
+void MainWindow::updateLastModelWidth() {
+    m_model->setWidth(ui->spinBoxWidth->value());
+
+}
+
+void MainWindow::updateLastModelHeight() {
+    m_model->setHeight(ui->spinBoxHeight->value());
+}
+void MainWindow::updateLastModelDepth() {
+    qDebug() << "Prof : " << ui->spinBoxDepth->value();
     m_model->setDepth(ui->spinBoxDepth->value());
 }
 
@@ -234,22 +250,44 @@ void MainWindow::hideDialog()
     ui->widgetName->setVisible(false);
 }
 
-void MainWindow::show_name()
+void MainWindow::show_param()
 {
 
+    /*Récupération de l'émetteur du slot, afin d'associer le button et le modèle*/
+    QObject * emetteur = sender();
+    QPushButton * sender = qobject_cast<QPushButton*>(emetteur);
+
+    instanceModel = instancelistmodel.value(sender); //Modele associé
+    qDebug()<<" vu : "<< instanceModel->getName();
     ui->widgetName->setVisible(true);
     ui->widgetValidate->setVisible(true);
     ui->pushRemplace->setVisible(true);
     ui->pushCancel->setVisible(false);
     ui->pushValid->setVisible(false);
-    //m_model->setName(ui->textEditName->toPlainText());
+    ui->widgetWidth->setVisible(true);
+    ui->widgetHeight->setVisible(true);
+    ui->widgetDepth->setVisible(true);
 
+    /*Chargement des caractéristiques du modèle*/
+
+    ui->textEditName->setText(instanceModel->getName());
+    ui->spinBoxHeight->setValue(instanceModel->getHeight());
+    ui->spinBoxDepth->setValue(instanceModel->getDepth());
+    ui->spinBoxWidth->setValue(instanceModel->getWidth());
 }
 
 void MainWindow::on_pushRemplace_clicked()
 {
-    button->setText(ui->textEditName->toPlainText());
-    update();
+    instancelistmodel.key(instanceModel)->setText(ui->textEditName->text());
+
+
+    instanceModel->setDepth(ui->spinBoxDepth->value());
+    instanceModel->setWidth(ui->spinBoxWidth->value());
+    instanceModel->setHeight(ui->spinBoxHeight->value());
     ui->widgetName->setVisible(false);
     ui->pushRemplace->setVisible(false);
+    ui->widgetWidth->setVisible(false);
+    ui->widgetHeight->setVisible(false);
+    ui->widgetDepth->setVisible(false);
 }
+

@@ -53,6 +53,10 @@ public:
     void setCenter(QVector3D center);
     int getSize() const;
 
+    virtual float getWidth() const;
+    virtual float getHeight() const;
+    virtual float getDepth() const;
+
 public:
     void TEST() const;
 

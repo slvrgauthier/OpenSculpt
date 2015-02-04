@@ -332,3 +332,10 @@ void Model::TEST() const
         }
     }
 }
+
+/** Revoir les cours sur les héritages (L3 !!!!)*/
+float Model::getHeight() const {}
+
+float Model::getDepth() const {}
+
+float Model::getWidth() const {}
