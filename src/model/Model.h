@@ -62,9 +62,9 @@ protected:
     QVector3D m_center;
 
     // 3D mesh
-    QVector<HalfEdge> m_edges;
-    QVector<Vertex> m_vertices;
-    QVector<Face> m_faces;
+    QVector<HalfEdge*> m_edges;
+    QVector<Vertex*> m_vertices;
+    QVector<Face*> m_faces;
 
     // Rendering
     QVector<QVector3D> m_coords;

@@ -23,12 +23,25 @@ Model::Model():
     m_center(QVector3D(0.0,0.0,0.0))
 {}
 
-Model::~Model() { m_vertexbuffer.destroy(); m_indicebuffer.destroy(); }
+Model::~Model()
+{
+    for(int i=0 ; i < m_edges.size() ; ++i) {
+        delete m_edges[i];
+    }
+    for(int i=0 ; i < m_vertices.size() ; ++i) {
+        delete m_vertices[i];
+    }
+    for(int i=0 ; i < m_faces.size() ; ++i) {
+        delete m_faces[i];
+    }
+    m_vertexbuffer.destroy();
+    m_indicebuffer.destroy();
+}
 
 QString Model::getName() const { return m_name; }
 void Model::setName(QString name) { m_name = name; }
 QVector3D Model::getVertex(int index) const { return m_coords.at(index); }
-void Model::setVertex(int index, QVector3D vertex) { m_vertices[index].coords = vertex; m_coords[index] = vertex; }
+void Model::setVertex(int index, QVector3D vertex) { m_vertices[index]->coords = vertex; m_coords[index] = vertex; }
 int Model::getSize() const { return m_vertices.size(); }
 QVector3D Model::getCenter() const { return m_center; }
 void Model::setCenter(QVector3D center) { m_center = center; }
@@ -39,15 +52,15 @@ void Model::convertToBuffer()
     m_coords.clear();
     m_coords.reserve(m_vertices.size());
     for(int i=0 ; i < m_vertices.size() ; ++i) {
-        m_coords.push_back(m_vertices[i].coords);
+        m_coords.push_back(m_vertices[i]->coords);
     }
 
     m_indices.clear();
     m_indices.reserve(m_faces.size() * 3);
     for(int i=0 ; i < m_faces.size() ; ++i) {
-        m_indices.push_back(m_faces[i].edge->vertex->index);
-        m_indices.push_back(m_faces[i].edge->next->vertex->index);
-        m_indices.push_back(m_faces[i].edge->previous->vertex->index);
+        m_indices.push_back(m_faces[i]->edge->vertex->index);
+        m_indices.push_back(m_faces[i]->edge->next->vertex->index);
+        m_indices.push_back(m_faces[i]->edge->previous->vertex->index);
     }
 }
 
@@ -84,7 +97,7 @@ void Model::update()
 
 void Model::subdivide()
 {
-    TEST();
+    TEST();/*
     Vertex vertex;
     HalfEdge edge;
     Face face;
@@ -159,12 +172,11 @@ void Model::subdivide()
 
     TEST();
     //convertToBuffer();
-    //update();
+    //update();*/
 }
 
 void Model::decimate()
 {
-
 
     convertToBuffer();
     update();
@@ -180,7 +192,7 @@ void Model::scale(float percent)
         vertice.setZ((vertice.z()-getCenter().z())*percent + getCenter().z());
 
         m_coords[i] = vertice;
-        m_vertices[i].coords = vertice;
+        m_vertices[i]->coords = vertice;
     }
     update();
 }
@@ -211,41 +223,41 @@ void Model::TEST() const
     bool test = true;
 
     for(int i=0 ; i < m_faces.size() ; ++i) {
-        if(m_faces[i].edge == NULL) {
+        if(m_faces[i]->edge == NULL) {
             qDebug() << "Face" << i << "'s edge is NULL.";
             test = false;
         }
     }
 
     for(int i=0 ; i < m_vertices.size() ; ++i) {
-        if(m_vertices[i].index != i) {
+        if(m_vertices[i]->index != i) {
             qDebug() << "Vertex" << i << "'s index isn't correct.";
             test = false;
         }
-        if(m_vertices[i].outgoing == NULL) {
+        if(m_vertices[i]->outgoing == NULL) {
             qDebug() << "Vertex" << i << "'s outgoing is NULL.";
             test = false;
         }
     }
 
     for(int i=0 ; i < m_edges.size() ; ++i) {
-        if(m_edges[i].face == NULL) {
+        if(m_edges[i]->face == NULL) {
             qDebug() << "Edge" << i << "'s face is NULL.";
             test = false;
         }
-        if(m_edges[i].next == NULL) {
+        if(m_edges[i]->next == NULL) {
             qDebug() << "Edge" << i << "'s next is NULL.";
             test = false;
         }
-        if(m_edges[i].previous == NULL) {
+        if(m_edges[i]->previous == NULL) {
             qDebug() << "Edge" << i << "'s previous is NULL.";
             test = false;
         }
-        if(m_edges[i].opposite == NULL) {
+        if(m_edges[i]->opposite == NULL) {
             qDebug() << "Edge" << i << "'s opposite is NULL.";
             test = false;
         }
-        if(m_edges[i].vertex == NULL) {
+        if(m_edges[i]->vertex == NULL) {
             qDebug() << "Edge" << i << "'s vertex is NULL.";
             test = false;
         }
@@ -253,37 +265,37 @@ void Model::TEST() const
 
     if(test) {
         for(int i=0 ; i < m_faces.size() ; ++i) {
-            if(m_faces[i].edge->face != &m_faces[i]) {
+            if(m_faces[i]->edge->face != m_faces[i]) {
                 qDebug() << "Face" << i << "'s edge do not refer to the face.";
                 test = false;
             }
-            if(m_faces[i].edge->next->face != &m_faces[i]) {
+            if(m_faces[i]->edge->next->face != m_faces[i]) {
                 qDebug() << "Face" << i << "'s edge's next do not refer to the face.";
                 test = false;
             }
-            if(m_faces[i].edge->previous->face != &m_faces[i]) {
+            if(m_faces[i]->edge->previous->face != m_faces[i]) {
                 qDebug() << "Face" << i << "'s edge's previous do not refer to the face.";
                 test = false;
             }
         }
 
         for(int i=0 ; i < m_vertices.size() ; ++i) {
-            if(m_vertices[i].outgoing->previous->vertex != &m_vertices[i]) {
+            if(m_vertices[i]->outgoing->previous->vertex != m_vertices[i]) {
                 qDebug() << "Vertex" << i << "'s outgoing's previous do not refer to the vertex.";
                 test = false;
             }
         }
 
         for(int i=0 ; i < m_edges.size() ; ++i) {
-            if(&m_edges[i] != m_edges[i].next->previous) {
+            if(m_edges[i] != m_edges[i]->next->previous) {
                 qDebug() << "Edge" << i << "'s next's previous do not refer to the edge.";
                 test = false;
             }
-            if(&m_edges[i] != m_edges[i].previous->next) {
+            if(m_edges[i] != m_edges[i]->previous->next) {
                 qDebug() << "Edge" << i << "'s previous's next do not refer to the edge.";
                 test = false;
             }
-            if(&m_edges[i] != m_edges[i].opposite->opposite) {
+            if(m_edges[i] != m_edges[i]->opposite->opposite) {
                 qDebug() << "Edge" << i << "'s opposite's opposite do not refer to the edge.";
                 test = false;
             }
