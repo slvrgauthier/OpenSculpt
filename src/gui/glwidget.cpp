@@ -109,16 +109,14 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 
     if (event->buttons() & Qt::RightButton)
     {
-        rotateBy(dy, 0, 0);
-        rotateBy(0, dx, 0);
+        rotateBy(dy, dx, 0);
     }
 
     if (event->buttons() & Qt::LeftButton)
     {
         if(activeTool == WTROTATE)
         {
-            rotateBy(dy, 0, 0);
-            rotateBy(0, dx, 0);
+            rotateBy(dy, dx, 0);
         }
         else if(activeTool == WTSCALE)
         {

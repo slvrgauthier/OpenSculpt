@@ -78,8 +78,8 @@ void MainWindow::on_wtscale_clicked()
 void MainWindow::on_redo_clicked()
 {
     ui->redo->setChecked(false);
-    //m_model->subdivide();
-    ui->glwidget->resetView();
+    m_model->subdivide();
+    //ui->glwidget->resetView();
 }
 
 void MainWindow::on_initCube_clicked()

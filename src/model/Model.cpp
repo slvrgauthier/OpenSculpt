@@ -97,82 +97,112 @@ void Model::update()
 
 void Model::subdivide()
 {
-    TEST();/*
-    Vertex vertex;
-    HalfEdge edge;
-    Face face;
+    TEST();
+    m_faces.reserve(4 * m_faces.size());
+    m_edges.reserve(m_edges.size() + 9*m_faces.size());
+    m_vertices.reserve(m_vertices.size() + 3*m_faces.size());
 
-    int fsize = m_faces.size(), esize = m_edges.size(), vsize = m_vertices.size();
-    m_faces.resize(fsize + 3*fsize);
-    m_edges.resize(esize + 9*fsize);
-    m_vertices.resize(vsize + 3*fsize);
-
-    int size = fsize;
+    int size = m_faces.size();
 
     for(int i=0 ; i < size ; ++i) {
 
-        // Partage des trois half-edges de la face
-        for(int j=0 ; j < 3 ; ++j) {
-            vertex.coords = (m_faces[i].edge->vertex->coords + m_faces[i].edge->previous->vertex->coords) / 2;
-            vertex.outgoing = m_faces[i].edge;
-            vertex.index = vsize;
-            m_vertices[vsize] = vertex; vsize++;
+        for(int j=0 ; j < 3 ; ++j) { m_vertices.push_back(new Vertex); }
+        for(int j=0 ; j < 3 ; ++j) { m_faces.push_back(new Face); }
+        for(int j=0 ; j < 9 ; ++j) { m_edges.push_back(new HalfEdge); }
 
-            face.edge = m_faces[i].edge;
-            m_faces[fsize] = face; fsize++;
+        // Milieux des trois demi-arêtes de la face i
+        m_vertices[m_vertices.size()-1]->index = m_vertices.size()-1;
+        m_vertices[m_vertices.size()-2]->index = m_vertices.size()-2;
+        m_vertices[m_vertices.size()-3]->index = m_vertices.size()-3;
 
-            edge.face = &m_faces[fsize-1];
-            m_edges[esize] = edge; esize++;
-            m_edges[esize] = edge; esize++;
+        m_vertices[m_vertices.size()-1]->outgoing = m_edges[m_edges.size()-7];
+        m_vertices[m_vertices.size()-2]->outgoing = m_edges[m_edges.size()-8];
+        m_vertices[m_vertices.size()-3]->outgoing = m_edges[m_edges.size()-9];
 
-            m_edges[esize-2].next = &m_edges[esize-1];
-            m_edges[esize-1].next = m_faces[i].edge;
-            m_edges[esize-2].previous = m_faces[i].edge;
-            m_edges[esize-1].previous= &m_edges[esize-2];
+        m_vertices[m_vertices.size()-1]->coords = (m_faces[i]->edge->vertex->coords + m_faces[i]->edge->previous->vertex->coords) / 2;
+        m_vertices[m_vertices.size()-2]->coords = (m_faces[i]->edge->vertex->coords + m_faces[i]->edge->next->vertex->coords) / 2;
+        m_vertices[m_vertices.size()-3]->coords = (m_faces[i]->edge->next->vertex->coords + m_faces[i]->edge->previous->vertex->coords) / 2;
 
-            m_faces[i].edge = m_faces[i].edge->next;
-        }
+        // Trois nouvelles faces créées
+        m_faces[m_faces.size()-1]->edge = m_faces[i]->edge;
+        m_faces[m_faces.size()-2]->edge = m_faces[i]->edge->next;
+        m_faces[m_faces.size()-3]->edge = m_faces[i]->edge->previous;
 
-        edge.face = &m_faces[i];
+        // Neuf nouvelles demi-arêtes créées
+        m_edges[m_edges.size()-1]->face = m_faces[m_faces.size()-1];
+        m_edges[m_edges.size()-2]->face = m_faces[m_faces.size()-1];
+        m_edges[m_edges.size()-3]->face = m_faces[m_faces.size()-2];
+        m_edges[m_edges.size()-4]->face = m_faces[m_faces.size()-2];
+        m_edges[m_edges.size()-5]->face = m_faces[m_faces.size()-3];
+        m_edges[m_edges.size()-6]->face = m_faces[m_faces.size()-3];
+        m_edges[m_edges.size()-7]->face = m_faces[i];
+        m_edges[m_edges.size()-8]->face = m_faces[i];
+        m_edges[m_edges.size()-9]->face = m_faces[i];
 
-        edge.vertex = &m_vertices[vsize-2];
-        m_edges[esize] = edge; esize++;
+        m_edges[m_edges.size()-1]->next = m_edges[m_edges.size()-2];
+        m_edges[m_edges.size()-2]->next = m_faces[i]->edge;
+        m_edges[m_edges.size()-3]->next = m_edges[m_edges.size()-4];
+        m_edges[m_edges.size()-4]->next = m_faces[i]->edge->next;
+        m_edges[m_edges.size()-5]->next = m_edges[m_edges.size()-6];
+        m_edges[m_edges.size()-6]->next = m_faces[i]->edge->previous;
+        m_edges[m_edges.size()-7]->next = m_edges[m_edges.size()-8];
+        m_edges[m_edges.size()-8]->next = m_edges[m_edges.size()-9];
+        m_edges[m_edges.size()-9]->next = m_edges[m_edges.size()-7];
 
-        edge.vertex = &m_vertices[vsize-1];
-        m_edges[esize] = edge; esize++;
+        m_edges[m_edges.size()-1]->previous = m_faces[i]->edge;
+        m_edges[m_edges.size()-2]->previous = m_edges[m_edges.size()-1];
+        m_edges[m_edges.size()-3]->previous = m_faces[i]->edge->next;
+        m_edges[m_edges.size()-4]->previous = m_edges[m_edges.size()-3];
+        m_edges[m_edges.size()-5]->previous = m_faces[i]->edge->previous;
+        m_edges[m_edges.size()-6]->previous = m_edges[m_edges.size()-5];
+        m_edges[m_edges.size()-7]->previous = m_edges[m_edges.size()-9];
+        m_edges[m_edges.size()-8]->previous = m_edges[m_edges.size()-7];
+        m_edges[m_edges.size()-9]->previous = m_edges[m_edges.size()-8];
 
-        edge.vertex = &m_vertices[vsize-3];
-        m_edges[esize] = edge; esize++;
+        m_edges[m_edges.size()-1]->opposite = m_faces[i]->edge->next->opposite;
+        m_edges[m_edges.size()-2]->opposite = m_edges[m_edges.size()-7];
+        m_edges[m_edges.size()-3]->opposite = m_faces[i]->edge->previous->opposite;
+        m_edges[m_edges.size()-4]->opposite = m_edges[m_edges.size()-8];
+        m_edges[m_edges.size()-5]->opposite = m_faces[i]->edge->opposite;
+        m_edges[m_edges.size()-6]->opposite = m_edges[m_edges.size()-9];
+        m_edges[m_edges.size()-7]->opposite = m_edges[m_edges.size()-2];
+        m_edges[m_edges.size()-8]->opposite = m_edges[m_edges.size()-4];
+        m_edges[m_edges.size()-9]->opposite = m_edges[m_edges.size()-6];
 
-        m_edges[esize-3].next = &m_edges[esize-2];
-        m_edges[esize-2].next = &m_edges[esize-1];
-        m_edges[esize-1].next = &m_edges[esize-3];
+        m_edges[m_edges.size()-1]->vertex = m_vertices[m_vertices.size()-2];
+        m_edges[m_edges.size()-2]->vertex = m_vertices[m_vertices.size()-1];
+        m_edges[m_edges.size()-3]->vertex = m_vertices[m_vertices.size()-3];
+        m_edges[m_edges.size()-4]->vertex = m_vertices[m_vertices.size()-2];
+        m_edges[m_edges.size()-5]->vertex = m_vertices[m_vertices.size()-1];
+        m_edges[m_edges.size()-6]->vertex = m_vertices[m_vertices.size()-3];
+        m_edges[m_edges.size()-7]->vertex = m_vertices[m_vertices.size()-2];
+        m_edges[m_edges.size()-8]->vertex = m_vertices[m_vertices.size()-3];
+        m_edges[m_edges.size()-9]->vertex = m_vertices[m_vertices.size()-1];
 
-        m_edges[esize-3].previous = &m_edges[esize-1];
-        m_edges[esize-2].previous = &m_edges[esize-3];
-        m_edges[esize-1].previous = &m_edges[esize-2];
+        // Mise à jour des sommets de la face courante
+        m_faces[i]->edge->vertex->outgoing = m_edges[m_edges.size()-1];
+        m_faces[i]->edge->next->vertex->outgoing = m_edges[m_edges.size()-3];
+        m_faces[i]->edge->previous->vertex->outgoing = m_edges[m_edges.size()-5];
 
-        m_edges[esize-9].opposite = m_faces[i].edge->next->opposite;
-        m_edges[esize-8].opposite = &m_edges[esize-3];
-        m_edges[esize-7].opposite = m_faces[i].edge->previous->opposite;
-        m_edges[esize-6].opposite = &m_edges[esize-2];
-        m_edges[esize-5].opposite = m_faces[i].edge->opposite;
-        m_edges[esize-4].opposite = &m_edges[esize-1];
-        m_edges[esize-3].opposite = &m_edges[esize-8];
-        m_edges[esize-2].opposite = &m_edges[esize-6];
-        m_edges[esize-1].opposite = &m_edges[esize-4];
+        // Mise à jour des demi-arêtes de la face courante
+        m_faces[i]->edge->previous->face = m_faces[m_faces.size()-3];
+        m_faces[i]->edge->previous->next = m_edges[m_edges.size()-5];
+        m_faces[i]->edge->previous->previous = m_edges[m_edges.size()-6];
 
-        m_faces[i].edge->next->next = &m_edges[esize-7];
-        m_faces[i].edge->next->previous = &m_edges[esize-6];
-        m_faces[i].edge->previous->next = &m_edges[esize-5];
-        m_faces[i].edge->previous->previous = &m_edges[esize-4];
-        m_faces[i].edge->next = &m_edges[esize-9];
-        m_faces[i].edge->previous = &m_edges[esize-8];
+        m_faces[i]->edge->next->face = m_faces[m_faces.size()-2];
+        m_faces[i]->edge->next->next = m_edges[m_edges.size()-3];
+        m_faces[i]->edge->next->previous = m_edges[m_edges.size()-4];
+
+        m_faces[i]->edge->face = m_faces[m_faces.size()-1];
+        m_faces[i]->edge->next = m_edges[m_edges.size()-1];
+        m_faces[i]->edge->previous = m_edges[m_edges.size()-2];
+
+        m_faces[i]->edge = m_edges[m_edges.size()-7];
     }
 
     TEST();
-    //convertToBuffer();
-    //update();*/
+    convertToBuffer();
+    update();
 }
 
 void Model::decimate()
