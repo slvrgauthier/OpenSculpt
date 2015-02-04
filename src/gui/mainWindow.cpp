@@ -188,6 +188,7 @@ void MainWindow::on_pushValid_clicked()
 
     m_model->setName(ui->textEditName->toPlainText());
     QPushButton *button = new QPushButton(m_model->getName());
+    QObject::connect(button, SIGNAL(clicked()), this, SLOT(on_initCube_clicked()));
     modelListLayout->addWidget(button); // Créer un widget spécifique
     qDebug()<<modelListLayout;
 }

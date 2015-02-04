@@ -53,6 +53,7 @@ private slots:
     // Right panel
     void on_pushCancel_clicked();
     void on_pushValid_clicked();
+    void show_name();
 
 private slots:
     void keyPressEvent(QKeyEvent *event);
