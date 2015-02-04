@@ -53,6 +53,7 @@ private slots:
     // Right panel
     void on_pushCancel_clicked();
     void on_pushValid_clicked();
+    void show_name();
 
 private slots:
     void keyPressEvent(QKeyEvent *event);
@@ -60,11 +61,14 @@ private slots:
     void disableTool();
     void hideDialog();
 
+    void on_pushRemplace_clicked();
+
 private:
     Ui::MainWindow *ui;
     Model *m_model;
     QWidget *modelList;
     QVBoxLayout *modelListLayout;
+    QPushButton *button;
 };
 
 #endif // MAINWINDOW_H
