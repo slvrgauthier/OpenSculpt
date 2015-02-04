@@ -197,6 +197,23 @@ void Model::subdivide()
         m_faces[i]->edge->next = m_edges[m_edges.size()-1];
         m_faces[i]->edge->previous = m_edges[m_edges.size()-2];
 
+        // Mise à jour des demi-arêtes opposées croisées
+/*        if(m_faces[i]->edge->next->opposite->opposite == m_faces[i]->edge->next->opposite->previous->opposite->previous->opposite->previous->opposite) {
+            m_faces[i]->edge->next->opposite->opposite = m_faces[i]->edge->next->previous->opposite->previous->opposite->previous;
+            m_faces[i]->edge->next->opposite = m_faces[i]->edge->next->opposite->previous->opposite->previous->opposite->previous;
+        }
+/*
+        if(m_faces[i]->edge->previous->opposite->opposite == m_faces[i]->edge->previous->opposite->previous->opposite->previous->opposite->previous->opposite) {
+            m_faces[i]->edge->previous->opposite->opposite = m_faces[i]->edge->previous->previous->opposite->previous->opposite->previous;
+            m_faces[i]->edge->previous->opposite = m_faces[i]->edge->previous->opposite->previous->opposite->previous->opposite->previous;
+        }
+
+        if(m_faces[i]->edge->opposite->opposite == m_faces[i]->edge->opposite->previous->opposite->previous->opposite->previous->opposite) {
+            m_faces[i]->edge->opposite->opposite = m_faces[i]->edge->previous->opposite->previous->opposite->previous;
+            m_faces[i]->edge->opposite = m_faces[i]->edge->opposite->previous->opposite->previous->opposite->previous;
+        }
+*/
+        // Mise à jour de la face i
         m_faces[i]->edge = m_edges[m_edges.size()-7];
     }
 
@@ -248,14 +265,16 @@ void Model::paintGL()
 
 void Model::TEST() const
 {
-    qDebug() << "TEST of model " << getName();
+    qDebug() << "TEST of model" << getName();
 
     bool test = true;
+    int errors = 0;
 
     for(int i=0 ; i < m_faces.size() ; ++i) {
         if(m_faces[i]->edge == NULL) {
             qDebug() << "Face" << i << "'s edge is NULL.";
             test = false;
+            ++errors;
         }
     }
 
@@ -263,10 +282,12 @@ void Model::TEST() const
         if(m_vertices[i]->index != i) {
             qDebug() << "Vertex" << i << "'s index isn't correct.";
             test = false;
+            ++errors;
         }
         if(m_vertices[i]->outgoing == NULL) {
             qDebug() << "Vertex" << i << "'s outgoing is NULL.";
             test = false;
+            ++errors;
         }
     }
 
@@ -274,22 +295,27 @@ void Model::TEST() const
         if(m_edges[i]->face == NULL) {
             qDebug() << "Edge" << i << "'s face is NULL.";
             test = false;
+            ++errors;
         }
         if(m_edges[i]->next == NULL) {
             qDebug() << "Edge" << i << "'s next is NULL.";
             test = false;
+            ++errors;
         }
         if(m_edges[i]->previous == NULL) {
             qDebug() << "Edge" << i << "'s previous is NULL.";
             test = false;
+            ++errors;
         }
         if(m_edges[i]->opposite == NULL) {
             qDebug() << "Edge" << i << "'s opposite is NULL.";
             test = false;
+            ++errors;
         }
         if(m_edges[i]->vertex == NULL) {
             qDebug() << "Edge" << i << "'s vertex is NULL.";
             test = false;
+            ++errors;
         }
     }
 
@@ -298,14 +324,17 @@ void Model::TEST() const
             if(m_faces[i]->edge->face != m_faces[i]) {
                 qDebug() << "Face" << i << "'s edge do not refer to the face.";
                 test = false;
+                ++errors;
             }
             if(m_faces[i]->edge->next->face != m_faces[i]) {
                 qDebug() << "Face" << i << "'s edge's next do not refer to the face.";
                 test = false;
+                ++errors;
             }
             if(m_faces[i]->edge->previous->face != m_faces[i]) {
                 qDebug() << "Face" << i << "'s edge's previous do not refer to the face.";
                 test = false;
+                ++errors;
             }
         }
 
@@ -313,6 +342,7 @@ void Model::TEST() const
             if(m_vertices[i]->outgoing->previous->vertex != m_vertices[i]) {
                 qDebug() << "Vertex" << i << "'s outgoing's previous do not refer to the vertex.";
                 test = false;
+                ++errors;
             }
         }
 
@@ -320,15 +350,20 @@ void Model::TEST() const
             if(m_edges[i] != m_edges[i]->next->previous) {
                 qDebug() << "Edge" << i << "'s next's previous do not refer to the edge.";
                 test = false;
+                ++errors;
             }
             if(m_edges[i] != m_edges[i]->previous->next) {
                 qDebug() << "Edge" << i << "'s previous's next do not refer to the edge.";
                 test = false;
+                ++errors;
             }
             if(m_edges[i] != m_edges[i]->opposite->opposite) {
                 qDebug() << "Edge" << i << "'s opposite's opposite do not refer to the edge.";
                 test = false;
+                ++errors;
             }
         }
     }
+
+    qDebug() << "TEST of model" << getName() << ":" << errors << "errors.";
 }
