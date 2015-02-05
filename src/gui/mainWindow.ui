@@ -41,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>809</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -67,6 +67,10 @@
     </property>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
+    <addaction name="separator"/>
+    <addaction name="actionSubdivide"/>
+    <addaction name="actionDecimate"/>
+    <addaction name="actionSmooth"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -106,22 +110,27 @@
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
           <widget class="QWidget" name="listModel">
            <property name="geometry">
             <rect>
              <x>0</x>
              <y>0</y>
              <width>198</width>
-             <height>89</height>
+             <height>112</height>
             </rect>
            </property>
-           <layout class="QVBoxLayout" name="controleListModel"/>
+           <layout class="QVBoxLayout" name="controleListModel">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetNoConstraint</enum>
+            </property>
+           </layout>
           </widget>
          </widget>
         </item>
        </layout>
-       <zorder>scrollArea</zorder>
-       <zorder>scrollArea</zorder>
       </widget>
      </item>
      <item>
@@ -282,56 +291,72 @@
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
-      <widget class="QPushButton" name="gtmove">
-       <property name="cursor">
-        <cursorShape>ArrowCursor</cursorShape>
+      <widget class="QPushButton" name="ltadd">
+       <property name="toolTip">
+        <string>Ajouter</string>
        </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/quatre-fleches_318-10750.jpg</normaloff>:/icons/quatre-fleches_318-10750.jpg</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-       <property name="checked">
-        <bool>false</bool>
+         <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="gtrotate">
-       <property name="cursor">
-        <cursorShape>ArrowCursor</cursorShape>
+      <widget class="QPushButton" name="ltsmooth">
+       <property name="toolTip">
+        <string>Lisser</string>
        </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/rotation.jpeg</normaloff>:/icons/rotation.jpeg</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
+         <normaloff>:/icons/smooth.png</normaloff>:/icons/smooth.png</iconset>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="gtscale">
-       <property name="cursor">
-        <cursorShape>ArrowCursor</cursorShape>
+      <widget class="QPushButton" name="ltpinch">
+       <property name="toolTip">
+        <string>Pincer</string>
        </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/zoom.png</normaloff>:/icons/zoom.png</iconset>
+         <normaloff>:/icons/pinch.png</normaloff>:/icons/pinch.png</iconset>
        </property>
-       <property name="checkable">
-        <bool>true</bool>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="ltmove">
+       <property name="toolTip">
+        <string>Déplacer</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/move_2.png</normaloff>:/icons/move_2.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="ltinflate">
+       <property name="toolTip">
+        <string>Gonfler</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/inflate.png</normaloff>:/icons/inflate.png</iconset>
        </property>
       </widget>
      </item>
@@ -347,6 +372,69 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="gtmove">
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Déplacer (&lt;span style=&quot; font-weight:600;&quot;&gt;objet&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/move.png</normaloff>:/icons/move.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="gtrotate">
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tourner (&lt;span style=&quot; font-weight:600;&quot;&gt;objet&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/rotate.png</normaloff>:/icons/rotate.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="gtscale">
+       <property name="cursor">
+        <cursorShape>ArrowCursor</cursorShape>
+       </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mettre à l'échelle (&lt;span style=&quot; font-weight:600;&quot;&gt;objet&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/scale.png</normaloff>:/icons/scale.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -364,18 +452,21 @@
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/Curseur.png</normaloff>:/icons/Curseur.png</iconset>
+         <normaloff>:/icons/cursor.png</normaloff>:/icons/cursor.png</iconset>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="wtmove">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Déplacer (&lt;span style=&quot; font-weight:600;&quot;&gt;scène&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/quatre-fleches_318-10750.jpg</normaloff>:/icons/quatre-fleches_318-10750.jpg</iconset>
+         <normaloff>:/icons/move.png</normaloff>:/icons/move.png</iconset>
        </property>
       </widget>
      </item>
@@ -384,12 +475,15 @@
        <property name="enabled">
         <bool>true</bool>
        </property>
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tourner (&lt;span style=&quot; font-weight:600;&quot;&gt;scène&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/rotation.jpeg</normaloff>:/icons/rotation.jpeg</iconset>
+         <normaloff>:/icons/rotate.png</normaloff>:/icons/rotate.png</iconset>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -398,57 +492,18 @@
      </item>
      <item>
       <widget class="QPushButton" name="wtscale">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mettre à l'échelle (&lt;span style=&quot; font-weight:600;&quot;&gt;scène&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/zoom.png</normaloff>:/icons/zoom.png</iconset>
+         <normaloff>:/icons/scale.png</normaloff>:/icons/scale.png</iconset>
        </property>
        <property name="checkable">
         <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="redo">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="initCube">
-       <property name="toolTip">
-        <string>Creation du Cube</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/cube.png</normaloff>:/icons/cube.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="initSphere">
-       <property name="toolTip">
-        <string>Création de la Sphère</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/sphere.jpg</normaloff>:/icons/sphere.jpg</iconset>
        </property>
       </widget>
      </item>
@@ -464,6 +519,117 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="undo">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/undo.png</normaloff>:/icons/undo.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="redo">
+       <property name="toolTip">
+        <string>Redo</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/redo.png</normaloff>:/icons/redo.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="initCube">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Créer un cube&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/cube.png</normaloff>:/icons/cube.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="initSphere">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Créer une sphère&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/sphere.png</normaloff>:/icons/sphere.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="initCylinder">
+       <property name="toolTip">
+        <string>Créer un cylindre</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/cylinder.png</normaloff>:/icons/cylinder.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="initCone">
+       <property name="toolTip">
+        <string>Créer un cône</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/cone.png</normaloff>:/icons/cone.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="initTorus">
+       <property name="toolTip">
+        <string>Créer un tore</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/torus.png</normaloff>:/icons/torus.png</iconset>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -493,7 +659,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../data/ressources.qrc">
+    <iconset>
      <normaloff>:/icons/Curseur.png</normaloff>:/icons/Curseur.png</iconset>
    </property>
    <property name="text">
@@ -508,7 +674,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../data/ressources.qrc">
+    <iconset>
      <normaloff>:/icons/quatre-fleches_318-10750.jpg</normaloff>:/icons/quatre-fleches_318-10750.jpg</iconset>
    </property>
    <property name="text">
@@ -523,7 +689,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../data/ressources.qrc">
+    <iconset>
      <normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</normaloff>:/icons/symbole-de-rotation-a-droite_318-9143.jpg</iconset>
    </property>
    <property name="text">
@@ -576,6 +742,21 @@
   <action name="actionUndo">
    <property name="text">
     <string>Undo</string>
+   </property>
+  </action>
+  <action name="actionSubdivide">
+   <property name="text">
+    <string>Subdiviser</string>
+   </property>
+  </action>
+  <action name="actionDecimate">
+   <property name="text">
+    <string>Decimer</string>
+   </property>
+  </action>
+  <action name="actionSmooth">
+   <property name="text">
+    <string>Lisser</string>
    </property>
   </action>
  </widget>

@@ -1,11 +1,20 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/Curseur.png</file>
-        <file>icons/quatre-fleches_318-10750.jpg</file>
-        <file>icons/symbole-de-rotation-a-droite_318-9143.jpg</file>
-        <file>icons/rotation.jpeg</file>
-        <file>icons/zoom.png</file>
         <file>icons/cube.png</file>
-        <file>icons/sphere.jpg</file>
+        <file>icons/cursor.png</file>
+        <file>icons/scale.png</file>
+        <file>icons/add.png</file>
+        <file>icons/cone.png</file>
+        <file>icons/cylinder.png</file>
+        <file>icons/inflate.png</file>
+        <file>icons/move_2.png</file>
+        <file>icons/pinch.png</file>
+        <file>icons/smooth.png</file>
+        <file>icons/torus.png</file>
+        <file>icons/move.png</file>
+        <file>icons/redo.png</file>
+        <file>icons/rotate.png</file>
+        <file>icons/sphere.png</file>
+        <file>icons/undo.png</file>
     </qresource>
 </RCC>
