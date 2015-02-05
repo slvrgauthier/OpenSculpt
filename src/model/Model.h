@@ -54,7 +54,7 @@ public:
     int getSize() const;
 
 public:
-    Face* closestFace(QVector3D position) const;
+    int closestVertex(QVector3D position) const;
     void TEST() const;
 
 protected:

@@ -259,12 +259,21 @@ void Model::paintGL()
     glDisableClientState(GL_VERTEX_ARRAY);
 }
 
-Face* Model::closestFace(QVector3D position) const
+int Model::closestVertex(QVector3D position) const
 {
-    Face * face;
-    //float distance = position.distanceToPoint(m_vertices[0]->coords);
+    int index = 0;
+    float distance = position.distanceToPoint(m_vertices[0]->coords);
 
-    return face;
+    float d;
+    for(int i=1 ; i < m_vertices.size() ; ++i) {
+        d = position.distanceToPoint(m_vertices[i]->coords);
+        if(d < distance) {
+            distance = d;
+            index = i;
+        }
+    }
+
+    return index;
 }
 
 void Model::TEST() const

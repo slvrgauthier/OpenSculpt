@@ -21,20 +21,11 @@ void GTMove::action(Model *model, QPoint last_position, QPoint current_position,
 
     QVector3D move(x,y,z); // Mouvement dans le repère scène
 
-    QVector3D currentPoint;
     for(int i=0 ; i < model->getSize() ; ++i) {
-        currentPoint = model->getVertex(i);
-        currentPoint.setX(currentPoint.x()+move.x());
-        currentPoint.setY(currentPoint.y()+move.y());
-        currentPoint.setZ(currentPoint.z()+move.z());
-        model->setVertex(i, currentPoint);
+        model->setVertex(i, model->getVertex(i) + move);
     }
 
-    currentPoint = model->getCenter();
-    currentPoint.setX(currentPoint.x()+move.x());
-    currentPoint.setY(currentPoint.y()+move.y());
-    currentPoint.setZ(currentPoint.z()+move.z());
-    model->setCenter(currentPoint);
+    model->setCenter(model->getCenter() + move);
 
     model->update();
 }
