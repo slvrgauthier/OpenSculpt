@@ -63,10 +63,15 @@ private slots:
 private slots:
     void keyPressEvent(QKeyEvent *event);
     void updateLastModel();
+    void updatesubdivide();
     void disableTool();
     void hideDialog();
 
     void on_pushRemplace_clicked();
+
+    void on_subdivide_clicked();
+
+    void on_undo_clicked();
 
 private:
     Ui::MainWindow *ui;

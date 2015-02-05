@@ -274,7 +274,6 @@ void Model::TEST() const
 
     for(int i=0 ; i < m_faces.size() ; ++i) {
         if(m_faces[i]->edge == NULL) {
-            qDebug() << "Face" << i << "'s edge is NULL.";
             test = false;
             ++errors;
         }

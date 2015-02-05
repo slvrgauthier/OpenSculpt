@@ -43,7 +43,7 @@ public:
     virtual void setWidth(float width);
     virtual void setHeight(float height);
     virtual void setDepth(float depth);
-
+    
 public:
     QString getName() const;
     void setName(QString name);
@@ -53,11 +53,8 @@ public:
     void setCenter(QVector3D center);
     int getSize() const;
 
-    virtual float getWidth() const;
-    virtual float getHeight() const;
-    virtual float getDepth() const;
-
 public:
+    Face* closestFace(QVector3D position) const;
     void TEST() const;
 
 protected:
