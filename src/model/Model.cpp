@@ -184,6 +184,22 @@ void Model::subdivide()
         m_faces[i]->edge->next->vertex->outgoing = m_edges[m_edges.size()-3];
         m_faces[i]->edge->previous->vertex->outgoing = m_edges[m_edges.size()-5];
 
+        // Mise à jour des demi-arêtes opposées croisées
+        if(m_faces[i]->edge->next == m_faces[i]->edge->next->opposite->previous->opposite->previous->opposite->previous->opposite) {
+            m_faces[i]->edge->next->opposite->opposite = m_edges[m_edges.size()-1];
+            m_faces[i]->edge->next->opposite = m_faces[i]->edge->next->opposite->previous->opposite->previous->opposite->previous;
+        }
+
+        if(m_faces[i]->edge->previous == m_faces[i]->edge->previous->opposite->previous->opposite->previous->opposite->previous->opposite) {
+            m_faces[i]->edge->previous->opposite->opposite = m_edges[m_edges.size()-3];
+            m_faces[i]->edge->previous->opposite = m_faces[i]->edge->previous->opposite->previous->opposite->previous->opposite->previous;
+        }
+
+        if(m_faces[i]->edge == m_faces[i]->edge->opposite->previous->opposite->previous->opposite->previous->opposite) {
+            m_faces[i]->edge->opposite->opposite = m_edges[m_edges.size()-5];
+            m_faces[i]->edge->opposite = m_faces[i]->edge->opposite->previous->opposite->previous->opposite->previous;
+        }
+
         // Mise à jour des demi-arêtes de la face courante
         m_faces[i]->edge->previous->face = m_faces[m_faces.size()-3];
         m_faces[i]->edge->previous->next = m_edges[m_edges.size()-5];
@@ -197,22 +213,6 @@ void Model::subdivide()
         m_faces[i]->edge->next = m_edges[m_edges.size()-1];
         m_faces[i]->edge->previous = m_edges[m_edges.size()-2];
 
-        // Mise à jour des demi-arêtes opposées croisées
-/*        if(m_faces[i]->edge->next->opposite->opposite == m_faces[i]->edge->next->opposite->previous->opposite->previous->opposite->previous->opposite) {
-            m_faces[i]->edge->next->opposite->opposite = m_faces[i]->edge->next->previous->opposite->previous->opposite->previous;
-            m_faces[i]->edge->next->opposite = m_faces[i]->edge->next->opposite->previous->opposite->previous->opposite->previous;
-        }
-/*
-        if(m_faces[i]->edge->previous->opposite->opposite == m_faces[i]->edge->previous->opposite->previous->opposite->previous->opposite->previous->opposite) {
-            m_faces[i]->edge->previous->opposite->opposite = m_faces[i]->edge->previous->previous->opposite->previous->opposite->previous;
-            m_faces[i]->edge->previous->opposite = m_faces[i]->edge->previous->opposite->previous->opposite->previous->opposite->previous;
-        }
-
-        if(m_faces[i]->edge->opposite->opposite == m_faces[i]->edge->opposite->previous->opposite->previous->opposite->previous->opposite) {
-            m_faces[i]->edge->opposite->opposite = m_faces[i]->edge->previous->opposite->previous->opposite->previous;
-            m_faces[i]->edge->opposite = m_faces[i]->edge->opposite->previous->opposite->previous->opposite->previous;
-        }
-*/
         // Mise à jour de la face i
         m_faces[i]->edge = m_edges[m_edges.size()-7];
     }
