@@ -25,6 +25,7 @@ SOURCES += main.cpp \
     model/MSphere.cpp \
     tool/GTRotate.cpp \
     tool/GTScale.cpp \
+    tool/LTAdd.cpp \
     tool/LTInflate.cpp \
     tool/LTPinch.cpp \
     tool/LTSmooth.cpp \
@@ -45,6 +46,7 @@ HEADERS += gui/mainWindow.h \
     model/MTorus.h \
     tool/LTSmooth.h \
     tool/GTRotate.h \
+    tool/LTAdd.h \
     tool/LTPinch.h \
     tool/LTInflate.h \
     tool/GTScale.h \
