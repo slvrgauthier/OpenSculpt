@@ -8,21 +8,6 @@
 #include "mainWindow.h"
 #include "tool/Tool.h"
 
-enum TOOL
-{
-    GTMOVE,
-    GTROTATE,
-    GTSCALE,
-    LTINFLATE,
-    LTMOVE,
-    LTPINCH,
-    LTSMOOTH,
-    WTSCALE,
-    WTROTATE,
-    WTMOVE,
-    NOTOOL
-};
-
 class GLWidget : public QGLWidget
 {
     Q_OBJECT

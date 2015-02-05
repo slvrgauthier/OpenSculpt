@@ -1,8 +1,11 @@
 #include "model/func.h"
 #include "tool/GTMove.h"
 #include <QDebug>
+
 void GTMove::action(Model *model, QPoint last_position, QPoint current_position, float distance, float x_rot, float y_rot, float z_rot)
 {
+    qDebug() << "GTMove action";
+
     float dx = current_position.x() - last_position.x(), dy = current_position.y() - last_position.y();
     float coef = distance / 900.0; // Compensation perspective
 

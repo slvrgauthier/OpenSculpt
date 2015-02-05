@@ -7,10 +7,29 @@
 
 /*
  * Nom de classe outil :
- *  - LTName pour "LocalTool" -> outil pour la sculpture (extrusion, lissage...etc)
- *  - GTName pour "GlobalTool" -> outil pour action sur l'objet en entier (rotation, move...etc)
+ *  - LTName pour "LocalTool" -> outil pour la sculpture de l'objet
+ *  - GTName pour "GlobalTool" -> outil pour action sur l'objet en entier
  *  - WTName pour "WindowTool" -> outil pour le déplacement de la caméra uniquement
  */
+
+enum TOOL
+{
+    LTADD,
+    LTSMOOTH,
+    LTMOVE,
+    LTINFLATE,
+    LTPINCH,
+
+    GTMOVE,
+    GTROTATE,
+    GTSCALE,
+
+    WTMOVE,
+    WTROTATE,
+    WTSCALE,
+
+    NOTOOL
+};
 
 class Tool
 {

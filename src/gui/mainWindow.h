@@ -23,6 +23,12 @@ public:
 
 private slots:
     // Left panel
+    void on_ltadd_clicked();
+    void on_ltsmooth_clicked();
+    void on_ltmove_clicked();
+    void on_ltinflate_clicked();
+    void on_ltpinch_clicked();
+
     void on_gtmove_clicked();
     void on_gtrotate_clicked();
     void on_gtscale_clicked();

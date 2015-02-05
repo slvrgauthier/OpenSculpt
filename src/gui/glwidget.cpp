@@ -16,6 +16,7 @@
 #include "tool/LTMove.h"
 #include "tool/LTPinch.h"
 #include "tool/LTSmooth.h"
+#include "tool/LTAdd.h"
 
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
@@ -27,13 +28,15 @@ GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 
     m_timer.start(16);
 
+    m_tools.push_back(new LTAdd());
+    m_tools.push_back(new LTSmooth());
+    m_tools.push_back(new LTMove());
+    m_tools.push_back(new LTInflate());
+    m_tools.push_back(new LTPinch());
+
     m_tools.push_back(new GTMove());
     m_tools.push_back(new GTRotate());
     m_tools.push_back(new GTScale());
-    m_tools.push_back(new LTInflate());
-    m_tools.push_back(new LTMove());
-    m_tools.push_back(new LTPinch());
-    m_tools.push_back(new LTSmooth());
 }
 
 

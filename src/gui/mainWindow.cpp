@@ -23,6 +23,41 @@ MainWindow::~MainWindow()
 // ===================================================
 // LEFT PANEL
 
+void MainWindow::on_ltadd_clicked()
+{
+    this->disableTool();
+    ui->ltadd->setChecked(true);
+    ui->glwidget->enableTool(LTADD);
+}
+
+void MainWindow::on_ltsmooth_clicked()
+{
+    this->disableTool();
+    ui->ltsmooth->setChecked(true);
+    ui->glwidget->enableTool(LTSMOOTH);
+}
+
+void MainWindow::on_ltmove_clicked()
+{
+    this->disableTool();
+    ui->ltmove->setChecked(true);
+    ui->glwidget->enableTool(LTMOVE);
+}
+
+void MainWindow::on_ltinflate_clicked()
+{
+    this->disableTool();
+    ui->ltinflate->setChecked(true);
+    ui->glwidget->enableTool(LTINFLATE);
+}
+
+void MainWindow::on_ltpinch_clicked()
+{
+    this->disableTool();
+    ui->ltpinch->setChecked(true);
+    ui->glwidget->enableTool(LTPINCH);
+}
+
 void MainWindow::on_gtmove_clicked()
 {
     this->disableTool();
@@ -70,7 +105,6 @@ void MainWindow::on_wtscale_clicked()
 
 void MainWindow::on_redo_clicked()
 {
-    ui->redo->setChecked(false);
     m_model->subdivide();
     //ui->glwidget->resetView();
 }
@@ -211,13 +245,19 @@ void MainWindow::updateLastModel() {
 
 void MainWindow::disableTool()
 {
+    ui->ltadd->setChecked(false);
+    ui->ltsmooth->setChecked(false);
+    ui->ltmove->setChecked(false);
+    ui->ltinflate->setChecked(false);
+    ui->ltpinch->setChecked(false);
+
     ui->gtmove->setChecked(false);
     ui->gtrotate->setChecked(false);
-    ui->redo->setChecked(false);
     ui->gtscale->setChecked(false);
+
+    ui->wtmove->setChecked(false);
     ui->wtrotate->setChecked(false);
     ui->wtscale->setChecked(false);
-    ui->wtmove->setChecked(false);
 
     ui->glwidget->enableTool(NOTOOL);
 }
@@ -245,11 +285,9 @@ void MainWindow::show_param()
     ui->pushCancel->setVisible(false);
     ui->pushValid->setVisible(false);
 
-
     /*Chargement des caractéristiques du modèle*/
     ui->glwidget->selectModel(m_model);
     ui->textEditName->setText(m_model->getName());
-
 }
 
 void MainWindow::on_pushRemplace_clicked()

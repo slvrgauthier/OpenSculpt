@@ -302,6 +302,9 @@
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -316,19 +319,8 @@
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/smooth.png</normaloff>:/icons/smooth.png</iconset>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="ltpinch">
-       <property name="toolTip">
-        <string>Pincer</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/pinch.png</normaloff>:/icons/pinch.png</iconset>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -344,6 +336,9 @@
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/move_2.png</normaloff>:/icons/move_2.png</iconset>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -357,6 +352,26 @@
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/inflate.png</normaloff>:/icons/inflate.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="ltpinch">
+       <property name="toolTip">
+        <string>Pincer</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/pinch.png</normaloff>:/icons/pinch.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -468,6 +483,9 @@
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/move.png</normaloff>:/icons/move.png</iconset>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -544,7 +562,7 @@
          <normaloff>:/icons/redo.png</normaloff>:/icons/redo.png</iconset>
        </property>
        <property name="checkable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>

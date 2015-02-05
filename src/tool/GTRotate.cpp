@@ -1,8 +1,11 @@
 #include "tool/GTRotate.h"
 #include "model/func.h"
+#include <QDebug>
 
 void GTRotate::action(Model *model, QPoint last_position, QPoint current_position, float distance, float x_rot, float y_rot, float z_rot)
 {
+    qDebug() << "GTRotate action";
+
     float dx = current_position.x() - last_position.x(), dy = current_position.y() - last_position.y();
     float x,y,z, x_,y_,z_;
     QVector3D currentPoint, center = model->getCenter();

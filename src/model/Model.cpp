@@ -97,7 +97,6 @@ void Model::update()
 
 void Model::subdivide()
 {
-    TEST();
     m_faces.reserve(4 * m_faces.size());
     m_edges.reserve(m_edges.size() + 9*m_faces.size());
     m_vertices.reserve(m_vertices.size() + 3*m_faces.size());
@@ -215,7 +214,6 @@ void Model::subdivide()
         m_faces[i]->edge = m_edges[m_edges.size()-7];
     }
 
-    TEST();
     convertToBuffer();
     update();
 }
@@ -261,10 +259,16 @@ void Model::paintGL()
     glDisableClientState(GL_VERTEX_ARRAY);
 }
 
+Face* Model::closestFace(QVector3D position) const
+{
+    Face * face;
+    //float distance = position.distanceToPoint(m_vertices[0]->coords);
+
+    return face;
+}
+
 void Model::TEST() const
 {
-    qDebug() << "TEST of model" << getName();
-
     bool test = true;
     int errors = 0;
 
@@ -363,12 +367,5 @@ void Model::TEST() const
         }
     }
 
-    qDebug() << "TEST of model" << getName() << ":" << errors << "errors.";
+    qDebug() << "Integrity TEST of model" << getName() << ":" << errors << "errors.";
 }
-
-/** Revoir les cours sur les héritages (L3 !!!!)*/
-float Model::getHeight() const {}
-
-float Model::getDepth() const {}
-
-float Model::getWidth() const {}
