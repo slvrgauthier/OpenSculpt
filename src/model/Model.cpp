@@ -5,7 +5,7 @@
  * Definition file of Model.h.
  *
  */
-
+#include <windows.h>
 #include "model/Model.h"
 #if defined(__APPLE__) && (__MACH__)
     #include <GLUT/glut.h>

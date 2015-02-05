@@ -9,6 +9,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
+#include <windows.h>
 #if defined(__APPLE__) && (__MACH__)
     #include <GLUT/glut.h>
 #elif defined(__WIN32__)
