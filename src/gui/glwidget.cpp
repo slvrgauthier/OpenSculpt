@@ -17,12 +17,14 @@
 #include "tool/LTPinch.h"
 #include "tool/LTSmooth.h"
 #include "tool/LTAdd.h"
+#include "model/func.h"
 
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
     activeTool = NOTOOL;
     activeModel = NULL;
     mode_fill = false;
+    brushSize = 10;
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
 
@@ -84,6 +86,14 @@ void GLWidget::paintGL()
     glLoadIdentity();
     gluPerspective(30.0f, 1.0*width()/height(), 0.1f, 100.0f);
 
+    // Brush
+/*    glColor3d(1,0,0);
+    glBegin(GL_LINE_LOOP);
+        for (int i=0; i < 360; ++i) {
+            glVertex3f(last_pos.x() + cosd(i)*brushSize, last_pos.y() + sind(i)*brushSize, 0);
+        }
+    glEnd();*/
+
     // Draw map
     qglColor(Qt::lightGray);
 
@@ -114,7 +124,6 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
     if (event->buttons() & Qt::RightButton)
     {
             rotateBy(dy, dx, 0);
-
     }
 
     if (event->buttons() & Qt::LeftButton)

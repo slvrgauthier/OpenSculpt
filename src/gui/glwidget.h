@@ -32,7 +32,6 @@ public:
     void resetView();
     void undoview();
 
-
 private:
     void rotateBy(int x, int y, int z);
 
@@ -42,6 +41,7 @@ private:
     QVector<Tool*> m_tools;
     TOOL activeTool;
     Model* activeModel;
+    int brushSize;
 
     // View & rotation settings
     QPoint last_pos;
