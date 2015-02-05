@@ -7,6 +7,7 @@
 #else
     #include <GL/glut.h>
 #endif
+#include "model/func.h"
 
 MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
 {
@@ -20,7 +21,7 @@ MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
 
   // Vertices
   m_vertices.reserve(18);
-  float angle=2*M_PI/8.;
+  float angle=2*M_PI/8.; // !!! TU PEUX UTILISER MES FONCTIONS COSD ET SIND POUR UTILISER EN DEGRES ;-)
 
   /*for(int k =0;k<=8;k++){
       float resultCos= m_radius*cosf(angle*k);// k 0 - > 8 pas de 1
