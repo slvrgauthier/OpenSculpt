@@ -20,6 +20,7 @@ enum TOOL
     WTSCALE,
     WTROTATE,
     WTMOVE,
+    RTROTATE,
     NOTOOL
 };
 
@@ -46,6 +47,7 @@ public:
 
     void resetView();
 
+
 private:
     void rotateBy(int x, int y, int z);
 
@@ -67,6 +69,7 @@ private:
 
     // Render settings
     bool mode_fill;
+
 };
 
 #endif // GLWIDGET_H

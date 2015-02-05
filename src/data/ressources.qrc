@@ -16,5 +16,6 @@
         <file>icons/rotate.png</file>
         <file>icons/sphere.png</file>
         <file>icons/undo.png</file>
+        <file>icons/subdivide.png</file>
     </qresource>
 </RCC>

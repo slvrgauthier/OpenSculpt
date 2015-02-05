@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->hideDialog();
+
 }
 
 MainWindow::~MainWindow()
@@ -35,6 +36,7 @@ void MainWindow::on_gtrotate_clicked()
     this->disableTool();
     ui->gtrotate->setChecked(true);
     ui->glwidget->enableTool(GTROTATE);
+    ui->redo->setEnabled(true);
 }
 
 void MainWindow::on_gtscale_clicked()
@@ -59,6 +61,7 @@ void MainWindow::on_wtrotate_clicked()
     this->disableTool();
     ui->wtrotate->setChecked(true);
     ui->glwidget->enableTool(WTROTATE);
+    ui->redo->setEnabled(true);
 }
 
 void MainWindow::on_wtscale_clicked()
@@ -70,9 +73,8 @@ void MainWindow::on_wtscale_clicked()
 
 void MainWindow::on_redo_clicked()
 {
-    ui->redo->setChecked(false);
-    m_model->subdivide();
-    //ui->glwidget->resetView();
+       ui->glwidget->resetView();
+       ui->redo->setEnabled(false);
 }
 
 void MainWindow::on_initCube_clicked()
@@ -105,6 +107,7 @@ void MainWindow::on_initCube_clicked()
     connect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
+    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this,SLOT(updatesubdivide()));
 }
 
 void MainWindow::on_initSphere_clicked()
@@ -119,14 +122,24 @@ void MainWindow::on_initSphere_clicked()
     ui->widgetValidate->setVisible(true);
 }
 
+// Subdivision
+void MainWindow::on_subdivide_clicked()
+{
+    m_model->subdivide();
+}
+
 // ===================================================
 // MENU FILE
 
 void MainWindow::on_actionNewProject_triggered()
 {
-    ui->glwidget->clear();
+
     this->disableTool();
     this->hideDialog();
+    this->close();
+    //seul moyen pour que tout soit bien réinitialisé sinon la hiérarchie ne le sera pas
+    MainWindow *main = new MainWindow();
+    main->show();
 }
 
 
@@ -201,12 +214,22 @@ void MainWindow::on_pushValid_clicked()
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     ui->glwidget->keyPressEvent(event);
+
+
 }
 
 void MainWindow::updateLastModel() {
     m_model->setWidth(ui->spinBoxWidth->value());
     m_model->setHeight(ui->spinBoxHeight->value());
     m_model->setDepth(ui->spinBoxDepth->value());
+}
+
+void MainWindow::updatesubdivide()
+{
+    for (int i=0; i<ui->sliderSubdivide->value(); i++)
+    {
+        m_model->subdivide();
+    }
 }
 
 void MainWindow::disableTool()
@@ -230,6 +253,7 @@ void MainWindow::hideDialog()
     ui->widgetValidate->setVisible(false);
     ui->widgetSubdivide->setVisible(false);
     ui->widgetName->setVisible(false);
+    ui->redo->setEnabled(false);
 }
 
 void MainWindow::show_param()
@@ -258,5 +282,3 @@ void MainWindow::on_pushRemplace_clicked()
     ui->widgetName->setVisible(false);
     ui->pushRemplace->setVisible(false);
 }
-
-

@@ -263,14 +263,12 @@ void Model::paintGL()
 
 void Model::TEST() const
 {
-    qDebug() << "TEST of model" << getName();
 
     bool test = true;
     int errors = 0;
 
     for(int i=0 ; i < m_faces.size() ; ++i) {
         if(m_faces[i]->edge == NULL) {
-            qDebug() << "Face" << i << "'s edge is NULL.";
             test = false;
             ++errors;
         }
@@ -363,7 +361,7 @@ void Model::TEST() const
         }
     }
 
-    qDebug() << "TEST of model" << getName() << ":" << errors << "errors.";
+
 }
 
 /** Revoir les cours sur les héritages (L3 !!!!)*/

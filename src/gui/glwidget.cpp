@@ -110,7 +110,8 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 
     if (event->buttons() & Qt::RightButton)
     {
-        rotateBy(dy, dx, 0);
+            rotateBy(dy, dx, 0);
+
     }
 
     if (event->buttons() & Qt::LeftButton)
@@ -178,8 +179,11 @@ void GLWidget::clear()
     m_manager.clear();
 }
 
+
 void GLWidget::resetView()
 {
     distance = -15.0;
     offsetX = offsetY = x_rot = y_rot = z_rot = 0.0;
 }
+
+
