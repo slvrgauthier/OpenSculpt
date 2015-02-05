@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->hideDialog();
 
+
 }
 
 MainWindow::~MainWindow()
@@ -175,13 +176,13 @@ void MainWindow::on_subdivide_clicked()
 
 void MainWindow::on_actionNewProject_triggered()
 {
-
     this->disableTool();
     this->hideDialog();
-    this->close();
-    //seul moyen pour que tout soit bien réinitialisé sinon la hiérarchie ne le sera pas
-    MainWindow *main = new MainWindow();
-    main->show();
+    ui->glwidget->clear();
+    for(int i = 0; i<listObject.size(); i++)
+    {
+        listObject.at(i)->hide();
+    }
 }
 
 
@@ -242,12 +243,16 @@ void MainWindow::on_pushValid_clicked()
     m_model->setName(ui->textEditName->text());
 
     /**Ne pas supprimer*/
-    QPushButton* button = new QPushButton(m_model->getName());
+
+    button = new QPushButton(m_model->getName());
     m_modelList.insert(button, m_model);
     /**/
-
+    listObject.push_back(button);
+    qDebug()<<listObject;
     QObject::connect(button, SIGNAL(clicked()), this, SLOT(show_param()));
     ui->controleListModel->addWidget(button);
+
+
 }
 
 // ===================================================

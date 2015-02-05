@@ -77,6 +77,8 @@ private:
     Ui::MainWindow *ui;
     Model *m_model;
     QMap<QPushButton*, Model*> m_modelList;
+    QPushButton* button;
+    QVector<QPushButton *> listObject;
 };
 
 #endif // MAINWINDOW_H

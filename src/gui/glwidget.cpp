@@ -191,7 +191,6 @@ void GLWidget::clear()
     m_manager.clear();
 }
 
-
 void GLWidget::resetView()
 {
     distancesave = distance;
