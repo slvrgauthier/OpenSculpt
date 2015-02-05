@@ -105,22 +105,48 @@ void Model::subdivide()
 
     for(int i=0 ; i < size ; ++i) {
 
-        for(int j=0 ; j < 3 ; ++j) { m_vertices.push_back(new Vertex); }
+        Vertex *v1, *v2, *v3;
+
         for(int j=0 ; j < 3 ; ++j) { m_faces.push_back(new Face); }
         for(int j=0 ; j < 9 ; ++j) { m_edges.push_back(new HalfEdge); }
 
         // Milieux des trois demi-arêtes de la face i
-        m_vertices[m_vertices.size()-1]->index = m_vertices.size()-1;
-        m_vertices[m_vertices.size()-2]->index = m_vertices.size()-2;
-        m_vertices[m_vertices.size()-3]->index = m_vertices.size()-3;
-
-        m_vertices[m_vertices.size()-1]->outgoing = m_edges[m_edges.size()-7];
-        m_vertices[m_vertices.size()-2]->outgoing = m_edges[m_edges.size()-8];
-        m_vertices[m_vertices.size()-3]->outgoing = m_edges[m_edges.size()-9];
-
-        m_vertices[m_vertices.size()-1]->coords = (m_faces[i]->edge->vertex->coords + m_faces[i]->edge->previous->vertex->coords) / 2;
-        m_vertices[m_vertices.size()-2]->coords = (m_faces[i]->edge->vertex->coords + m_faces[i]->edge->next->vertex->coords) / 2;
-        m_vertices[m_vertices.size()-3]->coords = (m_faces[i]->edge->next->vertex->coords + m_faces[i]->edge->previous->vertex->coords) / 2;
+        if(m_faces[i]->edge == m_faces[i]->edge->opposite->previous->opposite->previous->opposite->previous->opposite) {
+            // Le milieu existe déjà
+            v1 = m_faces[i]->edge->opposite->previous->vertex;
+        }
+        else {
+            // Le milieu n'existe pas
+            m_vertices.push_back(new Vertex);
+            v1 = m_vertices[m_vertices.size()-1];
+            v1->index = m_vertices.size()-1;
+            v1->outgoing = m_edges[m_edges.size()-7];
+            v1->coords = (m_faces[i]->edge->vertex->coords + m_faces[i]->edge->previous->vertex->coords) / 2;
+        }
+        if(m_faces[i]->edge->next == m_faces[i]->edge->next->opposite->previous->opposite->previous->opposite->previous->opposite) {
+            // Le milieu existe déjà
+            v2 = m_faces[i]->edge->next->opposite->previous->vertex;
+        }
+        else {
+            // Le milieu n'existe pas
+            m_vertices.push_back(new Vertex);
+            v2 = m_vertices[m_vertices.size()-1];
+            v2->index = m_vertices.size()-1;
+            v2->outgoing = m_edges[m_edges.size()-8];
+            v2->coords = (m_faces[i]->edge->vertex->coords + m_faces[i]->edge->next->vertex->coords) / 2;
+        }
+        if(m_faces[i]->edge->previous == m_faces[i]->edge->previous->opposite->previous->opposite->previous->opposite->previous->opposite) {
+            // Le milieu existe déjà
+            v3 = m_faces[i]->edge->previous->opposite->previous->vertex;
+        }
+        else {
+            // Le milieu n'existe pas
+            m_vertices.push_back(new Vertex);
+            v3 = m_vertices[m_vertices.size()-1];
+            v3->index = m_vertices.size()-1;
+            v3->outgoing = m_edges[m_edges.size()-9];
+            v3->coords = (m_faces[i]->edge->next->vertex->coords + m_faces[i]->edge->previous->vertex->coords) / 2;
+        }
 
         // Trois nouvelles faces créées
         m_faces[m_faces.size()-1]->edge = m_faces[i]->edge;
@@ -168,15 +194,15 @@ void Model::subdivide()
         m_edges[m_edges.size()-8]->opposite = m_edges[m_edges.size()-4];
         m_edges[m_edges.size()-9]->opposite = m_edges[m_edges.size()-6];
 
-        m_edges[m_edges.size()-1]->vertex = m_vertices[m_vertices.size()-2];
-        m_edges[m_edges.size()-2]->vertex = m_vertices[m_vertices.size()-1];
-        m_edges[m_edges.size()-3]->vertex = m_vertices[m_vertices.size()-3];
-        m_edges[m_edges.size()-4]->vertex = m_vertices[m_vertices.size()-2];
-        m_edges[m_edges.size()-5]->vertex = m_vertices[m_vertices.size()-1];
-        m_edges[m_edges.size()-6]->vertex = m_vertices[m_vertices.size()-3];
-        m_edges[m_edges.size()-7]->vertex = m_vertices[m_vertices.size()-2];
-        m_edges[m_edges.size()-8]->vertex = m_vertices[m_vertices.size()-3];
-        m_edges[m_edges.size()-9]->vertex = m_vertices[m_vertices.size()-1];
+        m_edges[m_edges.size()-1]->vertex = v2;
+        m_edges[m_edges.size()-2]->vertex = v1;
+        m_edges[m_edges.size()-3]->vertex = v3;
+        m_edges[m_edges.size()-4]->vertex = v2;
+        m_edges[m_edges.size()-5]->vertex = v1;
+        m_edges[m_edges.size()-6]->vertex = v3;
+        m_edges[m_edges.size()-7]->vertex = v2;
+        m_edges[m_edges.size()-8]->vertex = v3;
+        m_edges[m_edges.size()-9]->vertex = v1;
 
         // Mise à jour des sommets de la face courante
         m_faces[i]->edge->vertex->outgoing = m_edges[m_edges.size()-1];
@@ -214,6 +240,7 @@ void Model::subdivide()
         m_faces[i]->edge = m_edges[m_edges.size()-7];
     }
 
+    TEST();
     convertToBuffer();
     update();
 }
@@ -353,6 +380,13 @@ void Model::TEST() const
                 qDebug() << "Vertex" << i << "'s outgoing's previous do not refer to the vertex.";
                 test = false;
                 ++errors;
+            }
+            for(int j=i+1 ; j < m_vertices.size() ; ++j) {
+                if(i != j && m_vertices[i]->coords == m_vertices[j]->coords) {
+                    qDebug() << "Vertex" << i << "and Vertex" << j << "have equal coords.";
+                    test = false;
+                    ++errors;
+                }
             }
         }
 
