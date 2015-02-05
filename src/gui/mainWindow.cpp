@@ -37,6 +37,7 @@ void MainWindow::on_gtrotate_clicked()
     ui->gtrotate->setChecked(true);
     ui->glwidget->enableTool(GTROTATE);
     ui->redo->setEnabled(true);
+    ui->undo->setEnabled(false);
 }
 
 void MainWindow::on_gtscale_clicked()
@@ -62,6 +63,7 @@ void MainWindow::on_wtrotate_clicked()
     ui->wtrotate->setChecked(true);
     ui->glwidget->enableTool(WTROTATE);
     ui->redo->setEnabled(true);
+    ui->undo->setEnabled(false);
 }
 
 void MainWindow::on_wtscale_clicked()
@@ -75,6 +77,12 @@ void MainWindow::on_redo_clicked()
 {
        ui->glwidget->resetView();
        ui->redo->setEnabled(false);
+       ui->undo->setEnabled(true);
+}
+
+void MainWindow::on_undo_clicked()
+{
+    ui->glwidget->undoview();
 }
 
 void MainWindow::on_initCube_clicked()
@@ -254,6 +262,7 @@ void MainWindow::hideDialog()
     ui->widgetSubdivide->setVisible(false);
     ui->widgetName->setVisible(false);
     ui->redo->setEnabled(false);
+    ui->undo->setEnabled(false);
 }
 
 void MainWindow::show_param()

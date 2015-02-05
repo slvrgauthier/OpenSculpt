@@ -182,8 +182,27 @@ void GLWidget::clear()
 
 void GLWidget::resetView()
 {
+    distancesave = distance;
+    offsetXsave = offsetX;
+    offsetYsave = offsetY;
+    x_rotsave = x_rot;
+    y_rotsave = y_rot;
+    z_rotsave = z_rot;
     distance = -15.0;
     offsetX = offsetY = x_rot = y_rot = z_rot = 0.0;
 }
+
+void GLWidget::undoview()
+{
+    distance= distancesave;
+    offsetX = offsetXsave;
+    offsetY = offsetYsave;
+    x_rot = x_rotsave;
+    y_rot = y_rotsave;
+    z_rot = z_rotsave;
+
+}
+
+
 
 

@@ -65,6 +65,8 @@ private slots:
 
     void on_subdivide_clicked();
 
+    void on_undo_clicked();
+
 private:
     Ui::MainWindow *ui;
     Model *m_model;
