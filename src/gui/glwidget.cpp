@@ -20,6 +20,7 @@
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
     activeTool = NOTOOL;
+    activeModel = NULL;
     mode_fill = false;
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
@@ -128,15 +129,9 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
             offsetX += (distance * dx / 600.0);
             offsetY += (distance * dy / 600.0);
         }
-        else if(activeTool != NOTOOL)
+        else if(activeTool != NOTOOL && activeModel != NULL)
         {
-            Model* model = m_manager.getModel(0); //RECODE : indice pris dans la hiérarchie d'objet
-            if(model != NULL) {
-                m_tools.at(activeTool)->action(model, last_pos, event->pos(), distance, x_rot, y_rot, z_rot);
-            }
-            else {
-                qDebug() << "Current model is NULL.";
-            }
+            m_tools.at(activeTool)->action(activeModel, last_pos, event->pos(), distance, x_rot, y_rot, z_rot);
         }
         else
         {
@@ -163,6 +158,10 @@ void GLWidget::rotateBy(int x, int y, int z)
 void GLWidget::enableTool(TOOL tool)
 {
     activeTool = tool;
+}
+
+void GLWidget::selectModel(Model* model) {
+    activeModel = model;
 }
 
 void GLWidget::addmodel(Model *model) {

@@ -38,6 +38,7 @@ public:
     void wheelEvent(QWheelEvent *event);
 
     void enableTool(TOOL tool);
+    void selectModel(Model* model);
 
     void addmodel(Model *model);
     void removemodel();
@@ -53,6 +54,7 @@ private:
     ModelManager m_manager;
     QVector<Tool*> m_tools;
     TOOL activeTool;
+    Model* activeModel;
 
     // View & rotation settings
     QPoint last_pos;

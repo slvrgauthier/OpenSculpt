@@ -189,12 +189,10 @@ void Model::subdivide()
             m_faces[i]->edge->next->opposite->opposite = m_edges[m_edges.size()-1];
             m_faces[i]->edge->next->opposite = m_faces[i]->edge->next->opposite->previous->opposite->previous->opposite->previous;
         }
-
         if(m_faces[i]->edge->previous == m_faces[i]->edge->previous->opposite->previous->opposite->previous->opposite->previous->opposite) {
             m_faces[i]->edge->previous->opposite->opposite = m_edges[m_edges.size()-3];
             m_faces[i]->edge->previous->opposite = m_faces[i]->edge->previous->opposite->previous->opposite->previous->opposite->previous;
         }
-
         if(m_faces[i]->edge == m_faces[i]->edge->opposite->previous->opposite->previous->opposite->previous->opposite) {
             m_faces[i]->edge->opposite->opposite = m_edges[m_edges.size()-5];
             m_faces[i]->edge->opposite = m_faces[i]->edge->opposite->previous->opposite->previous->opposite->previous;

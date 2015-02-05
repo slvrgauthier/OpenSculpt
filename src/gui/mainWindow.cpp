@@ -9,21 +9,10 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow) //constructeur du programme principal
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     this->hideDialog();
-    i =0;
-
-    /**Merci d'utiliser des formulaires*/
-
-    /*modelListLayout = new QVBoxLayout(ui->scrollArea);
-    modelListLayout->setAlignment(Qt::AlignTop);
-    modelList = new QWidget();
-    modelList->setLayout(modelListLayout);
-    ui->scrollArea->setWidgetResizable(true);
-    ui->scrollArea->setWidget(modelList);*/
-
 }
 
 MainWindow::~MainWindow()
@@ -89,6 +78,10 @@ void MainWindow::on_redo_clicked()
 void MainWindow::on_initCube_clicked()
 {
     this->disableTool();
+    if(ui->widgetValidate->isVisible()) {
+        on_pushValid_clicked();
+    }
+    ui->glwidget->selectModel(NULL);
 
     m_model = new MCube();
     ui->widgetDepth->setVisible(true);
@@ -98,24 +91,30 @@ void MainWindow::on_initCube_clicked()
     ui->pushCancel->setVisible(true);
     ui->pushValid->setVisible(true);
     ui->pushRemplace->setVisible(false);
-    ui->widgetSubdivide->setVisible(true); // Niveau de subdivision plutôt
+    ui->widgetSubdivide->setVisible(true);
     ui->widgetName->setVisible(true);
     ui->glwidget->addmodel(m_model);
 
     ui->spinBoxDepth->setValue(5.0);
     ui->spinBoxHeight->setValue(5.0);
     ui->spinBoxWidth->setValue(5.0);
-    ui->sliderSubdivide->setValue(1); // Niveau de subdivision plutôt
+    ui->sliderSubdivide->setValue(1);
     ui->textEditName->setText("NewCube");
 
-    connect(ui->spinBoxDepth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModelDepth()));
-    connect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModelHeight()));
-    connect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModelWidth()));
+    connect(ui->spinBoxDepth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    connect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
+    connect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
 }
 
 void MainWindow::on_initSphere_clicked()
 {
+    this->disableTool();
+    if(ui->widgetValidate->isVisible()) {
+        on_pushValid_clicked();
+    }
+    ui->glwidget->selectModel(NULL);
+
     //ui->widgetradius->setVisible(true);
     ui->widgetValidate->setVisible(true);
 }
@@ -138,7 +137,7 @@ void MainWindow::on_actionNewCube_triggered()
 
 void MainWindow::on_actionOpen_triggered()
 {
-    QFileDialog::getOpenFileName(this,"choix du ficher", "/Users/Yann/Documents/Programmation/OpenScupt/Enregistrement");
+    QFileDialog::getOpenFileName(this,"Choix du ficher", "/Users/Yann/Documents/Programmation/OpenScupt/Enregistrement");
 }
 
 void MainWindow::on_actionSave_as_triggered()
@@ -167,7 +166,7 @@ void MainWindow::on_actionFullscreen_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-   QMessageBox::information(this, "a propos", "Ce logiciel a été conçu dans un but pédagogique par : GAUTHIER, LAMEIRA, PELADAN");
+   QMessageBox::information(this, "A propos", "Ce logiciel a été conçu dans un but pédagogique par : GAUTHIER Silvère, LAMEIRA Yannick, PELADAN Cécile");
 }
 
 // ===================================================
@@ -176,31 +175,24 @@ void MainWindow::on_actionAbout_triggered()
 void MainWindow::on_pushCancel_clicked()
 {
     this->hideDialog();
+    ui->glwidget->selectModel(NULL);
     ui->glwidget->removemodel();
 }
 
 void MainWindow::on_pushValid_clicked()
 {
     this->hideDialog();
-    while(i<listhierachy.size())
-    {
-        i++;
-    }
-    listhierachy.insert(m_model,i);
+    ui->glwidget->selectModel(m_model);
 
     m_model->setName(ui->textEditName->text());
-    qDebug()<<"l'objet" <<m_model->getName()<<" a été rajouté a la position "<<listhierachy.value(m_model);
+
     /**Ne pas supprimer*/
-    QPushButton* m_selectmodel = new QPushButton(m_model->getName());
-
-    instancelistmodel.insert(m_selectmodel, m_model);
+    QPushButton* button = new QPushButton(m_model->getName());
+    m_modelList.insert(button, m_model);
     /**/
-    QObject::connect(m_selectmodel, SIGNAL(clicked()), this, SLOT(show_param()));
-    ui->controleListModel->addWidget(m_selectmodel); // Créer un widget spécifique
 
-    m_model->setHeight(ui->spinBoxHeight->value());
-    m_model->setDepth(ui->spinBoxDepth->value());
-    m_model->setWidth((float)ui->spinBoxWidth->value());
+    QObject::connect(button, SIGNAL(clicked()), this, SLOT(show_param()));
+    ui->controleListModel->addWidget(button);
 }
 
 // ===================================================
@@ -214,19 +206,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::updateLastModel() {
     m_model->setWidth(ui->spinBoxWidth->value());
     m_model->setHeight(ui->spinBoxHeight->value());
-    m_model->setDepth(ui->spinBoxDepth->value());
-}
-
-void MainWindow::updateLastModelWidth() {
-    m_model->setWidth(ui->spinBoxWidth->value());
-
-}
-
-void MainWindow::updateLastModelHeight() {
-    m_model->setHeight(ui->spinBoxHeight->value());
-}
-void MainWindow::updateLastModelDepth() {
-    qDebug() << "Prof : " << ui->spinBoxDepth->value();
     m_model->setDepth(ui->spinBoxDepth->value());
 }
 
@@ -255,12 +234,11 @@ void MainWindow::hideDialog()
 
 void MainWindow::show_param()
 {
-
     /*Récupération de l'émetteur du slot, afin d'associer le button et le modèle*/
     QObject * emetteur = sender();
     QPushButton * sender = qobject_cast<QPushButton*>(emetteur);
 
-    instanceModel = instancelistmodel.value(sender); //Modele associé
+    m_model = m_modelList.value(sender); //Modele associé
     ui->widgetName->setVisible(true);
     ui->widgetValidate->setVisible(true);
     ui->pushRemplace->setVisible(true);
@@ -269,17 +247,16 @@ void MainWindow::show_param()
 
 
     /*Chargement des caractéristiques du modèle*/
-
-    ui->textEditName->setText(instanceModel->getName());
+    ui->glwidget->selectModel(m_model);
+    ui->textEditName->setText(m_model->getName());
 
 }
 
 void MainWindow::on_pushRemplace_clicked()
 {
-    instancelistmodel.key(instanceModel)->setText(ui->textEditName->text());
+    m_modelList.key(m_model)->setText(ui->textEditName->text());
     ui->widgetName->setVisible(false);
     ui->pushRemplace->setVisible(false);
-
 }
 
 

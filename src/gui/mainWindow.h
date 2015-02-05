@@ -56,9 +56,6 @@ private slots:
 
 private slots:
     void keyPressEvent(QKeyEvent *event);
-    void updateLastModelWidth();
-    void updateLastModelHeight();
-    void updateLastModelDepth();
     void updateLastModel();
     void disableTool();
     void hideDialog();
@@ -68,12 +65,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Model *m_model;
-    QWidget *modelList;
-    QVBoxLayout *modelListLayout;
-    QMap<QPushButton*, Model*> instancelistmodel;
-    Model* instanceModel;
-    QMap<Model*, int> listhierachy;
-    int i;
+    QMap<QPushButton*, Model*> m_modelList;
 };
 
 #endif // MAINWINDOW_H
