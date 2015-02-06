@@ -4,6 +4,8 @@
 #include "model/Model.h"
 #include <QVector2D>
 #include <QPoint>
+#include <QDebug>
+#include "mesh/functions.h"
 
 /*
  * Nom de classe outil :

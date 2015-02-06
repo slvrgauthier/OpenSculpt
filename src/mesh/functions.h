@@ -1,5 +1,5 @@
 /*
- * func.h
+ * functions.h
  * @author : Team OpenSculpt
  *
  * This file gives some useful functions outside any class.
@@ -29,6 +29,6 @@
 #define sind(x) (sin(fmod((x),360) * M_PI / 180))
 
 /* get 3D position of the pixel under the cursor */
-QVector3D getGLpos(QPoint mouse);
+QVector3D get3Dposition(QPoint mouse);
 
 #endif // FUNCTIONS_H

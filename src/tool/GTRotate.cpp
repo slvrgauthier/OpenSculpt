@@ -1,6 +1,4 @@
 #include "tool/GTRotate.h"
-#include "model/func.h"
-#include <QDebug>
 
 void GTRotate::action(Model *model, QPoint last_position, QPoint current_position, int brushSize, float distance, float x_rot, float y_rot, float z_rot)
 {

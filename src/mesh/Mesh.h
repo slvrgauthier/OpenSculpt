@@ -5,6 +5,7 @@
 #include <QVector3D>
 #include <QString>
 #include "HalfEdge.h"
+#include "functions.h"
 
 class Mesh {
 

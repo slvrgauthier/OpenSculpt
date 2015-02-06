@@ -39,7 +39,8 @@ SOURCES += main.cpp \
     mesh/makeCylinder.cpp \
     mesh/makeCone.cpp \
     mesh/makeSphere.cpp \
-    mesh/makeTorus.cpp
+    mesh/makeTorus.cpp \
+    mesh/functions.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/glwidget.h \
@@ -65,7 +66,8 @@ HEADERS += gui/mainWindow.h \
     mesh/MeshRenderer.h \
     mesh/MeshProcessing.h \
     mesh/HalfEdge.h \
-    mesh/MeshManager.h
+    mesh/MeshManager.h \
+    mesh/functions.h
 
 FORMS += gui/mainWindow.ui
 

@@ -1,12 +1,10 @@
 #include "tool/LTMove.h"
-#include "model/func.h"
-#include <QDebug>
 
 void LTMove::action(Model *model, QPoint last_position, QPoint current_position, int brushSize, float distance, float x_rot, float y_rot, float z_rot)
 {
     qDebug() << "LTMove action";
 
-    QVector3D position = getGLpos(last_position); // Position dans le repère scène
+    QVector3D position = get3Dposition(last_position); // Position dans le repère scène
 
     if(!position.isNull()) {
 
