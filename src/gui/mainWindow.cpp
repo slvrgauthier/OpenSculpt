@@ -172,7 +172,7 @@ void MainWindow::on_initSphere_clicked()
     if(ui->widgetValidate->isVisible()) {
         on_pushValid_clicked();
     }
-    m_model = new MCylinder();
+    m_model = new MSphere();
     ui->widgetRadius->setVisible(true);
     ui->widgetValidate->setVisible(true);
     ui->pushCancel->setVisible(true);

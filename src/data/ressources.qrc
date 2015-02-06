@@ -18,5 +18,7 @@
         <file>icons/undo.png</file>
         <file>icons/subdivide.png</file>
         <file>icons/decimate.png</file>
+        <file>icons/cylindre.jpg</file>
+        <file>icons/cone.jpg</file>
     </qresource>
 </RCC>
