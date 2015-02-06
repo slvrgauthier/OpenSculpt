@@ -184,8 +184,6 @@ void MainWindow::on_initSphere_clicked()
 
     ui->spinBoxRadius->setValue(5.0);
     ui->textEditName->setText("NewSphere");
-
-    m_model = new MCube();
     // TODO : widgets d'attributs
 
     ui->widgetValidate->setVisible(true);
