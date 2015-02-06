@@ -23,16 +23,24 @@ MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
   m_vertices.reserve(18);
   float angle=360/8.;
 
-  for(int k =0;k<=8;k++){   // voir si = doit y etre ==> NORMALEMENT NON, LE 8 EST EGAL AU 0
+  m_vertices.push_back(new Vertex);
+  m_vertices.last()->coords =  QVector3D(0, -m_height/2., 0);
+  m_vertices.last()->index = 0;
+  m_vertices.push_back(new Vertex);
+  m_vertices.last()->coords =  QVector3D(0, m_height/2., 0);
+  m_vertices.last()->index = 1;
+
+  for(int k =0;k<8;k++){   // voir si = doit y etre
       float resultCos= m_radius*cosd(angle*k);// k 0 - > 8 pas de 1
       float resultSin= m_radius*sind(angle*k);
+
       m_vertices.push_back(new Vertex);
       m_vertices.last()->coords =  QVector3D(resultCos, -m_height/2., resultSin);
-      m_vertices.last()->index = k*2;
+      m_vertices.last()->index = k*2+2;
 
       m_vertices.push_back(new Vertex);
       m_vertices.last()->coords =  QVector3D(resultCos, m_height/2., resultSin);
-      m_vertices.last()->index = k*2+1;
+      m_vertices.last()->index = k*2+3;
     }
 
   m_vertices[0]->outgoing = m_edges[50];
@@ -44,10 +52,10 @@ MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
   m_vertices[6]->outgoing = m_edges[13];
   m_vertices[7]->outgoing = m_edges[16];
   m_vertices[8]->outgoing = m_edges[19];
-  m_vertices[9]->outgoing = m_edges[21];
-  m_vertices[10]->outgoing = m_edges[24];
-  m_vertices[11]->outgoing = m_edges[27];
-  m_vertices[12]->outgoing = m_edges[30];
+  m_vertices[9]->outgoing = m_edges[22];
+  m_vertices[10]->outgoing = m_edges[25];
+  m_vertices[11]->outgoing = m_edges[28];
+  m_vertices[12]->outgoing = m_edges[31];
   m_vertices[13]->outgoing = m_edges[34];
   m_vertices[14]->outgoing = m_edges[37];
   m_vertices[15]->outgoing = m_edges[40];
@@ -63,10 +71,11 @@ MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
   }
 
 
+
   //OPPOSITE
 
   // diagonale centrale
-  for(int i=2;i<=42;i+=4){
+  for(int i=2;i<=44;i+=6){
       m_edges[i]->opposite=m_edges[i+2];
       m_edges[i+2]->opposite=m_edges[i];
     }
@@ -77,6 +86,7 @@ MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
       m_edges[i]->opposite=m_edges[i+1];
       m_edges[i+1]->opposite=m_edges[i];
     }
+
   //Bas contour
   for(int i=1;i<=43;i+=6){
       int index_opposite=69-3*((int)(i-1)/6);
@@ -92,7 +102,7 @@ MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
     }
   //Haut contour
   for(int i=3;i<=45;i+=6){
-      int index_opposite=72-3*((int)(i-1)/6);
+      int index_opposite=72+3*((int)(i-1)/6);
       m_edges[i]->opposite=m_edges[index_opposite];
       m_edges[index_opposite]->opposite=m_edges[i];
     }
@@ -108,20 +118,27 @@ MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
   // Vertex
 
   //cote
-  for(int i=2,j=0;j<=42;i+=2,j+=6){
+  m_edges[42]->vertex = m_vertices[16];
+  m_edges[43]->vertex = m_vertices[2];
+  m_edges[44]->vertex = m_vertices[17];
+  m_edges[45]->vertex = m_vertices[17];
+  m_edges[46]->vertex = m_vertices[2];
+  m_edges[47]->vertex = m_vertices[3];
+
+  for(int i=2,j=0;j<42;i+=2,j+=6){
       m_edges[j]->vertex = m_vertices[i];
-      m_edges[j+1]->vertex = m_vertices[(i+2)%16];
+      m_edges[j+1]->vertex = m_vertices[i+2];
       m_edges[j+2]->vertex = m_vertices[i+1];
       m_edges[j+3]->vertex = m_vertices[i+1];
-      m_edges[j+4]->vertex = m_vertices[(i+2)%16];
-      m_edges[j+5]->vertex = m_vertices[(i+3)%16];
+      m_edges[j+4]->vertex = m_vertices[i+2];
+      m_edges[j+5]->vertex = m_vertices[i+3];
     }
 
   //bas
   m_edges[48]->vertex = m_vertices[16];
   m_edges[49]->vertex = m_vertices[0];
   m_edges[50]->vertex = m_vertices[2];
-  for(int i=16,j=53;j<=70;i-=2,j+=3){
+  for(int i=16,j=51;j<=70;i-=2,j+=3){
       m_edges[j]->vertex = m_vertices[i-2];
       m_edges[j+1]->vertex = m_vertices[0];
       m_edges[j+2]->vertex = m_vertices[i];
@@ -131,8 +148,8 @@ MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
   m_edges[93]->vertex = m_vertices[3];
   m_edges[94]->vertex = m_vertices[1];
   m_edges[95]->vertex = m_vertices[17];
-  for(int i=3,j=72;j<=94;i+=2,j+=3){
-      m_edges[j]->vertex = m_vertices[i+1];
+  for(int i=3,j=72;j<=90;i+=2,j+=3){
+      m_edges[j]->vertex = m_vertices[i+2];
       m_edges[j+1]->vertex = m_vertices[1];
       m_edges[j+2]->vertex = m_vertices[i];
     }
