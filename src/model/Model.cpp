@@ -5,13 +5,13 @@
  * Definition file of Model.h.
  *
  */
-#include <windows.h>
 #include "model/Model.h"
 #if defined(__APPLE__) && (__MACH__)
     #include <GLUT/glut.h>
 #elif defined(__WIN32__)
     #define GLUT_DISABLE_ATEXIT_HACK
     #include <GL/glut.h>
+    #include <windows.h>
 #else
     #include <GL/glut.h>
 #endif

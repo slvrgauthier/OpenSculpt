@@ -179,10 +179,9 @@ void MainWindow::on_actionNewProject_triggered()
     this->disableTool();
     this->hideDialog();
     ui->glwidget->clear();
-    for(int i = 0; i<listObject.size(); i++)
-    {
-        listObject.at(i)->hide();
-    }
+
+    qDeleteAll(m_modelList.keys());
+    m_modelList.clear();
 }
 
 
@@ -244,15 +243,12 @@ void MainWindow::on_pushValid_clicked()
 
     /**Ne pas supprimer*/
 
-    button = new QPushButton(m_model->getName());
+    QPushButton *button = new QPushButton(m_model->getName());
     m_modelList.insert(button, m_model);
     /**/
-    listObject.push_back(button);
-    qDebug()<<listObject;
+
     QObject::connect(button, SIGNAL(clicked()), this, SLOT(show_param()));
     ui->controleListModel->addWidget(button);
-
-
 }
 
 // ===================================================
