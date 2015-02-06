@@ -10,7 +10,9 @@ class MCone : public Model
 public:
     MCone();
     void initializeGL();
-
+    void setRadiusDown(float radius);
+    void setRadiusUP(float radius);
+    void setHeight(float height);
 private:
     float m_radius1;
     float m_radius2;

@@ -30,8 +30,8 @@ MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
   m_vertices.last()->coords =  QVector3D(0, m_height/2., 0);
   m_vertices.last()->index = 1;
 
-  for(int k =0;k<8;k++){   // voir si = doit y etre
-      float resultCos= m_radius*cosd(angle*k);// k 0 - > 8 pas de 1
+  for(int k =0;k<8;k++){
+      float resultCos= m_radius*cosd(angle*k);
       float resultSin= m_radius*sind(angle*k);
 
       m_vertices.push_back(new Vertex);
@@ -164,36 +164,32 @@ void MCylinder::initializeGL()
 
 }
 
-void MCylinder::setRadius(float radius){ // PRENDRE EXEMPLE SUR LE CUBE POUR UTILISER LE CENTRE (AU CAS OU ON CHANGE APRES DEPLACEMENT...)
+void MCylinder::setRadius(float radius){
   if(radius != m_radius) {
-      float angle=360/8.;
-      for(int i=0 ; i < m_vertices.size()/2 ; ++i) {
-          float resultCos= m_radius*cosd(angle*i);
-          float resultSin= m_radius*sind(angle*i);
+      float x=0,z=0;
+      for(int i=0 ; i < m_vertices.size(); ++i) {
+          x=m_coords[i].x() * radius / m_radius;
+          z=m_coords[i].z() * radius / m_radius;
 
-          m_vertices[i]->coords.setX(resultCos);
-          m_vertices[i]->coords.setY(resultSin);
-          m_vertices[i+1]->coords.setX(resultCos);
-          m_vertices[i+1]->coords.setY(resultSin);
+          m_vertices[i]->coords.setX(x + getCenter().x());
+          m_vertices[i]->coords.setZ(z + getCenter().z());
 
+          m_coords[i].setX(x + getCenter().x());
+          m_coords[i].setZ(z + getCenter().z());
       }
       m_radius = radius;
 
       update();
   }
-
-
 }
 
-void MCylinder::setHeight(float height){ // PRENDRE EXEMPLE SUR LE CUBE POUR UTILISER LE CENTRE (AU CAS OU ON CHANGE APRES DEPLACEMENT...)
+void MCylinder::setHeight(float height){
   if(height != m_height) {
+      float y;
       for(int i=0 ; i < m_vertices.size() ; ++i) {
-          if(i%2 == 0){
-              m_vertices[i]->coords.setY(-height/2.);
-            }
-          else{
-               m_vertices[i]->coords.setY(height/2.);
-            }
+          y=m_coords[i].y() * height / m_height;
+          m_vertices[i]->coords.setY(y + getCenter().y());
+          m_coords[i].setY(y + getCenter().y());
       }
       m_height = height;
 
