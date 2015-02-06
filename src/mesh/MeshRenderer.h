@@ -7,14 +7,15 @@
 class MeshRenderer {
 
 public:
-    MeshRenderer();
+    MeshRenderer(Mesh *mesh);
     ~MeshRenderer();
 
 public:
     void paintGL();
-
-    void convertToBuffer();
     void update();
+
+public:
+    Mesh* getMesh() const;
 
 private:
     Mesh *m_mesh;
@@ -24,8 +25,8 @@ private:
     QVector<GLuint> m_indices;
 
     // GPU Buffer
-    QGLBuffer m_vertexbuffer;
-    QGLBuffer m_indicebuffer;
+    QGLBuffer *m_vertexbuffer;
+    QGLBuffer *m_indicebuffer;
 };
 
 #endif // MESHRENDERER_H

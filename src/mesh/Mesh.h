@@ -38,7 +38,9 @@ public:
     Face* getFace(int index) const;
     void setFace(int index, Face *face);
 
-    int getSize() const;
+    int getEdgeCount() const;
+    int getVertexCount() const;
+    int getFaceCount() const;
 
 public:
     void TEST() const;

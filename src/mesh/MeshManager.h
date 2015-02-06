@@ -3,6 +3,7 @@
 
 #include <QVector>
 #include "Mesh.h"
+#include "MeshRenderer.h"
 
 class MeshManager {
 
@@ -21,7 +22,8 @@ public:
     Mesh* getMesh(int index);
 
 private:
-    QVector<Mesh*> m_meshes;
+    QVector<MeshRenderer*> m_renderers;
+
 };
 
 #endif // MESHMANAGER_H
