@@ -145,7 +145,7 @@ void MainWindow::on_initCube_clicked()
     ui->spinBoxHeight->setValue(5.0);
     ui->spinBoxWidth->setValue(5.0);
     ui->sliderSubdivide->setValue(1);
-    ui->textName->setText("NewCube");
+    ui->textEditName->setText("NewCube");
 
     connect(ui->spinBoxDepth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
