@@ -17,5 +17,6 @@
         <file>icons/sphere.png</file>
         <file>icons/undo.png</file>
         <file>icons/subdivide.png</file>
+        <file>icons/decimate.png</file>
     </qresource>
 </RCC>

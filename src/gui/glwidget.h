@@ -30,7 +30,8 @@ public:
     void clear();
 
     void resetView();
-    void undoview();
+    void undo();
+    void redo();
 
 private:
     void rotateBy(int x, int y, int z);
@@ -45,13 +46,7 @@ private:
 
     // View & rotation settings
     QPoint last_pos;
-    float distancesave;
     float distance;
-    float offsetXsave;
-    float offsetYsave;
-    qreal x_rotsave;
-    qreal y_rotsave;
-    qreal z_rotsave;
     float offsetX;
     float offsetY;
     qreal x_rot;

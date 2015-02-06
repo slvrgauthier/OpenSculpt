@@ -38,10 +38,16 @@ private slots:
     void on_wtrotate_clicked();
     void on_wtscale_clicked();
 
+    void on_undo_clicked();
     void on_redo_clicked();
+    void on_subdivide_clicked();
+    void on_decimate_clicked();
 
     void on_initCube_clicked();
     void on_initSphere_clicked();
+    void on_initCylinder_clicked();
+    void on_initCone_clicked();
+    void on_initTorus_clicked();
 
     // MenuFile
     void on_actionNewProject_triggered();
@@ -56,22 +62,16 @@ private slots:
     void on_actionAbout_triggered();
 
     // Right panel
+    void on_pushRemplace_clicked();
     void on_pushCancel_clicked();
     void on_pushValid_clicked();
-    void show_param();
 
 private slots:
     void keyPressEvent(QKeyEvent *event);
     void updateLastModel();
-    void updatesubdivide();
     void disableTool();
     void hideDialog();
-
-    void on_pushRemplace_clicked();
-
-    void on_subdivide_clicked();
-
-    void on_undo_clicked();
+    void showDialog();
 
 private:
     Ui::MainWindow *ui;

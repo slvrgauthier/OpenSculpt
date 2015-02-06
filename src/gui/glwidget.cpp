@@ -167,7 +167,6 @@ void GLWidget::rotateBy(int x, int y, int z)
     z_rot += z;
 }
 
-//Modifie l'outil associe a la souris
 void GLWidget::enableTool(TOOL tool)
 {
     activeTool = tool;
@@ -193,27 +192,16 @@ void GLWidget::clear()
 
 void GLWidget::resetView()
 {
-    distancesave = distance;
-    offsetXsave = offsetX;
-    offsetYsave = offsetY;
-    x_rotsave = x_rot;
-    y_rotsave = y_rot;
-    z_rotsave = z_rot;
     distance = -15.0;
     offsetX = offsetY = x_rot = y_rot = z_rot = 0.0;
 }
 
-void GLWidget::undoview()
+void GLWidget::undo()
 {
-    distance= distancesave;
-    offsetX = offsetXsave;
-    offsetY = offsetYsave;
-    x_rot = x_rotsave;
-    y_rot = y_rotsave;
-    z_rot = z_rotsave;
 
 }
 
+void GLWidget::redo()
+{
 
-
-
+}

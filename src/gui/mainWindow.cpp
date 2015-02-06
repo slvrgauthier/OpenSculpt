@@ -109,21 +109,33 @@ void MainWindow::on_wtscale_clicked()
     ui->glwidget->enableTool(WTSCALE);
 }
 
-void MainWindow::on_redo_clicked()
-{
-       ui->glwidget->resetView(); // A VOIR
-       ui->redo->setEnabled(false);
-       ui->undo->setEnabled(true);
-}
-
 void MainWindow::on_undo_clicked()
 {
-    ui->glwidget->undoview();
+    ui->glwidget->undo();
+}
+
+void MainWindow::on_redo_clicked()
+{
+    ui->glwidget->redo();
+    // Il faudra avoir un test pour savoir...
+    //ui->redo->setEnabled(false);
+    //ui->undo->setEnabled(true);
+}
+
+void MainWindow::on_subdivide_clicked()
+{
+    m_model->subdivide();
+}
+
+void MainWindow::on_decimate_clicked()
+{
+    m_model->decimate();
 }
 
 void MainWindow::on_initCube_clicked()
 {
     this->disableTool();
+    this->hideDialog();
     if(ui->widgetValidate->isVisible()) {
         on_pushValid_clicked();
     }
@@ -133,10 +145,10 @@ void MainWindow::on_initCube_clicked()
     ui->widgetDepth->setVisible(true);
     ui->widgetHeight->setVisible(true);
     ui->widgetWidth->setVisible(true);
+
     ui->widgetValidate->setVisible(true);
     ui->pushCancel->setVisible(true);
     ui->pushValid->setVisible(true);
-    ui->pushRemplace->setVisible(false);
     ui->widgetSubdivide->setVisible(true);
     ui->widgetName->setVisible(true);
     ui->glwidget->addmodel(m_model);
@@ -144,31 +156,126 @@ void MainWindow::on_initCube_clicked()
     ui->spinBoxDepth->setValue(5.0);
     ui->spinBoxHeight->setValue(5.0);
     ui->spinBoxWidth->setValue(5.0);
-    ui->sliderSubdivide->setValue(1);
+    ui->sliderSubdivide->setRange(m_model->getMinDetailLevel(), m_model->getMaxDetailLevel());
+    ui->sliderSubdivide->setValue(m_model->getCurrentDetailLevel());
     ui->textEditName->setText("NewCube");
 
     connect(ui->spinBoxDepth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->spinBoxWidth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
-    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this,SLOT(updatesubdivide()));
 }
 
 void MainWindow::on_initSphere_clicked()
 {
     this->disableTool();
+    this->hideDialog();
     if(ui->widgetValidate->isVisible()) {
         on_pushValid_clicked();
     }
     ui->glwidget->selectModel(NULL);
 
-    //ui->widgetradius->setVisible(true);
+    m_model = new MCube();
+    // TODO : widgets d'attributs
+
     ui->widgetValidate->setVisible(true);
+    ui->pushCancel->setVisible(true);
+    ui->pushValid->setVisible(true);
+    ui->widgetSubdivide->setVisible(true);
+    ui->widgetName->setVisible(true);
+    ui->glwidget->addmodel(m_model);
+
+    // TODO : initialisation des widgets d'attributs
+    ui->sliderSubdivide->setRange(m_model->getMinDetailLevel(), m_model->getMaxDetailLevel());
+    ui->sliderSubdivide->setValue(m_model->getCurrentDetailLevel());
+    ui->textEditName->setText("NewCube");
+
+    // TODO : connect des widgets d'attributs
+    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
 }
 
-void MainWindow::on_subdivide_clicked()
+void MainWindow::on_initCylinder_clicked()
 {
-    m_model->subdivide();
+    this->disableTool();
+    this->hideDialog();
+    if(ui->widgetValidate->isVisible()) {
+        on_pushValid_clicked();
+    }
+    ui->glwidget->selectModel(NULL);
+
+    m_model = new MCylinder();
+    // TODO : widgets d'attributs
+
+    ui->widgetValidate->setVisible(true);
+    ui->pushCancel->setVisible(true);
+    ui->pushValid->setVisible(true);
+    ui->widgetSubdivide->setVisible(true);
+    ui->widgetName->setVisible(true);
+    ui->glwidget->addmodel(m_model);
+
+    // TODO : initialisation des widgets d'attributs
+    ui->sliderSubdivide->setRange(m_model->getMinDetailLevel(), m_model->getMaxDetailLevel());
+    ui->sliderSubdivide->setValue(m_model->getCurrentDetailLevel());
+    ui->textEditName->setText("NewCylinder");
+
+    // TODO : connect des widgets d'attributs
+    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
+}
+
+void MainWindow::on_initCone_clicked()
+{
+    this->disableTool();
+    this->hideDialog();
+    if(ui->widgetValidate->isVisible()) {
+        on_pushValid_clicked();
+    }
+    ui->glwidget->selectModel(NULL);
+
+    m_model = new MCone();
+    // TODO : widgets d'attributs
+
+    ui->widgetValidate->setVisible(true);
+    ui->pushCancel->setVisible(true);
+    ui->pushValid->setVisible(true);
+    ui->widgetSubdivide->setVisible(true);
+    ui->widgetName->setVisible(true);
+    ui->glwidget->addmodel(m_model);
+
+    // TODO : initialisation des widgets d'attributs
+    ui->sliderSubdivide->setRange(m_model->getMinDetailLevel(), m_model->getMaxDetailLevel());
+    ui->sliderSubdivide->setValue(m_model->getCurrentDetailLevel());
+    ui->textEditName->setText("NewCone");
+
+    // TODO : connect des widgets d'attributs
+    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
+}
+
+void MainWindow::on_initTorus_clicked()
+{
+    this->disableTool();
+    this->hideDialog();
+    if(ui->widgetValidate->isVisible()) {
+        on_pushValid_clicked();
+    }
+    ui->glwidget->selectModel(NULL);
+
+    m_model = new MTorus();
+    // TODO : widgets d'attributs
+
+    ui->widgetValidate->setVisible(true);
+    ui->pushCancel->setVisible(true);
+    ui->pushValid->setVisible(true);
+    ui->widgetSubdivide->setVisible(true);
+    ui->widgetName->setVisible(true);
+    ui->glwidget->addmodel(m_model);
+
+    // TODO : initialisation des widgets d'attributs
+    ui->sliderSubdivide->setRange(m_model->getMinDetailLevel(), m_model->getMaxDetailLevel());
+    ui->sliderSubdivide->setValue(m_model->getCurrentDetailLevel());
+    ui->textEditName->setText("NewTorus");
+
+    // TODO : connect des widgets d'attributs
+    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),this, SLOT(updateLastModel()));
 }
 
 // ===================================================
@@ -227,6 +334,13 @@ void MainWindow::on_actionAbout_triggered()
 // ===================================================
 // RIGHT PANEL
 
+void MainWindow::on_pushRemplace_clicked()
+{
+    m_modelList.key(m_model)->setText(ui->textEditName->text());
+    ui->widgetName->setVisible(false);
+    ui->pushRemplace->setVisible(false);
+}
+
 void MainWindow::on_pushCancel_clicked()
 {
     this->hideDialog();
@@ -247,7 +361,7 @@ void MainWindow::on_pushValid_clicked()
     m_modelList.insert(button, m_model);
     /**/
 
-    QObject::connect(button, SIGNAL(clicked()), this, SLOT(show_param()));
+    QObject::connect(button, SIGNAL(clicked()), this, SLOT(showDialog()));
     ui->controleListModel->addWidget(button);
 }
 
@@ -265,15 +379,14 @@ void MainWindow::updateLastModel() {
     m_model->setWidth(ui->spinBoxWidth->value());
     m_model->setHeight(ui->spinBoxHeight->value());
     m_model->setDepth(ui->spinBoxDepth->value());
-}
 
-void MainWindow::updatesubdivide()
-{
-    // TRES DANGEREUX CA, SUBDIVISE PLEINS DE FOIS A CHAQUE FOIS QU'ON CHANGE, A VOIR
-    /*for (int i=0; i<ui->sliderSubdivide->value(); i++)
-    {
+    int sign = ui->sliderSubdivide->value() - m_model->getCurrentDetailLevel();
+    if(sign == 1) {
         m_model->subdivide();
-    }*/
+    }
+    else if(sign == -1) {
+        m_model->decimate();
+    }
 }
 
 void MainWindow::disableTool()
@@ -303,11 +416,13 @@ void MainWindow::hideDialog()
     ui->widgetValidate->setVisible(false);
     ui->widgetSubdivide->setVisible(false);
     ui->widgetName->setVisible(false);
-    ui->redo->setEnabled(false); // POURQUOI ?
-    ui->undo->setEnabled(false); // POURQUOI ?
+    ui->pushRemplace->setVisible(false);
+    // Cacher la boite de dialogue ne doit pas empecher de undo...
+    //ui->redo->setEnabled(false);
+    //ui->undo->setEnabled(false);
 }
 
-void MainWindow::show_param()
+void MainWindow::showDialog()
 {
     /*Récupération de l'émetteur du slot, afin d'associer le button et le modèle*/
     QObject * emetteur = sender();
@@ -323,11 +438,4 @@ void MainWindow::show_param()
     /*Chargement des caractéristiques du modèle*/
     ui->glwidget->selectModel(m_model);
     ui->textEditName->setText(m_model->getName());
-}
-
-void MainWindow::on_pushRemplace_clicked()
-{
-    m_modelList.key(m_model)->setText(ui->textEditName->text());
-    ui->widgetName->setVisible(false);
-    ui->pushRemplace->setVisible(false);
 }

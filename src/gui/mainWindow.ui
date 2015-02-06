@@ -41,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>809</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -119,7 +119,7 @@
              <x>0</x>
              <y>0</y>
              <width>198</width>
-             <height>77</height>
+             <height>116</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="controleListModel">
@@ -580,6 +580,23 @@
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/subdivide.png</normaloff>:/icons/subdivide.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="decimate">
+       <property name="toolTip">
+        <string>Décimation</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/decimate.png</normaloff>:/icons/decimate.png</iconset>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
        </property>
       </widget>
      </item>

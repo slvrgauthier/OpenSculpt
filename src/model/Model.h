@@ -52,6 +52,9 @@ public:
     QVector3D getCenter() const;
     void setCenter(QVector3D center);
     int getSize() const;
+    int getMinDetailLevel() const;
+    int getCurrentDetailLevel() const;
+    int getMaxDetailLevel() const;
 
 public:
     int closestVertex(QVector3D position) const;
@@ -61,6 +64,7 @@ protected:
     // Model infos
     QString m_name;
     QVector3D m_center;
+    int m_detailLevel[3]; // {min, current, max}
 
     // 3D mesh
     QVector<HalfEdge*> m_edges;
