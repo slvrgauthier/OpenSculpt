@@ -21,11 +21,11 @@ MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
 
   // Vertices
   m_vertices.reserve(18);
-  float angle=2*M_PI/8.; // !!! TU PEUX UTILISER MES FONCTIONS COSD ET SIND POUR UTILISER EN DEGRES ;-)
+  float angle=360/8.;
 
-  for(int k =0;k<=8;k++){   // voir si = doit y etre
-      float resultCos= m_radius*cosf(angle*k);// k 0 - > 8 pas de 1
-      float resultSin= m_radius*sinf(angle*k);
+  for(int k =0;k<=8;k++){   // voir si = doit y etre ==> NORMALEMENT NON, LE 8 EST EGAL AU 0
+      float resultCos= m_radius*cosd(angle*k);// k 0 - > 8 pas de 1
+      float resultSin= m_radius*sind(angle*k);
       m_vertices.push_back(new Vertex);
       m_vertices.last()->coords =  QVector3D(resultCos, -m_height/2., resultSin);
       m_vertices.last()->index = k*2;
@@ -141,17 +141,18 @@ MCylinder::MCylinder() : m_radius(5.0), m_height(5.0)
   convertToBuffer();
   update();
 }
+
 void MCylinder::initializeGL()
 {
 
 }
 
-void MCylinder::setRadius(float radius){
-  float angle=2*M_PI/8.; // !!! TU PEUX UTILISER MES FONCTIONS COSD ET SIND POUR UTILISER EN DEGRES ;-)
+void MCylinder::setRadius(float radius){ // PRENDRE EXEMPLE SUR LE CUBE POUR UTILISER LE CENTRE (AU CAS OU ON CHANGE APRES DEPLACEMENT...)
   if(radius != m_radius) {
+      float angle=360/8.;
       for(int i=0 ; i < m_vertices.size()/2 ; ++i) {
-          float resultCos= m_radius*cosf(angle*i);
-          float resultSin= m_radius*sinf(angle*i);
+          float resultCos= m_radius*cosd(angle*i);
+          float resultSin= m_radius*sind(angle*i);
 
           m_vertices[i]->coords.setX(resultCos);
           m_vertices[i]->coords.setY(resultSin);
@@ -167,7 +168,7 @@ void MCylinder::setRadius(float radius){
 
 }
 
-void MCylinder::setHeight(float height){
+void MCylinder::setHeight(float height){ // PRENDRE EXEMPLE SUR LE CUBE POUR UTILISER LE CENTRE (AU CAS OU ON CHANGE APRES DEPLACEMENT...)
   if(height != m_height) {
       for(int i=0 ; i < m_vertices.size() ; ++i) {
           if(i%2 == 0){
@@ -181,12 +182,4 @@ void MCylinder::setHeight(float height){
 
       update();
   }
-}
-
-float MCylinder::getRadius() const{
-  return m_radius;
-}
-
-float MCylinder::getHeight() const{
-  return m_height;
 }

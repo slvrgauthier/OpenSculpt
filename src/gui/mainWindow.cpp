@@ -13,12 +13,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->hideDialog();
-
-
 }
 
 MainWindow::~MainWindow()
 {
+    this->on_actionNewProject_triggered();
     delete ui;
 }
 
@@ -72,8 +71,6 @@ void MainWindow::on_gtrotate_clicked()
     this->disableTool();
     ui->gtrotate->setChecked(true);
     ui->glwidget->enableTool(GTROTATE);
-    ui->redo->setEnabled(true);
-    ui->undo->setEnabled(false);
 }
 
 void MainWindow::on_gtscale_clicked()
@@ -85,6 +82,8 @@ void MainWindow::on_gtscale_clicked()
 
 // ===================================================
 // UP TOOLBAR
+
+void MainWindow::on_select_clicked() { this->disableTool(); }
 
 void MainWindow::on_wtmove_clicked()
 {
@@ -366,11 +365,8 @@ void MainWindow::on_pushValid_clicked()
 
     m_model->setName(ui->textEditName->text());
 
-    /**Ne pas supprimer*/
-
     QPushButton *button = new QPushButton(m_model->getName());
     m_modelList.insert(button, m_model);
-    /**/
 
     QObject::connect(button, SIGNAL(clicked()), this, SLOT(showDialog()));
     ui->controleListModel->addWidget(button);
@@ -382,8 +378,6 @@ void MainWindow::on_pushValid_clicked()
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     ui->glwidget->keyPressEvent(event);
-
-
 }
 
 void MainWindow::updateLastModel() {

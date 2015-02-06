@@ -146,18 +146,3 @@ void MCube::setDepth(float depth)
         update();
     }
 }
-
-float MCube::getHeight() const
-{
-    return m_height;
-}
-
-float MCube::getDepth() const
-{
-    return m_depth;
-}
-
-float MCube::getWidth() const
-{
-    return m_width;
-}

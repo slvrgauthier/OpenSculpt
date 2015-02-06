@@ -2,7 +2,7 @@
 #include "tool/GTMove.h"
 #include <QDebug>
 
-void GTMove::action(Model *model, QPoint last_position, QPoint current_position, float distance, float x_rot, float y_rot, float z_rot)
+void GTMove::action(Model *model, QPoint last_position, QPoint current_position, int brushSize, float distance, float x_rot, float y_rot, float z_rot)
 {
     qDebug() << "GTMove action";
 

@@ -2,7 +2,7 @@
 #include "model/func.h"
 #include <QDebug>
 
-void LTMove::action(Model *model, QPoint last_position, QPoint current_position, float distance, float x_rot, float y_rot, float z_rot)
+void LTMove::action(Model *model, QPoint last_position, QPoint current_position, int brushSize, float distance, float x_rot, float y_rot, float z_rot)
 {
     qDebug() << "LTMove action";
 
@@ -24,10 +24,22 @@ void LTMove::action(Model *model, QPoint last_position, QPoint current_position,
         x = x_*coef, y = y_*coef, z = -z_*coef;
 
         QVector3D move(x,y,z); // Mouvement dans le repère scène
-        int index = model->closestVertex(position); // Point le plus proche
+        Face *face = model->intersectedFace(position); // Face touchée par le rayon
 
-        model->setVertex(index, model->getVertex(index) + move);
+        if(face != NULL) {
+            Vertex *vertex = face->edge->vertex;
+            float coef = max(0.f, 1 - vertex->coords.distanceToPoint(position) / brushSize);
+            model->setVertex(vertex->index, vertex->coords + move * coef);
 
-        model->update();
+            vertex = face->edge->next->vertex;
+            coef = max(0.f, 1 - vertex->coords.distanceToPoint(position) / brushSize);
+            model->setVertex(vertex->index, vertex->coords + move * coef);
+
+            vertex = face->edge->previous->vertex;
+            coef = max(0.f, 1 - vertex->coords.distanceToPoint(position) / brushSize);
+            model->setVertex(vertex->index, vertex->coords + move * coef);
+
+            model->update();
+        }
     }
 }

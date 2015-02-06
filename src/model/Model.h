@@ -58,6 +58,7 @@ public:
 
 public:
     int closestVertex(QVector3D position) const;
+    Face* intersectedFace(QVector3D position) const;
     void TEST() const;
 
 protected:

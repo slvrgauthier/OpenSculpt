@@ -135,7 +135,6 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         else if(activeTool == WTSCALE)
         {
             distance *= 1.0 + (1.0 * dy / 300.0);
-            qDebug() << event->pos();
         }
         else if(activeTool == WTMOVE)
         {
@@ -144,11 +143,11 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         }
         else if(activeTool != NOTOOL && activeModel != NULL)
         {
-            m_tools.at(activeTool)->action(activeModel, last_pos, event->pos(), distance, x_rot, y_rot, z_rot);
+            m_tools.at(activeTool)->action(activeModel, last_pos, event->pos(), brushSize, distance, x_rot, y_rot, z_rot);
         }
         else
         {
-            qDebug() << "VOID";
+            qDebug() << "NOTOOL";
         }
     }
 

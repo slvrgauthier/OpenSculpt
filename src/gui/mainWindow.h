@@ -34,6 +34,8 @@ private slots:
     void on_gtscale_clicked();
 
     // Up toolBar
+    void on_select_clicked();
+
     void on_wtmove_clicked();
     void on_wtrotate_clicked();
     void on_wtscale_clicked();

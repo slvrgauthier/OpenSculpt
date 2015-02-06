@@ -16,15 +16,16 @@
     #include <GL/glut.h>
 #endif
 #include <QDebug>
+#include <math.h>
 
 Model::Model():
     m_vertexbuffer(QGLBuffer::VertexBuffer),
     m_indicebuffer(QGLBuffer::IndexBuffer),
     m_center(QVector3D(0.0,0.0,0.0))
 {
-    m_detailLevel[0] = 1; // Min
-    m_detailLevel[1] = 1; // Current
-    m_detailLevel[2] = 4; // Max
+    m_detailLevel[0] = 1;
+    m_detailLevel[1] = 1;
+    m_detailLevel[2] = 4;
 }
 
 Model::~Model()
@@ -257,8 +258,82 @@ void Model::subdivide()
 
 void Model::decimate()
 {
-    if(m_detailLevel[1] > m_detailLevel[0])
+    if(false && m_detailLevel[1] > m_detailLevel[0])
     {
+        int size = m_faces.size() / 4;
+
+        for(int i=0 ; i < size ; ++i) {
+            HalfEdge *e1, *e2, *e3;
+
+            // Initialiser les trois demi-arêtes
+            e1 = m_faces[i]->edge->opposite->next;
+            e2 = m_faces[i]->edge->next->opposite->next;
+            e3 = m_faces[i]->edge->previous->opposite->next;
+
+            // Supprimer les trois faces décimées
+            delete e1->face;
+            delete e2->face;
+            delete e3->face;
+
+            e1->face = m_faces[i];
+            e2->face = m_faces[i];
+            e3->face = m_faces[i];
+
+            // Supprimer les six demi-arêtes centrales
+            delete m_faces[i]->edge->previous->opposite;
+            delete m_faces[i]->edge->previous;
+            delete m_faces[i]->edge->next->opposite;
+            delete m_faces[i]->edge->next;
+            delete m_faces[i]->edge->opposite;
+            delete m_faces[i]->edge;
+
+            // Supprimer les trois vertices décimés
+            if(e3->next->opposite == e1->opposite) {
+                // Le point n'est plus lié en face
+                delete e3->next->vertex;
+                e3->next->opposite->opposite = e1;
+            }
+            else {
+                // Le point est lié en face
+                e1->opposite = e3->next->opposite;
+            }
+            if(e1->next->opposite == e2->opposite) {
+                // Le point n'est plus lié en face
+                delete e1->next->vertex;
+                e1->next->opposite->opposite = e2;
+            }
+            else {
+                // Le point est lié en face
+                e2->opposite = e1->next->opposite;
+            }
+            if(e2->next->opposite == e3->opposite) {
+                // Le point n'est plus lié en face
+                delete e2->next->vertex;
+                e2->next->opposite->opposite = e3;
+            }
+            else {
+                // Le point est lié en face
+                e3->opposite = e2->next->opposite;
+            }
+
+            // Supprimer les trois demi-arêtes
+            delete e1->next;
+            delete e2->next;
+            delete e3->next;
+
+            // Etendre la face centrale vers l'extérieur
+            m_faces[i]->edge = e1;
+            m_faces[i]->edge->next = e2;
+            m_faces[i]->edge->previous = e3;
+
+            e1->previous = e3;
+            e1->next = e2;
+            e2->previous = e1;
+            e2->next = e3;
+            e3->previous = e2;
+            e3->next = e1;
+        }
+
         convertToBuffer();
         update();
         --m_detailLevel[1];
@@ -314,6 +389,21 @@ int Model::closestVertex(QVector3D position) const
     }
 
     return index;
+}
+
+Face* Model::intersectedFace(QVector3D position) const
+{
+    float distance;
+    for(int i=0 ; i < m_faces.size() ; ++i) {
+        distance = position.distanceToPlane(m_faces[i]->edge->previous->vertex->coords,
+                                            m_faces[i]->edge->vertex->coords,
+                                            m_faces[i]->edge->next->vertex->coords);
+        if(distance > -0.1 && distance < 0.1) {
+            return m_faces[i];
+        }
+    }
+
+    return NULL;
 }
 
 void Model::TEST() const
