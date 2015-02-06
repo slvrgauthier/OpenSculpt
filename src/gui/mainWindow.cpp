@@ -173,7 +173,18 @@ void MainWindow::on_initSphere_clicked()
     if(ui->widgetValidate->isVisible()) {
         on_pushValid_clicked();
     }
-    ui->glwidget->selectModel(NULL);
+    m_model = new MCylinder();
+    ui->widgetRadius->setVisible(true);
+    ui->widgetValidate->setVisible(true);
+    ui->pushCancel->setVisible(true);
+    ui->pushValid->setVisible(true);
+    ui->pushRemplace->setVisible(false);
+    ui->widgetSubdivide->setVisible(true);
+    ui->widgetName->setVisible(true);
+    ui->glwidget->addmodel(m_model);
+
+    ui->spinBoxRadius->setValue(5.0);
+    ui->textEditName->setText("NewSphere");
 
     m_model = new MCube();
     // TODO : widgets d'attributs
@@ -410,6 +421,7 @@ void MainWindow::disableTool()
 
 void MainWindow::hideDialog()
 {
+    ui->widgetRadius->setVisible(false);
     ui->widgetHeight->setVisible(false);
     ui->widgetWidth->setVisible(false);
     ui->widgetDepth->setVisible(false);

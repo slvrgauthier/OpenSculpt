@@ -203,6 +203,22 @@
          </widget>
         </item>
         <item>
+         <widget class="QWidget" name="widgetRadius" native="true">
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <item>
+            <widget class="QLabel" name="Radius">
+             <property name="text">
+              <string>Rayon</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="spinBoxRadius"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <widget class="QWidget" name="widgetSubdivide" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
