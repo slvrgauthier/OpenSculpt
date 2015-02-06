@@ -30,7 +30,16 @@ SOURCES += main.cpp \
     tool/LTPinch.cpp \
     tool/LTSmooth.cpp \
     model/MCone.cpp \
-    model/func.cpp
+    model/func.cpp \
+    mesh/Mesh.cpp \
+    mesh/MeshRenderer.cpp \
+    mesh/MeshProcessing.cpp \
+    mesh/MeshManager.cpp \
+    mesh/makeCube.cpp \
+    mesh/makeCylinder.cpp \
+    mesh/makeCone.cpp \
+    mesh/makeSphere.cpp \
+    mesh/makeTorus.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/glwidget.h \
@@ -51,7 +60,12 @@ HEADERS += gui/mainWindow.h \
     tool/LTInflate.h \
     tool/GTScale.h \
     model/MCone.h \
-    model/halfedge.h
+    model/halfedge.h \
+    mesh/Mesh.h \
+    mesh/MeshRenderer.h \
+    mesh/MeshProcessing.h \
+    mesh/HalfEdge.h \
+    mesh/MeshManager.h
 
 FORMS += gui/mainWindow.ui
 
