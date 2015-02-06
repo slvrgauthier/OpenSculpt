@@ -145,7 +145,7 @@ void MainWindow::on_initCube_clicked()
     ui->spinBoxHeight->setValue(5.0);
     ui->spinBoxWidth->setValue(5.0);
     ui->sliderSubdivide->setValue(1);
-    ui->textEditName->setText("NewCube");
+    ui->textName->setText("NewCube");
 
     connect(ui->spinBoxDepth, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
     connect(ui->spinBoxHeight, SIGNAL(valueChanged(double)),this, SLOT(updateLastModel()));
@@ -160,9 +160,19 @@ void MainWindow::on_initSphere_clicked()
     if(ui->widgetValidate->isVisible()) {
         on_pushValid_clicked();
     }
-    ui->glwidget->selectModel(NULL);
+    m_model = new MCylinder();
+    ui->widgetRadius->setVisible(true);
+    ui->widgetValidate->setVisible(true);
+    ui->pushCancel->setVisible(true);
+    ui->pushValid->setVisible(true);
+    ui->pushRemplace->setVisible(false);
+    ui->widgetSubdivide->setVisible(true);
+    ui->widgetName->setVisible(true);
+    ui->glwidget->addmodel(m_model);
 
-    //ui->widgetradius->setVisible(true);
+    ui->spinBoxRadius->setValue(5.0);
+    ui->textEditName->setText("NewSphere");
+
     ui->widgetValidate->setVisible(true);
 }
 
@@ -297,6 +307,7 @@ void MainWindow::disableTool()
 
 void MainWindow::hideDialog()
 {
+    ui->widgetRadius->setVisible(false);
     ui->widgetHeight->setVisible(false);
     ui->widgetWidth->setVisible(false);
     ui->widgetDepth->setVisible(false);
