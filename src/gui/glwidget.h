@@ -4,7 +4,7 @@
 #include <QGLWidget>
 #include <QTimer>
 #include <QtGui/QMouseEvent>
-#include "model/ModelManager.h"
+#include "mesh/MeshManager.h"
 #include "mainWindow.h"
 #include "tool/Tool.h"
 
@@ -23,25 +23,28 @@ public:
     void wheelEvent(QWheelEvent *event);
 
     void enableTool(TOOL tool);
-    void selectModel(Model* model);
+    void selectMesh(Mesh *mesh);
 
-    void addmodel(Model *model);
-    void removemodel();
+    void addMesh(Mesh *mesh);
+    void removeMesh(Mesh *mesh);
     void clear();
 
     void resetView();
     void undo();
     void redo();
 
+private slots:
+    void updateActiveMesh();
+
 private:
     void rotateBy(int x, int y, int z);
 
 private:
     QTimer m_timer;
-    ModelManager m_manager;
+    MeshManager m_manager;
     QVector<Tool*> m_tools;
     TOOL activeTool;
-    Model* activeModel;
+    int activeMesh;
     int brushSize;
 
     // View & rotation settings

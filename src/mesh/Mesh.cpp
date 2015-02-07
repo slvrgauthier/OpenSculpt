@@ -182,3 +182,37 @@ void Mesh::TEST() const {
 
     qDebug() << "Integrity TEST of model" << getName() << ":" << errors << "errors.";
 }
+
+
+// A ENLEVER...
+int Mesh::closestVertex(QVector3D position) const
+{
+    int index = 0;
+    float distance = position.distanceToPoint(getVertex(0)->coords);
+
+    float d;
+    for(int i=1 ; i < getVertexCount() ; ++i) {
+        d = position.distanceToPoint(getVertex(i)->coords);
+        if(d < distance) {
+            distance = d;
+            index = i;
+        }
+    }
+
+    return index;
+}
+
+Face* Mesh::intersectedFace(QVector3D position) const
+{
+    float distance;
+    for(int i=0 ; i < getFaceCount() ; ++i) {
+        distance = position.distanceToPlane(getFace(i)->edge->previous->vertex->coords,
+                                            getFace(i)->edge->vertex->coords,
+                                            getFace(i)->edge->next->vertex->coords);
+        if(distance > -0.1 && distance < 0.1) {
+            return getFace(i);
+        }
+    }
+
+    return NULL;
+}

@@ -4,10 +4,11 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QDebug>
-#include "gui/glwidget.h"
 #include <QString>
 #include <QLabel>
-#include<QGridLayout>
+#include <QGridLayout>
+#include "gui/glwidget.h"
+#include "mesh/MeshProcessing.h"
 
 namespace Ui {
 class MainWindow;
@@ -45,6 +46,7 @@ private slots:
     void on_subdivide_clicked();
     void on_decimate_clicked();
 
+    void on_init();
     void on_initCube_clicked();
     void on_initSphere_clicked();
     void on_initCylinder_clicked();
@@ -69,16 +71,24 @@ private slots:
     void on_pushValid_clicked();
 
 private slots:
+    // Update the last model
+    void updateCube();
+    void updateSphere();
+    void updateCylinder();
+    void updateCone();
+    void updateTorus();
+
+private slots:
     void keyPressEvent(QKeyEvent *event);
-    void updateLastModel();
     void disableTool();
     void hideDialog();
     void showDialog();
 
 private:
     Ui::MainWindow *ui;
-    Model *m_model;
-    QMap<QPushButton*, Model*> m_modelList;
+    Mesh *m_mesh;
+    QMap<QPushButton*, Mesh*> m_meshList;
+    MeshProcessing m_processing;
 };
 
 #endif // MAINWINDOW_H

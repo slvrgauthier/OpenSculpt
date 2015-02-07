@@ -17,16 +17,17 @@
 #include "tool/LTPinch.h"
 #include "tool/LTSmooth.h"
 #include "tool/LTAdd.h"
-#include "model/func.h"
+#include "mesh/functions.h"
 
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
     activeTool = NOTOOL;
-    activeModel = NULL;
+    activeMesh = -1;
     mode_fill = false;
-    brushSize = 10;
+    brushSize = 3;
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
+    connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateActiveMesh()));
 
     m_timer.start(16);
 
@@ -57,9 +58,6 @@ void GLWidget::initializeGL()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
-
-    // ModelManager init
-    m_manager.initializeGL();
 }
 
 void GLWidget::paintGL()
@@ -141,13 +139,13 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
             offsetX += (distance * dx / 600.0);
             offsetY += (distance * dy / 600.0);
         }
-        else if(activeTool != NOTOOL && activeModel != NULL)
+        else if(activeTool != NOTOOL && m_manager.getMesh(activeMesh) != NULL)
         {
-            m_tools.at(activeTool)->action(activeModel, last_pos, event->pos(), brushSize, distance, x_rot, y_rot, z_rot);
+            m_tools.at(activeTool)->action(m_manager.getMesh(activeMesh), last_pos, event->pos(), brushSize, distance, x_rot, y_rot, z_rot);
         }
         else
         {
-            qDebug() << "NOTOOL";
+            qDebug() << "NOTOOL or Mesh NULL";
         }
     }
 
@@ -166,28 +164,32 @@ void GLWidget::rotateBy(int x, int y, int z)
     z_rot += z;
 }
 
-void GLWidget::enableTool(TOOL tool)
-{
-    activeTool = tool;
+void GLWidget::enableTool(TOOL tool) { activeTool = tool; }
+void GLWidget::selectMesh(Mesh *mesh) {
+    if(mesh == NULL) {
+        activeMesh = -1;
+    }
+    else {
+        for(int i=0 ; i < m_manager.getSize() ; ++i) {
+            if(m_manager.getMesh(i) == mesh) {
+                activeMesh = i;
+            }
+        }
+    }
 }
 
-void GLWidget::selectModel(Model* model) {
-    activeModel = model;
+void GLWidget::updateActiveMesh() {
+    if(activeMesh >= 0) {
+        m_manager.updateMesh(activeMesh);
+    }
+    else {
+        m_manager.updateLastMesh();
+    }
 }
 
-void GLWidget::addmodel(Model *model) {
-    m_manager.addModel(model);
-}
-
-void GLWidget::removemodel()
-{
-    m_manager.removeModel();
-}
-
-void GLWidget::clear()
-{
-    m_manager.clear();
-}
+void GLWidget::addMesh(Mesh *mesh) { m_manager.addMesh(mesh); }
+void GLWidget::removeMesh(Mesh *mesh) {  m_manager.removeMesh(mesh); }
+void GLWidget::clear() { m_manager.clear(); }
 
 void GLWidget::resetView()
 {

@@ -1,3 +1,15 @@
+/*
+ * Mesh.h
+ * @author : Team OpenSculpt
+ *
+ * This file gives the declaration of the class Mesh.
+ * A Mesh defines the internal mesh used in the application and gives some predefined 3D meshes.
+ *
+ * Public members let developers to easily extend the predefined meshes list but with a lack of performances,
+ * whereas private members let developers to have high performance but more difficulties to program.
+ *
+ */
+
 #ifndef MESH_H
 #define MESH_H
 
@@ -10,6 +22,9 @@
 #include <QDebug>
 
 class Mesh {
+public: // A ENLEVER...
+    int closestVertex(QVector3D position) const;
+    Face* intersectedFace(QVector3D position) const;
 
     // ================== PUBLIC CONSTRUCTORS ==================
 public:

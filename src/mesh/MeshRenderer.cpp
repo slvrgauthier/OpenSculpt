@@ -27,17 +27,20 @@ void MeshRenderer::paintGL() {
 }
 
 void MeshRenderer::update() {
-    // Convertir le mesh pour le rendu
-    m_coords.resize(m_mesh->getVertexCount());
+
+    // Convertir le maillage interne pour le rendu
+    m_coords.clear();
+    m_coords.reserve(m_mesh->getVertexCount());
     for(int i=0 ; i < m_mesh->getVertexCount() ; ++i) {
-        m_coords[i] = m_mesh->getVertex(i)->coords;
+        m_coords.push_back(m_mesh->getVertex(i)->coords);
     }
 
-    m_indices.resize(m_mesh->getFaceCount() * 3);
+    m_indices.clear();
+    m_indices.reserve(m_mesh->getFaceCount() * 3);
     for(int i=0 ; i < m_mesh->getFaceCount() ; ++i) {
-        m_indices[i] = m_mesh->getFace(i)->edge->vertex->index;
-        m_indices[i] = m_mesh->getFace(i)->edge->next->vertex->index;
-        m_indices[i] = m_mesh->getFace(i)->edge->previous->vertex->index;
+        m_indices.push_back(m_mesh->getFace(i)->edge->vertex->index);
+        m_indices.push_back(m_mesh->getFace(i)->edge->next->vertex->index);
+        m_indices.push_back(m_mesh->getFace(i)->edge->previous->vertex->index);
     }
 
     // Vertex buffer init

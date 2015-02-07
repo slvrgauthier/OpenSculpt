@@ -1,7 +1,7 @@
 #ifndef TOOL_H
 #define TOOL_H
 
-#include "model/Model.h"
+#include "mesh/Mesh.h"
 #include <QVector2D>
 #include <QPoint>
 #include <QDebug>
@@ -36,7 +36,7 @@ enum TOOL
 class Tool
 {
 public:
-    virtual void action(Model *model, QPoint last_position, QPoint current_position, int brushSize, float distance, float x_rot, float y_rot, float z_rot) = 0;
+    virtual void action(Mesh *mesh, QPoint last_position, QPoint current_position, int brushSize, float distance, float x_rot, float y_rot, float z_rot) = 0;
 };
 
 #endif // TOOL_H

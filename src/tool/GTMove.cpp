@@ -1,6 +1,6 @@
 #include "tool/GTMove.h"
 
-void GTMove::action(Model *model, QPoint last_position, QPoint current_position, int brushSize, float distance, float x_rot, float y_rot, float z_rot)
+void GTMove::action(Mesh *mesh, QPoint last_position, QPoint current_position, int brushSize, float distance, float x_rot, float y_rot, float z_rot)
 {
     qDebug() << "GTMove action";
 
@@ -19,11 +19,12 @@ void GTMove::action(Model *model, QPoint last_position, QPoint current_position,
 
     QVector3D move(x,y,z); // Mouvement dans le repère scène
 
-    for(int i=0 ; i < model->getSize() ; ++i) {
-        model->setVertex(i, model->getVertex(i) + move);
+    Vertex *vertex;
+    for(int i=0 ; i < mesh->getVertexCount() ; ++i) {
+        vertex = mesh->getVertex(i);
+        vertex->coords += move;
+        mesh->setVertex(i, vertex);
     }
 
-    model->setCenter(model->getCenter() + move);
-
-    model->update();
+    mesh->setCenter(mesh->getCenter() + move);
 }

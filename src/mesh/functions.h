@@ -20,9 +20,10 @@
 #endif
 
 #include <stdlib.h>
-#include <cmath>
+#include <math.h>
 #include <QVector3D>
 #include <QPoint>
+#include "mesh/Mesh.h"
 
 /* cosinus and sinus with degrees */
 #define cosd(x) (cos(fmod((x),360) * M_PI / 180))

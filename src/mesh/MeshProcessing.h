@@ -1,3 +1,12 @@
+/*
+ * MeshProcessing.h
+ * @author : Team OpenSculpt
+ *
+ * This file gives the declaration of the class MeshProcessing.
+ * A MeshProcessing is an object with many process usable on a Mesh.
+ *
+ */
+
 #ifndef MESHPROCESSING_H
 #define MESHPROCESSING_H
 
@@ -25,12 +34,6 @@ public:
     // Scale the entire Mesh along the three axis separately
     void scale(Mesh *mesh, QVector3D coef);
     // ====================================================
-
-
-    // ================== PRIVATE MEMBERS ==================
-private:
-    int closestVertex(Mesh *mesh, QVector3D position) const;
-    Face* intersectedFace(Mesh *mesh, QVector3D position) const;
 };
 
 #endif // MESHPROCESSING_H

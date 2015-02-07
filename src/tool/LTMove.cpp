@@ -1,6 +1,6 @@
 #include "tool/LTMove.h"
 
-void LTMove::action(Model *model, QPoint last_position, QPoint current_position, int brushSize, float distance, float x_rot, float y_rot, float z_rot)
+void LTMove::action(Mesh *mesh, QPoint last_position, QPoint current_position, int brushSize, float distance, float x_rot, float y_rot, float z_rot)
 {
     qDebug() << "LTMove action";
 
@@ -22,22 +22,23 @@ void LTMove::action(Model *model, QPoint last_position, QPoint current_position,
         x = x_*coef, y = y_*coef, z = -z_*coef;
 
         QVector3D move(x,y,z); // Mouvement dans le repère scène
-        Face *face = model->intersectedFace(position); // Face touchée par le rayon
+        Face *face = mesh->intersectedFace(position); // Face touchée par le rayon
 
         if(face != NULL) {
             Vertex *vertex = face->edge->vertex;
-            float coef = max(0.f, 1 - vertex->coords.distanceToPoint(position) / brushSize);
-            model->setVertex(vertex->index, vertex->coords + move * coef);
+            float coef = std::max(0.f, 1 - vertex->coords.distanceToPoint(position) / brushSize);
+            vertex->coords = vertex->coords + move * coef;
+            mesh->setVertex(vertex->index, vertex);
 
             vertex = face->edge->next->vertex;
-            coef = max(0.f, 1 - vertex->coords.distanceToPoint(position) / brushSize);
-            model->setVertex(vertex->index, vertex->coords + move * coef);
+            coef = std::max(0.f, 1 - vertex->coords.distanceToPoint(position) / brushSize);
+            vertex->coords = vertex->coords + move * coef;
+            mesh->setVertex(vertex->index, vertex);
 
             vertex = face->edge->previous->vertex;
-            coef = max(0.f, 1 - vertex->coords.distanceToPoint(position) / brushSize);
-            model->setVertex(vertex->index, vertex->coords + move * coef);
-
-            model->update();
+            coef = std::max(0.f, 1 - vertex->coords.distanceToPoint(position) / brushSize);
+            vertex->coords = vertex->coords + move * coef;
+            mesh->setVertex(vertex->index, vertex);
         }
     }
 }

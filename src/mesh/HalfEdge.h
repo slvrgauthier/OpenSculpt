@@ -1,3 +1,11 @@
+/*
+ * HalfEdge.h
+ * @author : Team OpenSculpt
+ *
+ * This file gives the declaration of the Half-Edge Data Structure used in Mesh.
+ *
+ */
+
 #ifndef HALFEDGE_H
 #define HALFEDGE_H
 

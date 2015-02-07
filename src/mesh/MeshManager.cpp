@@ -9,13 +9,21 @@ void MeshManager::paintGL() {
     }
 }
 
+void MeshManager::updateMesh(int index) { m_renderers.at(index)->update(); }
+
+void MeshManager::updateLastMesh() { if(!m_renderers.empty()) m_renderers.last()->update(); }
+
 void MeshManager::addMesh(Mesh *mesh) {
     m_renderers.push_back(new MeshRenderer(mesh));
 }
 
-void MeshManager::removeMesh() {
-    delete m_renderers.last();
-    m_renderers.removeLast();
+void MeshManager::removeMesh(Mesh *mesh) {
+    for(int i = 0 ; i < m_renderers.size() ; ++i) {
+        if(m_renderers[i]->getMesh() == mesh) {
+            delete m_renderers[i];
+            m_renderers.remove(i);
+        }
+    }
 }
 
 void MeshManager::clear() {
@@ -25,4 +33,5 @@ void MeshManager::clear() {
     m_renderers.clear();
 }
 
-Mesh* MeshManager::getMesh(int index) { return m_renderers.at(index)->getMesh(); }
+Mesh* MeshManager::getMesh(int index) const { return (index >= 0 && index < m_renderers.size())? m_renderers.at(index)->getMesh() : NULL; }
+int MeshManager::getSize() const { return m_renderers.size(); }
