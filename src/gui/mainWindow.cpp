@@ -138,6 +138,7 @@ void MainWindow::on_init() {
     ui->glwidget->selectMesh(NULL);
 
     m_mesh = new Mesh();
+    m_mesh->setName("Mesh");
 
     ui->widgetValidate->setVisible(true);
     ui->pushRemplace->setVisible(false);
@@ -148,7 +149,7 @@ void MainWindow::on_init() {
     ui->glwidget->addMesh(m_mesh);
 
     ui->sliderSubdivide->setValue(ui->sliderSubdivide->minimum());
-    ui->textEditName->setText("Mesh");
+    ui->textEditName->setText(m_mesh->getName());
 }
 
 void MainWindow::on_initCube_clicked()

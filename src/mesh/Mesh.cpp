@@ -3,8 +3,113 @@
 Mesh::Mesh() { m_center = QVector3D(0.,0.,0.); }
 Mesh::~Mesh() { this->clear(); }
 
-void addFace(QVector<QVector3D> vertices) { /* TODO */ }
-QVector3D cutEdge(QVector3D vertex1, QVector3D vertex2) { /* TODO */ }
+void Mesh::addFace(QVector<QVector3D> vertices) {
+    int size = vertices.size();
+
+    if(size >= 3) {
+        // Merge with existing vertices
+        QVector<Vertex*> tmp_vertices;
+        tmp_vertices.resize(size);
+
+        for(int i=0 ; i < tmp_vertices.size() ; ++i) {
+            for(int v=0 ; v < getVertexCount() ; ++v) {
+                if(m_vertices[v]->coords == vertices[v]) {
+                    tmp_vertices[i] = m_vertices[v];
+                }
+            }
+        }
+        for(int i=0 ; i < size-1 ; ++i) {
+            for(int j=i+1 ; j < size ; ++j) {
+                if(vertices[i] == vertices[j]) {
+                    tmp_vertices[j] = tmp_vertices[i];
+                }
+            }
+        }
+
+        // Merge with existing edges
+        QVector<HalfEdge*> tmp_edges;
+        tmp_edges.resize(3 * (size - 2));
+
+        for(int i=0 ; i < tmp_edges.size() ; ++i) {
+            for(int e=0 ; e < getEdgeCount() ; ++e) {
+                if(m_edges[e]->previous->vertex->coords == vertices[i] && m_edges[e]->vertex->coords == vertices[(i+1)%size]) {
+                    tmp_edges[i] = m_edges[e];
+                }
+            }
+        }
+
+        // Create new vertices
+        for(int i=0 ; i < tmp_vertices.size() ; ++i) {
+            if(tmp_vertices[i] == NULL) {
+                tmp_vertices[i] = new Vertex;
+                tmp_vertices[i]->index = getVertexCount();
+                tmp_vertices[i]->coords = vertices[i];
+
+                m_vertices.push_back(tmp_vertices[i]);
+
+                // Avoid clones
+                for(int j=i+1 ; j < tmp_vertices.size() ; ++j) {
+                    if(vertices[i] == vertices[j]) {
+                        tmp_vertices[j] = tmp_vertices[i];
+                    }
+                }
+            }
+        }
+
+        // Create new edges
+        for(int i=0 ; i < tmp_edges.size() ; ++i) {
+            if(tmp_edges[i] == NULL) {
+                tmp_edges[i] = new HalfEdge;
+                m_edges.push_back(tmp_edges[i]);
+            }
+        }
+
+        // Create and fill new faces
+        QVector<Face*> tmp_faces;
+        tmp_faces.resize(size - 2);
+        for(int i=0 ; i < tmp_faces.size() ; ++i) {
+            tmp_faces[i] = new Face;
+            tmp_faces[i]->edge = tmp_edges[3 * i];
+
+            m_faces.push_back(tmp_faces[i]);
+        }
+
+        // Fill new vertices
+        tmp_vertices[0]->outgoing = tmp_edges[0];
+        tmp_vertices[1]->outgoing = tmp_edges[1];
+        for(int i=2 ; i < tmp_vertices.size()-1 ; ++i) {
+            tmp_vertices[i]->outgoing = tmp_edges[3 * i - 2];
+        }
+        tmp_vertices[tmp_vertices.size()-1]->outgoing = tmp_edges[3 * (tmp_vertices.size()-1) - 4];
+
+        // Fill new edges
+        for(int i=0 ; i < tmp_edges.size() ; ++i) {
+            tmp_edges[i]->face = tmp_faces[i/3];
+            tmp_edges[i]->next = (i%3 == 2)? tmp_edges[i-2] : tmp_edges[i+1];
+            tmp_edges[i]->previous = (i%3 == 0)? tmp_edges[i+2] : tmp_edges[i-1];
+            tmp_edges[i]->vertex = (i%3 == 2)? tmp_vertices[0] : tmp_vertices[i/3 + i%3 + 1];
+        }
+
+        // Link opposite edges
+        for(int i=0 ; i < tmp_edges.size() ; ++i) {
+            if(tmp_edges[i]->opposite == NULL) {
+                for(int e=0 ; e < getEdgeCount() ; ++e) {
+                    if(m_edges[e]->previous->vertex == tmp_edges[i]->vertex && m_edges[e]->vertex == tmp_edges[i]->previous->vertex) {
+                        tmp_edges[i]->opposite = m_edges[e];
+                        m_edges[e]->opposite = tmp_edges[i];
+                    }
+                }
+            }
+        }
+    }
+    else {
+        qDebug() << "A face needs at least three vertices";
+    }
+}
+
+QVector3D Mesh::cutEdge(QVector3D vertex1, QVector3D vertex2) {
+    /* TODO */
+}
 
 QString Mesh::getName() const { return m_name; }
 void Mesh::setName(QString name) { m_name = name; }
