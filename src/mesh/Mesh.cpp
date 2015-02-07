@@ -3,20 +3,8 @@
 Mesh::Mesh() { m_center = QVector3D(0.,0.,0.); }
 Mesh::~Mesh() { this->clear(); }
 
-void Mesh::clear() {
-    for(int i=0 ; i < m_edges.size() ; ++i) {
-        delete m_edges[i];
-    }
-    m_edges.clear();
-    for(int i=0 ; i < m_vertices.size() ; ++i) {
-        delete m_vertices[i];
-    }
-    m_vertices.clear();
-    for(int i=0 ; i < m_faces.size() ; ++i) {
-        delete m_faces[i];
-    }
-    m_faces.clear();
-}
+void addFace(QVector<QVector3D> vertices) { /* TODO */ }
+QVector3D cutEdge(QVector3D vertex1, QVector3D vertex2) { /* TODO */ }
 
 QString Mesh::getName() const { return m_name; }
 void Mesh::setName(QString name) { m_name = name; }
@@ -71,6 +59,21 @@ void Mesh::addFace(Face *face) { m_faces.push_back(face); }
 void Mesh::removeEdge(int index) { delete m_edges[index]; m_edges.remove(index); }
 void Mesh::removeVertex(int index) { delete m_vertices[index]; m_vertices.remove(index); }
 void Mesh::removeFace(int index) { delete m_faces[index]; m_faces.remove(index); }
+
+void Mesh::clear() {
+    for(int i=0 ; i < m_edges.size() ; ++i) {
+        delete m_edges[i];
+    }
+    m_edges.clear();
+    for(int i=0 ; i < m_vertices.size() ; ++i) {
+        delete m_vertices[i];
+    }
+    m_vertices.clear();
+    for(int i=0 ; i < m_faces.size() ; ++i) {
+        delete m_faces[i];
+    }
+    m_faces.clear();
+}
 
 void Mesh::TEST() const {
     bool test = true;

@@ -11,27 +11,49 @@
 
 class Mesh {
 
+    // ================== PUBLIC CONSTRUCTORS ==================
 public:
     Mesh();
     ~Mesh();
 
-public:
+    // Generate many polygons (extensible by developers)
     void makeCone(float height, float radiusUp, float radiusDown);
     void makeCube(float width, float height, float depth);
     void makeCylinder(float height, float radius);
     void makeSphere(float radius);
     void makeTorus(float radiusH, float radiusV);
+    // =========================================================
 
+
+    // ================== PUBLIC MEMBERS (high level) ==================
+public:
+    // Add a face with triangles fan wich begins in vertices[0]
+    void addFace(QVector<QVector3D> vertices);
+
+    // Cut an edge between two vertices in two parts equally and return the middle vertex
+    QVector3D cutEdge(QVector3D vertex1, QVector3D vertex2);
+    // =================================================================
+
+
+    // ================== PRIVATE MEMBERS ==================
 private:
     void clear();
+    void TEST() const;
+    // =====================================================
 
+
+    // ================== PUBLIC ACCESSORS ==================
 public:
     QString getName() const;
     void setName(QString name);
 
     QVector3D getCenter() const;
     void setCenter(QVector3D center);
+    // ======================================================
 
+
+    // ================== PRIVATE ACCESSORS (low level) ==================
+public: // -> private
     HalfEdge* getEdge(int index) const;
     void setEdge(int index, HalfEdge *edge);
 
@@ -56,10 +78,10 @@ public:
     void removeEdge(int index);
     void removeVertex(int index);
     void removeFace(int index);
+    // ====================================================================
 
-public:
-    void TEST() const;
 
+    // ================== PROPERTIES ==================
 private:
     // Mesh infos
     QString m_name;

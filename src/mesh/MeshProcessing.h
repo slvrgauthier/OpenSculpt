@@ -5,10 +5,14 @@
 
 class MeshProcessing {
 
+    // ================== PUBLIC CONSTRUCTORS ==================
 public:
     MeshProcessing();
     ~MeshProcessing();
+    // =========================================================
 
+
+    // ================== PUBLIC MEMBERS ==================
 public:
     // Subdivide or Decimate the entire Mesh
     void subdivide(Mesh *mesh);
@@ -20,8 +24,11 @@ public:
 
     // Scale the entire Mesh along the three axis separately
     void scale(Mesh *mesh, QVector3D coef);
+    // ====================================================
 
-public:
+
+    // ================== PRIVATE MEMBERS ==================
+private:
     int closestVertex(Mesh *mesh, QVector3D position) const;
     Face* intersectedFace(Mesh *mesh, QVector3D position) const;
 };
