@@ -10,9 +10,15 @@ public:
     ~MeshProcessing();
 
 public:
-    void subdivide(Mesh *mesh, float maxEdgeLength);
-    void decimate(Mesh *mesh, float minEdgeLength);
+    // Subdivide or Decimate the entire Mesh
+    void subdivide(Mesh *mesh);
+    void decimate(Mesh *mesh);
 
+    // Subdivide or Decimate only half-edges wich break the criterion
+    void subdivideAuto(Mesh *mesh, float maxEdgeLength);
+    void decimateAuto(Mesh *mesh, float minEdgeLength);
+
+    // Scale the entire Mesh along the three axis separately
     void scale(Mesh *mesh, QVector3D coef);
 
 public:

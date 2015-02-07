@@ -7,6 +7,8 @@
 #include "HalfEdge.h"
 #include "functions.h"
 
+#include <QDebug>
+
 class Mesh {
 
 public:
@@ -42,6 +44,18 @@ public:
     int getEdgeCount() const;
     int getVertexCount() const;
     int getFaceCount() const;
+
+    void resizeEdge(int count);
+    void resizeVertex(int count);
+    void resizeFace(int count);
+
+    void addEdge(HalfEdge *edge);
+    void addVertex(Vertex *vertex);
+    void addFace(Face *face);
+
+    void removeEdge(int index);
+    void removeVertex(int index);
+    void removeFace(int index);
 
 public:
     void TEST() const;
