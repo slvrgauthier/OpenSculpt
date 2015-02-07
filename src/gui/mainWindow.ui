@@ -667,7 +667,7 @@
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/cylindre.jpg</normaloff>:/icons/cylindre.jpg</iconset>
+         <normaloff>:/icons/cylindre.png</normaloff>:/icons/cylindre.png</iconset>
        </property>
       </widget>
      </item>
@@ -681,7 +681,7 @@
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/cone.jpg</normaloff>:/icons/cone.jpg</iconset>
+         <normaloff>:/icons/cone.png</normaloff>:/icons/cone.png</iconset>
        </property>
       </widget>
      </item>
