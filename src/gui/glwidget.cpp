@@ -23,7 +23,7 @@ GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
     activeTool = NOTOOL;
     activeMesh = -1;
-    mode_fill = false;
+    mode_fill = true;
     brushSize = 3;
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
@@ -63,7 +63,6 @@ void GLWidget::initializeGL()
 void GLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glColor3f(1,0,0);
     glPolygonMode(GL_FRONT_AND_BACK, mode_fill ? GL_FILL : GL_LINE);
 
     // Model view matrix
@@ -77,7 +76,7 @@ void GLWidget::paintGL()
     glRotatef(y_rot, 0.0f, 1.0f, 0.0f);
     glRotatef(z_rot, 0.0f, 0.0f, 1.0f);
 
-    int LightPos[4] = {(int)(distance/2),0,(int)(-distance/2),1};
+    int LightPos[4] = {(int)(offsetX - distance),-offsetY,(int)(-distance/2),1};
     glLightiv(GL_LIGHT0,GL_POSITION,LightPos);
 
     // Projection matrix
@@ -85,18 +84,25 @@ void GLWidget::paintGL()
     glLoadIdentity();
     gluPerspective(30.0f, 1.0*width()/height(), 0.1f, 100.0f);
 
+    // Draw map
+    if(mode_fill) {
+        //qglColor(Qt::lightGray);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        m_manager.paintGL();
+    }
+
+    //qglColor(Qt::black);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    m_manager.paintGL();
+
     // Brush
-/*    glColor3d(1,0,0);
-    glBegin(GL_LINE_LOOP);
-        for (int i=0; i < 360; ++i) {
-            glVertex3f(last_pos.x() + cosd(i)*brushSize, last_pos.y() + sind(i)*brushSize, 0);
+    /*glColor3d(1,0,0);
+    glBegin(GL_TRIANGLE_FAN);
+        for (int i=0; i < 16; ++i) {
+            float alpha = i * 360 / 16.;
+            glVertex3f(last_pos.x() + cosd(alpha)*brushSize, last_pos.y() + sind(alpha)*brushSize, 0);
         }
     glEnd();*/
-
-    // Draw map
-    qglColor(Qt::lightGray);
-
-    m_manager.paintGL();
 }
 void GLWidget::resizeGL(int w, int h)
 {
