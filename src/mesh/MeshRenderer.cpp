@@ -3,6 +3,7 @@
 MeshRenderer::MeshRenderer(Mesh *mesh) {
     m_vertexbuffer = new QGLBuffer(QGLBuffer::VertexBuffer);
     m_indicebuffer = new QGLBuffer(QGLBuffer::IndexBuffer);
+    m_normalbuffer = new QGLBuffer(QGLBuffer::VertexBuffer);
     m_mesh = mesh;
 }
 
@@ -10,6 +11,7 @@ MeshRenderer::~MeshRenderer() {
     delete m_mesh;
     m_vertexbuffer->destroy();
     m_indicebuffer->destroy();
+    m_normalbuffer->destroy();
 }
 
 void MeshRenderer::paintGL() {
@@ -24,6 +26,14 @@ void MeshRenderer::paintGL() {
     m_indicebuffer->release();
 
     glDisableClientState(GL_VERTEX_ARRAY);
+
+    glEnableClientState(GL_NORMAL_ARRAY);
+
+    m_normalbuffer->bind();
+    glNormalPointer(GL_FLOAT, 0, NULL);
+    m_normalbuffer->release();
+
+    glDisableClientState(GL_NORMAL_ARRAY);
 }
 
 void MeshRenderer::update() {
@@ -36,11 +46,14 @@ void MeshRenderer::update() {
     }
 
     m_indices.clear();
+    m_normals.clear();
     m_indices.reserve(m_mesh->getFaceCount() * 3);
+    m_normals.reserve(m_mesh->getFaceCount());
     for(int i=0 ; i < m_mesh->getFaceCount() ; ++i) {
         m_indices.push_back(m_mesh->getFace(i)->edge->vertex->index);
         m_indices.push_back(m_mesh->getFace(i)->edge->next->vertex->index);
         m_indices.push_back(m_mesh->getFace(i)->edge->previous->vertex->index);
+        m_normals.push_back(QVector3D::normal(m_mesh->getVertex(m_indices[3*i])->coords, m_mesh->getVertex(m_indices[3*i+1])->coords, m_mesh->getVertex(m_indices[3*i+2])->coords));
     }
 
     // Vertex buffer init
@@ -69,6 +82,20 @@ void MeshRenderer::update() {
         m_indicebuffer->bind();
         m_indicebuffer->allocate(m_indices.constData(), m_indices.size() * sizeof(GLuint));
         m_indicebuffer->release();
+    }
+
+    // Normal buffer init
+    if(m_normalbuffer->isCreated() && m_normalbuffer->size() >= m_normals.size()) {
+        m_normalbuffer->bind();
+        m_normalbuffer->write(0, m_normals.constData(), m_normals.size() * sizeof(QVector3D));
+        m_normalbuffer->release();
+    }
+    else {
+        m_normalbuffer->destroy();
+        m_normalbuffer->create();
+        m_normalbuffer->bind();
+        m_normalbuffer->allocate(m_normals.constData(), m_normals.size() * sizeof(QVector3D));
+        m_normalbuffer->release();
     }
 }
 
