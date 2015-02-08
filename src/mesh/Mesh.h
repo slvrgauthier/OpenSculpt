@@ -68,7 +68,7 @@ public:
 
 
     // ================== PRIVATE ACCESSORS (low level) ==================
-public: // -> private
+public: // -> private -> à remplacer par void moveVertex(...)
     HalfEdge* getEdge(int index) const;
     void setEdge(int index, HalfEdge *edge);
 
