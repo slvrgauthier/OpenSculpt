@@ -19,5 +19,6 @@
         <file>icons/cone.png</file>
         <file>icons/cylindre.png</file>
         <file>icons/agrandissement.png</file>
+        <file>icons/tore.png</file>
     </qresource>
 </RCC>

@@ -84,6 +84,9 @@ private slots:
     void hideDialog();
     void showDialog();
 
+
+    void on_debug_clicked();
+
 private:
     Ui::MainWindow *ui;
     Mesh *m_mesh;

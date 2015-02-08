@@ -470,6 +470,13 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QCheckBox" name="debug">
+       <property name="text">
+        <string>Debug</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -591,11 +598,7 @@
         <string>Subdivision</string>
        </property>
        <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/subdivide.png</normaloff>:/icons/subdivide.png</iconset>
+        <string>Sub</string>
        </property>
       </widget>
      </item>
@@ -605,11 +608,7 @@
         <string>Décimation</string>
        </property>
        <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/decimate.png</normaloff>:/icons/decimate.png</iconset>
+        <string>Dec</string>
        </property>
        <property name="checkable">
         <bool>false</bool>
@@ -695,7 +694,7 @@
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/torus.png</normaloff>:/icons/torus.png</iconset>
+         <normaloff>:/icons/tore.png</normaloff>:/icons/tore.png</iconset>
        </property>
       </widget>
      </item>
