@@ -15,14 +15,6 @@ TEMPLATE = app
 SOURCES += main.cpp \
     gui/mainWindow.cpp \
     gui/glwidget.cpp \
-    tool/LTMove.cpp \
-    tool/GTMove.cpp \
-    tool/GTRotate.cpp \
-    tool/GTScale.cpp \
-    tool/LTAdd.cpp \
-    tool/LTInflate.cpp \
-    tool/LTPinch.cpp \
-    tool/LTSmooth.cpp \
     mesh/Mesh.cpp \
     mesh/MeshRenderer.cpp \
     mesh/MeshProcessing.cpp \
@@ -32,25 +24,18 @@ SOURCES += main.cpp \
     mesh/makeCone.cpp \
     mesh/makeSphere.cpp \
     mesh/makeTorus.cpp \
-    mesh/functions.cpp
+    mesh/functions.cpp \
+    mesh/MeshTool.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/glwidget.h \
-    tool/Tool.h \
-    tool/GTMove.h \
-    tool/LTMove.h \
-    tool/LTSmooth.h \
-    tool/GTRotate.h \
-    tool/LTAdd.h \
-    tool/LTPinch.h \
-    tool/LTInflate.h \
-    tool/GTScale.h \
     mesh/Mesh.h \
     mesh/MeshRenderer.h \
     mesh/MeshProcessing.h \
     mesh/HalfEdge.h \
     mesh/MeshManager.h \
-    mesh/functions.h
+    mesh/functions.h \
+    mesh/MeshTool.h
 
 FORMS += gui/mainWindow.ui
 

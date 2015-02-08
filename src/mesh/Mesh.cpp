@@ -218,6 +218,28 @@ void Mesh::cutEdge(QVector3D vertex1, QVector3D vertex2) {
     }
 }
 
+QVector<QVector3D> Mesh::getVertices(QVector3D position, float areaSize) {
+    /* TODO */
+}
+
+void Mesh::moveVertex(QVector3D vertex, QVector3D move) {
+    for(int i=0 ; i < getVertexCount() ; ++i) {
+        if(m_vertices[i]->coords == vertex) {
+            m_vertices[i]->coords += move;
+        }
+    }
+}
+
+void Mesh::moveVertices(QVector<QVector3D> vertices, QVector3D move) {
+    for(int i=0 ; i < getVertexCount() ; ++i) {
+        for(int j=0 ; j < vertices.size() ; ++j) {
+            if(m_vertices[i]->coords == vertices[j]) {
+                m_vertices[i]->coords += move;
+            }
+        }
+    }
+}
+
 QString Mesh::getName() const { return m_name; }
 void Mesh::setName(QString name) { m_name = name; }
 
@@ -397,23 +419,6 @@ void Mesh::TEST() const {
 
 
 // A ENLEVER...
-int Mesh::closestVertex(QVector3D position) const
-{
-    int index = 0;
-    float distance = position.distanceToPoint(getVertex(0)->coords);
-
-    float d;
-    for(int i=1 ; i < getVertexCount() ; ++i) {
-        d = position.distanceToPoint(getVertex(i)->coords);
-        if(d < distance) {
-            distance = d;
-            index = i;
-        }
-    }
-
-    return index;
-}
-
 Face* Mesh::intersectedFace(QVector3D position) const
 {
     float distance;

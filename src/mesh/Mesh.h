@@ -22,16 +22,13 @@
 #include <QDebug>
 
 class Mesh {
-public: // A ENLEVER...
-    int closestVertex(QVector3D position) const;
-    Face* intersectedFace(QVector3D position) const;
 
     // ================== PUBLIC CONSTRUCTORS ==================
 public:
     Mesh();
     ~Mesh();
 
-    // Generate many polygons (extensible by developers)
+    // Generate many predefined 3D polygons (extensible by developers)
     void makeCone(float height, float radiusUp, float radiusDown);
     void makeCube(float width, float height, float depth);
     void makeCylinder(float height, float radius);
@@ -47,6 +44,13 @@ public:
 
     // Cut an edge between two vertices in two parts equally
     void cutEdge(QVector3D vertex1, QVector3D vertex2);
+
+    // Get a list of vertices in area "areaSize" around "position"
+    QVector<QVector3D> getVertices(QVector3D position, float areaSize);
+
+    // Move a vertex or many vertices by "move"
+    void moveVertex(QVector3D vertex, QVector3D move);
+    void moveVertices(QVector<QVector3D> vertices, QVector3D move);
     // =================================================================
 
 
@@ -68,7 +72,7 @@ public:
 
 
     // ================== PRIVATE ACCESSORS (low level) ==================
-public: // -> private -> à remplacer par void moveVertex(...)
+public: // -> private
     HalfEdge* getEdge(int index) const;
     void setEdge(int index, HalfEdge *edge);
 
@@ -106,6 +110,9 @@ private:
     QVector<HalfEdge*> m_edges;
     QVector<Vertex*> m_vertices;
     QVector<Face*> m_faces;
+
+public: // A ENLEVER...
+    Face* intersectedFace(QVector3D position) const;
 };
 
 #endif // MESH_H

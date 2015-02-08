@@ -9,16 +9,6 @@
     #include <GL/glut.h>
 #endif
 
-#include "tool/GTMove.h"
-#include "tool/GTRotate.h"
-#include "tool/GTScale.h"
-#include "tool/LTInflate.h"
-#include "tool/LTMove.h"
-#include "tool/LTPinch.h"
-#include "tool/LTSmooth.h"
-#include "tool/LTAdd.h"
-#include "mesh/functions.h"
-
 GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
 {
     activeTool = NOTOOL;
@@ -30,16 +20,6 @@ GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateActiveMesh()));
 
     m_timer.start(16);
-
-    m_tools.push_back(new LTAdd());
-    m_tools.push_back(new LTSmooth());
-    m_tools.push_back(new LTMove());
-    m_tools.push_back(new LTInflate());
-    m_tools.push_back(new LTPinch());
-
-    m_tools.push_back(new GTMove());
-    m_tools.push_back(new GTRotate());
-    m_tools.push_back(new GTScale());
 }
 
 
@@ -76,7 +56,7 @@ void GLWidget::paintGL()
     glRotatef(y_rot, 0.0f, 1.0f, 0.0f);
     glRotatef(z_rot, 0.0f, 0.0f, 1.0f);
 
-    int LightPos[4] = {(int)(offsetX - distance),-offsetY,(int)(-distance/2),1};
+    int LightPos[4] = {(int)(offsetX - distance),(int)-offsetY,(int)(-distance/2),1};
     glLightiv(GL_LIGHT0,GL_POSITION,LightPos);
 
     // Projection matrix
@@ -149,7 +129,49 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         }
         else if(activeTool != NOTOOL && m_manager.getMesh(activeMesh) != NULL)
         {
-            m_tools.at(activeTool)->action(m_manager.getMesh(activeMesh), last_pos, event->pos(), brushSize, distance, x_rot, y_rot, z_rot);
+            QVector3D rotation = QVector3D(x_rot, y_rot, z_rot);
+            QVector3D move = rotateXYZ(QVector3D(-dx, dy, 0), rotation) * (distance / 900.0);
+
+            switch(activeTool) {
+
+            // GLOBAL TOOLS
+            case GTMOVE:
+                m_tool.gtmove(m_manager.getMesh(activeMesh), move);
+                break;
+
+            case GTROTATE:
+                m_tool.gtrotate(m_manager.getMesh(activeMesh), QVector3D(dy, dx, 0));
+                break;
+
+            case GTSCALE:
+                m_tool.gtscale(m_manager.getMesh(activeMesh), QVector3D(0, dy, 0));
+                break;
+
+            // LOCAL TOOLS
+            case LTADD:
+                m_tool.ltadd(m_manager.getMesh(activeMesh), last_pos, move, brushSize);
+                break;
+
+            case LTINFLATE:
+                m_tool.ltinflate(m_manager.getMesh(activeMesh), last_pos, move, brushSize);
+                break;
+
+            case LTMOVE:
+                m_tool.ltmove(m_manager.getMesh(activeMesh), last_pos, move, brushSize);
+                break;
+
+            case LTPINCH:
+                m_tool.ltpinch(m_manager.getMesh(activeMesh), last_pos, move, brushSize);
+                break;
+
+            case LTSMOOTH:
+                m_tool.ltsmooth(m_manager.getMesh(activeMesh), last_pos, move, brushSize);
+                break;
+
+            default:
+                qDebug() << "The tool isn't defined";
+                break;
+            }
         }
         else
         {
@@ -173,15 +195,12 @@ void GLWidget::rotateBy(int x, int y, int z)
 }
 
 void GLWidget::enableTool(TOOL tool) { activeTool = tool; }
+
 void GLWidget::selectMesh(Mesh *mesh) {
-    if(mesh == NULL) {
-        activeMesh = -1;
-    }
-    else {
-        for(int i=0 ; i < m_manager.getSize() ; ++i) {
-            if(m_manager.getMesh(i) == mesh) {
-                activeMesh = i;
-            }
+    activeMesh = -1;
+    for(int i=0 ; i < m_manager.getSize() ; ++i) {
+        if(m_manager.getMesh(i) == mesh) {
+            activeMesh = i;
         }
     }
 }

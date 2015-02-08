@@ -1,5 +1,20 @@
 #include "functions.h"
 
+QVector3D rotateXYZ(QVector3D vector, QVector3D rotation) {
+    float x, y, z, x_ = vector.x(), y_ = vector.y(), z_ = vector.z();
+
+    //Rotation autour de X
+    x = x_, y = y_ * cosd(rotation.x()) - z_ * sind(rotation.x()), z = y_ * sind(rotation.x()) + z_ * cosd(rotation.x());
+
+    //Rotation autour de Y
+    x_ = x * cosd(rotation.y()) + z * sind(rotation.y()), y_ = y, z_ = z * cosd(rotation.y()) - x * sind(rotation.y());
+
+    //Rotation autour de Z
+    x = x_ * cosd(rotation.z()) - y_ * sind(rotation.z()), y = x_ * sind(rotation.z()) + y_ * cosd(rotation.z()), z = z_;
+
+    return QVector3D(x, y, z);
+}
+
 QVector3D get3Dposition(QPoint mouse)
 {
     GLint viewport[4];
@@ -24,4 +39,3 @@ QVector3D get3Dposition(QPoint mouse)
         return QVector3D(posX, posY, posZ); // position 3D du pixel touché
     }
 }
-

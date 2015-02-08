@@ -29,6 +29,9 @@
 #define cosd(x) (cos(fmod((x),360) * M_PI / 180))
 #define sind(x) (sin(fmod((x),360) * M_PI / 180))
 
+/* rotation of a QVector3D */
+QVector3D rotateXYZ(QVector3D vector, QVector3D rotation);
+
 /* get 3D position of the pixel under the cursor */
 QVector3D get3Dposition(QPoint mouse);
 

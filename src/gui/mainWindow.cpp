@@ -406,7 +406,6 @@ void MainWindow::on_debug_clicked()
     QMessageBox::information(this,"test","Rentrer dans le mode debug");
 }
 
-
 void MainWindow::on_sliderDiscretization_actionTriggered(int action)
 {
     m_processing.subdivide(m_mesh); // en attendant que ca fonctonne correctement
