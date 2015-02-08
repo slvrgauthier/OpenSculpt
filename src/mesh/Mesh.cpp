@@ -13,7 +13,7 @@ void Mesh::addFace(QVector<QVector3D> vertices) {
 
         for(int i=0 ; i < tmp_vertices.size() ; ++i) {
             for(int v=0 ; v < getVertexCount() ; ++v) {
-                if(m_vertices[v]->coords == vertices[v]) {
+                if(m_vertices[v]->coords == vertices[i]) {
                     tmp_vertices[i] = m_vertices[v];
                 }
             }
@@ -30,7 +30,7 @@ void Mesh::addFace(QVector<QVector3D> vertices) {
         QVector<HalfEdge*> tmp_edges;
         tmp_edges.resize(3 * (size - 2));
 
-        for(int i=0 ; i < tmp_edges.size() ; ++i) {
+        for(int i=0 ; i < tmp_vertices.size() ; ++i) {
             for(int e=0 ; e < getEdgeCount() ; ++e) {
                 if(m_edges[e]->previous->vertex->coords == vertices[i] && m_edges[e]->vertex->coords == vertices[(i+1)%size]) {
                     tmp_edges[i] = m_edges[e];
@@ -88,6 +88,7 @@ void Mesh::addFace(QVector<QVector3D> vertices) {
             tmp_edges[i]->next = (i%3 == 2)? tmp_edges[i-2] : tmp_edges[i+1];
             tmp_edges[i]->previous = (i%3 == 0)? tmp_edges[i+2] : tmp_edges[i-1];
             tmp_edges[i]->vertex = (i%3 == 2)? tmp_vertices[0] : tmp_vertices[i/3 + i%3 + 1];
+            tmp_edges[i]->opposite = NULL;
         }
 
         // Link opposite edges

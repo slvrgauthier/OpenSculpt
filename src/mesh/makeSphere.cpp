@@ -3,51 +3,55 @@
 void Mesh::makeSphere(float radius) {
     this->clear();
 
-    QVector<QVector3D> face1;
-    face1.push_back(QVector3D(-1, -1, -1));
-    face1.push_back(QVector3D(1, -1, -1));
-    face1.push_back(QVector3D(1, 1, -1));
-    face1.push_back(QVector3D(-1, 1, -1));
+    // Test de création d'un cube avec addFace
 
-    this->addFace(face1);
+    QVector<QVector3D> face; // front
+    face.push_back(QVector3D(-1, -1, 1));
+    face.push_back(QVector3D(1, -1, 1));
+    face.push_back(QVector3D(1, 1, 1));
+    face.push_back(QVector3D(-1, 1, 1));
 
-    QVector<QVector3D> face2;
-    face2.push_back(QVector3D(1, -1, -1));
-    face2.push_back(QVector3D(1, -1, 1));
-    face2.push_back(QVector3D(1, 1, 1));
-    face2.push_back(QVector3D(1, 1, -1));
+    this->addFace(face);
 
-    this->addFace(face2);
+    face.clear(); // right
+    face.push_back(QVector3D(1, -1, 1));
+    face.push_back(QVector3D(1, -1, -1));
+    face.push_back(QVector3D(1, 1, -1));
+    face.push_back(QVector3D(1, 1, 1));
 
-    QVector<QVector3D> face3;
-    face3.push_back(QVector3D(1, -1, 1));
-    face3.push_back(QVector3D(-1, -1, 1));
-    face3.push_back(QVector3D(-1, 1, 1));
-    face3.push_back(QVector3D(1, 1, 1));
+    this->addFace(face);
 
-    this->addFace(face3);
+    face.clear(); // back
+    face.push_back(QVector3D(1, -1, -1));
+    face.push_back(QVector3D(-1, -1, -1));
+    face.push_back(QVector3D(-1, 1, -1));
+    face.push_back(QVector3D(1, 1, -1));
 
-    QVector<QVector3D> face4;
-    face4.push_back(QVector3D(-1, -1, 1));
-    face4.push_back(QVector3D(-1, -1, -1));
-    face4.push_back(QVector3D(-1, 1, -1));
-    face4.push_back(QVector3D(-1, 1, 1));
+    this->addFace(face);
 
-    this->addFace(face4);
+    face.clear(); // left
+    face.push_back(QVector3D(-1, -1, -1));
+    face.push_back(QVector3D(-1, -1, 1));
+    face.push_back(QVector3D(-1, 1, 1));
+    face.push_back(QVector3D(-1, 1, -1));
 
-    QVector<QVector3D> face5;
-    face5.push_back(QVector3D(-1, 1, -1));
-    face5.push_back(QVector3D(1, 1, -1));
-    face5.push_back(QVector3D(1, 1, 1));
-    face5.push_back(QVector3D(-1, 1, 1));
+    this->addFace(face);
 
-    this->addFace(face5);
+    face.clear(); // up
+    face.push_back(QVector3D(-1, 1, 1));
+    face.push_back(QVector3D(1, 1, 1));
+    face.push_back(QVector3D(1, 1, -1));
+    face.push_back(QVector3D(-1, 1, -1));
 
-    QVector<QVector3D> face6;
-    face6.push_back(QVector3D(-1, -1, 1));
-    face6.push_back(QVector3D(1, -1, 1));
-    face6.push_back(QVector3D(1, -1, -1));
-    face6.push_back(QVector3D(-1, -1, -1));
+    this->addFace(face);
 
-    this->addFace(face6);
+    face.clear(); // down
+    face.push_back(QVector3D(-1, -1, -1));
+    face.push_back(QVector3D(1, -1, -1));
+    face.push_back(QVector3D(1, -1, 1));
+    face.push_back(QVector3D(-1, -1, 1));
+
+    this->addFace(face);
+
+    TEST();
 }

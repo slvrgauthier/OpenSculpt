@@ -42,7 +42,7 @@ public:
 
     // ================== PUBLIC MEMBERS (high level) ==================
 public:
-    // Add a face with triangles fan wich begins in vertices[0]
+    // Add a face with triangles fan wich begins in vertices[0], vertices must be given in counterclockwise direction
     void addFace(QVector<QVector3D> vertices);
 
     // Cut an edge between two vertices in two parts equally and return the middle vertex
