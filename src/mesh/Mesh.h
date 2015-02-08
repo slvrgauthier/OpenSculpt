@@ -45,8 +45,8 @@ public:
     // Add a face with triangles fan wich begins in vertices[0], vertices must be given in counterclockwise direction
     void addFace(QVector<QVector3D> vertices);
 
-    // Cut an edge between two vertices in two parts equally and return the middle vertex
-    QVector3D cutEdge(QVector3D vertex1, QVector3D vertex2);
+    // Cut an edge between two vertices in two parts equally
+    void cutEdge(QVector3D vertex1, QVector3D vertex2);
     // =================================================================
 
 

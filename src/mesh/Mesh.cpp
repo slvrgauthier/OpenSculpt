@@ -108,8 +108,114 @@ void Mesh::addFace(QVector<QVector3D> vertices) {
     }
 }
 
-QVector3D Mesh::cutEdge(QVector3D vertex1, QVector3D vertex2) {
-    /* TODO */
+void Mesh::cutEdge(QVector3D vertex1, QVector3D vertex2) {
+    if(vertex1 != vertex2) {
+
+        HalfEdge *edge = NULL;
+
+        int i=0;
+        while(i < getEdgeCount()) {
+            if(m_edges[i]->vertex->coords == vertex2 && m_edges[i]->previous->vertex->coords == vertex1) {
+                edge = m_edges[i];
+                i = getEdgeCount();
+            }
+            ++i;
+        }
+
+        if(edge != NULL) {
+            // Create and fill new vertex
+            Vertex *tmp_vertex = new Vertex;
+            tmp_vertex->index = getVertexCount();
+            tmp_vertex->coords = (vertex1 + vertex2) / 2.;
+            tmp_vertex->outgoing = edge;
+
+            m_vertices.push_back(tmp_vertex);
+
+            // Create new edges
+            QVector<HalfEdge*> tmp_edges;
+            tmp_edges.resize(6);
+
+            for(int i=0 ; i < tmp_edges.size() ; ++i) {
+                tmp_edges[i] = new HalfEdge;
+                m_edges.push_back(tmp_edges[i]);
+            }
+
+            // Create and fill new faces
+            QVector<Face*> tmp_faces;
+            tmp_faces.resize(4);
+
+            tmp_faces[0] = edge->face;
+            tmp_faces[0]->edge = edge;
+
+            tmp_faces[1] = new Face; m_faces.push_back(tmp_faces[1]);
+            tmp_faces[1]->edge = tmp_edges[2];
+
+            tmp_faces[2] = new Face; m_faces.push_back(tmp_faces[2]);
+            tmp_faces[2]->edge = tmp_edges[3];
+
+            tmp_faces[3] = edge->opposite->face;
+            tmp_faces[3]->edge = edge->opposite;
+
+            // Fill new edges
+            for(int i=0 ; i < tmp_edges.size() ; ++i) {
+                tmp_edges[i]->face = tmp_faces[(i+1)/2];
+                tmp_edges[i]->opposite = (i%2 == 0)? tmp_edges[i+1] : tmp_edges[i-1];
+            }
+
+            tmp_edges[0]->next = edge;
+            tmp_edges[0]->previous = edge->next;
+            tmp_edges[0]->vertex = tmp_vertex;
+
+            tmp_edges[1]->next = edge->previous;
+            tmp_edges[1]->previous = tmp_edges[2];
+            tmp_edges[1]->vertex = edge->next->vertex;
+
+            tmp_edges[2]->next = tmp_edges[1];
+            tmp_edges[2]->previous = edge->previous;
+            tmp_edges[2]->vertex = tmp_vertex;
+
+            tmp_edges[3]->next = edge->opposite->next;
+            tmp_edges[3]->previous = tmp_edges[4];
+            tmp_edges[3]->vertex = edge->previous->vertex;
+
+            tmp_edges[4]->next = tmp_edges[3];
+            tmp_edges[4]->previous = edge->opposite->next;
+            tmp_edges[4]->vertex = tmp_vertex;
+
+            tmp_edges[5]->next = edge->opposite->previous;
+            tmp_edges[5]->previous = edge->opposite;
+            tmp_edges[5]->vertex = edge->opposite->next->vertex;
+
+            // Fill old edges
+            edge->next->face = tmp_faces[0];
+            edge->next->next = tmp_edges[0];
+            edge->next->previous = edge;
+
+            edge->previous->face = tmp_faces[1];
+            edge->previous->next = tmp_edges[2];
+            edge->previous->previous = tmp_edges[1];
+
+            edge->opposite->next->face = tmp_faces[2];
+            edge->opposite->next->next = tmp_edges[4];
+            edge->opposite->next->previous = tmp_edges[3];
+
+            edge->opposite->previous->face = tmp_faces[3];
+            edge->opposite->previous->next = edge->opposite;
+            edge->opposite->previous->previous = tmp_edges[5];
+
+            edge->opposite->face = tmp_faces[3];
+            edge->opposite->next = tmp_edges[5];
+            edge->opposite->previous = edge->opposite->previous;
+            edge->opposite->vertex = tmp_vertex;
+
+            edge->face = tmp_faces[0];
+            edge->next = edge->next;
+            edge->previous = tmp_edges[0];
+
+            // Fill old vertex
+            tmp_edges[3]->vertex->outgoing = tmp_edges[2];
+        }
+    }
 }
 
 QString Mesh::getName() const { return m_name; }

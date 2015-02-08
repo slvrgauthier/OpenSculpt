@@ -53,5 +53,20 @@ void Mesh::makeSphere(float radius) {
 
     this->addFace(face);
 
+
+    // Test de subdivision du cube avec cutEdge
+
+    this->cutEdge(QVector3D(-1, -1, 1), QVector3D(1, 1, 1));
+
+    this->cutEdge(QVector3D(0, 0, 1), QVector3D(-1, -1, 1));
+    this->cutEdge(QVector3D(0, 0, 1), QVector3D(1, 1, 1));
+    this->cutEdge(QVector3D(0, 0, 1), QVector3D(-1, 1, 1));
+    this->cutEdge(QVector3D(0, 0, 1), QVector3D(1, -1, 1));
+
+    this->cutEdge(QVector3D(-1, -1, 1), QVector3D(-1, 1, 1));
+    this->cutEdge(QVector3D(1, -1, 1), QVector3D(1, 1, 1));
+    this->cutEdge(QVector3D(-1, 1, 1), QVector3D(1, 1, 1));
+    this->cutEdge(QVector3D(-1, -1, 1), QVector3D(1, -1, 1));
+
     TEST();
 }
