@@ -222,14 +222,14 @@
          <widget class="QWidget" name="widgetSubdivide" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
-            <widget class="QLabel" name="textSubdivide">
+            <widget class="QLabel" name="textDiscretization">
              <property name="text">
-              <string>Niveau de subdivision :</string>
+              <string>Niveau de discrétisation :</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="sliderSubdivide">
+            <widget class="QSlider" name="sliderDiscretization">
              <property name="minimum">
               <number>1</number>
              </property>

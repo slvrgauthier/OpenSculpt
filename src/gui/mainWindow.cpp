@@ -148,7 +148,7 @@ void MainWindow::on_init() {
     ui->widgetName->setVisible(true);
     ui->glwidget->addMesh(m_mesh);
 
-    ui->sliderSubdivide->setValue(ui->sliderSubdivide->minimum());
+    ui->sliderDiscretization->setValue(ui->sliderDiscretization->minimum());
     ui->textEditName->setText(m_mesh->getName());
 }
 
@@ -169,7 +169,7 @@ void MainWindow::on_initCube_clicked()
     connect(ui->spinBoxDepth,    SIGNAL(valueChanged(double)), this, SLOT(updateCube()));
     connect(ui->spinBoxHeight,   SIGNAL(valueChanged(double)), this, SLOT(updateCube()));
     connect(ui->spinBoxWidth,    SIGNAL(valueChanged(double)), this, SLOT(updateCube()));
-    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),    this, SLOT(updateCube()));
+    connect(ui->sliderDiscretization, SIGNAL(valueChanged(int)),    this, SLOT(updateCube()));
 }
 
 void MainWindow::on_initSphere_clicked()
@@ -183,7 +183,7 @@ void MainWindow::on_initSphere_clicked()
     m_mesh->makeSphere(ui->spinBoxRadius->value());
 
     connect(ui->spinBoxRadius,   SIGNAL(valueChanged(double)), this, SLOT(updateSphere()));
-    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),    this, SLOT(updateSphere()));
+    connect(ui->sliderDiscretization, SIGNAL(valueChanged(int)),    this, SLOT(updateSphere()));
 }
 
 void MainWindow::on_initCylinder_clicked()
@@ -201,7 +201,7 @@ void MainWindow::on_initCylinder_clicked()
 
     connect(ui->spinBoxHeight,   SIGNAL(valueChanged(double)), this, SLOT(updateCylinder()));
     connect(ui->spinBoxRadius,   SIGNAL(valueChanged(double)), this, SLOT(updateCylinder()));
-    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),    this, SLOT(updateCylinder()));
+    connect(ui->sliderDiscretization, SIGNAL(valueChanged(int)),    this, SLOT(updateCylinder()));
 }
 
 void MainWindow::on_initCone_clicked()
@@ -218,7 +218,7 @@ void MainWindow::on_initCone_clicked()
 
     connect(ui->spinBoxHeight,   SIGNAL(valueChanged(double)), this, SLOT(updateCone()));
     connect(ui->spinBoxRadius,   SIGNAL(valueChanged(double)), this, SLOT(updateCone()));
-    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),    this, SLOT(updateCone()));
+    connect(ui->sliderDiscretization, SIGNAL(valueChanged(int)),    this, SLOT(updateCone()));
 }
 
 void MainWindow::on_initTorus_clicked()
@@ -233,7 +233,7 @@ void MainWindow::on_initTorus_clicked()
 
     connect(ui->spinBoxHeight,   SIGNAL(valueChanged(double)), this, SLOT(updateTorus()));
     connect(ui->spinBoxRadius,   SIGNAL(valueChanged(double)), this, SLOT(updateTorus()));
-    connect(ui->sliderSubdivide, SIGNAL(valueChanged(int)),    this, SLOT(updateTorus()));
+    connect(ui->sliderDiscretization, SIGNAL(valueChanged(int)),    this, SLOT(updateTorus()));
 }
 
 // ===================================================
@@ -404,4 +404,10 @@ void MainWindow::showDialog()
 void MainWindow::on_debug_clicked()
 {
     QMessageBox::information(this,"test","Rentrer dans le mode debug");
+}
+
+
+void MainWindow::on_sliderDiscretization_actionTriggered(int action)
+{
+    m_processing.subdivide(m_mesh); // en attendant que ca fonctonne correctement
 }

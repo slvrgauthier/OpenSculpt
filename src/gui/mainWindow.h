@@ -86,6 +86,7 @@ private slots:
 
 
     void on_debug_clicked();
+    void on_sliderDiscretization_actionTriggered(int action);
 
 private:
     Ui::MainWindow *ui;
