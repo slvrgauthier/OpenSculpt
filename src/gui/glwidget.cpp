@@ -63,6 +63,7 @@ void GLWidget::initializeGL()
 void GLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glColor3f(1,0,0);
     glPolygonMode(GL_FRONT_AND_BACK, mode_fill ? GL_FILL : GL_LINE);
 
     // Model view matrix
@@ -105,6 +106,7 @@ void GLWidget::resizeGL(int w, int h)
 void GLWidget::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_F) {
+
         mode_fill = !mode_fill;
     }
 }

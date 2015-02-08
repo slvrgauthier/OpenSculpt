@@ -18,5 +18,6 @@
         <file>icons/decimate.png</file>
         <file>icons/cone.png</file>
         <file>icons/cylindre.png</file>
+        <file>icons/agrandissement.png</file>
     </qresource>
 </RCC>

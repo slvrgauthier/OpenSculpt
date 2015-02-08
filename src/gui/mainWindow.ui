@@ -41,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>870</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -119,7 +119,7 @@
              <x>0</x>
              <y>0</y>
              <width>198</width>
-             <height>123</height>
+             <height>77</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="controleListModel">
@@ -463,7 +463,7 @@
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/scale.png</normaloff>:/icons/scale.png</iconset>
+         <normaloff>:/icons/agrandissement.png</normaloff>:/icons/agrandissement.png</iconset>
        </property>
        <property name="checkable">
         <bool>true</bool>
