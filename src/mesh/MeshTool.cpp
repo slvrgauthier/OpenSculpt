@@ -61,7 +61,17 @@ void MeshTool::ltadd(Mesh *mesh, QPoint last_position, QVector3D move, float bru
 
 void MeshTool::ltinflate(Mesh *mesh, QPoint last_position, QVector3D move, float brushSize) {
     qDebug() << "LTInflate action";
-    if(mesh==NULL&&last_position.x()==move.x()&&brushSize>0){}
+
+    QVector3D position = get3Dposition(last_position); // Position dans le repère scène
+
+    if(!position.isNull()) {
+
+        QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
+
+        for(int i=0 ; i < vertices.size() ; ++i) {
+
+        }
+    }
 }
 
 void MeshTool::ltmove(Mesh *mesh, QPoint last_position, QVector3D move, float brushSize) {
@@ -83,11 +93,31 @@ void MeshTool::ltmove(Mesh *mesh, QPoint last_position, QVector3D move, float br
 
 void MeshTool::ltpinch(Mesh *mesh, QPoint last_position, QVector3D move, float brushSize) {
     qDebug() << "LTPinch action";
-    if(mesh==NULL&&last_position.x()==move.x()&&brushSize>0){}
+
+    QVector3D position = get3Dposition(last_position); // Position dans le repère scène
+
+    if(!position.isNull()) {
+
+        QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
+
+        for(int i=0 ; i < vertices.size() ; ++i) {
+
+        }
+    }
 }
 
 void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, QVector3D move, float brushSize) {
     qDebug() << "LTSmooth action";
-    if(mesh==NULL&&last_position.x()==move.x()&&brushSize>0){}
+
+    QVector3D position = get3Dposition(last_position); // Position dans le repère scène
+
+    if(!position.isNull()) {
+
+        QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
+
+        for(int i=0 ; i < vertices.size() ; ++i) {
+
+        }
+    }
 }
 
