@@ -131,14 +131,12 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         {
             QVector3D rotation = QVector3D(x_rot, y_rot, z_rot);
             QVector3D move = rotateXYZ(QVector3D(-dx, dy, 0), rotation) * (distance / 900.0);
+            bool needUpdate = MeshProcessing::subdivideAuto(m_manager.getMesh(activeMesh), 5.);
 
             switch(activeTool) {
 
             // GLOBAL TOOLS
             case GTMOVE:
-                if(m_processing.subdivideAuto(m_manager.getMesh(activeMesh), 1.)) {
-                    m_manager.updateMesh(activeMesh);
-                }
                 m_tool.gtmove(m_manager.getMesh(activeMesh), move);
                 break;
 
@@ -175,6 +173,8 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
                 qDebug() << "The tool isn't defined";
                 break;
             }
+
+            if(needUpdate) m_manager.updateMesh(activeMesh);
         }
         else
         {

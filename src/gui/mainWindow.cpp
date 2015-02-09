@@ -122,12 +122,12 @@ void MainWindow::on_redo_clicked()
 
 void MainWindow::on_subdivide_clicked()
 {
-    m_processing.subdivide(m_mesh);
+    MeshProcessing::subdivide(m_mesh);
 }
 
 void MainWindow::on_decimate_clicked()
 {
-    m_processing.decimate(m_mesh);
+    MeshProcessing::decimate(m_mesh);
 }
 
 void MainWindow::on_init() {
