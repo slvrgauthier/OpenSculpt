@@ -419,20 +419,14 @@ void MainWindow::on_sliderDiscretization_actionTriggered(int action)
 
 void MainWindow::on_pushDelete_clicked()
 {
-    m_mesh->clear();
-    ui->glwidget->removeMesh(m_mesh);
+    ui->glwidget->selectMesh(NULL);
+    ui->glwidget->clear();
+    ui->glwidget->resetView();
+    this->hideDialog();
 }
 
 void MainWindow::on_pushDuplicate_clicked()
 {
     this->on_init();
-    ui->glwidget->selectMesh(m_mesh);
 
-    m_mesh->setName(ui->textEditName->text());
-
-    QPushButton *button = new QPushButton(m_mesh->getName());
-    m_meshList.insert(button, m_mesh);
-
-    QObject::connect(button, SIGNAL(clicked()), this, SLOT(showDialog()));
-    ui->controleListModel->addWidget(button);
 }
