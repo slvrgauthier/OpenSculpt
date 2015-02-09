@@ -591,32 +591,3 @@ void Mesh::TEST() const {
 
     qDebug() << "Integrity TEST of model" << getName() << ":" << errors << "errors.";
 }
-
-/*
-int Mesh::getIndexFace(QVector<QVector3D> vertices){
-int i=0;
-  for(i=0; i<m_faces.size() ;i++){
-
-      QVector3D edge1 = getFace(i)->edge->vertex->coords;
-      QVector3D edgenext = getFace(i)->edge->next->vertex->coords;
-      QVector3D edgeprev = getFace(i)->edge->previous->vertex->coords;
-
-      if((vertices[0]==edge1 || vertices[0]==edgenext || vertices[0]==edgeprev) &&
-         (vertices[1]==edge1 || vertices[1]==edgenext || vertices[1]==edgeprev) &&
-         (vertices[2]==edge1 || vertices[2]==edgenext || vertices[2]==edgeprev) ){
-           return i;
-        }
-
-    }
-  if( i == m_faces.size()){
-
-
-
-    }
-
-
-
-
-  return -1;
-}
-*/

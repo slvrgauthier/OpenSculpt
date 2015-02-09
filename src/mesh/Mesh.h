@@ -29,6 +29,8 @@ class Mesh {
 public:
     Mesh();
     ~Mesh();
+    // Create a Mesh by copy
+    static Mesh* copyMesh(Mesh *mesh);
 
     // Generate many predefined 3D polygons (extensible by developers)
     void makeCone(float height, float radiusUp, float radiusDown);
@@ -66,7 +68,7 @@ public:
     // ================== PRIVATE MEMBERS ==================
 private:
     void getVerticesRec(QVector<QVector3D> &vertices, QVector3D position, float areaSize, HalfEdge *edge);
-    //void clear();
+    void clear();
     void TEST() const;
     // =====================================================
 
@@ -87,7 +89,6 @@ public:
     int getEdgeCount() const;
     int getVertexCount() const;
     int getFaceCount() const;
-    void clear();
     //int getIndexFace(QVector<QVector3D> vertices);
     // ======================================================
 
