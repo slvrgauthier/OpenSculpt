@@ -14,7 +14,7 @@ GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
     activeTool = NOTOOL;
     activeMesh = -1;
     mode_fill = true;
-    brushSize = 5;
+    brushSize = 1;
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateActiveMesh()));

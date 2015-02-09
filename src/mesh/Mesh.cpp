@@ -352,7 +352,7 @@ QVector<QVector3D> Mesh::getVertices(QVector3D position, float areaSize) {
 QVector3D Mesh::getNormal(QVector3D position) {
     QVector<QVector3D> vertices = getVertices(position, 0);
     if(vertices.size() >= 3) {
-        return QVector3D::normal(vertices[0], vertices[1], vertices[2]);
+        return QVector3D::normal(vertices[0], vertices[1], vertices[2]).normalized();
     }
     else {
         return QVector3D();
@@ -592,6 +592,7 @@ void Mesh::TEST() const {
     qDebug() << "Integrity TEST of model" << getName() << ":" << errors << "errors.";
 }
 
+/*
 int Mesh::getIndexFace(QVector<QVector3D> vertices){
 int i=0;
   for(i=0; i<m_faces.size() ;i++){
@@ -607,15 +608,15 @@ int i=0;
         }
 
     }
- /* if( i == m_faces.size()){
+  if( i == m_faces.size()){
 
 
 
     }
-*/
+
 
 
 
   return -1;
 }
-
+*/

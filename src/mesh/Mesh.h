@@ -87,7 +87,7 @@ public:
     int getEdgeCount() const;
     int getVertexCount() const;
     int getFaceCount() const;
-    int getIndexFace(QVector<QVector3D> vertices);
+    //int getIndexFace(QVector<QVector3D> vertices);
     // ======================================================
 
 
