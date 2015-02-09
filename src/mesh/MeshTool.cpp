@@ -16,15 +16,13 @@ void MeshTool::gtmove(Mesh *mesh, QVector3D move) {
 void MeshTool::gtrotate(Mesh *mesh, QVector3D move) {
     qDebug() << "GTRotate action";
 
-    QVector3D tmp_move = move;
-    tmp_move.setZ(-move.z());
-
     QVector3D center = mesh->getCenter();
     QVector3D currentPoint;
 
     for(int i=0 ; i < mesh->getVertexCount() ; ++i) {
-        currentPoint = mesh->getCoords(i) - center;
-        mesh->setCoords(i, rotateXYZ(currentPoint, tmp_move) + center);
+        currentPoint = rotateXYZ(mesh->getCoords(i) - center, move);
+        currentPoint.setZ(-currentPoint.z());
+        mesh->setCoords(i, currentPoint + center);
     }
 }
 
