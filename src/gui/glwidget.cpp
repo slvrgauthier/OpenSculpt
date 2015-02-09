@@ -129,8 +129,6 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         }
         else if(activeTool != NOTOOL && m_manager.getMesh(activeMesh) != NULL)
         {
-            QVector3D rotation = QVector3D(x_rot, y_rot, z_rot);
-            QVector3D move = rotateXYZ(QVector3D(-dx, dy, 0), rotation) * (distance / 900.0);
             bool needUpdate = MeshProcessing::subdivideAuto(m_manager.getMesh(activeMesh), 5.);
             needUpdate |= MeshProcessing::decimateAuto(m_manager.getMesh(activeMesh), 5.);
 
@@ -138,7 +136,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 
             // GLOBAL TOOLS
             case GTMOVE:
-                m_tool.gtmove(m_manager.getMesh(activeMesh), move);
+                m_tool.gtmove(m_manager.getMesh(activeMesh), rotateXYZ(QVector3D(-dx, dy, 0), QVector3D(x_rot, y_rot, z_rot)) * (distance / 900.0));
                 break;
 
             case GTROTATE:
@@ -151,23 +149,23 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 
             // LOCAL TOOLS
             case LTADD:
-                m_tool.ltadd(m_manager.getMesh(activeMesh), last_pos, move, brushSize);
+                m_tool.ltadd(m_manager.getMesh(activeMesh), last_pos, brushSize, event->modifiers());
                 break;
 
             case LTINFLATE:
-                m_tool.ltinflate(m_manager.getMesh(activeMesh), last_pos, move, brushSize);
+                m_tool.ltinflate(m_manager.getMesh(activeMesh), last_pos, brushSize, event->modifiers());
                 break;
 
             case LTMOVE:
-                m_tool.ltmove(m_manager.getMesh(activeMesh), last_pos, move, brushSize);
+                m_tool.ltmove(m_manager.getMesh(activeMesh), last_pos, rotateXYZ(QVector3D(-dx, dy, 0), QVector3D(x_rot, y_rot, z_rot)) * (distance / 900.0), brushSize);
                 break;
 
             case LTPINCH:
-                m_tool.ltpinch(m_manager.getMesh(activeMesh), last_pos, move, brushSize);
+                m_tool.ltpinch(m_manager.getMesh(activeMesh), last_pos, brushSize, event->modifiers());
                 break;
 
             case LTSMOOTH:
-                m_tool.ltsmooth(m_manager.getMesh(activeMesh), last_pos, move, brushSize);
+                m_tool.ltsmooth(m_manager.getMesh(activeMesh), last_pos, brushSize);
                 break;
 
             default:

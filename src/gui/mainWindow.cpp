@@ -414,7 +414,8 @@ void MainWindow::on_debug_clicked()
 
 void MainWindow::on_sliderDiscretization_actionTriggered(int action)
 {
-    m_processing.subdivide(m_mesh); // en attendant que ca fonctonne correctement
+    // pas de subdivision ici mais des paramètre à donner aux contructeurs de mesh
+    //m_processing.subdivide(m_mesh); // en attendant que ca fonctonne correctement
 }
 
 void MainWindow::on_pushDelete_clicked()
