@@ -22,6 +22,8 @@
 #include <QDebug>
 
 class Mesh {
+    friend class MeshRenderer;
+    friend class MeshProcessing;
 
     // ================== PUBLIC CONSTRUCTORS ==================
 public:
@@ -47,6 +49,9 @@ public:
 
     // Get a list of vertices in area "areaSize" around "position"
     QVector<QVector3D> getVertices(QVector3D position, float areaSize);
+
+    // Get the normal of the face containing position
+    QVector3D getNormal(QVector3D position);
 
     // Move a vertex or many vertices by "move"
     void moveVertex(QVector3D vertex, QVector3D move);
@@ -75,11 +80,15 @@ public:
 
     void setCoords(QVector3D vertex, QVector3D coord);
     void setCoords(int index, QVector3D coord);
+
+    int getEdgeCount() const;
+    int getVertexCount() const;
+    int getFaceCount() const;
     // ======================================================
 
 
     // ================== PRIVATE ACCESSORS (low level) ==================
-public: // -> private
+private:
     HalfEdge* getEdge(int index) const;
     void setEdge(int index, HalfEdge *edge);
 
@@ -88,10 +97,6 @@ public: // -> private
 
     Face* getFace(int index) const;
     void setFace(int index, Face *face);
-
-    int getEdgeCount() const;
-    int getVertexCount() const;
-    int getFaceCount() const;
 
     void resizeEdge(int count);
     void resizeVertex(int count);
