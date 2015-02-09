@@ -327,10 +327,7 @@ void MainWindow::on_pushValid_clicked()
 
 void MainWindow::on_pushDelete_clicked()
 {
-    QObject * emetteur = sender();
-    QPushButton * sender = qobject_cast<QPushButton*>(emetteur);
-
-    QPushButton *button = m_meshList.key(m_mesh, sender);
+    QPushButton *button = m_meshList.key(m_mesh);
     button->deleteLater();
     ui->glwidget->removeMesh(m_mesh);
     ui->glwidget->selectMesh(NULL);
@@ -343,7 +340,6 @@ void MainWindow::on_pushDuplicate_clicked()
    // m_mesh = Mesh::copyMesh(m_mesh);
     ui->glwidget->selectMesh(m_mesh);
     ui->textEditName->setText(m_mesh->getName());*/
-
 }
 
 // ===================================================
@@ -410,6 +406,10 @@ void MainWindow::hideDialog()
 
 void MainWindow::showDialog()
 {
+    if(ui->pushValid->isVisible()) {
+        on_pushValid_clicked();
+    }
+
     /*Récupération de l'émetteur du slot, afin d'associer le button et le modèle*/
     QObject * emetteur = sender();
     QPushButton * sender = qobject_cast<QPushButton*>(emetteur);
