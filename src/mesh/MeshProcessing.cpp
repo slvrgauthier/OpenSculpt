@@ -7,10 +7,6 @@ void MeshProcessing::subdivide(Mesh *mesh) {
 
     int size = mesh->getFaceCount();
 
-    //mesh->resizeFace(4 * size);
-    //mesh->resizeEdge(mesh->getEdgeCount() + 9 * size);
-    //mesh->resizeVertex(mesh->getVertexCount() + 3 * size);
-
     for(int i=0 ; i < size ; ++i) {
 
         Vertex *v1, *v2, *v3;
@@ -225,9 +221,20 @@ void MeshProcessing::decimate(Mesh *mesh) {
     }
 }
 
-void MeshProcessing::subdivideAuto(Mesh *mesh, float maxEdgeLength) {  }
+void MeshProcessing::subdivideAuto(Mesh *mesh, float maxEdgeLength) {
+    QVector3D p1, p2;
+    for(int i=0 ; i < mesh->getEdgeCount() ; ++i) {
+        p1 = mesh->getEdge(i)->previous->vertex->coords;
+        p2 = mesh->getEdge(i)->vertex->coords;
+        if(p1.distanceToPoint(p2) > maxEdgeLength) {
+            mesh->cutEdge(p1, p2);
+        }
+    }
+}
 
-void MeshProcessing::decimateAuto(Mesh *mesh, float minEdgeLength) {  }
+void MeshProcessing::decimateAuto(Mesh *mesh, float minEdgeLength) {
+    /* TODO */
+}
 
 void MeshProcessing::scale(Mesh *mesh, QVector3D coef) {
     for(int i=0 ; i < mesh->getVertexCount() ; ++i) {

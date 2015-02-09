@@ -122,9 +122,6 @@ private:
     QVector<HalfEdge*> m_edges;
     QVector<Vertex*> m_vertices;
     QVector<Face*> m_faces;
-
-public: // A ENLEVER...
-    Face* intersectedFace(QVector3D position) const;
 };
 
 #endif // MESH_H

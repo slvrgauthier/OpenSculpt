@@ -256,7 +256,12 @@ QVector<QVector3D> Mesh::getVertices(QVector3D position, float areaSize) {
 
 QVector3D Mesh::getNormal(QVector3D position) {
     QVector<QVector3D> vertices = getVertices(position, 0);
-    return QVector3D::normal(vertices[0], vertices[1], vertices[2]);
+    if(vertices.size() >= 3) {
+        return QVector3D::normal(vertices[0], vertices[1], vertices[2]);
+    }
+    else {
+        return QVector3D();
+    }
 }
 
 void Mesh::moveVertex(QVector3D vertex, QVector3D move) {
@@ -490,25 +495,4 @@ void Mesh::TEST() const {
     }
 
     qDebug() << "Integrity TEST of model" << getName() << ":" << errors << "errors.";
-}
-
-
-// A ENLEVER...
-Face* Mesh::intersectedFace(QVector3D position) const
-{
-    float distance;
-    QVector3D p0, p1, p2;
-
-    for(int i=0 ; i < getFaceCount() ; ++i) {
-        p0 = getFace(i)->edge->previous->vertex->coords;
-        p1 = getFace(i)->edge->vertex->coords;
-        p2 = getFace(i)->edge->next->vertex->coords;
-        distance = position.distanceToPlane(p0, p1, p2);
-
-        if(distance > -0.1 && distance < 0.1 && inTriangle(position, p0, p1, p2)) {
-            return getFace(i);
-        }
-    }
-
-    return NULL;
 }
