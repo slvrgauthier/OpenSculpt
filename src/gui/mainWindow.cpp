@@ -323,6 +323,27 @@ void MainWindow::on_pushValid_clicked()
     ui->controleListModel->addWidget(button);
 }
 
+void MainWindow::on_pushDelete_clicked()
+{
+    QObject * emetteur = sender();
+    QPushButton * sender = qobject_cast<QPushButton*>(emetteur);
+
+    QPushButton *button = m_meshList.key(m_mesh, sender);
+    button->deleteLater();
+    ui->glwidget->removeMesh(m_mesh);
+    ui->glwidget->selectMesh(NULL);
+    this->hideDialog();
+}
+
+void MainWindow::on_pushDuplicate_clicked()
+{
+    /*this->on_init();
+   // m_mesh = Mesh::copyMesh(m_mesh);
+    ui->glwidget->selectMesh(m_mesh);
+    ui->textEditName->setText(m_mesh->getName());*/
+
+}
+
 // ===================================================
 // MEMBER FUNCTIONS
 
@@ -398,7 +419,7 @@ void MainWindow::showDialog()
     ui->widgetValidate->setVisible(true);
     ui->pushRemplace->setVisible(true);
     ui->pushDelete->setVisible(true);
-    ui->pushDuplicate->setVisible(true);
+   // ui->pushDuplicate->setVisible(true);
     ui->pushCancel->setVisible(false);
     ui->pushValid->setVisible(false);
 
@@ -410,24 +431,11 @@ void MainWindow::showDialog()
 void MainWindow::on_debug_clicked()
 {
     QMessageBox::information(this,"test","Rentrer dans le mode debug");
+    //m_mesh->TEST();
 }
 
 void MainWindow::on_sliderDiscretization_actionTriggered(int action)
 {
     // pas de subdivision ici mais des paramètre à donner aux contructeurs de mesh
     //m_processing.subdivide(m_mesh); // en attendant que ca fonctonne correctement
-}
-
-void MainWindow::on_pushDelete_clicked()
-{
-    ui->glwidget->selectMesh(NULL);
-    ui->glwidget->clear();
-    ui->glwidget->resetView();
-    this->hideDialog();
-}
-
-void MainWindow::on_pushDuplicate_clicked()
-{
-    this->on_init();
-
 }
