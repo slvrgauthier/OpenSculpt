@@ -244,12 +244,19 @@ QVector<QVector3D> Mesh::getVertices(QVector3D position, float areaSize) {
         vertices.push_back(p1);
         vertices.push_back(p2);
 
-        getVerticesRec(vertices, position, areaSize, face->edge->previous->opposite);
-        getVerticesRec(vertices, position, areaSize, face->edge->opposite);
-        getVerticesRec(vertices, position, areaSize, face->edge->next->opposite);
+        if(areaSize > 0) {
+            getVerticesRec(vertices, position, areaSize, face->edge->previous->opposite);
+            getVerticesRec(vertices, position, areaSize, face->edge->opposite);
+            getVerticesRec(vertices, position, areaSize, face->edge->next->opposite);
+        }
     }
 
     return vertices;
+}
+
+QVector3D Mesh::getNormal(QVector3D position) {
+    QVector<QVector3D> vertices = getVertices(position, 0);
+    return QVector3D::normal(vertices[0], vertices[1], vertices[2]);
 }
 
 void Mesh::moveVertex(QVector3D vertex, QVector3D move) {
