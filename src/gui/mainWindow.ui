@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>870</width>
-    <height>704</height>
+    <width>897</width>
+    <height>826</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,8 +40,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>870</width>
-     <height>25</height>
+     <width>897</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -118,8 +118,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>198</width>
-             <height>123</height>
+             <width>236</width>
+             <height>77</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="controleListModel">
@@ -135,6 +135,12 @@
      </item>
      <item>
       <widget class="QWidget" name="Initfigure" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="maximumSize">
         <size>
          <width>200</width>
@@ -272,11 +278,37 @@
         </item>
         <item>
          <widget class="QWidget" name="widgetValidate" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
             <widget class="QPushButton" name="pushCancel">
              <property name="text">
               <string>Annuler</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushValid">
+             <property name="text">
+              <string>Valider</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widgetModify" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_8">
+           <item>
+            <widget class="QPushButton" name="pushDelete">
+             <property name="text">
+              <string>Supprimer</string>
              </property>
             </widget>
            </item>
@@ -288,9 +320,9 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushValid">
+            <widget class="QPushButton" name="pushDuplicate">
              <property name="text">
-              <string>Valider</string>
+              <string>Duppliquer</string>
              </property>
             </widget>
            </item>

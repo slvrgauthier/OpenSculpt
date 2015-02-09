@@ -66,7 +66,7 @@ public:
     // ================== PRIVATE MEMBERS ==================
 private:
     void getVerticesRec(QVector<QVector3D> &vertices, QVector3D position, float areaSize, HalfEdge *edge);
-    void clear();
+    //void clear();
     void TEST() const;
     // =====================================================
 
@@ -87,6 +87,7 @@ public:
     int getEdgeCount() const;
     int getVertexCount() const;
     int getFaceCount() const;
+    void clear();
     //int getIndexFace(QVector<QVector3D> vertices);
     // ======================================================
 

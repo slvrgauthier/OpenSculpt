@@ -88,6 +88,10 @@ private slots:
     void on_debug_clicked();
     void on_sliderDiscretization_actionTriggered(int action);
 
+    void on_pushDelete_clicked();
+
+    void on_pushDuplicate_clicked();
+
 private:
     Ui::MainWindow *ui;
     Mesh *m_mesh;
