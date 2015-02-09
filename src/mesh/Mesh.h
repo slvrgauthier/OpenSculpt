@@ -84,6 +84,7 @@ public:
     int getEdgeCount() const;
     int getVertexCount() const;
     int getFaceCount() const;
+    int getIndexFace(QVector<QVector3D> vertices);
     // ======================================================
 
 
@@ -109,7 +110,6 @@ private:
     void removeEdge(int index);
     void removeVertex(int index);
     void removeFace(int index);
-    QVector3D getNormal(QVector3D position);
     // ====================================================================
 
 
