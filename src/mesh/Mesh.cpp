@@ -219,7 +219,37 @@ void Mesh::cutEdge(QVector3D vertex1, QVector3D vertex2) {
 }
 
 QVector<QVector3D> Mesh::getVertices(QVector3D position, float areaSize) {
-    /* TODO */
+
+    Face *face = NULL;
+    float distance;
+    QVector3D p0, p1, p2;
+
+    int i=0;
+    while(i < getFaceCount()) {
+        p0 = getFace(i)->edge->previous->vertex->coords;
+        p1 = getFace(i)->edge->vertex->coords;
+        p2 = getFace(i)->edge->next->vertex->coords;
+        distance = position.distanceToPlane(p0, p1, p2);
+
+        if(distance > -0.1 && distance < 0.1 && inTriangle(position, p0, p1, p2)) {
+            face = getFace(i);
+            i = getFaceCount();
+        }
+        ++i;
+    }
+
+    QVector<QVector3D> vertices;
+    if(face != NULL) {
+        vertices.push_back(p0);
+        vertices.push_back(p1);
+        vertices.push_back(p2);
+
+        getVerticesRec(vertices, position, areaSize, face->edge->previous->opposite);
+        getVerticesRec(vertices, position, areaSize, face->edge->opposite);
+        getVerticesRec(vertices, position, areaSize, face->edge->next->opposite);
+    }
+
+    return vertices;
 }
 
 void Mesh::moveVertex(QVector3D vertex, QVector3D move) {
@@ -227,6 +257,12 @@ void Mesh::moveVertex(QVector3D vertex, QVector3D move) {
         if(m_vertices[i]->coords == vertex) {
             m_vertices[i]->coords += move;
         }
+    }
+}
+
+void Mesh::moveVertex(int index, QVector3D move) {
+    if(index >= 0 && index < getVertexCount()) {
+        m_vertices[index]->coords += move;
     }
 }
 
@@ -245,6 +281,29 @@ void Mesh::setName(QString name) { m_name = name; }
 
 QVector3D Mesh::getCenter() const { return m_center; }
 void Mesh::setCenter(QVector3D center) { m_center = center; }
+
+QVector3D Mesh::getCoords(int index) const {
+    if(index >= 0 && index < getVertexCount()) {
+        return m_vertices[index]->coords;
+    }
+    else {
+        return QVector3D();
+    }
+}
+
+void Mesh::setCoords(QVector3D vertex, QVector3D coord) {
+    for(int i=0 ; i < getVertexCount() ; ++i) {
+        if(m_vertices[i]->coords == vertex) {
+            m_vertices[i]->coords = coord;
+        }
+    }
+}
+
+void Mesh::setCoords(int index, QVector3D coord) {
+    if(index >= 0 && index < getVertexCount()) {
+        m_vertices[index]->coords = coord;
+    }
+}
 
 HalfEdge* Mesh::getEdge(int index) const { return m_edges.at(index); }
 void Mesh::setEdge(int index, HalfEdge *edge) { m_edges.replace(index, edge); }
@@ -293,6 +352,15 @@ void Mesh::addFace(Face *face) { m_faces.push_back(face); }
 void Mesh::removeEdge(int index) { delete m_edges[index]; m_edges.remove(index); }
 void Mesh::removeVertex(int index) { delete m_vertices[index]; m_vertices.remove(index); }
 void Mesh::removeFace(int index) { delete m_faces[index]; m_faces.remove(index); }
+
+void Mesh::getVerticesRec(QVector<QVector3D> &vertices, QVector3D position, float areaSize, HalfEdge *edge) {
+    QVector3D p = edge->next->vertex->coords;
+    if(position.distanceToPoint(p) < areaSize && !vertices.contains(p)) {
+        vertices.push_back(p);
+        getVerticesRec(vertices, position, areaSize, edge->previous->opposite);
+        getVerticesRec(vertices, position, areaSize, edge->next->opposite);
+    }
+}
 
 void Mesh::clear() {
     for(int i=0 ; i < m_edges.size() ; ++i) {
@@ -422,11 +490,15 @@ void Mesh::TEST() const {
 Face* Mesh::intersectedFace(QVector3D position) const
 {
     float distance;
+    QVector3D p0, p1, p2;
+
     for(int i=0 ; i < getFaceCount() ; ++i) {
-        distance = position.distanceToPlane(getFace(i)->edge->previous->vertex->coords,
-                                            getFace(i)->edge->vertex->coords,
-                                            getFace(i)->edge->next->vertex->coords);
-        if(distance > -0.1 && distance < 0.1) {
+        p0 = getFace(i)->edge->previous->vertex->coords;
+        p1 = getFace(i)->edge->vertex->coords;
+        p2 = getFace(i)->edge->next->vertex->coords;
+        distance = position.distanceToPlane(p0, p1, p2);
+
+        if(distance > -0.1 && distance < 0.1 && inTriangle(position, p0, p1, p2)) {
             return getFace(i);
         }
     }

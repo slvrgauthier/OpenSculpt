@@ -50,12 +50,14 @@ public:
 
     // Move a vertex or many vertices by "move"
     void moveVertex(QVector3D vertex, QVector3D move);
+    void moveVertex(int index, QVector3D move);
     void moveVertices(QVector<QVector3D> vertices, QVector3D move);
     // =================================================================
 
 
     // ================== PRIVATE MEMBERS ==================
 private:
+    void getVerticesRec(QVector<QVector3D> &vertices, QVector3D position, float areaSize, HalfEdge *edge);
     void clear();
     void TEST() const;
     // =====================================================
@@ -68,6 +70,11 @@ public:
 
     QVector3D getCenter() const;
     void setCenter(QVector3D center);
+
+    QVector3D getCoords(int index) const;
+
+    void setCoords(QVector3D vertex, QVector3D coord);
+    void setCoords(int index, QVector3D coord);
     // ======================================================
 
 

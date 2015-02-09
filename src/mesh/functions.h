@@ -35,4 +35,7 @@ QVector3D rotateXYZ(QVector3D vector, QVector3D rotation);
 /* get 3D position of the pixel under the cursor */
 QVector3D get3Dposition(QPoint mouse);
 
+/* test if a point p is in a triangle defined by p0, p1 and p2 */
+bool inTriangle(QVector3D p, QVector3D p0, QVector3D p1, QVector3D p2);
+
 #endif // FUNCTIONS_H
