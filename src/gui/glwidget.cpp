@@ -131,6 +131,8 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         {
             QVector3D rotation = QVector3D(x_rot, y_rot, z_rot);
             QVector3D move = rotateXYZ(QVector3D(-dx, dy, 0), rotation) * (distance / 900.0);
+            bool needUpdate;// = MeshProcessing::subdivideAuto(m_manager.getMesh(activeMesh), 5.);
+            needUpdate = MeshProcessing::decimateAuto(m_manager.getMesh(activeMesh), 5.);
 
             switch(activeTool) {
 
@@ -172,6 +174,8 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
                 qDebug() << "The tool isn't defined";
                 break;
             }
+
+            if(needUpdate) m_manager.updateMesh(activeMesh);
         }
         else
         {

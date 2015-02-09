@@ -24,15 +24,15 @@ public:
     // ================== PUBLIC MEMBERS ==================
 public:
     // Subdivide or Decimate the entire Mesh
-    void subdivide(Mesh *mesh);
-    void decimate(Mesh *mesh);
+    static void subdivide(Mesh *mesh);
+    static void decimate(Mesh *mesh);
 
     // Subdivide or Decimate only half-edges wich break the criterion
-    void subdivideAuto(Mesh *mesh, float maxEdgeLength);
-    void decimateAuto(Mesh *mesh, float minEdgeLength);
+    static bool subdivideAuto(Mesh *mesh, float maxEdgeLength);
+    static bool decimateAuto(Mesh *mesh, float minEdgeLength);
 
     // Scale the entire Mesh along the three axis separately
-    void scale(Mesh *mesh, QVector3D coef);
+    static void scale(Mesh *mesh, QVector3D coef);
     // ====================================================
 };
 

@@ -215,6 +215,101 @@ void Mesh::cutEdge(QVector3D vertex1, QVector3D vertex2) {
             // Fill old vertex
             tmp_edges[3]->vertex->outgoing = tmp_edges[2];
         }
+        else {
+            qDebug() << "Cannot cut an edge wich does not exist";
+        }
+    }
+    else {
+        qDebug() << "Cannot cut an edge between clones of a vertex";
+    }
+}
+
+void Mesh::mergeEdge(QVector3D vertex1, QVector3D vertex2, QVector3D vertex3) {
+    if(vertex1 != vertex2 && vertex2 != vertex3 && vertex3 != vertex1) {
+
+        HalfEdge *edge1 = NULL, *edge2 = NULL;
+
+        int i=0;
+        while(i < getEdgeCount()) {
+            if(m_edges[i]->vertex->coords == vertex2 && m_edges[i]->previous->vertex->coords == vertex1) {
+                edge1 = m_edges[i];
+                if(edge2 != NULL) {
+                    i = getEdgeCount();
+                }
+            }
+            else if(m_edges[i]->vertex->coords == vertex3 && m_edges[i]->previous->vertex->coords == vertex2) {
+                edge2 = m_edges[i];
+                if(edge1 != NULL) {
+                    i = getEdgeCount();
+                }
+            }
+            ++i;
+        }
+
+        if(edge1 != NULL && edge2 != NULL) {
+            /*
+            // Pick existing edges
+            QVector<HalfEdge*> tmp_edges;
+            tmp_edges.resize(4);
+
+            tmp_edges[0] = edge2->next;
+            tmp_edges[1] = edge1->previous;
+            tmp_edges[2] = edge1->opposite->next;
+            tmp_edges[3] = edge2->opposite->previous;
+
+            // Pick or Remove, and Fill existing vertex
+            QVector<Vertex*> tmp_vertices;
+            tmp_vertices.resize(4);
+
+            for(int i=0 ; i < tmp_vertices.size() ; ++i) {
+                tmp_vertices[i] = tmp_edges[i]->vertex;
+                tmp_vertices[i]->outgoing = tmp_edges[(i+1)%tmp_vertices.size()];
+            }
+            removeVertex(edge1->vertex);
+
+            // Pick or Remove, and Fill existing faces
+            QVector<Face*> tmp_faces;
+            tmp_faces.resize(2);
+
+            tmp_faces[0] = tmp_edges[0]->face; tmp_faces[0]->edge = tmp_edges[0];
+            removeFace(tmp_edges[1]->face);
+            removeFace(tmp_edges[2]->face);
+            tmp_faces[1] = tmp_edges[3]->face; tmp_faces[1]->edge = tmp_edges[3];
+
+            // Remove existing edges
+            removeEdge(edge2->previous);
+            removeEdge(edge1->next);
+            removeEdge(edge2->opposite->next);
+            removeEdge(edge1->opposite->previous);
+            removeEdge(edge1->opposite);
+            removeEdge(edge1);
+
+            // Fill edges
+            edge2->opposite->next = tmp_edges[2];
+            edge2->opposite->previous = tmp_edges[3];
+            edge2->opposite->vertex = tmp_vertices[1];
+
+            edge2->next = tmp_edges[0];
+            edge2->previous = tmp_edges[1];
+
+            tmp_edges[0]->next = tmp_edges[1];
+
+            tmp_edges[1]->face = tmp_faces[0];
+            tmp_edges[1]->next = edge2;
+            tmp_edges[1]->previous = tmp_edges[0];
+
+            tmp_edges[2]->face = tmp_faces[1];
+            tmp_edges[2]->next = tmp_edges[3];
+            tmp_edges[2]->previous = edge2->opposite;
+
+            tmp_edges[3]->previous = tmp_edges[2];*/
+        }
+        else {
+            qDebug() << "Cannot merge edges wich do not exist";
+        }
+    }
+    else {
+        qDebug() << "Cannot merge edges between clones of vertex";
     }
 }
 
@@ -361,9 +456,9 @@ void Mesh::addEdge(HalfEdge *edge) { m_edges.push_back(edge); }
 void Mesh::addVertex(Vertex *vertex) { m_vertices.push_back(vertex); }
 void Mesh::addFace(Face *face) { m_faces.push_back(face); }
 
-void Mesh::removeEdge(int index) { delete m_edges[index]; m_edges.remove(index); }
-void Mesh::removeVertex(int index) { delete m_vertices[index]; m_vertices.remove(index); }
-void Mesh::removeFace(int index) { delete m_faces[index]; m_faces.remove(index); }
+void Mesh::removeEdge(HalfEdge *edge) { delete edge; m_edges.remove(m_edges.indexOf(edge)); }
+void Mesh::removeVertex(Vertex *vertex) { delete vertex; m_vertices.remove(m_vertices.indexOf(vertex)); }
+void Mesh::removeFace(Face *face) { delete face; m_faces.remove(m_faces.indexOf(face)); }
 
 void Mesh::getVerticesRec(QVector<QVector3D> &vertices, QVector3D position, float areaSize, HalfEdge *edge) {
     QVector3D p = edge->next->vertex->coords;

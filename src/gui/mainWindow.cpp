@@ -122,12 +122,12 @@ void MainWindow::on_redo_clicked()
 
 void MainWindow::on_subdivide_clicked()
 {
-    m_processing.subdivide(m_mesh);
+    MeshProcessing::subdivide(m_mesh);
 }
 
 void MainWindow::on_decimate_clicked()
 {
-    m_processing.decimate(m_mesh);
+    MeshProcessing::decimate(m_mesh);
 }
 
 void MainWindow::on_init() {
@@ -243,13 +243,15 @@ void MainWindow::on_actionNewProject_triggered()
 {
     this->disableTool();
     this->hideDialog();
-    ui->glwidget->clear();
-    ui->glwidget->resetView();
 
     qDeleteAll(m_meshList.keys());
     m_meshList.clear();
-}
 
+    ui->glwidget->enableTool(NOTOOL);
+    ui->glwidget->selectMesh(NULL);
+    ui->glwidget->clear();
+    ui->glwidget->resetView();
+}
 
 void MainWindow::on_actionNewCube_triggered()
 {
@@ -295,9 +297,9 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_pushRemplace_clicked()
 {
+    this->hideDialog();
     m_mesh->setName(ui->textEditName->text());
     m_meshList.key(m_mesh)->setText(m_mesh->getName());
-    this->hideDialog();
 }
 
 void MainWindow::on_pushCancel_clicked()

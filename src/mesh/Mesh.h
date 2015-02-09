@@ -47,6 +47,9 @@ public:
     // Cut an edge between two vertices in two parts equally
     void cutEdge(QVector3D vertex1, QVector3D vertex2);
 
+    // Merge the two edges vertex1-to-vertex2 and vertex2-to-vertex3
+    void mergeEdge(QVector3D vertex1, QVector3D vertex2, QVector3D vertex3);
+
     // Get a list of vertices in area "areaSize" around "position"
     QVector<QVector3D> getVertices(QVector3D position, float areaSize);
 
@@ -107,9 +110,15 @@ private:
     void addVertex(Vertex *vertex);
     void addFace(Face *face);
 
+<<<<<<< HEAD
     void removeEdge(int index);
     void removeVertex(int index);
     void removeFace(int index);
+=======
+    void removeEdge(HalfEdge *edge);
+    void removeVertex(Vertex *vertex);
+    void removeFace(Face *face);
+>>>>>>> origin/master
     // ====================================================================
 
 
