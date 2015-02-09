@@ -503,6 +503,22 @@
       </widget>
      </item>
      <item>
+      <widget class="QWidget" name="widgetBrush" native="true">
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <widget class="QLabel" name="Brush">
+          <property name="text">
+           <string>Brush :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="spinBrush"/>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
       <widget class="QCheckBox" name="debug">
        <property name="text">
         <string>Debug</string>
