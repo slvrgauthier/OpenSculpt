@@ -76,7 +76,7 @@ void MeshTool::ltmove(Mesh *mesh, QPoint last_position, QVector3D move, float br
 
         for(int i=0 ; i < vertices.size() ; ++i) {
             coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
-            mesh->moveVertex(vertices[i], mesh->getNormal(position) * coef);
+            mesh->moveVertex(vertices[i], move * coef);
         }
     }
 }

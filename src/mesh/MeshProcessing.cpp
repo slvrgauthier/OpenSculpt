@@ -221,18 +221,24 @@ void MeshProcessing::decimate(Mesh *mesh) {
     }
 }
 
-void MeshProcessing::subdivideAuto(Mesh *mesh, float maxEdgeLength) {
+bool MeshProcessing::subdivideAuto(Mesh *mesh, float maxEdgeLength) {
+    bool result = false;
     QVector3D p1, p2;
-    for(int i=0 ; i < mesh->getEdgeCount() ; ++i) {
+    int size = mesh->getEdgeCount();
+
+    for(int i=0 ; i < size ; ++i) {
         p1 = mesh->getEdge(i)->previous->vertex->coords;
         p2 = mesh->getEdge(i)->vertex->coords;
         if(p1.distanceToPoint(p2) > maxEdgeLength) {
             mesh->cutEdge(p1, p2);
+            result = true;
         }
     }
+
+    return result;
 }
 
-void MeshProcessing::decimateAuto(Mesh *mesh, float minEdgeLength) {
+bool MeshProcessing::decimateAuto(Mesh *mesh, float minEdgeLength) {
     /* TODO */
 }
 

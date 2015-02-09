@@ -136,6 +136,9 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 
             // GLOBAL TOOLS
             case GTMOVE:
+                if(m_processing.subdivideAuto(m_manager.getMesh(activeMesh), 1.)) {
+                    m_manager.updateMesh(activeMesh);
+                }
                 m_tool.gtmove(m_manager.getMesh(activeMesh), move);
                 break;
 

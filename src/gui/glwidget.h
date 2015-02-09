@@ -6,6 +6,7 @@
 #include <QtGui/QMouseEvent>
 #include "mesh/MeshManager.h"
 #include "mesh/MeshTool.h"
+#include "mesh/MeshProcessing.h"
 
 class GLWidget : public QGLWidget
 {
@@ -42,6 +43,7 @@ private:
     QTimer m_timer;
     MeshManager m_manager;
     MeshTool m_tool;
+    MeshProcessing m_processing;
     TOOL activeTool;
     int activeMesh;
     int brushSize;

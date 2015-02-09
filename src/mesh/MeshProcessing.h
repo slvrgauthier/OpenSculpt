@@ -28,8 +28,8 @@ public:
     void decimate(Mesh *mesh);
 
     // Subdivide or Decimate only half-edges wich break the criterion
-    void subdivideAuto(Mesh *mesh, float maxEdgeLength);
-    void decimateAuto(Mesh *mesh, float minEdgeLength);
+    bool subdivideAuto(Mesh *mesh, float maxEdgeLength);
+    bool decimateAuto(Mesh *mesh, float minEdgeLength);
 
     // Scale the entire Mesh along the three axis separately
     void scale(Mesh *mesh, QVector3D coef);
