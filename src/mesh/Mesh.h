@@ -110,11 +110,6 @@ private:
     void addVertex(Vertex *vertex);
     void addFace(Face *face);
 
-
-    void removeEdge(int index);
-    void removeVertex(int index);
-    void removeFace(int index);
-
     void removeEdge(HalfEdge *edge);
     void removeVertex(Vertex *vertex);
     void removeFace(Face *face);
