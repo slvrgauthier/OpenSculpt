@@ -382,6 +382,8 @@ void MainWindow::hideDialog()
     ui->widgetSubdivide->setVisible(false);
     ui->widgetName->setVisible(false);
     ui->pushRemplace->setVisible(false);
+    ui->pushDelete->setVisible(false);
+    ui->pushDuplicate->setVisible(false);
 }
 
 void MainWindow::showDialog()
@@ -395,6 +397,8 @@ void MainWindow::showDialog()
     ui->widgetName->setVisible(true);
     ui->widgetValidate->setVisible(true);
     ui->pushRemplace->setVisible(true);
+    ui->pushDelete->setVisible(true);
+    ui->pushDuplicate->setVisible(true);
     ui->pushCancel->setVisible(false);
     ui->pushValid->setVisible(false);
 
@@ -411,4 +415,24 @@ void MainWindow::on_debug_clicked()
 void MainWindow::on_sliderDiscretization_actionTriggered(int action)
 {
     m_processing.subdivide(m_mesh); // en attendant que ca fonctonne correctement
+}
+
+void MainWindow::on_pushDelete_clicked()
+{
+    m_mesh->clear();
+    ui->glwidget->removeMesh(m_mesh);
+}
+
+void MainWindow::on_pushDuplicate_clicked()
+{
+    this->on_init();
+    ui->glwidget->selectMesh(m_mesh);
+
+    m_mesh->setName(ui->textEditName->text());
+
+    QPushButton *button = new QPushButton(m_mesh->getName());
+    m_meshList.insert(button, m_mesh);
+
+    QObject::connect(button, SIGNAL(clicked()), this, SLOT(showDialog()));
+    ui->controleListModel->addWidget(button);
 }
