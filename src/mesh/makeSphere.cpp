@@ -68,5 +68,7 @@ void Mesh::makeSphere(float radius) {
     this->cutEdge(QVector3D(-1, 1, 1), QVector3D(1, 1, 1));
     this->cutEdge(QVector3D(-1, -1, 1), QVector3D(1, -1, 1));
 
+    this->mergeEdge(QVector3D(0, 0, 1), QVector3D(0.5, 0.5, 1), QVector3D(1, 1, 1));
+
     TEST();
 }
