@@ -1,5 +1,5 @@
 #include "MeshTool.h"
-
+#include "Mesh.h"
 
 // GLOBAL TOOLS
 
@@ -45,18 +45,18 @@ void MeshTool::gtscale(Mesh *mesh, QVector3D move) {
 void MeshTool::ltadd(Mesh *mesh, QPoint last_position, QVector3D move, float brushSize) {
     qDebug() << "LTAdd action";
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
-   // QVector3D normal =
+    //QVector3D normal = mesh->getNormal(position);
 
-    if(mesh==NULL && last_position.x()==move.x() && brushSize>0){
-        QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
-        float coef;
+    QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
+    float coef;
 
-        for(int i=0 ; i < vertices.size() ; ++i) {
-            coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
+    for(int i=0 ; i < vertices.size() ; ++i) {
+        coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
 
-            mesh->moveVertex(vertices[i], move * coef);
-        }
-      }
+        mesh->moveVertex(vertices[i], move  *coef);
+
+    }
+
 }
 
 void MeshTool::ltinflate(Mesh *mesh, QPoint last_position, QVector3D move, float brushSize) {
