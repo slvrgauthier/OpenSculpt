@@ -1,6 +1,6 @@
 #include "Mesh.h"
 
-void Mesh::makeCone(float height, float radiusUp, float radiusDown) {
+void Mesh::makeCone(float height, float radiusUp, float radiusDown, int discretization) {
     this->clear();
 
     // HalfEdges

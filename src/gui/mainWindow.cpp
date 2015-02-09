@@ -79,6 +79,12 @@ void MainWindow::on_gtscale_clicked()
     ui->glwidget->enableTool(GTSCALE);
 }
 
+void MainWindow::on_debug_clicked()
+{
+    QMessageBox::information(this,"test","Rentrer dans le mode debug");
+    //m_mesh->TEST();
+}
+
 // ===================================================
 // UP TOOLBAR
 
@@ -115,9 +121,6 @@ void MainWindow::on_undo_clicked()
 void MainWindow::on_redo_clicked()
 {
     ui->glwidget->redo();
-    // Il faudra avoir un test pour savoir...
-    //ui->redo->setEnabled(false);
-    //ui->undo->setEnabled(true);
 }
 
 void MainWindow::on_subdivide_clicked()
@@ -164,11 +167,11 @@ void MainWindow::on_initCube_clicked()
     ui->spinBoxHeight->setValue(5.0);
     ui->spinBoxWidth->setValue(5.0);
 
-    m_mesh->makeCube(ui->spinBoxWidth->value(), ui->spinBoxHeight->value(), ui->spinBoxDepth->value());
+    updateCube();
 
-    connect(ui->spinBoxDepth,    SIGNAL(valueChanged(double)), this, SLOT(updateCube()));
-    connect(ui->spinBoxHeight,   SIGNAL(valueChanged(double)), this, SLOT(updateCube()));
-    connect(ui->spinBoxWidth,    SIGNAL(valueChanged(double)), this, SLOT(updateCube()));
+    connect(ui->spinBoxDepth,         SIGNAL(valueChanged(double)), this, SLOT(updateCube()));
+    connect(ui->spinBoxHeight,        SIGNAL(valueChanged(double)), this, SLOT(updateCube()));
+    connect(ui->spinBoxWidth,         SIGNAL(valueChanged(double)), this, SLOT(updateCube()));
     connect(ui->sliderDiscretization, SIGNAL(valueChanged(int)),    this, SLOT(updateCube()));
 }
 
@@ -180,9 +183,9 @@ void MainWindow::on_initSphere_clicked()
 
     ui->spinBoxRadius->setValue(5.0);
 
-    m_mesh->makeSphere(ui->spinBoxRadius->value());
+    updateSphere();
 
-    connect(ui->spinBoxRadius,   SIGNAL(valueChanged(double)), this, SLOT(updateSphere()));
+    connect(ui->spinBoxRadius,        SIGNAL(valueChanged(double)), this, SLOT(updateSphere()));
     connect(ui->sliderDiscretization, SIGNAL(valueChanged(int)),    this, SLOT(updateSphere()));
 }
 
@@ -196,11 +199,10 @@ void MainWindow::on_initCylinder_clicked()
     ui->spinBoxHeight->setValue(5.0);
     ui->spinBoxRadius->setValue(1.0);
 
-    m_mesh->makeCylinder(ui->spinBoxHeight->value(), ui->spinBoxRadius->value());
+    updateCylinder();
 
-
-    connect(ui->spinBoxHeight,   SIGNAL(valueChanged(double)), this, SLOT(updateCylinder()));
-    connect(ui->spinBoxRadius,   SIGNAL(valueChanged(double)), this, SLOT(updateCylinder()));
+    connect(ui->spinBoxHeight,        SIGNAL(valueChanged(double)), this, SLOT(updateCylinder()));
+    connect(ui->spinBoxRadius,        SIGNAL(valueChanged(double)), this, SLOT(updateCylinder()));
     connect(ui->sliderDiscretization, SIGNAL(valueChanged(int)),    this, SLOT(updateCylinder()));
 }
 
@@ -214,10 +216,10 @@ void MainWindow::on_initCone_clicked()
     ui->spinBoxHeight->setValue(5.0);
     ui->spinBoxRadius->setValue(2.0);
 
-    m_mesh->makeCone(ui->spinBoxHeight->value(), 0., ui->spinBoxRadius->value()); // RECODE : deux rayons
+    updateCone();
 
-    connect(ui->spinBoxHeight,   SIGNAL(valueChanged(double)), this, SLOT(updateCone()));
-    connect(ui->spinBoxRadius,   SIGNAL(valueChanged(double)), this, SLOT(updateCone()));
+    connect(ui->spinBoxHeight,        SIGNAL(valueChanged(double)), this, SLOT(updateCone()));
+    connect(ui->spinBoxRadius,        SIGNAL(valueChanged(double)), this, SLOT(updateCone()));
     connect(ui->sliderDiscretization, SIGNAL(valueChanged(int)),    this, SLOT(updateCone()));
 }
 
@@ -229,10 +231,10 @@ void MainWindow::on_initTorus_clicked()
 
     ui->spinBoxRadius->setValue(3.0);
 
-    m_mesh->makeTorus(ui->spinBoxRadius->value(), ui->spinBoxRadius->value() / 4.); // RECODE : deux rayons
+    updateTorus();
 
-    connect(ui->spinBoxHeight,   SIGNAL(valueChanged(double)), this, SLOT(updateTorus()));
-    connect(ui->spinBoxRadius,   SIGNAL(valueChanged(double)), this, SLOT(updateTorus()));
+    connect(ui->spinBoxHeight,        SIGNAL(valueChanged(double)), this, SLOT(updateTorus()));
+    connect(ui->spinBoxRadius,        SIGNAL(valueChanged(double)), this, SLOT(updateTorus()));
     connect(ui->sliderDiscretization, SIGNAL(valueChanged(int)),    this, SLOT(updateTorus()));
 }
 
@@ -353,23 +355,23 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 }
 
 void MainWindow::updateCube() {
-    m_mesh->makeCube(ui->spinBoxWidth->value(), ui->spinBoxHeight->value(), ui->spinBoxDepth->value());
+    m_mesh->makeCube(ui->spinBoxWidth->value(), ui->spinBoxHeight->value(), ui->spinBoxDepth->value(), ui->sliderDiscretization->value());
 }
 
 void MainWindow::updateSphere() {
-    m_mesh->makeSphere(ui->spinBoxRadius->value());
+    m_mesh->makeSphere(ui->spinBoxRadius->value(), ui->sliderDiscretization->value());
 }
 
 void MainWindow::updateCylinder() {
-    m_mesh->makeCylinder(ui->spinBoxHeight->value(), ui->spinBoxRadius->value());
+    m_mesh->makeCylinder(ui->spinBoxHeight->value(), ui->spinBoxRadius->value(), ui->sliderDiscretization->value());
 }
 
 void MainWindow::updateCone() {
-    m_mesh->makeCone(ui->spinBoxHeight->value(), 0., ui->spinBoxRadius->value()); // RECODE : deux rayons
+    m_mesh->makeCone(ui->spinBoxHeight->value(), 0., ui->spinBoxRadius->value(), ui->sliderDiscretization->value()); // RECODE : deux rayons
 }
 
 void MainWindow::updateTorus() {
-    m_mesh->makeTorus(ui->spinBoxRadius->value(), ui->spinBoxRadius->value() / 4.); // RECODE : deux rayons
+    m_mesh->makeTorus(ui->spinBoxRadius->value(), ui->spinBoxRadius->value() / 4., ui->sliderDiscretization->value()); // RECODE : deux rayons
 }
 
 void MainWindow::disableTool()
@@ -396,7 +398,6 @@ void MainWindow::hideDialog()
     ui->widgetWidth->setVisible(false);
     ui->widgetHeight->setVisible(false);
     ui->widgetDepth->setVisible(false);
-
     ui->widgetRadius->setVisible(false);
 
     ui->widgetValidate->setVisible(false);
@@ -419,23 +420,11 @@ void MainWindow::showDialog()
     ui->widgetValidate->setVisible(true);
     ui->pushRemplace->setVisible(true);
     ui->pushDelete->setVisible(true);
-   // ui->pushDuplicate->setVisible(true);
+    //ui->pushDuplicate->setVisible(true);
     ui->pushCancel->setVisible(false);
     ui->pushValid->setVisible(false);
 
     /*Chargement des caractéristiques du modèle*/
     ui->glwidget->selectMesh(m_mesh);
     ui->textEditName->setText(m_mesh->getName());
-}
-
-void MainWindow::on_debug_clicked()
-{
-    QMessageBox::information(this,"test","Rentrer dans le mode debug");
-    //m_mesh->TEST();
-}
-
-void MainWindow::on_sliderDiscretization_actionTriggered(int action)
-{
-    // pas de subdivision ici mais des paramètre à donner aux contructeurs de mesh
-    //m_processing.subdivide(m_mesh); // en attendant que ca fonctonne correctement
 }
