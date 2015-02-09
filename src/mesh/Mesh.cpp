@@ -3,6 +3,54 @@
 Mesh::Mesh() { m_center = QVector3D(0.,0.,0.); }
 Mesh::~Mesh() { this->clear(); }
 
+Mesh *Mesh::copyMesh(Mesh *mesh) {
+    Mesh *result = new Mesh();
+
+    // Create Vertices
+    result->resizeVertex(mesh->getVertexCount());
+    Vertex *vertex;
+    for(int i=0 ; i < mesh->getVertexCount() ; ++i) {
+        vertex = new Vertex;
+        vertex->coords = mesh->getVertex(i)->coords;
+        vertex->index = mesh->getVertex(i)->index;
+        result->setVertex(i, vertex);
+    }
+
+    // Create Faces
+    result->resizeFace(mesh->getFaceCount());
+    Face *face;
+    for(int i=0 ; i < mesh->getFaceCount() ; ++i) {
+        face = new Face;
+        result->setFace(i, face);
+    }
+
+    // Create Edges
+    result->resizeEdge(mesh->getEdgeCount());
+    HalfEdge *edge;
+    for(int i=0 ; i < mesh->getEdgeCount() ; ++i) {
+        edge = new HalfEdge;
+        result->setEdge(i, edge);
+    }
+
+    // Fill Vertices
+    for(int i=0 ; i < mesh->getVertexCount() ; ++i) {
+        vertex = result->getVertex(i);
+        // need indices of edges and faces
+    }
+
+    // Fill Faces
+    for(int i=0 ; i < mesh->getFaceCount() ; ++i) {
+        face = result->getFace(i);
+        // need indices of edges and faces
+    }
+
+    // Fill Edges
+    for(int i=0 ; i < mesh->getEdgeCount() ; ++i) {
+        edge = result->getEdge(i);
+        // need indices of edges and faces
+    }
+}
+
 void Mesh::addFace(QVector<QVector3D> vertices) {
     int size = vertices.size();
 
