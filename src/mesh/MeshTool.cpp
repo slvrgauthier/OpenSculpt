@@ -70,10 +70,13 @@ void MeshTool::ltinflate(Mesh *mesh, QPoint last_position, float brushSize, Qt::
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
         float coef;
-
+        float dist;
         for(int i=0 ; i < vertices.size() ; ++i) {
+          dist= vertices[i].distanceToPoint(position) * brushSize /100;
+
           coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
-          mesh->moveVertex(vertices[i], normal + coef / 2);
+          coef = coef+ dist;
+          mesh->moveVertex(vertices[i], normal * coef);
         }
     }
 }
