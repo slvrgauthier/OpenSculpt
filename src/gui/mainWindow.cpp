@@ -343,6 +343,11 @@ void MainWindow::on_pushDuplicate_clicked()
     ui->textEditName->setText(m_mesh->getName());*/
 }
 
+void MainWindow::on_checkBoxautosub_clicked()
+{
+
+}
+
 // ===================================================
 // MEMBER FUNCTIONS
 
@@ -433,3 +438,5 @@ void MainWindow::showDialog()
     ui->glwidget->selectMesh(m_mesh);
     ui->textEditName->setText(m_mesh->getName());
 }
+
+
