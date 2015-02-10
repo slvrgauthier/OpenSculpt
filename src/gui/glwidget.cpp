@@ -13,7 +13,7 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
 {
     activeTool = NOTOOL;
     activeMesh = -1;
-    mode_fill = true;
+    mode_fill = false;
     m_brush.setSize(.5);
     auto_sub = false;
 
@@ -223,8 +223,8 @@ void GLWidget::redo()
 
 }
 
-void GLWidget::setBrushSize(float size) {
-    m_brush.setSize(size);
+void GLWidget::setBrushSize(double size) {
+    m_brush.setSize((float)size);
 }
 
 void GLWidget::setAutoSub(int state) { auto_sub = (state == Qt::Checked); }

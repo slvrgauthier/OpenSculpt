@@ -35,7 +35,7 @@ public:
     void redo();
 
 public slots:
-    void setBrushSize(float size);
+    void setBrushSize(double size);
     void setAutoSub(int state);
 
 private slots:
