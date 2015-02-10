@@ -55,7 +55,7 @@ void MeshTool::ltadd(Mesh *mesh, QPoint last_position, QVector3D move, float bru
             coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
             mesh->moveVertex(vertices[i], normal * coef / 2);
         }
-    } // POURQUOI VOUS VOUS EMBETEZ A FAIRE COMPLIQUE QUAND JE VOUS DONNE TOUT CE QU'IL FAUT...
+    }
 /*
     // QVector3D normal = mesh->getNormal(position);
     if(!position.isNull()) {
@@ -125,7 +125,8 @@ void MeshTool::ltinflate(Mesh *mesh, QPoint last_position, QVector3D move, float
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
 
         for(int i=0 ; i < vertices.size() ; ++i) {
-
+          coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
+          mesh->moveVertex(vertices[i], normal + coef / 2);
         }
     }
 }
