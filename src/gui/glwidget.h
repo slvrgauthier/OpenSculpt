@@ -4,6 +4,7 @@
 #include <QGLWidget>
 #include <QTimer>
 #include <QtGui/QMouseEvent>
+#include "brush.h"
 #include "mesh/MeshManager.h"
 #include "mesh/MeshTool.h"
 #include "mesh/MeshProcessing.h"
@@ -46,7 +47,7 @@ private:
     MeshProcessing m_processing;
     TOOL activeTool;
     int activeMesh;
-    int brushSize;
+    Brush m_brush;
 
     // View & rotation settings
     QPoint last_pos;
@@ -59,6 +60,7 @@ private:
 
     // Render settings
     bool mode_fill;
+    bool auto_sub;
 
 };
 

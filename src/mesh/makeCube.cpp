@@ -1,6 +1,6 @@
 #include "Mesh.h"
 
-void Mesh::makeCube(float width, float height, float depth) {
+void Mesh::makeCube(float width, float height, float depth, int discretization) {
     this->clear();
 
     // HalfEdges

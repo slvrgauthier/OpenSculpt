@@ -34,6 +34,8 @@ private slots:
     void on_gtrotate_clicked();
     void on_gtscale_clicked();
 
+    void on_debug_clicked();
+
     // Up toolBar
     void on_select_clicked();
 
@@ -69,6 +71,8 @@ private slots:
     void on_pushRemplace_clicked();
     void on_pushCancel_clicked();
     void on_pushValid_clicked();
+    void on_pushDelete_clicked();
+    void on_pushDuplicate_clicked();
 
 private slots:
     // Update the last model
@@ -79,18 +83,11 @@ private slots:
     void updateTorus();
 
 private slots:
+    void mouseMoveEvent(QMouseEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void disableTool();
     void hideDialog();
     void showDialog();
-
-
-    void on_debug_clicked();
-    void on_sliderDiscretization_actionTriggered(int action);
-
-    void on_pushDelete_clicked();
-
-    void on_pushDuplicate_clicked();
 
 private:
     Ui::MainWindow *ui;

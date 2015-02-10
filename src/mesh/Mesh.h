@@ -33,11 +33,11 @@ public:
     static Mesh* copyMesh(Mesh *mesh);
 
     // Generate many predefined 3D polygons (extensible by developers)
-    void makeCone(float height, float radiusUp, float radiusDown);
-    void makeCube(float width, float height, float depth);
-    void makeCylinder(float height, float radius);
-    void makeSphere(float radius);
-    void makeTorus(float radiusH, float radiusV);
+    void makeCone(float height, float radiusUp, float radiusDown, int discretization);
+    void makeCube(float width, float height, float depth, int discretization);
+    void makeCylinder(float height, float radius, int discretization);
+    void makeSphere(float radius, int discretization);
+    void makeTorus(float radiusH, float radiusV, int discretization);
     // =========================================================
 
 
@@ -89,7 +89,6 @@ public:
     int getEdgeCount() const;
     int getVertexCount() const;
     int getFaceCount() const;
-    //int getIndexFace(QVector<QVector3D> vertices);
     // ======================================================
 
 

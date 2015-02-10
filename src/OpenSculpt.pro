@@ -25,7 +25,8 @@ SOURCES += main.cpp \
     mesh/makeSphere.cpp \
     mesh/makeTorus.cpp \
     mesh/functions.cpp \
-    mesh/MeshTool.cpp
+    mesh/MeshTool.cpp \
+    gui/brush.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/glwidget.h \
@@ -35,7 +36,8 @@ HEADERS += gui/mainWindow.h \
     mesh/HalfEdge.h \
     mesh/MeshManager.h \
     mesh/functions.h \
-    mesh/MeshTool.h
+    mesh/MeshTool.h \
+    gui/brush.h
 
 FORMS += gui/mainWindow.ui
 

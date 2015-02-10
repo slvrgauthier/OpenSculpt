@@ -1,6 +1,6 @@
 #include "Mesh.h"
 
-void Mesh::makeSphere(float radius) {
+void Mesh::makeSphere(float radius, int discretization) {
     this->clear();
 
     // Test de création d'un cube avec addFace
