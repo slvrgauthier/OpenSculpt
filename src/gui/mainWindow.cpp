@@ -352,7 +352,73 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event) {
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    ui->glwidget->keyPressEvent(event);
+    switch(event->key()) {
+    case Qt::Key_1:
+        if(event->modifiers()&Qt::ControlModifier) { on_initCube_clicked(); }
+        break;
+
+    case Qt::Key_2:
+        if(event->modifiers()&Qt::ControlModifier) { on_initSphere_clicked(); }
+        break;
+
+    case Qt::Key_3:
+        if(event->modifiers()&Qt::ControlModifier) { on_initCylinder_clicked(); }
+        break;
+
+    case Qt::Key_4:
+        if(event->modifiers()&Qt::ControlModifier) { on_initCone_clicked(); }
+        break;
+
+    case Qt::Key_5:
+        if(event->modifiers()&Qt::ControlModifier) { on_initTorus_clicked(); }
+        break;
+
+    case Qt::Key_A:
+        if(!event->modifiers()) { on_ltadd_clicked(); }
+        break;
+
+    case Qt::Key_D:
+        if(event->modifiers()&Qt::ControlModifier) { on_decimate_clicked(); }
+        break;
+
+    case Qt::Key_I:
+        if(!event->modifiers()) { on_ltinflate_clicked(); }
+        break;
+
+    case Qt::Key_M:
+        if(event->modifiers()&Qt::ShiftModifier) { on_gtmove_clicked(); }
+        if(event->modifiers()&Qt::AltModifier) { on_wtmove_clicked(); }
+        if(!event->modifiers()) { on_ltmove_clicked(); }
+        break;
+
+    case Qt::Key_P:
+        if(!event->modifiers()) { on_ltpinch_clicked(); }
+        break;
+
+    case Qt::Key_R:
+        if(event->modifiers()&Qt::ShiftModifier) { on_gtrotate_clicked(); }
+        if(event->modifiers()&Qt::AltModifier) { on_wtrotate_clicked(); }
+        break;
+
+    case Qt::Key_S:
+        if(event->modifiers()&Qt::ControlModifier) { on_subdivide_clicked(); }
+        if(event->modifiers()&Qt::ShiftModifier) { on_gtscale_clicked(); }
+        if(event->modifiers()&Qt::AltModifier) { on_wtscale_clicked(); }
+        if(!event->modifiers()) { on_ltsmooth_clicked(); }
+        break;
+
+    case Qt::Key_Y:
+        if(event->modifiers()&Qt::ControlModifier) { on_redo_clicked(); }
+        break;
+
+    case Qt::Key_Z:
+        if(event->modifiers()&Qt::ControlModifier) { on_undo_clicked(); }
+        break;
+
+    default:
+        ui->glwidget->keyPressEvent(event);
+        break;
+    }
 }
 
 void MainWindow::updateCube() {

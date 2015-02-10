@@ -7,7 +7,6 @@
 #include <QString>
 #include <QLabel>
 #include <QGridLayout>
-#include "gui/glwidget.h"
 #include "mesh/MeshProcessing.h"
 
 namespace Ui {

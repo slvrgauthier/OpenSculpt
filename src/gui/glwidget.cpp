@@ -9,7 +9,7 @@
     #include <GL/glut.h>
 #endif
 
-GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
+GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
 {
     activeTool = NOTOOL;
     activeMesh = -1;
@@ -86,9 +86,18 @@ void GLWidget::resizeGL(int w, int h)
 
 void GLWidget::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_F) {
+    switch(event->key()) {
 
-        mode_fill = !mode_fill;
+    case Qt::Key_F:
+        if(!event->modifiers()) { mode_fill = true; }
+        break;
+
+    case Qt::Key_W:
+        if(!event->modifiers()) { mode_fill = false; }
+        break;
+
+    default:
+        break;
     }
 }
 
