@@ -50,11 +50,9 @@ void MeshTool::ltadd(Mesh *mesh, QPoint last_position, float brushSize, Qt::Keyb
         if(modifiers & Qt::ShiftModifier) { normal = -normal; }
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
-        float coef;
 
         for(int i=0 ; i < vertices.size() ; ++i) {
-            coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
-            mesh->moveVertex(vertices[i], normal * coef / 2);
+            mesh->moveVertex(vertices[i], normal / 20.);
         }
     }
 }
