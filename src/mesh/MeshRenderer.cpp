@@ -4,7 +4,7 @@ MeshRenderer::MeshRenderer(Mesh *mesh) {
     m_vertexbuffer = new QGLBuffer(QGLBuffer::VertexBuffer);
     m_indicebuffer = new QGLBuffer(QGLBuffer::IndexBuffer);
     m_normalbuffer = new QGLBuffer(QGLBuffer::VertexBuffer);
-    //m_colorbuffer = new QGLBuffer(QGLBuffer::VertexBuffer);
+    m_colorbuffer = new QGLBuffer(QGLBuffer::VertexBuffer);
     m_mesh = mesh;
 }
 
@@ -13,7 +13,7 @@ MeshRenderer::~MeshRenderer() {
     m_vertexbuffer->destroy();
     m_indicebuffer->destroy();
     m_normalbuffer->destroy();
-    //m_colorbuffer->destroy();
+    m_colorbuffer->destroy();
 }
 
 void MeshRenderer::paintGL() {
@@ -36,26 +36,26 @@ void MeshRenderer::paintGL() {
     m_normalbuffer->release();
 
     glDisableClientState(GL_NORMAL_ARRAY);
-/*
+
     glEnableClientState(GL_COLOR_ARRAY);
 
     m_colorbuffer->bind();
     glColorPointer(3, GL_FLOAT, 0, NULL);
     m_colorbuffer->release();
 
-    glDisableClientState(GL_COLOR_ARRAY);*/
+    glDisableClientState(GL_COLOR_ARRAY);
 }
 
 void MeshRenderer::update() {
 
     // Convertir le maillage interne pour le rendu
     m_coords.clear();
-    //m_colors.clear();
+    m_colors.clear();
     m_coords.reserve(m_mesh->getVertexCount());
-    //m_colors.reserve(m_mesh->getVertexCount());
+    m_colors.reserve(m_mesh->getVertexCount());
     for(int i=0 ; i < m_mesh->getVertexCount() ; ++i) {
         m_coords.push_back(m_mesh->getVertex(i)->coords);
-        //m_colors.push_back(QVector3D(1.,0.,0.));
+        m_colors.push_back(QVector3D(1.,0.,0.));
     }
 
     m_indices.clear();
@@ -110,7 +110,7 @@ void MeshRenderer::update() {
         m_normalbuffer->allocate(m_normals.constData(), m_normals.size() * sizeof(QVector3D));
         m_normalbuffer->release();
     }
-/*
+
     // Color buffer init
     if(m_colorbuffer->isCreated() && m_colorbuffer->size() >= m_colors.size()) {
         m_colorbuffer->bind();
@@ -123,7 +123,7 @@ void MeshRenderer::update() {
         m_colorbuffer->bind();
         m_colorbuffer->allocate(m_colors.constData(), m_colors.size() * sizeof(QVector3D));
         m_colorbuffer->release();
-    }*/
+    }
 }
 
 Mesh* MeshRenderer::getMesh() const { return m_mesh; }

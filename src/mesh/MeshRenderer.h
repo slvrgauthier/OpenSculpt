@@ -45,13 +45,13 @@ private:
     QVector<QVector3D> m_coords;
     QVector<GLuint> m_indices;
     QVector<QVector3D> m_normals;
-    //QVector<QVector3D> m_colors;
+    QVector<QVector3D> m_colors;
 
     // GPU Buffer
     QGLBuffer *m_vertexbuffer;
     QGLBuffer *m_indicebuffer;
     QGLBuffer *m_normalbuffer;
-    //QGLBuffer *m_colorbuffer;
+    QGLBuffer *m_colorbuffer;
 };
 
 #endif // MESHRENDERER_H

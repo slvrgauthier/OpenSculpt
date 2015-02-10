@@ -44,10 +44,10 @@ void MeshTool::ltadd(Mesh *mesh, QPoint last_position, float brushSize, Qt::Keyb
     qDebug() << "LTAdd action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
-    QVector3D normal = mesh->getNormal(position);
-    if(modifiers & Qt::ShiftModifier) { normal = -normal; }
 
     if(!position.isNull()) {
+        QVector3D normal = mesh->getNormal(position);
+        if(modifiers & Qt::ShiftModifier) { normal = -normal; }
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
         float coef;
@@ -63,10 +63,10 @@ void MeshTool::ltinflate(Mesh *mesh, QPoint last_position, float brushSize, Qt::
     qDebug() << "LTInflate action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
-    QVector3D normal = mesh->getNormal(position);
-    if(modifiers & Qt::ShiftModifier) { normal = -normal; }
 
     if(!position.isNull()) {
+        QVector3D normal = mesh->getNormal(position);
+        if(modifiers & Qt::ShiftModifier) { normal = -normal; }
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
         float coef;
@@ -98,10 +98,10 @@ void MeshTool::ltpinch(Mesh *mesh, QPoint last_position, float brushSize, Qt::Ke
     qDebug() << "LTPinch action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
-    QVector3D normal = mesh->getNormal(position);
-    if(modifiers & Qt::ShiftModifier) { normal = -normal; }
 
     if(!position.isNull()) {
+        QVector3D normal = mesh->getNormal(position);
+        if(modifiers & Qt::ShiftModifier) { normal = -normal; }
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
         float coef;
@@ -128,3 +128,23 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize) {
     }
 }
 
+// OTHERS
+
+void MeshTool::subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize, float maxEdgeLength) {
+    qDebug() << "SubdivideAuto action";
+
+    QVector3D position = get3Dposition(last_position); // Position dans le repère scène
+
+    if(!position.isNull()) {
+
+        QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
+
+        for(int i=0 ; i < vertices.size()-1 ; ++i) {
+            for(int j=i+1 ; j < vertices.size() ; ++j) {
+                if(vertices[i].distanceToPoint(vertices[j]) > maxEdgeLength) {
+                    mesh->cutEdge(vertices[i], vertices[j]);
+                }
+            }
+        }
+    }
+}

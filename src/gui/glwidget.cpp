@@ -14,7 +14,8 @@ GLWidget::GLWidget(QWidget *parent ) : QGLWidget(parent)
     activeTool = NOTOOL;
     activeMesh = -1;
     mode_fill = true;
-    brushSize = 1;
+    m_brush.setSize(.5);
+    auto_sub = false;
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateActiveMesh()));
@@ -43,7 +44,6 @@ void GLWidget::initializeGL()
 void GLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glPolygonMode(GL_FRONT_AND_BACK, mode_fill ? GL_FILL : GL_LINE);
 
     // Model view matrix
     glMatrixMode(GL_MODELVIEW);
@@ -64,25 +64,20 @@ void GLWidget::paintGL()
     glLoadIdentity();
     gluPerspective(30.0f, 1.0*width()/height(), 0.1f, 100.0f);
 
-    // Draw map
+    // Brush
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    //qglColor(QColor(255, 0, 0, 128));
+    //m_brush.paintGL(QVector3D(last_pos.x()-this->width()/2.,this->height()/2.-last_pos.y(),0) * (-distance/900.));
+
+    // Draw meshes
     if(mode_fill) {
         //qglColor(Qt::lightGray);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         m_manager.paintGL();
     }
 
     //qglColor(Qt::black);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     m_manager.paintGL();
-
-    // Brush
-    /*glColor3d(1,0,0);
-    glBegin(GL_TRIANGLE_FAN);
-        for (int i=0; i < 16; ++i) {
-            float alpha = i * 360 / 16.;
-            glVertex3f(last_pos.x() + cosd(alpha)*brushSize, last_pos.y() + sind(alpha)*brushSize, 0);
-        }
-    glEnd();*/
 }
 void GLWidget::resizeGL(int w, int h)
 {
@@ -129,8 +124,9 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         }
         else if(activeTool != NOTOOL && m_manager.getMesh(activeMesh) != NULL)
         {
-            bool needUpdate = MeshProcessing::subdivideAuto(m_manager.getMesh(activeMesh), 5.);
-            needUpdate |= MeshProcessing::decimateAuto(m_manager.getMesh(activeMesh), 5.);
+            if(auto_sub) {
+                m_tool.subdivideAuto(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), 1.);
+            }
 
             switch(activeTool) {
 
@@ -149,31 +145,29 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 
             // LOCAL TOOLS
             case LTADD:
-                m_tool.ltadd(m_manager.getMesh(activeMesh), last_pos, brushSize, event->modifiers());
+                m_tool.ltadd(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), event->modifiers());
                 break;
 
             case LTINFLATE:
-                m_tool.ltinflate(m_manager.getMesh(activeMesh), last_pos, brushSize, event->modifiers());
+                m_tool.ltinflate(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), event->modifiers());
                 break;
 
             case LTMOVE:
-                m_tool.ltmove(m_manager.getMesh(activeMesh), last_pos, rotateXYZ(QVector3D(-dx, dy, 0), QVector3D(x_rot, y_rot, z_rot)) * (distance / 900.0), brushSize);
+                m_tool.ltmove(m_manager.getMesh(activeMesh), last_pos, rotateXYZ(QVector3D(-dx, dy, 0), QVector3D(x_rot, y_rot, z_rot)) * (distance / 900.0), m_brush.getSize());
                 break;
 
             case LTPINCH:
-                m_tool.ltpinch(m_manager.getMesh(activeMesh), last_pos, brushSize, event->modifiers());
+                m_tool.ltpinch(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), event->modifiers());
                 break;
 
             case LTSMOOTH:
-                m_tool.ltsmooth(m_manager.getMesh(activeMesh), last_pos, brushSize);
+                m_tool.ltsmooth(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize());
                 break;
 
             default:
                 qDebug() << "The tool isn't defined";
                 break;
             }
-
-            if(needUpdate) m_manager.updateMesh(activeMesh);
         }
         else
         {

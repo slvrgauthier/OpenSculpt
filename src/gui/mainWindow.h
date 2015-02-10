@@ -83,6 +83,7 @@ private slots:
     void updateTorus();
 
 private slots:
+    void mouseMoveEvent(QMouseEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void disableTool();
     void hideDialog();

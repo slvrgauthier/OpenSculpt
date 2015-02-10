@@ -345,6 +345,10 @@ void MainWindow::on_pushDuplicate_clicked()
 // ===================================================
 // MEMBER FUNCTIONS
 
+void MainWindow::mouseMoveEvent(QMouseEvent *event) {
+    ui->glwidget->mouseMoveEvent(event);
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     ui->glwidget->keyPressEvent(event);
