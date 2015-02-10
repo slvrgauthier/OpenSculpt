@@ -427,17 +427,43 @@
       </widget>
      </item>
      <item>
+      <widget class="QWidget" name="widgetAutosub" native="true">
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <widget class="QCheckBox" name="checkBoxautosub">
+          <property name="text">
+           <string>Auto-Sub</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
       <widget class="QWidget" name="widgetBrush" native="true">
        <layout class="QVBoxLayout" name="verticalLayout_9">
         <item>
          <widget class="QLabel" name="Brush">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
           <property name="text">
-           <string>Brush :</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Brush :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QDoubleSpinBox" name="spinBrush">
+         <widget class="QLabel" name="brushSize">
+          <property name="text">
+           <string>Size</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="spinBrushSize">
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
           <property name="singleStep">
            <double>0.500000000000000</double>
           </property>
@@ -446,16 +472,29 @@
           </property>
          </widget>
         </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QWidget" name="widgetAutosub" native="true">
-       <layout class="QVBoxLayout" name="verticalLayout_10">
         <item>
-         <widget class="QCheckBox" name="checkBoxautosub">
+         <widget class="QLabel" name="brushStrength">
           <property name="text">
-           <string>Auto-Sub</string>
+           <string>Strength</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="spinBrushStrength">
+          <property name="suffix">
+           <string>%</string>
+          </property>
+          <property name="decimals">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>10.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>50.000000000000000</double>
           </property>
          </widget>
         </item>

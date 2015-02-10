@@ -228,6 +228,10 @@ void GLWidget::setBrushSize(double size) {
     m_brush.setSize((float)size);
 }
 
+void GLWidget::setBrushStrength(double strength) {
+    m_brush.setStrength((float)strength / 1000);
+}
+
 void GLWidget::setAutoSub(int state) { auto_sub = (state == Qt::Checked); }
 
 void GLWidget::updateActiveMesh() {

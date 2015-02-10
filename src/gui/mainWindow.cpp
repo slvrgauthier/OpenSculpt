@@ -14,7 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->hideDialog();
     this->showMaximized();
 
-    connect(ui->spinBrush, SIGNAL(valueChanged(double)), ui->glwidget, SLOT(setBrushSize(double)));
+    connect(ui->spinBrushSize, SIGNAL(valueChanged(double)), ui->glwidget, SLOT(setBrushSize(double)));
+    connect(ui->spinBrushStrength, SIGNAL(valueChanged(double)), ui->glwidget, SLOT(setBrushStrength(double)));
     connect(ui->checkBoxautosub, SIGNAL(stateChanged(int)), ui->glwidget, SLOT(setAutoSub(int)));
 }
 

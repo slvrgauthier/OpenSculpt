@@ -36,6 +36,7 @@ public:
 
 public slots:
     void setBrushSize(double size);
+    void setBrushStrength(double strength);
     void setAutoSub(int state);
 
 private slots:
