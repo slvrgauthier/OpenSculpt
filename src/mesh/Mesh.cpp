@@ -398,13 +398,7 @@ QVector<QVector3D> Mesh::getVertices(QVector3D position, float areaSize) {
 }
 
 QVector3D Mesh::getNormal(QVector3D position) {
-    QVector<QVector3D> vertices = getVertices(position, 0);
-    if(vertices.size() >= 3) {
-        return QVector3D::normal(vertices[0], vertices[1], vertices[2]).normalized();
-    }
-    else {
-        return QVector3D();
-    }
+    return (position-getCenter()).normalized();
 }
 
 void Mesh::moveVertex(QVector3D vertex, QVector3D move) {

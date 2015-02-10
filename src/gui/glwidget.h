@@ -34,6 +34,10 @@ public:
     void undo();
     void redo();
 
+public slots:
+    void setBrushSize(float size);
+    void setAutoSub(int state);
+
 private slots:
     void updateActiveMesh();
 

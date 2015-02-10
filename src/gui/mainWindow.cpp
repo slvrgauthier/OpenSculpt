@@ -13,6 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->hideDialog();
     this->showMaximized();
+
+    connect(ui->spinBrush, SIGNAL(valueChanged(double)), ui->glwidget, SLOT(setBrushSize(double)));
+    connect(ui->checkBoxautosub, SIGNAL(stateChanged(int)), ui->glwidget, SLOT(setAutoSub(int)));
 }
 
 MainWindow::~MainWindow()
@@ -499,3 +502,5 @@ void MainWindow::showDialog()
     ui->glwidget->selectMesh(m_mesh);
     ui->textEditName->setText(m_mesh->getName());
 }
+
+

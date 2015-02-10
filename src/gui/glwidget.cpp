@@ -192,13 +192,6 @@ void GLWidget::wheelEvent(QWheelEvent *event)
     distance *= 1.0 - (1.0 * event->delta() / 1200.0);
 }
 
-void GLWidget::rotateBy(int x, int y, int z)
-{
-    x_rot += x;
-    y_rot += y;
-    z_rot += z;
-}
-
 void GLWidget::enableTool(TOOL tool) { activeTool = tool; }
 
 void GLWidget::selectMesh(Mesh *mesh) {
@@ -207,15 +200,6 @@ void GLWidget::selectMesh(Mesh *mesh) {
         if(m_manager.getMesh(i) == mesh) {
             activeMesh = i;
         }
-    }
-}
-
-void GLWidget::updateActiveMesh() {
-    if(activeMesh >= 0) {
-        m_manager.updateMesh(activeMesh);
-    }
-    else {
-        m_manager.updateLastMesh();
     }
 }
 
@@ -237,4 +221,26 @@ void GLWidget::undo()
 void GLWidget::redo()
 {
 
+}
+
+void GLWidget::setBrushSize(float size) {
+    m_brush.setSize(size);
+}
+
+void GLWidget::setAutoSub(int state) { auto_sub = (state == Qt::Checked); }
+
+void GLWidget::updateActiveMesh() {
+    if(activeMesh >= 0) {
+        m_manager.updateMesh(activeMesh);
+    }
+    else {
+        m_manager.updateLastMesh();
+    }
+}
+
+void GLWidget::rotateBy(int x, int y, int z)
+{
+    x_rot += x;
+    y_rot += y;
+    z_rot += z;
 }
