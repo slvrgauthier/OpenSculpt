@@ -89,6 +89,8 @@ private slots:
     void hideDialog();
     void showDialog();
 
+    void on_checkBoxautosub_clicked();
+
 private:
     Ui::MainWindow *ui;
     Mesh *m_mesh;
