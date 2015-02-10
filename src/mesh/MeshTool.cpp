@@ -107,9 +107,12 @@ void MeshTool::ltpinch(Mesh *mesh, QPoint last_position, float brushSize, Qt::Ke
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
         float coef;
-
+        float dist;
         for(int i=0 ; i < vertices.size() ; ++i) {
-
+            dist= vertices[i].distanceToPoint(position) * brushSize /100;
+            coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
+            coef = (coef + dist);
+            mesh->moveVertex(vertices[i], -normal * coef);
         }
     }
 }
@@ -122,10 +125,22 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize) {
     if(!position.isNull()) {
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
-        float coef;
-
+        float coefX=.0;
+        float coefY=.0;
+        float coefZ=.0;
+        QVector3D mean;
         for(int i=0 ; i < vertices.size() ; ++i) {
-
+            coefX = coefX + vertices[i].x();
+            coefY = coefY + vertices[i].y();
+            coefZ = coefZ + vertices[i].z();
+        }
+        mean.setX(coefX/ vertices.size());
+        mean.setY(coefY/ vertices.size());
+        mean.setZ(coefZ/ vertices.size());
+        float coef;
+        for(int i=0 ; i < vertices.size() ; ++i) {
+            coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
+            mesh->moveVertex(vertices[i], -mean * coef);
         }
     }
 }
