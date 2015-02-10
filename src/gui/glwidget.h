@@ -60,6 +60,7 @@ private:
 
     // Render settings
     bool mode_fill;
+    bool auto_sub;
 
 };
 
