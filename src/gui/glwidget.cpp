@@ -14,7 +14,8 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
     activeTool = NOTOOL;
     activeMesh = -1;
     mode_fill = false;
-    m_brush.setSize(.5);
+    m_brush.setSize(1.5); // between 0 and 10
+    m_brush.setStrength(.05); // between 0 and 0.10
     auto_sub = false;
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
@@ -154,11 +155,11 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
 
             // LOCAL TOOLS
             case LTADD:
-                m_tool.ltadd(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), event->modifiers());
+                m_tool.ltadd(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), m_brush.getStrength(), event->modifiers());
                 break;
 
             case LTINFLATE:
-                m_tool.ltinflate(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), event->modifiers());
+                m_tool.ltinflate(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), m_brush.getStrength(), event->modifiers());
                 break;
 
             case LTMOVE:
@@ -166,11 +167,11 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
                 break;
 
             case LTPINCH:
-                m_tool.ltpinch(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), event->modifiers());
+                m_tool.ltpinch(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), m_brush.getStrength(), event->modifiers());
                 break;
 
             case LTSMOOTH:
-                m_tool.ltsmooth(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize());
+                m_tool.ltsmooth(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), m_brush.getStrength());
                 break;
 
             default:

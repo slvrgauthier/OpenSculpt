@@ -40,11 +40,11 @@ public:
     void gtrotate(Mesh *mesh, QVector3D move);
     void gtscale(Mesh *mesh, QVector3D move);
 
-    void ltadd(Mesh *mesh, QPoint last_position, float brushSize, Qt::KeyboardModifiers modifiers);
-    void ltinflate(Mesh *mesh, QPoint last_position, float brushSize, Qt::KeyboardModifiers modifiers);
+    void ltadd(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
+    void ltinflate(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
     void ltmove(Mesh *mesh, QPoint last_position, QVector3D move, float brushSize);
-    void ltpinch(Mesh *mesh, QPoint last_position, float brushSize, Qt::KeyboardModifiers modifiers);
-    void ltsmooth(Mesh *mesh, QPoint last_position, float brushSize);
+    void ltpinch(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
+    void ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float strength);
 
     void subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize, float maxEdgeLength);
 };

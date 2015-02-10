@@ -40,7 +40,7 @@ void MeshTool::gtscale(Mesh *mesh, QVector3D move) {
 
 // LOCAL TOOLS
 
-void MeshTool::ltadd(Mesh *mesh, QPoint last_position, float brushSize, Qt::KeyboardModifiers modifiers) {
+void MeshTool::ltadd(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers) {
     qDebug() << "LTAdd action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
@@ -52,12 +52,12 @@ void MeshTool::ltadd(Mesh *mesh, QPoint last_position, float brushSize, Qt::Keyb
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
 
         for(int i=0 ; i < vertices.size() ; ++i) {
-            mesh->moveVertex(vertices[i], normal / 20.);
+            mesh->moveVertex(vertices[i], normal * strength / 2.);
         }
     }
 }
 
-void MeshTool::ltinflate(Mesh *mesh, QPoint last_position, float brushSize, Qt::KeyboardModifiers modifiers) {
+void MeshTool::ltinflate(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers) {
     qDebug() << "LTInflate action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
@@ -68,12 +68,13 @@ void MeshTool::ltinflate(Mesh *mesh, QPoint last_position, float brushSize, Qt::
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
         float coef;
-        QVector3D offset;
+        QVector3D vector;
 
         for(int i=0 ; i < vertices.size() ; ++i) {
-          offset = (vertices[i] - position).normalized(); // Vecteur à projeter sur le plan du brush
+          vector = vertices[i] - position; // Vecteur à projeter sur le plan du brush
+          vector -= QVector3D::dotProduct(normal, vector) * normal; // Projection
           coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
-          mesh->moveVertex(vertices[i],(normal + offset) * coef);
+          mesh->moveVertex(vertices[i], (normal + vector) * coef * strength);
         }
     }
 }
@@ -95,7 +96,7 @@ void MeshTool::ltmove(Mesh *mesh, QPoint last_position, QVector3D move, float br
     }
 }
 
-void MeshTool::ltpinch(Mesh *mesh, QPoint last_position, float brushSize, Qt::KeyboardModifiers modifiers) {
+void MeshTool::ltpinch(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers) {
     qDebug() << "LTPinch action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
@@ -106,17 +107,18 @@ void MeshTool::ltpinch(Mesh *mesh, QPoint last_position, float brushSize, Qt::Ke
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
         float coef;
-        QVector3D offset;
+        QVector3D vector;
 
         for(int i=0 ; i < vertices.size() ; ++i) {
-            offset = (vertices[i] - position).normalized(); // Vecteur à projeter sur le plan du brush
-            coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
-            mesh->moveVertex(vertices[i],(normal - offset) * coef);
+          vector = vertices[i] - position; // Vecteur à projeter sur le plan du brush
+          vector -= QVector3D::dotProduct(normal, vector) * normal; // Projection
+          coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
+          mesh->moveVertex(vertices[i], (normal * strength - vector) * coef * strength);
         }
     }
 }
 
-void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize) {
+void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float strength) {
     qDebug() << "LTSmooth action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
@@ -134,7 +136,7 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize) {
         float coef;
         for(int i=0 ; i < vertices.size() ; ++i) {
             coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
-            mesh->moveVertex(vertices[i], -mean * coef/2);
+            mesh->moveVertex(vertices[i], -mean * coef * strength);
         }
     }
 }

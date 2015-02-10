@@ -418,6 +418,26 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if(event->modifiers()&Qt::ControlModifier) { on_undo_clicked(); }
         break;
 
+    case Qt::Key_Enter:
+        if(!event->modifiers()&&ui->pushValid->isVisible()) { on_pushValid_clicked(); }
+        break;
+
+    case Qt::Key_Return:
+        if(!event->modifiers()&&ui->pushValid->isVisible()) { on_pushValid_clicked(); }
+        break;
+
+    case Qt::Key_Backspace:
+        if(!event->modifiers()&&ui->pushCancel->isVisible()) { on_pushCancel_clicked(); }
+        break;
+
+    case Qt::Key_Escape:
+        if(!event->modifiers()) { on_select_clicked(); }
+        break;
+
+    case Qt::Key_Delete:
+        if(!event->modifiers()&&ui->pushDelete->isVisible()) { on_pushDelete_clicked(); }
+        break;
+
     default:
         ui->glwidget->keyPressEvent(event);
         break;

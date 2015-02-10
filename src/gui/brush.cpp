@@ -24,3 +24,7 @@ void Brush::paintGL(QVector3D position) {
 float Brush::getSize() const { return m_size; }
 
 void Brush::setSize(float size) { m_size = size; }
+
+float Brush::getStrength() const { return m_strength; }
+
+void Brush::setStrength(float strength) { m_strength = strength; }

@@ -33,12 +33,16 @@ public:
 public:
     float getSize() const;
     void setSize(float size);
+
+    float getStrength() const;
+    void setStrength(float strength);
     // ======================================================
 
 
     // ================== PROPERTIES ==================
 private:
     float m_size;
+    float m_strength;
 };
 
 #endif // BRUSH_H
