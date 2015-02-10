@@ -70,13 +70,14 @@ void MeshTool::ltinflate(Mesh *mesh, QPoint last_position, float brushSize, Qt::
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
         float coef;
-        float dist;
-        for(int i=0 ; i < vertices.size() ; ++i) {
-          dist= vertices[i].distanceToPoint(position) * brushSize /100;
+        QVector3D dist;
 
+        for(int i=0 ; i < vertices.size() ; ++i) {
+          dist.setX(position.x()-vertices[i].x());
+          dist.setY(position.y()-vertices[i].y());
+          dist.setZ(position.z()-vertices[i].z());
           coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
-          coef = coef+ dist;
-          mesh->moveVertex(vertices[i], normal * coef);
+          mesh->moveVertex(vertices[i],(normal + dist)* coef);
         }
     }
 }
@@ -109,12 +110,14 @@ void MeshTool::ltpinch(Mesh *mesh, QPoint last_position, float brushSize, Qt::Ke
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
         float coef;
-        float dist;
+        QVector3D dist;
+
         for(int i=0 ; i < vertices.size() ; ++i) {
-            dist= vertices[i].distanceToPoint(position) * brushSize /100;
-            coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
-            coef = (coef + dist);
-            mesh->moveVertex(vertices[i], -normal * coef);
+          dist.setX(position.x()-vertices[i].x());
+          dist.setY(position.y()-vertices[i].y());
+          dist.setZ(position.z()-vertices[i].z());
+          coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
+          mesh->moveVertex(vertices[i],-(normal + dist)* coef);
         }
     }
 }
@@ -142,7 +145,7 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize) {
         float coef;
         for(int i=0 ; i < vertices.size() ; ++i) {
             coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
-            mesh->moveVertex(vertices[i], -mean * coef);
+            mesh->moveVertex(vertices[i], -mean * coef/2);
         }
     }
 }
