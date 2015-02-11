@@ -170,7 +170,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
                 break;
 
             case LTSMOOTH:
-                m_tool.ltsmooth(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), m_brush.getStrength());
+                m_tool.ltsmooth(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize(), m_brush.getStrength(), event->modifiers());
                 break;
 
             default:

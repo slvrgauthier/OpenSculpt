@@ -397,6 +397,27 @@ QVector<QVector3D> Mesh::getVertices(QVector3D position, float areaSize) {
     return vertices;
 }
 
+QVector<QVector3D> Mesh::getNeighbours(QVector3D vertex, int degree) {
+
+    Vertex *v = NULL;
+
+    int i=0;
+    while(i < getVertexCount()) {
+        if(getVertex(i)->coords == vertex) {
+            v = getVertex(i);
+            i = getVertexCount();
+        }
+        ++i;
+    }
+
+    QVector<QVector3D> vertices;
+    if(v != NULL) {
+        getNeighboursRec(vertices, v, degree);
+    }
+
+    return vertices;
+}
+
 QVector3D Mesh::getNormal(QVector3D position) {
     return (position-getCenter()).normalized();
 }
@@ -508,6 +529,20 @@ void Mesh::getVerticesRec(QVector<QVector3D> &vertices, QVector3D position, floa
         vertices.push_back(p);
         getVerticesRec(vertices, position, areaSize, edge->previous->opposite);
         getVerticesRec(vertices, position, areaSize, edge->next->opposite);
+    }
+}
+
+void Mesh::getNeighboursRec(QVector<QVector3D> &vertices, Vertex *v, int degree) {
+    if(!vertices.contains(v->coords)) {
+        vertices.push_back(v->coords);
+
+        if(degree > 0) {
+            HalfEdge *edge = v->outgoing;
+            do {
+                getNeighboursRec(vertices, edge->vertex, degree - 1);
+                edge = edge->opposite->next;
+            } while(edge != v->outgoing);
+        }
     }
 }
 
