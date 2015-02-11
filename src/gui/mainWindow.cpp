@@ -329,6 +329,8 @@ void MainWindow::on_pushValid_clicked()
     QObject::connect(button, SIGNAL(clicked()), this, SLOT(showDialog()));
     QObject::connect(button, SIGNAL(clicRight()),this, SLOT(selectModel()));
     ui->controleListModel->addWidget(button);
+    button->setCheckable(true);
+
 }
 
 void MainWindow::on_pushDelete_clicked()
@@ -542,6 +544,7 @@ void MainWindow::selectModel()
     ui->glwidget->selectMesh(m_mesh);
     ui->textEditName->setText(m_mesh->getName());
     qDebug()<<"clic droit";
+    sender->setChecked(true);
 }
 
 

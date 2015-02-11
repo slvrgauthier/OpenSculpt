@@ -128,7 +128,7 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float
         if(modifiers & Qt::ShiftModifier) { tmp_strength *= 20.; }
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
-<<<<<<< HEAD
+
         QVector3D normal = mesh->getNormal(position);
 
         QVector3D mean;
@@ -136,13 +136,13 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float
             mean += vertices[i];
         }
         mean /= vertices.size();
-=======
+
         QVector<QVector3D> neighbours, means; means.resize(vertices.size());
->>>>>>> FETCH_HEAD
+
 
         // Calcul des moyennes des voisins
         for(int i=0 ; i < vertices.size() ; ++i) {
-<<<<<<< HEAD
+
             coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
             mesh->moveVertex(vertices[i], -mean * coef * strength);
         }
