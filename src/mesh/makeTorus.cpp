@@ -17,5 +17,7 @@ void Mesh::makeTorus(float radiusH, float radiusV, int discretization) {
     face.push_back(QVector3D(1, 0, 0));
     this->addFace(face);
 
+    this->mergeEdge(QVector3D(-1, 0, 0), QVector3D(0, 0, 0), QVector3D(1, 0, 0));
+
     TEST();
 }

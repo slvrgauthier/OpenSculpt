@@ -46,7 +46,7 @@ public:
     void ltpinch(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
     void ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
 
-    void subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize, float maxEdgeLength);
+    void subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize);
 };
 
 #endif // MESHTOOL_H

@@ -136,12 +136,12 @@ void Mesh::addFace(QVector<QVector3D> vertices) {
             tmp_edges[i]->next = (i%3 == 2)? tmp_edges[i-2] : tmp_edges[i+1];
             tmp_edges[i]->previous = (i%3 == 0)? tmp_edges[i+2] : tmp_edges[i-1];
             tmp_edges[i]->vertex = (i%3 == 2)? tmp_vertices[0] : tmp_vertices[i/3 + i%3 + 1];
-            tmp_edges[i]->opposite = NULL;
+            tmp_edges[i]->opposite = tmp_edges[i];
         }
 
         // Link opposite edges
         for(int i=0 ; i < tmp_edges.size() ; ++i) {
-            if(tmp_edges[i]->opposite == NULL) {
+            if(tmp_edges[i]->opposite == tmp_edges[i]) {
                 for(int e=0 ; e < getEdgeCount() ; ++e) {
                     if(m_edges[e]->previous->vertex == tmp_edges[i]->vertex && m_edges[e]->vertex == tmp_edges[i]->previous->vertex) {
                         tmp_edges[i]->opposite = m_edges[e];
@@ -294,63 +294,44 @@ void Mesh::mergeEdge(QVector3D vertex1, QVector3D vertex2, QVector3D vertex3) {
             ++i;
         }
 
-        if(edge1 != NULL && edge2 != NULL) {
-            /*
-            // Pick existing edges
-            QVector<HalfEdge*> tmp_edges;
-            tmp_edges.resize(4);
+        if(edge1 != NULL && edge2 != NULL && edge1->opposite != edge1) {
+            // Fill and Remove faces
+            edge1->next->opposite->face->edge = edge1->next->opposite->next;
+            edge1->opposite->previous->opposite->face->edge = edge1->opposite->previous->opposite->previous;
+            removeFace(edge1->opposite->face);
+            removeFace(edge1->face);
 
-            tmp_edges[0] = edge2->next;
-            tmp_edges[1] = edge1->previous;
-            tmp_edges[2] = edge1->opposite->next;
-            tmp_edges[3] = edge2->opposite->previous;
+            // Fill and Remove edges
+            edge1->previous->face = edge1->next->opposite->face;
+            edge1->previous->next = edge1->next->opposite->next;
+            edge1->previous->previous = edge1->previous->next->next;
+            edge1->previous->previous->next = edge1->previous;
+            edge1->previous->next->previous = edge1->previous;
+            removeEdge(edge1->next->opposite);
+            removeEdge(edge1->next);
 
-            // Pick or Remove, and Fill existing vertex
-            QVector<Vertex*> tmp_vertices;
-            tmp_vertices.resize(4);
+            edge1->opposite->next->face = edge1->opposite->previous->opposite->face;
+            edge1->opposite->next->previous = edge1->opposite->previous->opposite->previous;
+            edge1->opposite->next->next = edge1->opposite->next->previous->previous;
+            edge1->opposite->next->previous->next = edge1->opposite->next;
+            edge1->opposite->next->next->previous = edge1->opposite->next;
+            removeEdge(edge1->opposite->previous->opposite);
+            removeEdge(edge1->opposite->previous);
 
-            for(int i=0 ; i < tmp_vertices.size() ; ++i) {
-                tmp_vertices[i] = tmp_edges[i]->vertex;
-                tmp_vertices[i]->outgoing = tmp_edges[(i+1)%tmp_vertices.size()];
-            }
+            // Fill and Remove vertices
+            edge1->previous->previous->vertex->outgoing = edge1->previous;
+            edge1->opposite->vertex->outgoing = edge2;
+            edge1->opposite->next->vertex->outgoing = edge1->opposite->next->next;
             removeVertex(edge1->vertex);
 
-            // Pick or Remove, and Fill existing faces
-            QVector<Face*> tmp_faces;
-            tmp_faces.resize(2);
-
-            tmp_faces[0] = tmp_edges[0]->face; tmp_faces[0]->edge = tmp_edges[0];
-            removeFace(tmp_edges[1]->face);
-            removeFace(tmp_edges[2]->face);
-            tmp_faces[1] = tmp_edges[3]->face; tmp_faces[1]->edge = tmp_edges[3];
-
-            // Remove existing edges
-            removeEdge(edge2->previous);
-            removeEdge(edge1->next);
-            removeEdge(edge2->opposite->next);
-            removeEdge(edge1->opposite->previous);
+            // Link edges with vertex1
+            HalfEdge *tmp_edge = edge1->opposite->next->previous;
+            do {
+                tmp_edge->vertex = edge1->opposite->vertex;
+                tmp_edge = tmp_edge->opposite->previous;
+            } while(tmp_edge != edge1->previous);
             removeEdge(edge1->opposite);
             removeEdge(edge1);
-
-            // Fill edges
-            edge2->opposite->next = tmp_edges[2];
-            edge2->opposite->previous = tmp_edges[3];
-            edge2->opposite->vertex = tmp_vertices[1];
-
-            edge2->next = tmp_edges[0];
-            edge2->previous = tmp_edges[1];
-
-            tmp_edges[0]->next = tmp_edges[1];
-
-            tmp_edges[1]->face = tmp_faces[0];
-            tmp_edges[1]->next = edge2;
-            tmp_edges[1]->previous = tmp_edges[0];
-
-            tmp_edges[2]->face = tmp_faces[1];
-            tmp_edges[2]->next = tmp_edges[3];
-            tmp_edges[2]->previous = edge2->opposite;
-
-            tmp_edges[3]->previous = tmp_edges[2];*/
         }
         else {
             qDebug() << "Cannot merge edges wich do not exist";
@@ -520,7 +501,13 @@ void Mesh::addVertex(Vertex *vertex) { m_vertices.push_back(vertex); }
 void Mesh::addFace(Face *face) { m_faces.push_back(face); }
 
 void Mesh::removeEdge(HalfEdge *edge) { delete edge; m_edges.remove(m_edges.indexOf(edge)); }
-void Mesh::removeVertex(Vertex *vertex) { delete vertex; m_vertices.remove(m_vertices.indexOf(vertex)); }
+void Mesh::removeVertex(Vertex *vertex) {
+    for(int i=vertex->index+1 ; i < getVertexCount() ; ++i) {
+        --m_vertices[i]->index;
+    }
+    m_vertices.remove(vertex->index);
+    delete vertex;
+}
 void Mesh::removeFace(Face *face) { delete face; m_faces.remove(m_faces.indexOf(face)); }
 
 void Mesh::getVerticesRec(QVector<QVector3D> &vertices, QVector3D position, float areaSize, HalfEdge *edge) {
@@ -655,6 +642,11 @@ void Mesh::TEST() const {
             }
             if(m_edges[i] != m_edges[i]->previous->next) {
                 qDebug() << "Edge" << i << "'s previous's next do not refer to the edge.";
+                test = false;
+                ++errors;
+            }
+            if(m_edges[i]->opposite == m_edges[i]) {
+                qDebug() << "Edge" << i << "'s opposite is itself.";
                 test = false;
                 ++errors;
             }

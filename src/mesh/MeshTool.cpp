@@ -156,7 +156,7 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float
 
 // OTHERS
 
-void MeshTool::subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize, float maxEdgeLength) {
+void MeshTool::subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize) {
     qDebug() << "SubdivideAuto action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
@@ -165,6 +165,16 @@ void MeshTool::subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize, 
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
 
+        // Longueur moyenne entre les points
+        float maxEdgeLength = 0;
+        for(int i=0 ; i < vertices.size()-1 ; ++i) {
+            for(int j=i+1 ; j < vertices.size() ; ++j) {
+                maxEdgeLength += vertices[i].distanceToPoint(vertices[j]);
+            }
+        }
+        maxEdgeLength /= vertices.size() * 4;
+
+        // Subdivision automatique
         for(int i=0 ; i < vertices.size()-1 ; ++i) {
             for(int j=i+1 ; j < vertices.size() ; ++j) {
                 if(vertices[i].distanceToPoint(vertices[j]) > maxEdgeLength) {

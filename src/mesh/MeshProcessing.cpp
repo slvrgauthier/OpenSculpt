@@ -242,21 +242,28 @@ bool MeshProcessing::subdivideAuto(Mesh *mesh, float maxEdgeLength) {
 bool MeshProcessing::decimateAuto(Mesh *mesh, float minEdgeLength) {
     bool result = false;
     QVector3D p1, p2, p3;
-    int size = mesh->getEdgeCount();
+/*
+    QVector<QVector3D> neighbours;
 
-    for(int i=0 ; i < size ; ++i) {
-        p1 = mesh->getEdge(i)->previous->vertex->coords;
+    for(int i=0 ; i < mesh->getEdgeCount() ; ++i) {
+        neighbours.clear();
         p2 = mesh->getEdge(i)->vertex->coords;
-        p3 = mesh->getEdge(i)->next->opposite->next->vertex->coords;
-        if(p1.distanceToPoint(p2) < minEdgeLength && p2.distanceToPoint(p3) < minEdgeLength) {
-            float norm = p1.crossProduct(p2, p3).length();
-            if(norm > -0.1 && norm < 0.1) {
-                mesh->mergeEdge(p1, p2, p3);
-                result = true;
+        neighbours = mesh->getNeighbours(p2, 1);
+        for(int j=0 ; j < neighbours.size()-1 ; ++j) {
+            for(int k=j+1 ; k < neighbours.size() ; ++k) {
+                p1 = neighbours[j];
+                p3 = neighbours[k];
+                if(p1.distanceToPoint(p2) < minEdgeLength && p2.distanceToPoint(p3) < minEdgeLength) {
+                    float det = p1.crossProduct(p2, p3).length();
+                    if(det > -1 && det < 1) {
+                        mesh->mergeEdge(p1, p2, p3);
+                        result = true;
+                    }
+                }
             }
         }
     }
-
+*/
     return result;
 }
 
