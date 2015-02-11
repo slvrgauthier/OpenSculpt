@@ -55,6 +55,9 @@ public:
     // Get a list of vertices in area "areaSize" around "position"
     QVector<QVector3D> getVertices(QVector3D position, float areaSize);
 
+    // Get a list of vertices neighbours of "vertex" with "degree" recursions around
+    QVector<QVector3D> getNeighbours(QVector3D vertex, int degree);
+
     // Get the normal of the face containing position
     QVector3D getNormal(QVector3D position);
 
@@ -68,6 +71,7 @@ public:
     // ================== PRIVATE MEMBERS ==================
 private:
     void getVerticesRec(QVector<QVector3D> &vertices, QVector3D position, float areaSize, HalfEdge *edge);
+    void getNeighboursRec(QVector<QVector3D> &vertices, Vertex *v, int degree);
     void clear();
     void TEST() const;
     // =====================================================

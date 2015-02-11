@@ -118,14 +118,17 @@ void MeshTool::ltpinch(Mesh *mesh, QPoint last_position, float brushSize, float 
     }
 }
 
-void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float strength) {
+void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers) {
     qDebug() << "LTSmooth action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
 
     if(!position.isNull()) {
+        float tmp_strength = strength;
+        if(modifiers & Qt::ShiftModifier) { tmp_strength *= 20.; }
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
+<<<<<<< HEAD
         QVector3D normal = mesh->getNormal(position);
 
         QVector3D mean;
@@ -133,9 +136,13 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float
             mean += vertices[i];
         }
         mean /= vertices.size();
+=======
+        QVector<QVector3D> neighbours, means; means.resize(vertices.size());
+>>>>>>> FETCH_HEAD
 
-        float coef;
+        // Calcul des moyennes des voisins
         for(int i=0 ; i < vertices.size() ; ++i) {
+<<<<<<< HEAD
             coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
             mesh->moveVertex(vertices[i], -mean * coef * strength);
         }
@@ -143,23 +150,25 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float
 
         /*QVector<QVector3D> norm_comps; norm_comps.resize(vertices.size());
         float dot;
+=======
+            neighbours.clear();
+            neighbours = mesh->getNeighbours(vertices[i], 1);
+>>>>>>> FETCH_HEAD
 
-        // Calcul des composantes normales de la projection des points sur le brush
-        for(int i=0 ; i < vertices.size() ; ++i) {
-            dot = QVector3D::dotProduct(normal, vertices[i] - position);
-            if(dot > 0) {
-                norm_comps[i] = -dot * normal;
+            means[i] = QVector3D(0,0,0);
+            for(int j=0 ; j < neighbours.size() ; ++j) {
+                if(neighbours[j] != vertices[i]) {
+                    means[i] += neighbours[j];
+                }
             }
-            else {
-                norm_comps[i] = QVector3D(0,0,0); // Eviter de creuser la surface plate
-            }
+            means[i] /= neighbours.size() - 1;
         }
 
-        // Lissage par les composantes normales des points
+        // Lissage par les moyennes
         float coef;
         for(int i=0 ; i < vertices.size() ; ++i) {
             coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
-            mesh->moveVertex(vertices[i], norm_comps[i] * coef * strength * 20.);
+            mesh->moveVertex(vertices[i], (means[i] - vertices[i]) * coef * tmp_strength);
         }
     }*/
 }
