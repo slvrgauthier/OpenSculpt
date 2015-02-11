@@ -5,7 +5,11 @@ MeshManager::~MeshManager() { this->clear(); }
 
 void MeshManager::paintGL(int activeMesh) {
     for(int i = 0 ; i < m_renderers.size() ; ++i) {
-        if(i == activeMesh) {
+        if(-2 == activeMesh) {
+            GLfloat color[4] = {.5, .5, .5, 1.};
+            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, color);
+        }
+        else if(i == activeMesh) {
             GLfloat color[4] = {1., .6, .4, 1.};
             glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, color);
         }

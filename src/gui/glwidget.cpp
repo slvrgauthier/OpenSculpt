@@ -77,7 +77,7 @@ void GLWidget::paintGL()
     }
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    m_manager.paintGL(activeMesh);
+    m_manager.paintGL((mode_fill)? -2 : -1);
 }
 void GLWidget::resizeGL(int w, int h)
 {
