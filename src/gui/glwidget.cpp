@@ -17,6 +17,7 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
     m_brush.setSize(1.5); // between 0 and 10
     m_brush.setStrength(.05); // between 0 and 0.10
     auto_sub = false;
+    auto_dec = true;
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateActiveMesh()));
@@ -133,16 +134,13 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
         }
         else if(activeTool != NOTOOL && m_manager.getMesh(activeMesh) != NULL)
         {
-            if(auto_sub) {
-                m_tool.subdivideAuto(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize());
-            }
+            if(auto_sub) { m_tool.subdivideAuto(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize()); }
+            //if(auto_dec) { m_tool.decimateAuto(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize()); }
 
             switch(activeTool) {
 
             // GLOBAL TOOLS
             case GTMOVE:
-                MeshProcessing::decimateAuto(m_manager.getMesh(activeMesh), 5.);
-                m_manager.updateMesh(activeMesh);
                 m_tool.gtmove(m_manager.getMesh(activeMesh), rotateXYZ(QVector3D(-dx, dy, 0), QVector3D(x_rot, y_rot, z_rot)) * (distance / 900.0));
                 break;
 

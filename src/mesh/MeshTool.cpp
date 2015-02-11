@@ -192,3 +192,34 @@ void MeshTool::subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize) 
         }
     }
 }
+
+void MeshTool::decimateAuto(Mesh *mesh, QPoint last_position, float brushSize) {
+    qDebug() << "DecimateAuto action";
+
+    QVector3D position = get3Dposition(last_position); // Position dans le repère scène
+
+    if(!position.isNull()) {
+
+        QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
+
+        // Longueur moyenne entre les points
+        float minEdgeLength = 0;
+        for(int i=0 ; i < vertices.size()-1 ; ++i) {
+            for(int j=i+1 ; j < vertices.size() ; ++j) {
+                minEdgeLength += vertices[i].distanceToPoint(vertices[j]);
+            }
+        }
+        minEdgeLength /= vertices.size() * 4;
+
+        // Decimation automatique
+        for(int i=0 ; i < vertices.size()-2 ; ++i) {
+            for(int j=i+1 ; j < vertices.size()-1 ; ++j) {
+                for(int k=j+1 ; k < vertices.size() ; ++k) {
+                    if(vertices[i].distanceToPoint(vertices[j]) < minEdgeLength && vertices[j].distanceToPoint(vertices[k]) < minEdgeLength) {
+                        //mesh->mergeEdge(vertices[i], vertices[j], vertices[k]);
+                    }
+                }
+            }
+        }
+    }
+}

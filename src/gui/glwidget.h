@@ -66,7 +66,7 @@ private:
     // Render settings
     bool mode_fill;
     bool auto_sub;
-
+    bool auto_dec;
 };
 
 #endif // GLWIDGET_H
