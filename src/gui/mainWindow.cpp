@@ -84,12 +84,6 @@ void MainWindow::on_gtscale_clicked()
     ui->glwidget->enableTool(GTSCALE);
 }
 
-void MainWindow::on_debug_clicked()
-{
-    QMessageBox::information(this,"test","Rentrer dans le mode debug");
-    //m_mesh->TEST();
-}
-
 // ===================================================
 // UP TOOLBAR
 
@@ -158,6 +152,15 @@ void MainWindow::on_init() {
 
     ui->sliderDiscretization->setValue(ui->sliderDiscretization->minimum());
     ui->textEditName->setText(m_mesh->getName());
+    QMapIterator<QPushButton*,Mesh*> ite(m_meshList);
+
+    while(ite.hasNext())
+    {
+        ite.next();
+
+        ite.key()->setChecked(false);
+    }
+
 }
 
 void MainWindow::on_initCube_clicked()
@@ -330,6 +333,7 @@ void MainWindow::on_pushValid_clicked()
     QObject::connect(button, SIGNAL(clicRight()),this, SLOT(selectModel()));
     ui->controleListModel->addWidget(button);
     button->setCheckable(true);
+    button->setChecked(true);
 
 }
 

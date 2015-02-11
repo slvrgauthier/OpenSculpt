@@ -35,7 +35,6 @@ private slots:
     void on_gtrotate_clicked();
     void on_gtscale_clicked();
 
-    void on_debug_clicked();
 
     // Up toolBar
     void on_select_clicked();
