@@ -518,6 +518,16 @@ void MainWindow::showDialog()
     ui->glwidget->selectMesh(m_mesh);
     ui->textEditName->setText(m_mesh->getName());
     qDebug()<<"clique gauche";
+    QMapIterator<QPushButton*,Mesh*> ite(m_meshList);
+
+    while(ite.hasNext())
+    {
+        ite.next();
+
+        ite.key()->setChecked(false);
+    }
+
+    sender->setChecked(true);
 }
 
 void MainWindow::selectModel()
@@ -544,6 +554,14 @@ void MainWindow::selectModel()
     ui->glwidget->selectMesh(m_mesh);
     ui->textEditName->setText(m_mesh->getName());
     qDebug()<<"clic droit";
+    QMapIterator<QPushButton*,Mesh*> ite(m_meshList);
+
+    while(ite.hasNext())
+    {
+        ite.next();
+
+        ite.key()->setChecked(false);
+    }
     sender->setChecked(true);
 }
 

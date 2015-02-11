@@ -143,7 +143,7 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float
         // Calcul des moyennes des voisins
         for(int i=0 ; i < vertices.size() ; ++i) {
 
-            coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
+            float coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
             mesh->moveVertex(vertices[i], -mean * coef * strength);
         }
     }
