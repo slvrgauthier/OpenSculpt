@@ -4,7 +4,6 @@ MeshRenderer::MeshRenderer(Mesh *mesh) {
     m_vertexbuffer = new QGLBuffer(QGLBuffer::VertexBuffer);
     m_indicebuffer = new QGLBuffer(QGLBuffer::IndexBuffer);
     m_normalbuffer = new QGLBuffer(QGLBuffer::VertexBuffer);
-    m_colorbuffer = new QGLBuffer(QGLBuffer::VertexBuffer);
     m_mesh = mesh;
 }
 
@@ -13,60 +12,57 @@ MeshRenderer::~MeshRenderer() {
     m_vertexbuffer->destroy();
     m_indicebuffer->destroy();
     m_normalbuffer->destroy();
-    m_colorbuffer->destroy();
 }
 
 void MeshRenderer::paintGL() {
     glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_NORMAL_ARRAY);
 
     m_vertexbuffer->bind();
     glVertexPointer(3, GL_FLOAT, 0, NULL);
     m_vertexbuffer->release();
 
-    m_indicebuffer->bind();
-    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, NULL);
-    m_indicebuffer->release();
-
-    glDisableClientState(GL_VERTEX_ARRAY);
-
-    glEnableClientState(GL_NORMAL_ARRAY);
-
     m_normalbuffer->bind();
     glNormalPointer(GL_FLOAT, 0, NULL);
     m_normalbuffer->release();
 
+    m_indicebuffer->bind();
+    glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, NULL);
+    m_indicebuffer->release();
+
     glDisableClientState(GL_NORMAL_ARRAY);
-
-    glEnableClientState(GL_COLOR_ARRAY);
-
-    m_colorbuffer->bind();
-    glColorPointer(3, GL_FLOAT, 0, NULL);
-    m_colorbuffer->release();
-
-    glDisableClientState(GL_COLOR_ARRAY);
+    glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void MeshRenderer::update() {
 
     // Convertir le maillage interne pour le rendu
     m_coords.clear();
-    m_colors.clear();
     m_coords.reserve(m_mesh->getVertexCount());
-    m_colors.reserve(m_mesh->getVertexCount());
     for(int i=0 ; i < m_mesh->getVertexCount() ; ++i) {
         m_coords.push_back(m_mesh->getVertex(i)->coords);
-        m_colors.push_back(QVector3D(1.,0.,0.));
     }
 
     m_indices.clear();
-    m_normals.clear();
     m_indices.reserve(m_mesh->getFaceCount() * 3);
-    m_normals.reserve(m_mesh->getFaceCount());
     for(int i=0 ; i < m_mesh->getFaceCount() ; ++i) {
         m_indices.push_back(m_mesh->getFace(i)->edge->vertex->index);
         m_indices.push_back(m_mesh->getFace(i)->edge->next->vertex->index);
         m_indices.push_back(m_mesh->getFace(i)->edge->previous->vertex->index);
-        m_normals.push_back(QVector3D::normal(m_mesh->getVertex(m_indices[3*i])->coords, m_mesh->getVertex(m_indices[3*i+1])->coords, m_mesh->getVertex(m_indices[3*i+2])->coords));
+        //QVector3D::normal(m_mesh->getVertex(m_indices[3*i])->coords, m_mesh->getVertex(m_indices[3*i+1])->coords, m_mesh->getVertex(m_indices[3*i+2])->coords);
+    }
+
+    m_normals.clear();
+    m_normals.reserve(m_mesh->getVertexCount());
+    for(int i=0 ; i < m_mesh->getVertexCount() ; ++i) {
+        QVector3D tmp_normal(0,0,0);
+
+        HalfEdge *edge = m_mesh->getVertex(i)->outgoing;
+        do {
+            tmp_normal += QVector3D::normal(m_mesh->getVertex(i)->coords, edge->vertex->coords, edge->next->vertex->coords);
+        } while(edge != m_mesh->getVertex(i)->outgoing);
+
+        m_normals.push_back(tmp_normal.normalized());
     }
 
     // Vertex buffer init
@@ -83,20 +79,6 @@ void MeshRenderer::update() {
         m_vertexbuffer->release();
     }
 
-    // Indices buffer init
-    if(m_indicebuffer->isCreated() && m_indicebuffer->size() >= m_indices.size()) {
-        m_indicebuffer->bind();
-        m_indicebuffer->write(0, m_indices.constData(), m_indices.size() * sizeof(GLuint));
-        m_indicebuffer->release();
-    }
-    else {
-        m_indicebuffer->destroy();
-        m_indicebuffer->create();
-        m_indicebuffer->bind();
-        m_indicebuffer->allocate(m_indices.constData(), m_indices.size() * sizeof(GLuint));
-        m_indicebuffer->release();
-    }
-
     // Normal buffer init
     if(m_normalbuffer->isCreated() && m_normalbuffer->size() >= m_normals.size()) {
         m_normalbuffer->bind();
@@ -111,18 +93,18 @@ void MeshRenderer::update() {
         m_normalbuffer->release();
     }
 
-    // Color buffer init
-    if(m_colorbuffer->isCreated() && m_colorbuffer->size() >= m_colors.size()) {
-        m_colorbuffer->bind();
-        m_colorbuffer->write(0, m_colors.constData(), m_colors.size() * sizeof(QVector3D));
-        m_colorbuffer->release();
+    // Indices buffer init
+    if(m_indicebuffer->isCreated() && m_indicebuffer->size() >= m_indices.size()) {
+        m_indicebuffer->bind();
+        m_indicebuffer->write(0, m_indices.constData(), m_indices.size() * sizeof(GLuint));
+        m_indicebuffer->release();
     }
     else {
-        m_colorbuffer->destroy();
-        m_colorbuffer->create();
-        m_colorbuffer->bind();
-        m_colorbuffer->allocate(m_colors.constData(), m_colors.size() * sizeof(QVector3D));
-        m_colorbuffer->release();
+        m_indicebuffer->destroy();
+        m_indicebuffer->create();
+        m_indicebuffer->bind();
+        m_indicebuffer->allocate(m_indices.constData(), m_indices.size() * sizeof(GLuint));
+        m_indicebuffer->release();
     }
 }
 

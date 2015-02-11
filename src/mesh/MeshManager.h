@@ -24,7 +24,7 @@ public:
 
     // ================== PUBLIC MEMBERS ==================
 public:
-    void paintGL();
+    void paintGL(int activeMesh);
     void updateMesh(int index);
     void updateLastMesh();
 

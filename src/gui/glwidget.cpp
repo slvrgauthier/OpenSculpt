@@ -38,6 +38,8 @@ void GLWidget::initializeGL()
     // GL options
     qglClearColor(Qt::black);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glShadeModel(GL_SMOOTH);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
 }
@@ -67,18 +69,15 @@ void GLWidget::paintGL()
 
     // Brush
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    //qglColor(QColor(255, 0, 0, 128));
     //m_brush.paintGL(QVector3D(last_pos.x()-this->width()/2.,this->height()/2.-last_pos.y(),0) * (-distance/900.));
 
     // Draw meshes
     if(mode_fill) {
-        //qglColor(Qt::lightGray);
-        m_manager.paintGL();
+        m_manager.paintGL(activeMesh);
     }
 
-    //qglColor(Qt::black);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    m_manager.paintGL();
+    m_manager.paintGL(activeMesh);
 }
 void GLWidget::resizeGL(int w, int h)
 {

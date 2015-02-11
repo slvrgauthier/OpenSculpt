@@ -3,8 +3,16 @@
 MeshManager::MeshManager() {  }
 MeshManager::~MeshManager() { this->clear(); }
 
-void MeshManager::paintGL() {
+void MeshManager::paintGL(int activeMesh) {
     for(int i = 0 ; i < m_renderers.size() ; ++i) {
+        if(i == activeMesh) {
+            GLfloat color[4] = {1., .6, .4, 1.};
+            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, color);
+        }
+        else {
+            GLfloat color[4] = {1., 1., 1., 1.};
+            glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, color);
+        }
         m_renderers[i]->paintGL();
     }
 }
