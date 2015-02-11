@@ -60,6 +60,7 @@ void MeshRenderer::update() {
         HalfEdge *edge = m_mesh->getVertex(i)->outgoing;
         do {
             tmp_normal += QVector3D::normal(m_mesh->getVertex(i)->coords, edge->vertex->coords, edge->next->vertex->coords);
+            edge = edge->opposite->next;
         } while(edge != m_mesh->getVertex(i)->outgoing);
 
         m_normals.push_back(tmp_normal.normalized());
