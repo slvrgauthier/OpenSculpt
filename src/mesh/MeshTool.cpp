@@ -127,7 +127,7 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
         QVector3D normal = mesh->getNormal(position);
-/*
+
         QVector3D mean;
         for(int i=0 ; i < vertices.size() ; ++i) {
             mean += vertices[i];
@@ -140,8 +140,8 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float
             mesh->moveVertex(vertices[i], -mean * coef * strength);
         }
     }
-*/
-        QVector<QVector3D> norm_comps; norm_comps.resize(vertices.size());
+
+        /*QVector<QVector3D> norm_comps; norm_comps.resize(vertices.size());
         float dot;
 
         // Calcul des composantes normales de la projection des points sur le brush
@@ -161,7 +161,7 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float
             coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
             mesh->moveVertex(vertices[i], norm_comps[i] * coef * strength * 20.);
         }
-    }
+    }*/
 }
 
 

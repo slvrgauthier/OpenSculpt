@@ -323,10 +323,11 @@ void MainWindow::on_pushValid_clicked()
 
     m_mesh->setName(ui->textEditName->text());
 
-    QPushButton *button = new QPushButton(m_mesh->getName());
+    ModelButton *button = new ModelButton(m_mesh->getName());
     m_meshList.insert(button, m_mesh);
 
     QObject::connect(button, SIGNAL(clicked()), this, SLOT(showDialog()));
+    QObject::connect(button, SIGNAL(clicRight()),this, SLOT(selectModel()));
     ui->controleListModel->addWidget(button);
 }
 
@@ -511,6 +512,24 @@ void MainWindow::showDialog()
 
     m_mesh = m_meshList.value(sender); //Modele associé
 
+    /*Chargement des caractéristiques du modèle*/
+    ui->glwidget->selectMesh(m_mesh);
+    ui->textEditName->setText(m_mesh->getName());
+    qDebug()<<"clique gauche";
+}
+
+void MainWindow::selectModel()
+{
+    if(ui->pushValid->isVisible()) {
+        on_pushValid_clicked();
+    }
+
+    /*Récupération de l'émetteur du slot, afin d'associer le button et le modèle*/
+    QObject * emetteur = sender();
+    QPushButton * sender = qobject_cast<QPushButton*>(emetteur);
+
+    m_mesh = m_meshList.value(sender); //Modele associé
+
     ui->widgetName->setVisible(true);
     ui->widgetValidate->setVisible(true);
     ui->pushRemplace->setVisible(true);
@@ -522,6 +541,7 @@ void MainWindow::showDialog()
     /*Chargement des caractéristiques du modèle*/
     ui->glwidget->selectMesh(m_mesh);
     ui->textEditName->setText(m_mesh->getName());
+    qDebug()<<"clic droit";
 }
 
 

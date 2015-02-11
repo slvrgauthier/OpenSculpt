@@ -9,6 +9,8 @@
 #include <QGridLayout>
 #include "mesh/MeshProcessing.h"
 
+#include "modelbutton.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -87,6 +89,7 @@ private slots:
     void disableTool();
     void hideDialog();
     void showDialog();
+    void selectModel();
 
 private:
     Ui::MainWindow *ui;
