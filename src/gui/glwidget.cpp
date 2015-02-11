@@ -36,7 +36,7 @@ void GLWidget::initializeGL()
     z_rot = 0;
 
     // GL options
-    qglClearColor(Qt::black);
+    qglClearColor(Qt::white);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glShadeModel(GL_SMOOTH);

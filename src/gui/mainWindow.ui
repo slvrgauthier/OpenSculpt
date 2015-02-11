@@ -41,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>897</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -119,7 +119,7 @@
              <x>0</x>
              <y>0</y>
              <width>198</width>
-             <height>128</height>
+             <height>77</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="controleListModel">
@@ -574,13 +574,6 @@
        </property>
        <property name="checkable">
         <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="debug">
-       <property name="text">
-        <string>Debug</string>
        </property>
       </widget>
      </item>

@@ -84,12 +84,6 @@ void MainWindow::on_gtscale_clicked()
     ui->glwidget->enableTool(GTSCALE);
 }
 
-void MainWindow::on_debug_clicked()
-{
-    QMessageBox::information(this,"test","Rentrer dans le mode debug");
-    //m_mesh->TEST();
-}
-
 // ===================================================
 // UP TOOLBAR
 
@@ -158,6 +152,15 @@ void MainWindow::on_init() {
 
     ui->sliderDiscretization->setValue(ui->sliderDiscretization->minimum());
     ui->textEditName->setText(m_mesh->getName());
+    QMapIterator<QPushButton*,Mesh*> ite(m_meshList);
+
+    while(ite.hasNext())
+    {
+        ite.next();
+
+        ite.key()->setChecked(false);
+    }
+
 }
 
 void MainWindow::on_initCube_clicked()
@@ -323,11 +326,15 @@ void MainWindow::on_pushValid_clicked()
 
     m_mesh->setName(ui->textEditName->text());
 
-    QPushButton *button = new QPushButton(m_mesh->getName());
+    ModelButton *button = new ModelButton(m_mesh->getName());
     m_meshList.insert(button, m_mesh);
 
     QObject::connect(button, SIGNAL(clicked()), this, SLOT(showDialog()));
+    QObject::connect(button, SIGNAL(clicRight()),this, SLOT(selectModel()));
     ui->controleListModel->addWidget(button);
+    button->setCheckable(true);
+    button->setChecked(true);
+
 }
 
 void MainWindow::on_pushDelete_clicked()
@@ -511,6 +518,34 @@ void MainWindow::showDialog()
 
     m_mesh = m_meshList.value(sender); //Modele associé
 
+    /*Chargement des caractéristiques du modèle*/
+    ui->glwidget->selectMesh(m_mesh);
+    ui->textEditName->setText(m_mesh->getName());
+    qDebug()<<"clique gauche";
+    QMapIterator<QPushButton*,Mesh*> ite(m_meshList);
+
+    while(ite.hasNext())
+    {
+        ite.next();
+
+        ite.key()->setChecked(false);
+    }
+
+    sender->setChecked(true);
+}
+
+void MainWindow::selectModel()
+{
+    if(ui->pushValid->isVisible()) {
+        on_pushValid_clicked();
+    }
+
+    /*Récupération de l'émetteur du slot, afin d'associer le button et le modèle*/
+    QObject * emetteur = sender();
+    QPushButton * sender = qobject_cast<QPushButton*>(emetteur);
+
+    m_mesh = m_meshList.value(sender); //Modele associé
+
     ui->widgetName->setVisible(true);
     ui->widgetValidate->setVisible(true);
     ui->pushRemplace->setVisible(true);
@@ -522,6 +557,16 @@ void MainWindow::showDialog()
     /*Chargement des caractéristiques du modèle*/
     ui->glwidget->selectMesh(m_mesh);
     ui->textEditName->setText(m_mesh->getName());
+    qDebug()<<"clic droit";
+    QMapIterator<QPushButton*,Mesh*> ite(m_meshList);
+
+    while(ite.hasNext())
+    {
+        ite.next();
+
+        ite.key()->setChecked(false);
+    }
+    sender->setChecked(true);
 }
 
 
