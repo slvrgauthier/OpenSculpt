@@ -134,6 +134,7 @@ void MainWindow::on_decimate_clicked()
 
 void MainWindow::on_init() {
     this->disableTool();
+    this->uncheckMesh();
     if(ui->pushValid->isVisible()) {
         on_pushValid_clicked();
     }
@@ -152,15 +153,6 @@ void MainWindow::on_init() {
 
     ui->sliderDiscretization->setValue(ui->sliderDiscretization->minimum());
     ui->textEditName->setText(m_mesh->getName());
-    QMapIterator<QPushButton*,Mesh*> ite(m_meshList);
-
-    while(ite.hasNext())
-    {
-        ite.next();
-
-        ite.key()->setChecked(false);
-    }
-
 }
 
 void MainWindow::on_initCube_clicked()
@@ -326,15 +318,16 @@ void MainWindow::on_pushValid_clicked()
 
     m_mesh->setName(ui->textEditName->text());
 
-    ModelButton *button = new ModelButton(m_mesh->getName());
+    MeshButton *button = new MeshButton(m_mesh->getName());
     m_meshList.insert(button, m_mesh);
 
-    QObject::connect(button, SIGNAL(clicked()), this, SLOT(showDialog()));
-    QObject::connect(button, SIGNAL(clicRight()),this, SLOT(selectModel()));
+    QObject::connect(button, SIGNAL(clickedRight()), this, SLOT(showDialog()));
+    QObject::connect(button, SIGNAL(clickedLeft()),this, SLOT(checkMesh()));
+
     ui->controleListModel->addWidget(button);
     button->setCheckable(true);
+    this->uncheckMesh();
     button->setChecked(true);
-
 }
 
 void MainWindow::on_pushDelete_clicked()
@@ -349,7 +342,7 @@ void MainWindow::on_pushDelete_clicked()
 void MainWindow::on_pushDuplicate_clicked()
 {
     /*this->on_init();
-   // m_mesh = Mesh::copyMesh(m_mesh);
+    m_mesh = Mesh::copyMesh(m_mesh);
     ui->glwidget->selectMesh(m_mesh);
     ui->textEditName->setText(m_mesh->getName());*/
 }
@@ -363,6 +356,9 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event) {
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
+    QList<QPushButton*> keys = m_meshList.keys();
+    QMapIterator<QPushButton*,Mesh*> it(m_meshList);
+
     switch(event->key()) {
     case Qt::Key_1:
         if(event->modifiers()&Qt::ControlModifier) { on_initCube_clicked(); }
@@ -446,6 +442,17 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if(!event->modifiers()&&ui->pushDelete->isVisible()) { on_pushDelete_clicked(); }
         break;
 
+    case Qt::Key_Tab: // La QMap n'a pas d'ordre...
+        for(int i=0 ; i < keys.size() ; ++i) {
+            if(keys.at(i)->isChecked()) {
+                m_mesh = (i+1 >= keys.size())? m_meshList.value(keys.at(0)) : m_meshList.value(keys.at(i+1));
+                ui->glwidget->selectMesh(m_mesh);
+            }
+        }
+        uncheckMesh();
+        m_meshList.key(m_mesh)->setChecked(true);
+        break;
+
     default:
         ui->glwidget->keyPressEvent(event);
         break;
@@ -508,43 +515,7 @@ void MainWindow::hideDialog()
 
 void MainWindow::showDialog()
 {
-    if(ui->pushValid->isVisible()) {
-        on_pushValid_clicked();
-    }
-
-    /*Récupération de l'émetteur du slot, afin d'associer le button et le modèle*/
-    QObject * emetteur = sender();
-    QPushButton * sender = qobject_cast<QPushButton*>(emetteur);
-
-    m_mesh = m_meshList.value(sender); //Modele associé
-
-    /*Chargement des caractéristiques du modèle*/
-    ui->glwidget->selectMesh(m_mesh);
-    ui->textEditName->setText(m_mesh->getName());
-    qDebug()<<"clique gauche";
-    QMapIterator<QPushButton*,Mesh*> ite(m_meshList);
-
-    while(ite.hasNext())
-    {
-        ite.next();
-
-        ite.key()->setChecked(false);
-    }
-
-    sender->setChecked(true);
-}
-
-void MainWindow::selectModel()
-{
-    if(ui->pushValid->isVisible()) {
-        on_pushValid_clicked();
-    }
-
-    /*Récupération de l'émetteur du slot, afin d'associer le button et le modèle*/
-    QObject * emetteur = sender();
-    QPushButton * sender = qobject_cast<QPushButton*>(emetteur);
-
-    m_mesh = m_meshList.value(sender); //Modele associé
+    this->checkMesh();
 
     ui->widgetName->setVisible(true);
     ui->widgetValidate->setVisible(true);
@@ -555,18 +526,30 @@ void MainWindow::selectModel()
     ui->pushValid->setVisible(false);
 
     /*Chargement des caractéristiques du modèle*/
-    ui->glwidget->selectMesh(m_mesh);
     ui->textEditName->setText(m_mesh->getName());
-    qDebug()<<"clic droit";
-    QMapIterator<QPushButton*,Mesh*> ite(m_meshList);
+}
 
-    while(ite.hasNext())
-    {
-        ite.next();
-
-        ite.key()->setChecked(false);
+void MainWindow::checkMesh()
+{
+    if(ui->pushValid->isVisible()) {
+        on_pushValid_clicked();
     }
+
+    /*Récupération de l'émetteur du slot, afin d'associer le button et le modèle*/
+    QObject * emetteur = sender();
+    QPushButton * sender = qobject_cast<QPushButton*>(emetteur);
+
+    m_mesh = m_meshList.value(sender); //Modele associé
+    ui->glwidget->selectMesh(m_mesh);
+
+    this->uncheckMesh();
     sender->setChecked(true);
 }
 
-
+void MainWindow::uncheckMesh() {
+    QMapIterator<QPushButton*,Mesh*> it(m_meshList);
+    while(it.hasNext()) {
+        it.next();
+        it.key()->setChecked(false);
+    }
+}

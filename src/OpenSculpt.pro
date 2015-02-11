@@ -27,7 +27,7 @@ SOURCES += main.cpp \
     mesh/functions.cpp \
     mesh/MeshTool.cpp \
     gui/brush.cpp \
-    gui/modelbutton.cpp
+    gui/meshButton.cpp
 
 HEADERS += gui/mainWindow.h \
     gui/glwidget.h \
@@ -39,7 +39,7 @@ HEADERS += gui/mainWindow.h \
     mesh/functions.h \
     mesh/MeshTool.h \
     gui/brush.h \
-    gui/modelbutton.h
+    gui/meshButton.h
 
 FORMS += gui/mainWindow.ui
 

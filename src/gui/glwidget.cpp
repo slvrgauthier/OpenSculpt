@@ -13,7 +13,7 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
 {
     activeTool = NOTOOL;
     activeMesh = -1;
-    mode_fill = false;
+    mode_fill = true;
     m_brush.setSize(1.5); // between 0 and 10
     m_brush.setStrength(.05); // between 0 and 0.10
     auto_sub = false;
@@ -42,6 +42,9 @@ void GLWidget::initializeGL()
     glShadeModel(GL_SMOOTH);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
+
+    int LightPos[4] = {(int)(offsetX - distance),(int)-offsetY,(int)(-distance/2),1};
+    glLightiv(GL_LIGHT0,GL_POSITION,LightPos);
 }
 
 void GLWidget::paintGL()
@@ -58,9 +61,6 @@ void GLWidget::paintGL()
     glRotatef(x_rot, 1.0f, 0.0f, 0.0f);
     glRotatef(y_rot, 0.0f, 1.0f, 0.0f);
     glRotatef(z_rot, 0.0f, 0.0f, 1.0f);
-
-    int LightPos[4] = {(int)(offsetX - distance),(int)-offsetY,(int)(-distance/2),1};
-    glLightiv(GL_LIGHT0,GL_POSITION,LightPos);
 
     // Projection matrix
     glMatrixMode(GL_PROJECTION);
@@ -89,11 +89,11 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
     switch(event->key()) {
 
     case Qt::Key_F:
-        if(!event->modifiers()) { mode_fill = true; }
+        if(!event->modifiers()) { mode_fill = true; glEnable(GL_CULL_FACE); }
         break;
 
     case Qt::Key_W:
-        if(!event->modifiers()) { mode_fill = false; }
+        if(!event->modifiers()) { mode_fill = false; glDisable(GL_CULL_FACE); }
         break;
 
     default:
