@@ -70,6 +70,7 @@ private slots:
 
     // MenuHelp
     void on_actionAbout_triggered();
+    void on_actionIndex_triggered();
 
     // Right panel
     void on_pushReplace_clicked();

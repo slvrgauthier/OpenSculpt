@@ -314,6 +314,12 @@ void MainWindow::on_actionAbout_triggered()
    QMessageBox::information(this, "A propos", "Ce logiciel a été conçu dans un but pédagogique par : GAUTHIER Silvère, LAMEIRA Yannick, PELADAN Cécile");
 }
 
+void MainWindow::on_actionIndex_triggered()
+{
+
+    QMessageBox::about(0, "Lien", "<a href='https://github.com/slvrgauthier/OpenSculpt/blob/master/Documentation/Rapport.pdf'>Lien vers la documentation</a>");
+}
+
 // ===================================================
 // RIGHT PANEL
 
@@ -563,3 +569,4 @@ void MainWindow::uncheckMesh() {
         it.key()->setChecked(false);
     }
 }
+
