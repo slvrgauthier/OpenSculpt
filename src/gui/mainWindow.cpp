@@ -144,7 +144,7 @@ void MainWindow::on_init() {
     m_mesh->setName("Mesh");
 
     ui->widgetValidate->setVisible(true);
-    ui->pushRemplace->setVisible(false);
+    ui->pushReplace->setVisible(false);
     ui->pushCancel->setVisible(true);
     ui->pushValid->setVisible(true);
     ui->widgetSubdivide->setVisible(true);
@@ -265,6 +265,36 @@ void MainWindow::on_actionOpen_triggered()
     QFileDialog::getOpenFileName(this,"Choix du ficher", "./");
 }
 
+void MainWindow::on_actionNewSphere_triggered()
+{
+    on_initSphere_clicked();
+}
+
+void MainWindow::on_actionNewCylindre_triggered()
+{
+    on_initCylinder_clicked();
+}
+
+void MainWindow::on_actionNewCone_triggered()
+{
+    on_initCone_clicked();
+}
+
+void MainWindow::on_actionNewTore_triggered()
+{
+    on_initCone_clicked();
+}
+
+void MainWindow::on_actionInitView_triggered()
+{
+    ui->glwidget->resetView();
+}
+
+void MainWindow::on_actionModFill_triggered()
+{
+    //a faire
+}
+
 void MainWindow::on_actionSave_as_triggered()
 {
 
@@ -294,10 +324,16 @@ void MainWindow::on_actionAbout_triggered()
    QMessageBox::information(this, "A propos", "Ce logiciel a été conçu dans un but pédagogique par : GAUTHIER Silvère, LAMEIRA Yannick, PELADAN Cécile");
 }
 
+void MainWindow::on_actionIndex_triggered()
+{
+
+    QMessageBox::about(0, "Lien", "<a href='https://github.com/slvrgauthier/OpenSculpt/blob/master/Documentation/Rapport.pdf'>Lien vers la documentation</a>");
+}
+
 // ===================================================
 // RIGHT PANEL
 
-void MainWindow::on_pushRemplace_clicked()
+void MainWindow::on_pushReplace_clicked()
 {
     this->hideDialog();
     m_mesh->setName(ui->textEditName->text());
@@ -358,9 +394,6 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event) {
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    QList<QPushButton*> keys = m_meshList.keys();
-    QMapIterator<QPushButton*,Mesh*> it(m_meshList);
-
     switch(event->key()) {
     case Qt::Key_1:
         if(event->modifiers()&Qt::ControlModifier) { on_initCube_clicked(); }
@@ -426,10 +459,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
     case Qt::Key_Enter:
         if(!event->modifiers()&&ui->pushValid->isVisible()) { on_pushValid_clicked(); }
+        if(!event->modifiers()&&ui->pushReplace->isVisible()) { on_pushReplace_clicked(); }
         break;
 
     case Qt::Key_Return:
         if(!event->modifiers()&&ui->pushValid->isVisible()) { on_pushValid_clicked(); }
+        if(!event->modifiers()&&ui->pushReplace->isVisible()) { on_pushReplace_clicked(); }
         break;
 
     case Qt::Key_Backspace:
@@ -443,18 +478,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Delete:
         if(!event->modifiers()&&ui->pushDelete->isVisible()) { on_pushDelete_clicked(); }
         break;
-/*
-    case Qt::Key_Tab: // La QMap n'a pas d'ordre...
-        for(int i=0 ; i < keys.size() ; ++i) {
-            if(keys.at(i)->isChecked()) {
-                m_mesh = (i+1 >= keys.size())? m_meshList.value(keys.at(0)) : m_meshList.value(keys.at(i+1));
-                ui->glwidget->selectMesh(m_mesh);
-            }
-        }
-        uncheckMesh();
-        m_meshList.key(m_mesh)->setChecked(true);
-        break;
-*/
+
     default:
         ui->glwidget->keyPressEvent(event);
         break;
@@ -510,7 +534,7 @@ void MainWindow::hideDialog()
     ui->widgetValidate->setVisible(false);
     ui->widgetSubdivide->setVisible(false);
     ui->widgetName->setVisible(false);
-    ui->pushRemplace->setVisible(false);
+    ui->pushReplace->setVisible(false);
     ui->pushDelete->setVisible(false);
     ui->pushDuplicate->setVisible(false);
 }
@@ -521,7 +545,7 @@ void MainWindow::showDialog()
 
     ui->widgetName->setVisible(true);
     ui->widgetValidate->setVisible(true);
-    ui->pushRemplace->setVisible(true);
+    ui->pushReplace->setVisible(true);
     ui->pushDelete->setVisible(true);
     //ui->pushDuplicate->setVisible(true);
     ui->pushCancel->setVisible(false);
@@ -555,3 +579,4 @@ void MainWindow::uncheckMesh() {
         it.key()->setChecked(false);
     }
 }
+

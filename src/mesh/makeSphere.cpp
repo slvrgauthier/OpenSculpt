@@ -1,24 +1,17 @@
 #include "Mesh.h"
 
 void Mesh::makeSphere(float radius, int discretization) {
-    this->clear();
+  this->clear();
   QVector<QVector3D> face;
 
+  float teta=2*M_PI/(float)(8.*discretization);//meridien
+  float Phi=M_PI/(float)(8.*discretization); // parrallele
 
-  float teta=2*M_PI/(float)(8.*discretization);
-  float Phi=M_PI/(float)(8.*discretization);
-
-
-
-
-  //FACE COTE
-  //float y = 0;
+ // Stocker tous les vertices.
   QVector3D vertices[(8*discretization)][(8*discretization)-1];
   QVector3D verticesUp,verticesDown;
-  for(int i=0;i<8.*discretization;i++){//meridien  8 meridien
-    for(int k =0;k<=8*discretization;k++){//parallele  9 vertices sur chaque paralleleen plus des sommets
-
-        // Stocker tous les vertices.
+  for(int i=0;i<8.*discretization;i++){//meridien
+    for(int k =0;k<=8*discretization;k++){//parallele
         if(k==0)
           verticesUp=QVector3D(radius*(sinf(Phi*k)*cosf(teta*i)),radius*(sinf(Phi*k)*sinf(teta*i)),radius*cosf(Phi*k));
        else if(k==8*discretization)
@@ -38,7 +31,7 @@ void Mesh::makeSphere(float radius, int discretization) {
 
   for(int i=0;i<8.*discretization;i++){//meridien
     for(int k=0;k<8*discretization-1;k++){//parallele
-        if(k==0){
+        if(k==0){ // face haut et premier ruban
             face.clear();
             face.push_back(verticesUp);
             face.push_back(vertices[i][k]);
@@ -52,7 +45,7 @@ void Mesh::makeSphere(float radius, int discretization) {
             this->addFace(face);
 
           }
-        else if(k==(8*discretization)-2)
+        else if(k==(8*discretization)-2)//face bas
           {
             face.clear();
             face.push_back(vertices[i][k]);

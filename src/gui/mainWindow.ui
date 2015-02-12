@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>897</width>
+    <width>902</width>
     <height>826</height>
    </rect>
   </property>
@@ -44,8 +44,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>897</width>
-     <height>25</height>
+     <width>902</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -58,6 +58,9 @@
      </property>
      <addaction name="actionNewCube"/>
      <addaction name="actionNewSphere"/>
+     <addaction name="actionNewCylindre"/>
+     <addaction name="actionNewCone"/>
+     <addaction name="actionNewTore"/>
     </widget>
     <addaction name="actionNewProject"/>
     <addaction name="menuNewObjet"/>
@@ -80,6 +83,7 @@
     <property name="title">
      <string>Aide</string>
     </property>
+    <addaction name="actionIndex"/>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -87,6 +91,8 @@
      <string>Affichage</string>
     </property>
     <addaction name="actionFullscreen"/>
+    <addaction name="actionInitView"/>
+    <addaction name="actionModFill"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
@@ -123,7 +129,7 @@
              <x>0</x>
              <y>0</y>
              <width>198</width>
-             <height>128</height>
+             <height>77</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="controleListModel">
@@ -317,7 +323,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushRemplace">
+            <widget class="QPushButton" name="pushReplace">
              <property name="text">
               <string>Remplacer</string>
              </property>
@@ -984,6 +990,36 @@
   <action name="actionSmooth">
    <property name="text">
     <string>Lisser</string>
+   </property>
+  </action>
+  <action name="actionNewCylindre">
+   <property name="text">
+    <string>Créer un Cylindre</string>
+   </property>
+  </action>
+  <action name="actionNewCone">
+   <property name="text">
+    <string>Créer un Cone</string>
+   </property>
+  </action>
+  <action name="actionNewTore">
+   <property name="text">
+    <string>Créer un Tore</string>
+   </property>
+  </action>
+  <action name="actionIndex">
+   <property name="text">
+    <string>Index</string>
+   </property>
+  </action>
+  <action name="actionInitView">
+   <property name="text">
+    <string>Réinitialiser la vue</string>
+   </property>
+  </action>
+  <action name="actionModFill">
+   <property name="text">
+    <string>Mode fils de fer</string>
    </property>
   </action>
  </widget>

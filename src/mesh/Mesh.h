@@ -30,14 +30,14 @@ public:
     Mesh();
     ~Mesh();
     // Create a Mesh by copy
-    static Mesh* copyMesh(Mesh *mesh);
+    static Mesh* copyMesh(Mesh *mesh); /* TODO */
 
     // Generate many predefined 3D polygons (extensible by developers)
     void makeCone(float height, float radiusUp, float radiusDown, int discretization);
     void makeCube(float width, float height, float depth, int discretization);
     void makeCylinder(float height, float radius, int discretization);
-    void makeSphere(float radius, int discretization);
-    void makeTorus(float radiusH, float radiusV, int discretization);
+    void makeSphere(float radius, int discretization); /* TODO */
+    void makeTorus(float radiusH, float radiusV, int discretization); /* TODO */
     // =========================================================
 
 

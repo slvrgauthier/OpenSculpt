@@ -58,17 +58,25 @@ private slots:
     // MenuFile
     void on_actionNewProject_triggered();
     void on_actionNewCube_triggered();
+    void on_actionNewSphere_triggered();
+    void on_actionNewCylindre_triggered();
+    void on_actionNewCone_triggered();
+    void on_actionNewTore_triggered();
     void on_actionOpen_triggered();
     void on_actionSave_as_triggered();
+    void on_actionInitView_triggered();
+    void on_actionModFill_triggered();
+
 
     // MenuView
     void on_actionFullscreen_triggered();
 
     // MenuHelp
     void on_actionAbout_triggered();
+    void on_actionIndex_triggered();
 
     // Right panel
-    void on_pushRemplace_clicked();
+    void on_pushReplace_clicked();
     void on_pushCancel_clicked();
     void on_pushValid_clicked();
     void on_pushDelete_clicked();
