@@ -12,3 +12,9 @@ void MeshButton::mousePressEvent(QMouseEvent * event)
         emit clickedLeft();
     }
 }
+
+void MeshButton::mouseDoubleClickEvent(QMouseEvent * event) {
+    if(event->button() == Qt::LeftButton) {
+        emit clickedRight();
+    }
+}
