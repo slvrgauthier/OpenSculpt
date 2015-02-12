@@ -95,7 +95,6 @@ private:
     Ui::MainWindow *ui;
     Mesh *m_mesh;
     QMap<QPushButton*, Mesh*> m_meshList;
-    MeshProcessing m_processing;
 };
 
 #endif // MAINWINDOW_H

@@ -13,3 +13,4 @@
 *.BASE
 *.REMOTE
 *.LOCAL
+*.db
