@@ -59,7 +59,6 @@ void Mesh::makeCylinder(float height, float radius, int discretization) {
       this->addFace(face);
 
     }
-//this->TEST();
 
-
+    this->TEST();
 }

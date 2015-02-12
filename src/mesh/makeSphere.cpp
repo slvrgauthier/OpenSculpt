@@ -9,7 +9,6 @@ void Mesh::makeSphere(float radius, int discretization) {
   float teta=360/(float)(8.*discretization);
   float Phi=M_PI/(float)(8.*discretization);//M_PI/
 
-
   //FACE COTE
   float y = 0;
   for(int i=0;i<8.*discretization;i++){//meridien
@@ -55,7 +54,5 @@ void Mesh::makeSphere(float radius, int discretization) {
     }
   }
 
-//this->TEST();
-
-
+    this->TEST();
 }

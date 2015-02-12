@@ -181,7 +181,7 @@ void MainWindow::on_initSphere_clicked()
 
     ui->widgetRadius->setVisible(true);
 
-    ui->spinBoxRadius->setValue(5.0);
+    ui->spinBoxRadius->setValue(2.5);
 
     updateSphere();
 
@@ -333,9 +333,11 @@ void MainWindow::on_pushValid_clicked()
 void MainWindow::on_pushDelete_clicked()
 {
     QPushButton *button = m_meshList.key(m_mesh);
+    m_meshList.remove(button);
     button->deleteLater();
     ui->glwidget->removeMesh(m_mesh);
     ui->glwidget->selectMesh(NULL);
+    m_mesh = NULL;
     this->hideDialog();
 }
 
@@ -441,7 +443,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Delete:
         if(!event->modifiers()&&ui->pushDelete->isVisible()) { on_pushDelete_clicked(); }
         break;
-
+/*
     case Qt::Key_Tab: // La QMap n'a pas d'ordre...
         for(int i=0 ; i < keys.size() ; ++i) {
             if(keys.at(i)->isChecked()) {
@@ -452,7 +454,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         uncheckMesh();
         m_meshList.key(m_mesh)->setChecked(true);
         break;
-
+*/
     default:
         ui->glwidget->keyPressEvent(event);
         break;
@@ -535,11 +537,11 @@ void MainWindow::checkMesh()
         on_pushValid_clicked();
     }
 
-    /*Récupération de l'émetteur du slot, afin d'associer le button et le modèle*/
+    /*Récupération de l'émetteur du slot, afin d'associer le button et le maillage*/
     QObject * emetteur = sender();
     QPushButton * sender = qobject_cast<QPushButton*>(emetteur);
 
-    m_mesh = m_meshList.value(sender); //Modele associé
+    m_mesh = m_meshList.value(sender); //Maillage associé
     ui->glwidget->selectMesh(m_mesh);
 
     this->uncheckMesh();

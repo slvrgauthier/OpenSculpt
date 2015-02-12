@@ -80,4 +80,6 @@ void Mesh::makeCube(float width, float height, float depth, int discretization) 
             this->addFace(face);
         }
     }
+
+    this->TEST();
 }
