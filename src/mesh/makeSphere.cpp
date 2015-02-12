@@ -3,56 +3,70 @@
 void Mesh::makeSphere(float radius, int discretization) {
 
   QVector<QVector3D> face;
-  //float h = height/2.;
-  float sizeY;
-  //sizeY = height /(float) discretization;
-  float teta=360/(float)(8.*discretization);
-  float Phi=M_PI/(float)(8.*discretization);//M_PI/
+
+
+  float teta=2*M_PI/(float)(8.*discretization);
+  float Phi=M_PI/(float)(8.*discretization);
+
+
+/*
 
   //FACE COTE
-  float y = 0;
+  //float y = 0;
+  QVector3D points[(8*discretization)][(8*discretization)-1];
+  QVector3D pointhaut,pointBas;
+  for(int i=0;i<8.*discretization;i++){//meridien  8 meridien
+    for(int k =0;k<=8*discretization;k++){//parallele  9 points sur chaque paralleleen plus des sommets
+
+        // Stocker tous les points.
+        if(k==0)
+          pointhaut=QVector3D(radius*(sinf(Phi*k)*cosf(teta*i)),radius*(sinf(Phi*k)*sinf(teta*i)),radius*cosf(Phi*k));
+       else if(k==8*discretization)
+          pointBas=QVector3D(radius*(sinf(Phi*k)*cosf(teta*i)),radius*(sinf(Phi*k)*sinf(teta*i)),radius*cosf(Phi*k));
+         else{
+        points[i][k].setX(radius*(sinf(Phi*k)*cosf(teta*i)));
+        points[i][k].setY(radius*(sinf(Phi*k)*sinf(teta*i)));
+        points[i][k].setZ(radius*cosf(Phi*k));
+
+        }
+
+      }
+    }
+
+
+  //Construction des faces
+
   for(int i=0;i<8.*discretization;i++){//meridien
-    for(int k =0;k<(8*discretization);k++){//parallele
-        //reference
-        float resSinCos=radius*(sinf(Phi*k)*cosd(teta*i)); //X
-        float resSinSin=radius*(sinf(Phi*k)*sind(teta*i));  //Y
-        float resCos=radius*cosf(Phi*k);  //Z
-
-        float resSinCos_1=radius*(sinf(Phi*(k+1))*cosd(teta*i)); //X par+1
-        float resSinSin_1=radius*(sinf(Phi*(k+1))*sind(teta*i));  //Y para+1
-        float resCos_1=radius*cosf(Phi*(k+1));  //Z para+1
-
-        float resSinCos_1_1=radius*(sinf(Phi*(k+1))*cosd(teta*((i+1)%(8*discretization)))); //X par+1 meri+1
-        float resSinSin_1_1=radius*(sinf(Phi*(k+1))*sind(teta*((i+1)%(8*discretization))));  //Y para+1 merid+1
-
-        float resSinCos_0_1=radius*(sinf(Phi*(k))*cosd(teta*((i+1)%(8*discretization)))); //X  meri+1
-        float resSinSin_0_1=radius*(sinf(Phi*(k))*sind(teta*((i+1)%(8*discretization))));  //Y  merid+1
-
-      if(k==0){
-          face.clear();
-          face.push_back(QVector3D(resSinCos,resSinSin,resCos ));
-          face.push_back(QVector3D(resSinCos_1,resSinSin_1,resCos_1));
-          face.push_back(QVector3D(resSinCos_1_1,resSinSin_1_1,resCos_1));
-          this->addFace(face);
+    for(int k=0;k<8*discretization;k++){//parallele
+        if(k==0){
+            face.clear();
+            face.push_back(pointhaut);
+            face.push_back(points[i][k]);
+            face.push_back(points[(i+1)%(8*discretization)][k]);
+            this->addFace(face);
+          }
+        else if(k==(8*discretization)-1)
+          {
+            face.clear();
+            face.push_back(points[i][k]);
+            face.push_back(pointBas);
+            face.push_back(points[(i+1)%(8*discretization)][k]);
+            this->addFace(face);
+          }
+        else{
+            face.clear();
+            face.push_back(points[i][k]);
+            face.push_back(points[i][k+1]);
+            face.push_back(points[(i+1)%(8*discretization)][k+1]);
+            face.push_back(points[(i+1)%(8*discretization)][k]);
+            this->addFace(face);
         }
-      else if(k==(8*discretization)-1)
-        {
-          face.clear();
-          face.push_back(QVector3D(resSinCos,resSinSin,resCos ));
-          face.push_back(QVector3D(resSinCos_1,resSinSin_1,resCos_1));
-          face.push_back(QVector3D(resSinCos_0_1,resSinSin_0_1,resCos));
-          this->addFace(face);
-        }
-      else{
-      face.clear();
-      face.push_back(QVector3D(resSinCos,resSinSin,resCos ));
-      face.push_back(QVector3D(resSinCos_1,resSinSin_1,resCos_1));
-      face.push_back(QVector3D(resSinCos_1_1,resSinSin_1_1,resCos_1));
-      face.push_back(QVector3D(resSinCos_0_1,resSinSin_0_1,resCos));
-      this->addFace(face);
-        }
+
+
     }
   }
+  this->TEST();
+*/
 
-    this->TEST();
+
 }
