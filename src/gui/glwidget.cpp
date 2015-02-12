@@ -43,9 +43,14 @@ void GLWidget::initializeGL()
     glShadeModel(GL_SMOOTH);
     glEnable(GL_LIGHTING);
 
+    // Light position
     glEnable(GL_LIGHT0);
     int Light0Pos[4] = {(int)(offsetX - distance),(int)-offsetY,(int)(-distance/2),1};
     glLightiv(GL_LIGHT0,GL_POSITION,Light0Pos);
+
+    // Wireframe offset
+    glEnable(GL_POLYGON_OFFSET_LINE);
+    glPolygonOffset(-1,-1);
 }
 
 void GLWidget::paintGL()
@@ -67,7 +72,6 @@ void GLWidget::paintGL()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(30.0f, 1.0*width()/height(), 0.1f, 100.0f);
-
 
     // Draw meshes
     if(mode_fill) {
