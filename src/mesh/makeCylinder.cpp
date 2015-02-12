@@ -42,9 +42,9 @@ void Mesh::makeCylinder(float height, float radius, int discretization) {
       float resultCos_1= radius*cosd(angle*((k+1)%(8*discretization)));
       float resultSin_1= radius*sind(angle*((k+1)%(8*discretization)));
       face.clear();
-      face.push_back(QVector3D(0, -height/2., 0));
-      face.push_back(QVector3D(resultCos, -height/2., resultSin));
-      face.push_back(QVector3D(resultCos_1, -height/2., resultSin_1));
+      face.push_back(QVector3D(0, -h, 0));
+      face.push_back(QVector3D(resultCos, -h, resultSin));
+      face.push_back(QVector3D(resultCos_1, -h, resultSin_1));
       this->addFace(face);
 
     }
