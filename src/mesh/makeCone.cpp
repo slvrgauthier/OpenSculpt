@@ -3,6 +3,69 @@
 void Mesh::makeCone(float height, float radiusUp, float radiusDown, int discretization) {
     this->clear();
 
+  QVector<QVector3D> face;
+  float h = height/2.;
+  float sizeY;
+
+  sizeY = height /(float) discretization;
+
+  float angle=360/(float)(8.*discretization);
+
+
+
+
+  //FACE COTE
+  float y = 0;
+  for(int i=0;i<discretization;i++){
+    for(int k =0;k<8*discretization;k++){
+      float resultCos= cosd(angle*k);
+      float resultSin= sind(angle*k);
+      float resultCos_1= cosd(angle*((k-1)%(8*discretization)));
+      float resultSin_1= sind(angle*((k-1)%(8*discretization)));
+      y = -h + i* sizeY;
+      face.clear();
+      face.push_back(QVector3D(resultCos*radiusDown, (float)y, resultSin*radiusDown));
+      face.push_back(QVector3D(resultCos_1*radiusDown,(float)y, resultSin_1*radiusDown));
+      face.push_back(QVector3D(resultCos_1*radiusUp,(float) y + sizeY , resultSin_1*radiusUp));
+      if(radiusUp!=0)
+        face.push_back(QVector3D(resultCos*radiusUp,(float) y + sizeY, resultSin*radiusUp));
+      this->addFace(face);
+
+    }
+  }
+
+  //FACE BAS
+  for(int k =0;k<8*discretization;k++){
+      float resultCos= radiusDown*cosd(angle*k);
+      float resultSin= radiusDown*sind(angle*k);
+      float resultCos_1= radiusDown*cosd(angle*((k+1)%(8*discretization)));
+      float resultSin_1= radiusDown*sind(angle*((k+1)%(8*discretization)));
+      face.clear();
+      face.push_back(QVector3D(0, -height/2., 0));
+      face.push_back(QVector3D(resultCos, -height/2., resultSin));
+      face.push_back(QVector3D(resultCos_1, -height/2., resultSin_1));
+      this->addFace(face);
+
+    }
+
+
+  //FACE HAUT  // sens inversé par rapport au bas
+  for(int k =0;k<8*discretization;k++){
+      float resultCos= radiusUp*cosd(angle*k);
+      float resultSin= radiusUp*sind(angle*k);
+      float resultCos_1= radiusUp*cosd(angle*((k+1)%(8*discretization)));
+      float resultSin_1= radiusUp*sind(angle*((k+1)%(8*discretization)));
+      face.clear();
+      face.push_front(QVector3D(0, h, 0));
+      face.push_front(QVector3D(resultCos, h, resultSin));
+      face.push_front(QVector3D(resultCos_1, h, resultSin_1));
+      this->addFace(face);
+
+    }
+this->TEST();
+
+
+/*
     // HalfEdges
     m_edges.reserve(96);
     for(int i=0 ; i < 96 ; ++i) { m_edges.push_back(new HalfEdge); }
@@ -147,5 +210,5 @@ void Mesh::makeCone(float height, float radiusUp, float radiusDown, int discreti
         m_edges[j]->vertex = m_vertices[i+2];
         m_edges[j+1]->vertex = m_vertices[1];
         m_edges[j+2]->vertex = m_vertices[i];
-      }
+      }*/
 }
