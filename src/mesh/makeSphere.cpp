@@ -9,7 +9,7 @@ void Mesh::makeSphere(float radius, int discretization) {
   float Phi=M_PI/(float)(8.*discretization);
 
 
-/*
+
 
   //FACE COTE
   //float y = 0;
@@ -24,9 +24,9 @@ void Mesh::makeSphere(float radius, int discretization) {
        else if(k==8*discretization)
           pointBas=QVector3D(radius*(sinf(Phi*k)*cosf(teta*i)),radius*(sinf(Phi*k)*sinf(teta*i)),radius*cosf(Phi*k));
          else{
-        points[i][k].setX(radius*(sinf(Phi*k)*cosf(teta*i)));
-        points[i][k].setY(radius*(sinf(Phi*k)*sinf(teta*i)));
-        points[i][k].setZ(radius*cosf(Phi*k));
+        points[i][k-1].setX(radius*(sinf(Phi*k)*cosf(teta*i)));
+        points[i][k-1].setY(radius*(sinf(Phi*k)*sinf(teta*i)));
+        points[i][k-1].setZ(radius*cosf(Phi*k));
 
         }
 
@@ -37,15 +37,22 @@ void Mesh::makeSphere(float radius, int discretization) {
   //Construction des faces
 
   for(int i=0;i<8.*discretization;i++){//meridien
-    for(int k=0;k<8*discretization;k++){//parallele
+    for(int k=0;k<8*discretization-1;k++){//parallele
         if(k==0){
             face.clear();
             face.push_back(pointhaut);
             face.push_back(points[i][k]);
             face.push_back(points[(i+1)%(8*discretization)][k]);
             this->addFace(face);
+            face.clear();
+            face.push_back(points[i][k]);
+            face.push_back(points[i][k+1]);
+            face.push_back(points[(i+1)%(8*discretization)][k+1]);
+            face.push_back(points[(i+1)%(8*discretization)][k]);
+            this->addFace(face);
+
           }
-        else if(k==(8*discretization)-1)
+        else if(k==(8*discretization)-2)
           {
             face.clear();
             face.push_back(points[i][k]);
@@ -62,11 +69,10 @@ void Mesh::makeSphere(float radius, int discretization) {
             this->addFace(face);
         }
 
-
     }
   }
   this->TEST();
-*/
+
 
 
 }
