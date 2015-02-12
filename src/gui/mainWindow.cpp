@@ -285,6 +285,16 @@ void MainWindow::on_actionNewTore_triggered()
     on_initCone_clicked();
 }
 
+void MainWindow::on_actionInitView_triggered()
+{
+    ui->glwidget->resetView();
+}
+
+void MainWindow::on_actionModFill_triggered()
+{
+    //a faire
+}
+
 void MainWindow::on_actionSave_as_triggered()
 {
 

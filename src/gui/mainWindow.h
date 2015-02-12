@@ -64,6 +64,9 @@ private slots:
     void on_actionNewTore_triggered();
     void on_actionOpen_triggered();
     void on_actionSave_as_triggered();
+    void on_actionInitView_triggered();
+    void on_actionModFill_triggered();
+
 
     // MenuView
     void on_actionFullscreen_triggered();

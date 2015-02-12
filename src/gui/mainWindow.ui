@@ -91,6 +91,8 @@
      <string>Affichage</string>
     </property>
     <addaction name="actionFullscreen"/>
+    <addaction name="actionInitView"/>
+    <addaction name="actionModFill"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdition"/>
@@ -1008,6 +1010,16 @@
   <action name="actionIndex">
    <property name="text">
     <string>Index</string>
+   </property>
+  </action>
+  <action name="actionInitView">
+   <property name="text">
+    <string>Réinitialiser la vue</string>
+   </property>
+  </action>
+  <action name="actionModFill">
+   <property name="text">
+    <string>Mode fils de fer</string>
    </property>
   </action>
  </widget>
