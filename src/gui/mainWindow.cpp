@@ -265,6 +265,26 @@ void MainWindow::on_actionOpen_triggered()
     QFileDialog::getOpenFileName(this,"Choix du ficher", "./");
 }
 
+void MainWindow::on_actionNewSphere_triggered()
+{
+    on_initSphere_clicked();
+}
+
+void MainWindow::on_actionNewCylindre_triggered()
+{
+    on_initCylinder_clicked();
+}
+
+void MainWindow::on_actionNewCone_triggered()
+{
+    on_initCone_clicked();
+}
+
+void MainWindow::on_actionNewTore_triggered()
+{
+    on_initCone_clicked();
+}
+
 void MainWindow::on_actionSave_as_triggered()
 {
 

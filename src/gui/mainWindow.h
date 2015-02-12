@@ -58,6 +58,10 @@ private slots:
     // MenuFile
     void on_actionNewProject_triggered();
     void on_actionNewCube_triggered();
+    void on_actionNewSphere_triggered();
+    void on_actionNewCylindre_triggered();
+    void on_actionNewCone_triggered();
+    void on_actionNewTore_triggered();
     void on_actionOpen_triggered();
     void on_actionSave_as_triggered();
 

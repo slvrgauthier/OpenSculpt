@@ -2,7 +2,7 @@
 
 void Mesh::makeSphere(float radius, int discretization) {
 
-  QVector<QVector3D> face;
+  /*QVector<QVector3D> face;
 
 
   float teta=2*M_PI/(float)(8.*discretization);
@@ -72,7 +72,7 @@ void Mesh::makeSphere(float radius, int discretization) {
     }
   }
   this->TEST();
-
+*/
 
 
 }
