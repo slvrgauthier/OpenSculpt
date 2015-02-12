@@ -400,7 +400,13 @@ QVector<QVector3D> Mesh::getNeighbours(QVector3D vertex, int degree) {
 }
 
 QVector3D Mesh::getNormal(QVector3D position) {
-    return (position-getCenter()).normalized();
+    QVector<QVector3D> vertices = getVertices(position, 0);
+    if(vertices.size() >= 3) {
+        return QVector3D::normal(vertices[0], vertices[1], vertices[2]);
+    }
+    else {
+        return (position-getCenter()).normalized();
+    }
 }
 
 void Mesh::moveVertex(QVector3D vertex, QVector3D move) {

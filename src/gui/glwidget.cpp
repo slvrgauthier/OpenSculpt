@@ -68,9 +68,6 @@ void GLWidget::paintGL()
     glLoadIdentity();
     gluPerspective(30.0f, 1.0*width()/height(), 0.1f, 100.0f);
 
-    // Brush
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    //m_brush.paintGL(QVector3D(last_pos.x()-this->width()/2.,this->height()/2.-last_pos.y(),0) * (-distance/900.));
 
     // Draw meshes
     if(mode_fill) {
@@ -79,6 +76,10 @@ void GLWidget::paintGL()
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     m_manager.paintGL((mode_fill)? -2 : -1);
+
+    // Brush
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    m_brush.paintGL(mapFromGlobal(this->cursor().pos()), m_manager.getMesh(activeMesh));
 }
 void GLWidget::resizeGL(int w, int h)
 {

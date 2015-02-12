@@ -4,11 +4,13 @@ void Mesh::makeSphere(float radius, int discretization) {
 
   QVector<QVector3D> face;
 
+
   float teta=2*M_PI/(float)(8.*discretization);
   float Phi=M_PI/(float)(8.*discretization);
 
 
 /*
+
   //FACE COTE
   //float y = 0;
   QVector3D points[(8*discretization)][(8*discretization)-1];
@@ -30,6 +32,7 @@ void Mesh::makeSphere(float radius, int discretization) {
 
       }
     }
+
 
   //Construction des faces
 
@@ -64,5 +67,6 @@ void Mesh::makeSphere(float radius, int discretization) {
   }
   this->TEST();
 */
+
 
 }

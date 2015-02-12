@@ -49,7 +49,6 @@ private:
     QTimer m_timer;
     MeshManager m_manager;
     MeshTool m_tool;
-    MeshProcessing m_processing;
     TOOL activeTool;
     int activeMesh;
     Brush m_brush;

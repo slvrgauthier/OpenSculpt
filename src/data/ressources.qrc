@@ -19,5 +19,6 @@
         <file>icons/scale_2.png</file>
         <file>icons/cylinder.png</file>
         <file>icons/notool.png</file>
+        <file>icons/scult.ico</file>
     </qresource>
 </RCC>
