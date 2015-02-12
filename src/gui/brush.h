@@ -25,7 +25,7 @@ public:
 
     // ================== PUBLIC MEMBERS ==================
 public:
-    void paintGL(QPoint mouse);
+    void paintGL(QPoint mouse, Mesh *mesh);
     // ====================================================
 
 
