@@ -68,7 +68,7 @@ private slots:
     void on_actionAbout_triggered();
 
     // Right panel
-    void on_pushRemplace_clicked();
+    void on_pushReplace_clicked();
     void on_pushCancel_clicked();
     void on_pushValid_clicked();
     void on_pushDelete_clicked();

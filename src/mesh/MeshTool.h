@@ -37,7 +37,7 @@ class MeshTool
 {
 public:
     void gtmove(Mesh *mesh, QVector3D move);
-    void gtrotate(Mesh *mesh, QVector3D move);
+    void gtrotate(Mesh *mesh, QVector3D move); /* RECODE : selon la vue actuelle */
     void gtscale(Mesh *mesh, QVector3D move);
 
     void ltadd(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
@@ -47,7 +47,7 @@ public:
     void ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
 
     void subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize);
-    void decimateAuto(Mesh *mesh, QPoint last_position, float brushSize);
+    void decimateAuto(Mesh *mesh, QPoint last_position, float brushSize); /* TODO */
 };
 
 #endif // MESHTOOL_H

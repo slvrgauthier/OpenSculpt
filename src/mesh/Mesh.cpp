@@ -3,7 +3,7 @@
 Mesh::Mesh() { m_center = QVector3D(0.,0.,0.); }
 Mesh::~Mesh() { this->clear(); }
 
-Mesh *Mesh::copyMesh(Mesh *mesh) {
+/*Mesh *Mesh::copyMesh(Mesh *mesh) {
     Mesh *result = new Mesh();
 
     // Create Vertices
@@ -49,7 +49,7 @@ Mesh *Mesh::copyMesh(Mesh *mesh) {
         edge = result->getEdge(i);
         // need indices of edges and faces
     }
-}
+}*/
 
 void Mesh::addFace(QVector<QVector3D> vertices) {
     int size = vertices.size();
@@ -402,7 +402,7 @@ QVector<QVector3D> Mesh::getNeighbours(QVector3D vertex, int degree) {
 QVector3D Mesh::getNormal(QVector3D position) {
     QVector<QVector3D> vertices = getVertices(position, 0);
     if(vertices.size() >= 3) {
-        return QVector3D::normal(vertices[0], vertices[1], vertices[2]);
+        return QVector3D::normal(vertices[0], vertices[1], vertices[2]).normalized();
     }
     else {
         return (position-getCenter()).normalized();

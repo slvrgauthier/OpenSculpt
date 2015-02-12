@@ -241,8 +241,8 @@ bool MeshProcessing::subdivideAuto(Mesh *mesh, float maxEdgeLength) {
 
 bool MeshProcessing::decimateAuto(Mesh *mesh, float minEdgeLength) {
     bool result = false;
-    QVector3D p1, p2, p3;
-/*
+/*    QVector3D p1, p2, p3;
+
     QVector<QVector3D> neighbours;
 
     for(int i=0 ; i < mesh->getEdgeCount() ; ++i) {

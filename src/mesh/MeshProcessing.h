@@ -25,11 +25,11 @@ public:
 public:
     // Subdivide or Decimate the entire Mesh
     static void subdivide(Mesh *mesh);
-    static void decimate(Mesh *mesh);
+    static void decimate(Mesh *mesh); /* TODO */
 
     // Subdivide or Decimate only half-edges wich break the criterion
     static bool subdivideAuto(Mesh *mesh, float maxEdgeLength);
-    static bool decimateAuto(Mesh *mesh, float minEdgeLength);
+    static bool decimateAuto(Mesh *mesh, float minEdgeLength); /* TODO */
 
     // Scale the entire Mesh along the three axis separately
     static void scale(Mesh *mesh, QVector3D coef);

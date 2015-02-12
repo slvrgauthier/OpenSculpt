@@ -49,7 +49,6 @@ void MeshRenderer::update() {
         m_indices.push_back(m_mesh->getFace(i)->edge->vertex->index);
         m_indices.push_back(m_mesh->getFace(i)->edge->next->vertex->index);
         m_indices.push_back(m_mesh->getFace(i)->edge->previous->vertex->index);
-        //QVector3D::normal(m_mesh->getVertex(m_indices[3*i])->coords, m_mesh->getVertex(m_indices[3*i+1])->coords, m_mesh->getVertex(m_indices[3*i+2])->coords);
     }
 
     m_normals.clear();

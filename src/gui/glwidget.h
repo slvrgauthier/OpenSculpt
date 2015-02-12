@@ -31,8 +31,8 @@ public:
     void clear();
 
     void resetView();
-    void undo();
-    void redo();
+    void undo(); /* TODO */
+    void redo(); /* TODO */
 
 public slots:
     void setBrushSize(double size);

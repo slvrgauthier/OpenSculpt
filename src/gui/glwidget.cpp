@@ -41,11 +41,11 @@ void GLWidget::initializeGL()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glShadeModel(GL_SMOOTH);
-    glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
 
-    int LightPos[4] = {(int)(offsetX - distance),(int)-offsetY,(int)(-distance/2),1};
-    glLightiv(GL_LIGHT0,GL_POSITION,LightPos);
+    glEnable(GL_LIGHT0);
+    int Light0Pos[4] = {(int)(offsetX - distance),(int)-offsetY,(int)(-distance/2),1};
+    glLightiv(GL_LIGHT0,GL_POSITION,Light0Pos);
 }
 
 void GLWidget::paintGL()
@@ -71,6 +71,7 @@ void GLWidget::paintGL()
 
     // Draw meshes
     if(mode_fill) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         m_manager.paintGL(activeMesh);
     }
 
@@ -91,11 +92,11 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
     switch(event->key()) {
 
     case Qt::Key_F:
-        if(!event->modifiers()) { mode_fill = true; glEnable(GL_CULL_FACE); }
+        if(!event->modifiers()) { mode_fill = true; }
         break;
 
     case Qt::Key_W:
-        if(!event->modifiers()) { mode_fill = false; /*glDisable(GL_CULL_FACE);*/ }
+        if(!event->modifiers()) { mode_fill = false; }
         break;
 
     default:
