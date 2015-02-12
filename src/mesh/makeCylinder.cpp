@@ -11,9 +11,6 @@ void Mesh::makeCylinder(float height, float radius, int discretization) {
 
   float angle=360/(float)(8.*discretization);
 
-
-
-
   //FACE COTE
   float y = 0;
   for(int i=0;i<discretization;i++){
@@ -33,7 +30,6 @@ void Mesh::makeCylinder(float height, float radius, int discretization) {
     }
   }
 
-  QVector3D first_vertice;
 
   //FACE BAS
   for(int k =0;k<8*discretization;k++){
@@ -63,7 +59,7 @@ void Mesh::makeCylinder(float height, float radius, int discretization) {
       this->addFace(face);
 
     }
-this->TEST();
+//this->TEST();
 
 
 }
