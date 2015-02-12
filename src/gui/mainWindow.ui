@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>OpenSculpt</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../data/ressources.qrc">
+    <normaloff>:/icons/OpenSculpt-mini.png</normaloff>:/icons/OpenSculpt-mini.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>

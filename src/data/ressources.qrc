@@ -20,5 +20,7 @@
         <file>icons/cylinder.png</file>
         <file>icons/notool.png</file>
         <file>icons/scult.ico</file>
+        <file>icons/OpenSculpt.png</file>
+        <file>icons/OpenSculpt-mini.png</file>
     </qresource>
 </RCC>
