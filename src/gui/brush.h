@@ -25,7 +25,7 @@ public:
 
     // ================== PUBLIC MEMBERS ==================
 public:
-    void paintGL(QVector3D position);
+    void paintGL(QPoint mouse);
     // ====================================================
 
 

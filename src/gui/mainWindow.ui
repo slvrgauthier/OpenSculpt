@@ -41,7 +41,7 @@
      <x>0</x>
      <y>0</y>
      <width>897</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -119,7 +119,7 @@
              <x>0</x>
              <y>0</y>
              <width>198</width>
-             <height>77</height>
+             <height>128</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="controleListModel">
@@ -353,6 +353,12 @@
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/add.png</normaloff>:/icons/add.png</iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>64</width>
+         <height>16</height>
+        </size>
+       </property>
        <property name="checkable">
         <bool>true</bool>
        </property>
@@ -369,6 +375,12 @@
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/smooth.png</normaloff>:/icons/smooth.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>64</width>
+         <height>16</height>
+        </size>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -387,6 +399,12 @@
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/move_2.png</normaloff>:/icons/move_2.png</iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>64</width>
+         <height>16</height>
+        </size>
+       </property>
        <property name="checkable">
         <bool>true</bool>
        </property>
@@ -404,6 +422,12 @@
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/inflate.png</normaloff>:/icons/inflate.png</iconset>
        </property>
+       <property name="iconSize">
+        <size>
+         <width>64</width>
+         <height>16</height>
+        </size>
+       </property>
        <property name="checkable">
         <bool>true</bool>
        </property>
@@ -420,6 +444,12 @@
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
          <normaloff>:/icons/pinch.png</normaloff>:/icons/pinch.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>64</width>
+         <height>16</height>
+        </size>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -588,12 +618,15 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="select">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aucun&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Esc&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/cursor.png</normaloff>:/icons/cursor.png</iconset>
+         <normaloff>:/icons/notool.png</normaloff>:/icons/notool.png</iconset>
        </property>
       </widget>
      </item>
@@ -701,7 +734,17 @@
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Subdivision &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+S&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
-        <string>Sub</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/subdivide.png</normaloff>:/icons/subdivide.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
@@ -711,7 +754,17 @@
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Décimation&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+D&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
-        <string>Dec</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../data/ressources.qrc">
+         <normaloff>:/icons/decimate.png</normaloff>:/icons/decimate.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>32</width>
+         <height>16</height>
+        </size>
        </property>
        <property name="checkable">
         <bool>false</bool>
@@ -769,7 +822,7 @@
        </property>
        <property name="icon">
         <iconset resource="../data/ressources.qrc">
-         <normaloff>:/icons/cylindre.png</normaloff>:/icons/cylindre.png</iconset>
+         <normaloff>:/icons/cylinder.png</normaloff>:/icons/cylinder.png</iconset>
        </property>
       </widget>
      </item>

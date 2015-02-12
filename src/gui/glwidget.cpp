@@ -94,7 +94,7 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
         break;
 
     case Qt::Key_W:
-        if(!event->modifiers()) { mode_fill = false; glDisable(GL_CULL_FACE); }
+        if(!event->modifiers()) { mode_fill = false; /*glDisable(GL_CULL_FACE);*/ }
         break;
 
     default:

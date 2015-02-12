@@ -5,12 +5,10 @@ MeshButton::MeshButton(QString text, QWidget *parent) : QPushButton(text, parent
 
 void MeshButton::mousePressEvent(QMouseEvent * event)
 {
-    if(event->button() == Qt::RightButton)
-    {
+    if(event->button() == Qt::RightButton) {
         emit clickedRight();
     }
-    if(event->button() == Qt::LeftButton)
-    {
+    if(event->button() == Qt::LeftButton) {
         emit clickedLeft();
     }
 }
