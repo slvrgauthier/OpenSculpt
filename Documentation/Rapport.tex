@@ -333,7 +333,7 @@
 		\section{API}
 			\label{api-dev}
 			Le principe d'une API est de fournir au développeur une surcouche permettant d'encapsuler les calculs et représentations internes à l'intérieur 
-			d'un certains nombre de méthodes. Ces méthodes seront par la suite utilisables par le développeur afin de faciliter l'implémentation. Un 
+			d'un certain nombre de méthodes. Ces méthodes seront par la suite utilisables par le développeur afin de faciliter l'implémentation. Un 
 			diagramme de classes est disponible en annexe (cf page \pageref{fig:diagClass}).
 			
 			\subsection{La structure interne}
@@ -360,7 +360,7 @@
 				\end{verbatim}
 				Cette structure est certes relativement gourmande en stockage, mais très performante pour tous les algorithmes de transformations basés sur 
 				le voisinage. Nous utilisons ici le voisinage non seulement pour le rendu, mais également dans chaque outil de sculpture et chaque fonction 
-				telle que la subdivision. Nous avons d'ailleurs ajouté un entier dans la structure des points afin d'optenir des accès immédiats lors du 
+				telle que la subdivision. Nous avons d'ailleurs ajouté un entier dans la structure des points afin d'obtenir des accès immédiats lors du 
 				rendu.\\
 				\\
 				Pour utiliser cette structure tout en séparant bien les types d'interaction, nous avons créé un certain nombre de classes, dont chacune a un 
@@ -372,7 +372,7 @@
 					\item \textbf{MeshTool :} contient les méthodes outils permettant la sculpture de l'objet (cf page \pageref{tool-dev}).
 					\item \textbf{MeshManager :} contient et gère l'ensemble des objets de la scène (cf page \pageref{manager-dev}).
 				\end{itemize}
-				Toutes ces classes sont ensuite utilisées au sein de l'interface, notamment le widget OpenGL.
+				Toutes ces classes sont ensuite utilisées au sein de l'interface, notamment dans le widget OpenGL.
 				
 			\subsection{Les méthodes de la classe Mesh}
 				\label{mesh-dev}
@@ -394,7 +394,7 @@
 						bool addFace(QVector<QVector3D> vertices);
 					\end{verbatim}
 					En entrée, la méthode prend une liste de points, supposés ordonnés dans le sens direct. Ensuite, la méthode détecte les points déjà 
-					existants et crée les autres. Enfin, la face est créée sous forme d'un TRIANGLE_FAN (éventail), dont la base sera le premier point 
+					existants et crée les autres. Enfin, la face est créée sous forme d'un TRIANGLE\_FAN (éventail), dont la base sera le premier point 
 					de la liste. Il est alors possible de compléter l'éventail par ajout d'une copie du second point à la fin de la liste.\\
 					Un booléen est renvoyé pour attester du bon déroulement de celle-ci.
 					
@@ -426,7 +426,8 @@
 					Le but de cette fonction est de renvoyer tous les points présents dans la zone de centre "position" et de rayon "areaSize". Pour cela, 
 					un parcours récursif des voisins de la face contenant le centre, couplé avec des tests de distance point à point, renvoie tous les 
 					points des faces voisines tant que la distance au centre reste inférieure au rayon. Si le rayon est égal à zéro, la fonction renvoie 
-					uniquement les trois points de la face contenant le centre de la zone. De plus, la liste de points renvoyée contient aussi le centre.
+					uniquement les trois points de la face contenant le centre de la zone.\\ 
+					Remarque : la liste de points renvoyée contient aussi "position".
 					
 				\subsubsection{Récupération de voisinage}
 					Il est possible de récupérer une liste de points voisins d'un certain point avec :
@@ -434,7 +435,7 @@
 						QVector<QVector3D> getNeighbours(QVector3D vertex, int degree);
 					\end{verbatim}
 					Si le point passé en paramètres existe, alors la fonction renverra, grâce à un parcours récursifs basé sur les adjacences de faces, la 
-					liste de points voisins de celui-ci. Le degré de voisinage permet d'obtenir des voisins plus éloignés, ce paramètre définissant le 
+					liste des points voisins de celui-ci. Le degré de voisinage permet d'obtenir des voisins plus éloignés, ce paramètre définissant le 
 					nombre de récursions à effectuer lors du parcours.
 					
 				\subsubsection{Récupération de normale de surface}
@@ -453,7 +454,7 @@
 						void moveVertex(int index, QVector3D move);
 						void moveVertices(QVector<QVector3D> vertices, QVector3D move);
 					\end{verbatim}
-					Ces trois fonctions permettent au développeur d'effectuer des translation sur un ou plusieurs points, selon un vecteur passé en 
+					Ces trois fonctions permettent au développeur d'effectuer des translations sur un ou plusieurs points, selon un vecteur passé en 
 					paramètres ("move").
 					
 				\subsubsection{Les accesseurs}
@@ -485,7 +486,7 @@
 					entier pour chaque point de chaque triangle au lieu de répéter trois flottants pour chaque points et trois de plus pour chaque normale).
 					
 				\subsubsection{Synchronisation des buffers}
-					Il est parfois nécessaire d'actualiser ou non les buffers objects :
+					Il est parfois nécessaire d'actualiser ou non les buffer objects :
 					\begin{verbatim}
 						void update();
 					\end{verbatim}
@@ -573,8 +574,8 @@
 						void removeMesh(Mesh *mesh);
 						void clear();
 					\end{verbatim}
-					Ces fonctions d'ajout et suppression permettent de ne pas gérer nous même les suppressions d'objets de la mémoire, puisque le manager 
-					s'en occuper. Ainsi, la programmation s'en retrouve moins compliquée.
+					Ces fonctions d'ajout et suppression permettent de ne pas gérer nous même les suppressions d'objet de la mémoire, puisque le manager 
+					s'en occupe. Ainsi, la programmation s'en retrouve moins compliquée.
 		
 		\section{...}
 			% TODO : diagrammes, problèmes et solutions, précisions (TRES TRES PEU DE CODE, PAS TROP UTILE SUR L'INTERFACE)...etc
@@ -589,14 +590,15 @@
 			% TODO : image de l'interface avec explications, raccourcis clavier, menus...etc
 
 		\section{Développeur}
-			Toute personne avec des bases de programmation pourra étendre les fonctionnalités de celle-ci grâce à notre API.
+			Toute personne avec des bases de programmation pourra étendre les fonctionnalités de celle-ci grâce à notre API. Les seuls prérequis seront 
+			d'installer QtCreator et d'avoir les librairies Glut pour OpenGL.
 			
 			\subsection{Ajout d'un maillage modèle}
 				Il est possible d'ajouter un maillage modèle afin d'enrichir les objets de base proposés à l'utilisateur.
 				%TODO : expliquer avec du code
 				
 			\subsection{Ajout d'un outil}
-				Il est possible d'ajouter un maillage modèle afin d'enrichir les actions de sculpture proposéés à l'utilisateur.
+				Il est possible d'ajouter un outil afin d'enrichir les actions de sculpture proposées à l'utilisateur.
 				%TODO : expliquer avec du code
 				
 			\subsection{Pour aller plus loin...}
@@ -605,13 +607,14 @@
 
 %==========================================================================================================================================================
 	\chapter{Post-Mortem}
-		Cette section liste toutes les étapes de la conception que nous n'avons pas réalisées (selon notre ordre de priorités), ainsi que toutes les améliorations auxquelles nous avons pensé lors de la phase de développement.
+		Cette section liste toutes les étapes de la conception que nous n'avons pas réalisées (selon notre ordre de priorités), ainsi que toutes les 
+		améliorations auxquelles nous avons pensé lors de la phase de développement.
 		
 		\section{Fonctionnalités non implémentées}
-			%TODO
+			%TODO : mode miroir, déplacement des lumières, matériaux
 			
 		\section{Améliorations réalisables}
-			%TODO
+			%TODO : optimisation, enrichir, meilleure décimation, rotation selon angle de vue actuel
 
 %==========================================================================================================================================================
 	\appendix
@@ -646,11 +649,15 @@
 			\end{figure}
 			
 			\begin{figure}
-				\begin{center}
-					%\includegraphics[scale=0.5]{img/diagClass.png}
-				\end{center}
+					\hspace{-2,75cm}\includegraphics{img/diagClass.png}
 				\label{fig:diagClass}
 				\caption{Diagramme de classes de notre API}
+			\end{figure}
+			
+			\begin{figure}
+				\hspace{-3cm}\includegraphics[scale=0.5]{img/subdivide.png}
+				\label{fig:subdivide}
+				\caption{Schéma de subdivision globale}
 			\end{figure}
 
 \end{document}
