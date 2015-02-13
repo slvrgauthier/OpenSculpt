@@ -36,8 +36,8 @@ public:
     void makeCone(float height, float radiusUp, float radiusDown, int discretization);
     void makeCube(float width, float height, float depth, int discretization);
     void makeCylinder(float height, float radius, int discretization);
-    void makeSphere(float radius, int discretization); /* TODO */
-    void makeTorus(float radiusH, float radiusV, int discretization); /* TODO */
+    void makeSphere(float radius, int discretization);
+    void makeTorus(float radiusH, float radiusV, int discretization);
     // =========================================================
 
 

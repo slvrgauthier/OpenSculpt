@@ -58,6 +58,7 @@
 			Cette section détaille succintement les fonctionnalités de l'application.
 			
 			\subsection{Les Modèles}
+				\label{model-cdc}
 				Différents maillages prédéfinis, appelés ici modèles, seront mis à disposition de l'utilisateur.\\
 				Nous en prévoyons actuellement cinq, paramétrables par l'utilisateur :
 				\begin{itemize}
@@ -74,6 +75,7 @@
 				existera également différentes options de rendu telles que l'affichage solide ou en fils de fer, les couleurs, les lumières...etc.
 
 			\subsection{Les Outils de sculpture}
+				\label{tool-cdc}
 				Différents outils seront disponibles. Ils auront pour action de modifier le maillage dans la direction des normales de surface, et selon
 				un schéma de modification propre à chaque outil. Nous avons défini deux catégories d'outils : modifications globales et locales des objets
 				(une troisième est destinée au déplacement de la caméra dans la scène en trois dimensions).
@@ -81,17 +83,17 @@
 				\begin{itemize}
 					\item \textbf{Modifications Globales :}
 					\begin{itemize}
-						\item Déplacement d'un objet dans le repère scène.
-						\item Rotation d'un objet dans le repère scène.
-						\item Mise à l'échelle d'un objet dans le repère scène.
+						\item \textbf{GTMove :} Déplacement d'un objet dans le repère scène.
+						\item \textbf{GTRotate :}Rotation d'un objet dans le repère scène.
+						\item \textbf{GTScale :}Mise à l'échelle d'un objet dans le repère scène.
 					\end{itemize}
 					\item \textbf{Modifications Locales :}
 					\begin{itemize}
-						\item Ajout de matière à la surface de l'objet.
-						\item Lissage de la surface de l'objet.
-						\item Déplacement d'une partie des points de la surface de l'objet.
-						\item Gonflement de la surface de l'objet.
-						\item Pincement de la surface de l'objet.
+						\item \textbf{LTAdd :}Ajout de matière à la surface de l'objet.
+						\item \textbf{LTSmooth :}Lissage de la surface de l'objet.
+						\item \textbf{LTMove :}Déplacement d'une partie des points de la surface de l'objet.
+						\item \textbf{LTInflate :}Gonflement de la surface de l'objet.
+						\item \textbf{LTPinch :}Pincement de la surface de l'objet.
 					\end{itemize}
 				\end{itemize}
 
@@ -106,7 +108,7 @@
 				appréhender. Cela concernera tant les dispositions que les icônes qui devront suivre une certaine logique.
 
 			\subsection{Les Options}
-				nouveau, ouvrir, enregistrer, importer, exporter, annuler, refaire, paramètres, quitter
+				% TODO : détailler brièvement les options de rendu, d'interface...etc
 	
 		\section{Structure du programme}
 			Cette partie détaille succintement la structure globale du logiciel, ce qui couvre les aspects non maîtrisables par l'utilisateur.
@@ -330,10 +332,211 @@
 		
 		\section{API}
 			\label{api-dev}
+			Le principe d'une API est de fournir au développeur une surcouche permettant d'encapsuler les calculs et représentations internes à l'intérieur 
+			d'un certains nombre de méthodes. Ces méthodes seront par la suite utilisables par le développeur afin de faciliter l'implémentation. Un 
+			diagramme de classes est disponible en annexe (cf page \pageref{fig:diagClass}).
+			
+			\subsection{La structue interne}
+				Nous avons conçu trois structures C++, représentant respectivement les demi-arêtes, les points et les faces. Ces trois structures utilisées 
+				ensemble définissent la représentation des maillages par demi-arêtes :
+				\begin{verbatim}
+					typedef struct HalfEdge {
+						Vertex* vertex;
+						Face* face;
+						HalfEdge* next;
+						HalfEdge* opposite;
+						HalfEdge* previous;
+					} HalfEdge;
+
+					typedef struct Vertex {
+						QVector3D coords;
+						HalfEdge* outgoing;
+						int index;
+					} Vertex;
+
+					typedef struct Face {
+						HalfEdge* edge;
+					} Face;
+				\end{verbatim}
+				Cette structure est certes relativement gourmande en stockage, mais très performante pour tous les algorithmes de transformations basés sur 
+				le voisinage. Nous utilisons ici le voisinage non seulement pour le rendu, mais également dans chaque outil de sculpture et chaque fonction 
+				telle que la subdivision. Nous avons d'ailleurs ajouté un entier dans la structure des points afin d'optenir des accès immédiats lors du 
+				rendu.\\
+				\\
+				Pour utiliser cette structure tout en séparant bien les types d'interaction, nous avons créé un certain nombre de classes, dont chacune a un 
+				rôle spécifique :
+				\begin{itemize}
+					\item \textbf{Mesh :} contient le maillage et toutes les méthodes de création de celui-ci (cf page \pageref{mesh-dev}).
+					\item \textbf{MeshRenderer :} contient des buffer objects permettant le rendu d'un maillage (cf page \pageref{renderer-dev}).
+					\item \textbf{MeshProcessing :} contient des méthodes statiques de modification de maillage (cf page \pageref{processing-dev}).
+					\item \textbf{MeshTool :} contient les méthodes outils permettant la sculpture de l'objet (cf page \pageref{tool-dev}).
+					\item \textbf{MeshManager :} contient et gère l'ensemble des objets de la scène (cf page \pageref{manager-dev}).
+				\end{itemize}
+				Toutes ces classes sont ensuite utilisées au sein de l'interface, notamment le widget OpenGL.
+				
+			\subsection{Les méthodes de la classe Mesh}
+				\label{mesh-dev}
+				\subsubsection{Génération des modèles prédéfinis}
+					Comme expliqué précédemment (cf page \pageref{model-cdc}), nous avons plusieurs maillages prédéfinis. Pour chacun d'entre eux, 
+					il existera une unique méthode, dans la classe Mesh, permettant de le générer :
+					\begin{verbatim}
+						void makeCone(float height, float radiusUp, float radiusDown, int discretization);
+						void makeCube(float width, float height, float depth, int discretization);
+						void makeCylinder(float height, float radius, int discretization);
+						void makeSphere(float radius, int discretization);
+						void makeTorus(float radiusH, float radiusV, int discretization);
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres
+					
+				\subsubsection{Ajout d'une face}
+					Il est possible de créer une face d'un maillage grâce à la fonction suivante :
+					\begin{verbatim}
+						bool addFace(QVector<QVector3D> vertices);
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+					
+				\subsubsection{Découpage d'une arête}
+					Il est possible de couper une arête en deux parts égales avec cette méthode :
+					\begin{verbatim}
+						bool cutEdge(QVector3D vertex1, QVector3D vertex2);
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+					
+				\subsubsection{Fusion de deux arêtes}
+					Il est possible de fusionner deux arêtes en une seule grâce à la fonction :
+					\begin{verbatim}
+						bool mergeEdge(QVector3D vertex1, QVector3D vertex2, QVector3D vertex3);
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+					
+				\subsubsection{Récupération de points}
+					Il est possible de récupérer une liste de points dans une certaine zone avec :
+					\begin{verbatim}
+						QVector<QVector3D> getVertices(QVector3D position, float areaSize);
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+					
+				\subsubsection{Récupération de voisinage}
+					Il est possible de récupérer une liste de points voisins d'un certain point avec :
+					\begin{verbatim}
+						QVector<QVector3D> getNeighbours(QVector3D vertex, int degree);
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+					
+				\subsubsection{Récupération de normale de surface}
+					Il est possible de récupérer la normale à la surface de l'objet grâce à la méthode :
+					\begin{verbatim}
+						QVector3D getNormal(QVector3D position);
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+					
+				\subsubsection{Translation de points}
+					Il est possible d'effectuer une translation sur un ou plusieurs points à l'aide des fonctions :
+					\begin{verbatim}
+						void moveVertex(QVector3D vertex, QVector3D move);
+						void moveVertex(int index, QVector3D move);
+						void moveVertices(QVector<QVector3D> vertices, QVector3D move);
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+					
+				\subsubsection{Les accesseurs}
+					La classe Mesh contient également certains accesseurs utiles :
+					\begin{verbatim}
+						QVector3D getCenter() const;
+						void setCenter(QVector3D center);
+
+						QVector3D getCoords(int index) const;
+						void setCoords(QVector3D vertex, QVector3D coord);
+						void setCoords(int index, QVector3D coord);
+
+						int getEdgeCount() const;
+						int getVertexCount() const;
+						int getFaceCount() const;
+					\end{verbatim}
+					% TODO : explication brève
+				
+			\subsection{Les méthodes de la classe MeshRenderer}
+				\label{renderer-dev}
+				\subsubsection{Dessin de l'objet}
+					On effectue le rendu OpenGL avec la méthode suivante :
+					\begin{verbatim}
+						void paintGL();
+					\end{verbatim}
+					% TODO : explication brève
+					
+				\subsubsection{Synchronisation des buffers}
+					Il est parfois nécessaire d'actualiser ou non les buffers objects :
+					\begin{verbatim}
+						void update();
+					\end{verbatim}
+					% TODO : explication brève de comment ça marche
+				
+			\subsection{Les méthodes de la classe MeshProcessing}
+				\label{processing-dev}
+				\subsubsection{Subdivision}
+					Nous avons mis en place deux types de subdivision :
+					\begin{verbatim}
+						static void subdivide(Mesh *mesh);
+						static bool subdivideAuto(Mesh *mesh, float maxEdgeLength);
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+					
+				\subsubsection{Décimation}
+					Nous avons mis en place deux types de décimation :
+					\begin{verbatim}
+						static void decimate(Mesh *mesh);
+						static bool decimateAuto(Mesh *mesh, float minEdgeLength);
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+				
+			\subsection{Les méthodes de la classe MeshTool}
+				\label{tool-dev}
+				\subsubsection{Les outils de sculpture}
+					Comme expliqué précédemment (cf page \pageref{tool-cdc}), nous avons plusieurs outils de sculpture présents. Pour chacun d'entre eux, 
+					il existera une unique méthode, dans la classe MeshTool, définissant son action :
+					\begin{verbatim}
+						void gtmove(Mesh *mesh, QVector3D move);
+						void gtrotate(Mesh *mesh, QVector3D move);
+						void gtscale(Mesh *mesh, QVector3D move);
+
+						void ltadd(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
+						void ltinflate(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
+						void ltmove(Mesh *mesh, QPoint last_position, QVector3D move, float brushSize);
+						void ltpinch(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
+						void ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+					
+				\subsubsection{Les outils spéciaux}
+					De nouveaux outils, nommés ici "spéciaux", ont été développés suite à la proposition de notre encadrant :
+					\begin{verbatim}
+						void subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize);
+						void decimateAuto(Mesh *mesh, QPoint last_position, float brushSize);
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+				
+			\subsection{Les méthodes de la classe MeshManager}
+				\label{manager-dev}
+				\subsubsection{Dessin et synchronisation}
+					On effectue le rendu OpenGL et la synchronisation des buffers à l'aide de ces fonctions :
+					\begin{verbatim}
+						void paintGL(int activeMesh);
+						void updateMesh(int index);
+						void updateLastMesh();
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+					
+				\subsubsection{Ajout et suppression}
+					Puisque le MeshManager est un conteneur, il est possible d'ajouter ou de supprimer un ou plusieurs maillages :
+					\begin{verbatim}
+						void addMesh(Mesh *mesh);
+						void removeMesh(Mesh *mesh);
+						void clear();
+					\end{verbatim}
+					% TODO : explication brève de ce que représente les paramètres, comment ça marche
 		
 		\section{...}
-			
-																% TODO : diagrammes, problèmes et solutions, précisions sur le code...etc
+			% TODO : diagrammes, problèmes et solutions, précisions (TRES TRES PEU DE CODE, PAS TROP UTILE SUR L'INTERFACE)...etc
 			\subsection{...}
 
 %==========================================================================================================================================================
@@ -342,7 +545,7 @@
 		possibilités du logiciel.
 		
 		\section{Utilisateur}
-																% TODO : image de l'interface avec explications, raccourcis clavier, menus...etc
+			% TODO : image de l'interface avec explications, raccourcis clavier, menus...etc
 
 		\section{Développeur}
 			Toute personne avec des bases de programmation pourra étendre les fonctionnalités de celle-ci grâce à notre API.
@@ -364,10 +567,10 @@
 		Cette section liste toutes les étapes de la conception que nous n'avons pas réalisées (selon notre ordre de priorités), ainsi que toutes les améliorations auxquelles nous avons pensé lors de la phase de développement.
 		
 		\section{Fonctionnalités non implémentées}
-			
+			%TODO
 			
 		\section{Améliorations réalisables}
-			
+			%TODO
 
 %==========================================================================================================================================================
 	\appendix
@@ -379,6 +582,9 @@
 			
 		\section{Comparatif de performances}
 			Le graphique est situé page \pageref{fig:analyse}.
+			
+		\section{Diagramme de Classes}
+			Le diagramme est fournis page \pageref{fig:diagClass}.
 			
 		\section*{}
 			\begin{figure}
@@ -396,6 +602,14 @@
 				\label{fig:analyse}
 				\caption{Comparaisons de performances de divers langages dans des cas donnés}
 				Source : \url{http://attractivechaos.wordpress.com/2011/06/22/my-programming-language-benchmark-analyses/}
+			\end{figure}
+			
+			\begin{figure}
+				\begin{center}
+					%\includegraphics[scale=0.5]{img/diagClass.png}
+				\end{center}
+				\label{fig:diagClass}
+				\caption{Diagramme de classes de notre API}
 			\end{figure}
 
 \end{document}
