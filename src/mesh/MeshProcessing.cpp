@@ -146,81 +146,41 @@ void MeshProcessing::subdivide(Mesh *mesh) {
 }
 
 void MeshProcessing::decimate(Mesh *mesh) {
-    MeshProcessing::decimateAuto(mesh, INT_MAX);
-    /*
-    int size = mesh->getFaceCount() / 4;
+    QVector<Face*> seen;
 
-    for(int i=0 ; i < size ; ++i) {
-        HalfEdge *e1, *e2, *e3;
+    for(int i=0 ; i < mesh->getFaceCount() ; ++i) {
+        if(!seen.contains(mesh->getFace(i))) {
+            QVector<QVector3D> vertices;
+            vertices.resize(6);
 
-        // Initialiser les trois demi-arêtes
-        e1 = mesh->getFace(i)->edge->opposite->next;
-        e2 = mesh->getFace(i)->edge->next->opposite->next;
-        e3 = mesh->getFace(i)->edge->previous->opposite->next;
+            vertices[0] = mesh->getFace(i)->edge->vertex->coords;
+            vertices[1] = mesh->getFace(i)->edge->next->opposite->next->vertex->coords;
+            vertices[2] = mesh->getFace(i)->edge->next->vertex->coords;
+            vertices[3] = mesh->getFace(i)->edge->previous->opposite->next->vertex->coords;
+            vertices[4] = mesh->getFace(i)->edge->previous->vertex->coords;
+            vertices[5] = mesh->getFace(i)->edge->opposite->next->vertex->coords;
 
-        // Supprimer les trois faces décimées
-        delete e1->face;
-        delete e2->face;
-        delete e3->face;
+            QVector<QVector3D> edges;
+            edges.resize(6);
+            for(int j=0 ; j < 6 ; ++j) { edges[j] = vertices[(j+1)%6] - vertices[j]; }
 
-        e1->face = mesh->getFace(i);
-        e2->face = mesh->getFace(i);
-        e3->face = mesh->getFace(i);
+            // RECODE : utiliser l'angle dièdre entre les faces
+            bool ok = (QVector3D::dotProduct(edges[5], edges[0]) / (edges[1].length() * edges[2].length()) > M_PI / 8
+                    && QVector3D::dotProduct(edges[1], edges[2]) / (edges[1].length() * edges[2].length()) > M_PI / 8
+                    && QVector3D::dotProduct(edges[3], edges[4]) / (edges[1].length() * edges[2].length()) > M_PI / 8);
 
-        // Supprimer les six demi-arêtes centrales
-        delete mesh->getFace(i)->edge->previous->opposite;
-        delete mesh->getFace(i)->edge->previous;
-        delete mesh->getFace(i)->edge->next->opposite;
-        delete mesh->getFace(i)->edge->next;
-        delete mesh->getFace(i)->edge->opposite;
-        delete mesh->getFace(i)->edge;
+            if(ok) {
+                seen.push_back(mesh->getFace(i));
+                seen.push_back(mesh->getFace(i)->edge->opposite->face);
+                seen.push_back(mesh->getFace(i)->edge->next->opposite->face);
+                seen.push_back(mesh->getFace(i)->edge->previous->opposite->face);
 
-        // Supprimer les trois vertices décimés
-        if(e3->next->opposite == e1->opposite) {
-            // Le point n'est plus lié en face
-            delete e3->next->vertex;
-            e3->next->opposite->opposite = e1;
+                mesh->mergeEdge(vertices[5], vertices[0], vertices[1]);
+                mesh->mergeEdge(vertices[1], vertices[2], vertices[3]);
+                mesh->mergeEdge(vertices[3], vertices[4], vertices[5]);
+            }
         }
-        else {
-            // Le point est lié en face
-            e1->opposite = e3->next->opposite;
-        }
-        if(e1->next->opposite == e2->opposite) {
-            // Le point n'est plus lié en face
-            delete e1->next->vertex;
-            e1->next->opposite->opposite = e2;
-        }
-        else {
-            // Le point est lié en face
-            e2->opposite = e1->next->opposite;
-        }
-        if(e2->next->opposite == e3->opposite) {
-            // Le point n'est plus lié en face
-            delete e2->next->vertex;
-            e2->next->opposite->opposite = e3;
-        }
-        else {
-            // Le point est lié en face
-            e3->opposite = e2->next->opposite;
-        }
-
-        // Supprimer les trois demi-arêtes
-        delete e1->next;
-        delete e2->next;
-        delete e3->next;
-
-        // Etendre la face centrale vers l'extérieur
-        mesh->getFace(i)->edge = e1;
-        mesh->getFace(i)->edge->next = e2;
-        mesh->getFace(i)->edge->previous = e3;
-
-        e1->previous = e3;
-        e1->next = e2;
-        e2->previous = e1;
-        e2->next = e3;
-        e3->previous = e2;
-        e3->next = e1;
-    }*/
+    }
 }
 
 bool MeshProcessing::subdivideAuto(Mesh *mesh, float maxEdgeLength) {
