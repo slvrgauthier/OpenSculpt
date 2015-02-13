@@ -4,7 +4,7 @@
 // GLOBAL TOOLS
 
 void MeshTool::gtmove(Mesh *mesh, QVector3D move) {
-    qDebug() << "GTMove action";
+    //qDebug() << "GTMove action";
 
     for(int i=0 ; i < mesh->getVertexCount() ; ++i) {
         mesh->moveVertex(i ,move);
@@ -14,7 +14,7 @@ void MeshTool::gtmove(Mesh *mesh, QVector3D move) {
 }
 
 void MeshTool::gtrotate(Mesh *mesh, QVector3D move) {
-    qDebug() << "GTRotate action";
+    //qDebug() << "GTRotate action";
 
     QVector3D center = mesh->getCenter();
     QVector3D currentPoint;
@@ -27,7 +27,7 @@ void MeshTool::gtrotate(Mesh *mesh, QVector3D move) {
 }
 
 void MeshTool::gtscale(Mesh *mesh, QVector3D move) {
-    qDebug() << "GTScale action";
+    //qDebug() << "GTScale action";
 
     float coef = 1.0 - move.y() / 200.;
     QVector3D center = mesh->getCenter();
@@ -41,7 +41,7 @@ void MeshTool::gtscale(Mesh *mesh, QVector3D move) {
 // LOCAL TOOLS
 
 void MeshTool::ltadd(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers) {
-    qDebug() << "LTAdd action";
+    //qDebug() << "LTAdd action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
 
@@ -58,7 +58,7 @@ void MeshTool::ltadd(Mesh *mesh, QPoint last_position, float brushSize, float st
 }
 
 void MeshTool::ltinflate(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers) {
-    qDebug() << "LTInflate action";
+    //qDebug() << "LTInflate action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
 
@@ -80,7 +80,7 @@ void MeshTool::ltinflate(Mesh *mesh, QPoint last_position, float brushSize, floa
 }
 
 void MeshTool::ltmove(Mesh *mesh, QPoint last_position, QVector3D move, float brushSize) {
-    qDebug() << "LTMove action";
+    //qDebug() << "LTMove action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
 
@@ -97,7 +97,7 @@ void MeshTool::ltmove(Mesh *mesh, QPoint last_position, QVector3D move, float br
 }
 
 void MeshTool::ltpinch(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers) {
-    qDebug() << "LTPinch action";
+    //qDebug() << "LTPinch action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
 
@@ -119,7 +119,7 @@ void MeshTool::ltpinch(Mesh *mesh, QPoint last_position, float brushSize, float 
 }
 
 void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers) {
-    qDebug() << "LTSmooth action";
+    //qDebug() << "LTSmooth action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
 
@@ -165,7 +165,7 @@ void MeshTool::ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float
 // OTHERS
 
 void MeshTool::subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize) {
-    qDebug() << "SubdivideAuto action";
+    //qDebug() << "SubdivideAuto action";
 
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
 
@@ -194,8 +194,8 @@ void MeshTool::subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize) 
 }
 
 void MeshTool::decimateAuto(Mesh *mesh, QPoint last_position, float brushSize) {
-    qDebug() << "DecimateAuto action";
-/*
+    //qDebug() << "DecimateAuto action";
+
     QVector3D position = get3Dposition(last_position); // Position dans le repère scène
 
     if(!position.isNull()) {
@@ -212,14 +212,22 @@ void MeshTool::decimateAuto(Mesh *mesh, QPoint last_position, float brushSize) {
         minEdgeLength /= vertices.size() * 4;
 
         // Decimation automatique
+        QVector3D OA, OB;
+        float angle;
+
         for(int i=0 ; i < vertices.size()-2 ; ++i) {
             for(int j=i+1 ; j < vertices.size()-1 ; ++j) {
                 for(int k=j+1 ; k < vertices.size() ; ++k) {
-                    if(vertices[i].distanceToPoint(vertices[j]) < minEdgeLength && vertices[j].distanceToPoint(vertices[k]) < minEdgeLength) {
-                        mesh->mergeEdge(vertices[i], vertices[j], vertices[k]);
+                    OA = vertices[j] - vertices[i];
+                    OB = vertices[k] - vertices[j];
+                    if(OA.length() < minEdgeLength && OB.length() < minEdgeLength) {
+                        angle = QVector3D::dotProduct(OA, OB) / (OA.length() * OB.length()); // rad
+                        if(angle < M_PI / 8) { // 22.5 deg
+                            mesh->mergeEdge(vertices[i], vertices[j], vertices[k]);
+                        }
                     }
                 }
             }
         }
-    }*/
+    }
 }

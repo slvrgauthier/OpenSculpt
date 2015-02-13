@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->spinBrushSize,     SIGNAL(valueChanged(double)), ui->glwidget, SLOT(setBrushSize(double)));
     connect(ui->spinBrushStrength, SIGNAL(valueChanged(double)), ui->glwidget, SLOT(setBrushStrength(double)));
-    connect(ui->checkBoxautosub,   SIGNAL(stateChanged(int)),    ui->glwidget, SLOT(setAutoSub(int)));
     connect(ui->actionModFill,     SIGNAL(triggered()),          ui->glwidget, SLOT(switchFillModes()));
 }
 
@@ -83,6 +82,26 @@ void MainWindow::on_gtscale_clicked()
     this->disableTool();
     ui->gtscale->setChecked(true);
     ui->glwidget->enableTool(GTSCALE);
+}
+
+void MainWindow::on_checkBoxautosub_clicked() {
+    if(ui->checkBoxautosub->isChecked()) {
+        ui->checkBoxautodec->setChecked(false);
+        ui->glwidget->setAutoSub(1);
+    }
+    else {
+        ui->glwidget->setAutoSub(0);
+    }
+}
+
+void MainWindow::on_checkBoxautodec_clicked() {
+    if(ui->checkBoxautodec->isChecked()) {
+        ui->checkBoxautosub->setChecked(false);
+        ui->glwidget->setAutoSub(2);
+    }
+    else {
+        ui->glwidget->setAutoSub(0);
+    }
 }
 
 // ===================================================
@@ -452,7 +471,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         break;
 
     case Qt::Key_S:
-        if(event->modifiers()&(Qt::ControlModifier|Qt::ShiftModifier)) { on_actionSave_as_triggered(); }
+        if(event->modifiers()&Qt::ControlModifier && event->modifiers()&Qt::ShiftModifier) { on_actionSave_as_triggered(); }
         else if(event->modifiers()&Qt::ControlModifier) { on_subdivide_clicked(); }
         else if(event->modifiers()&Qt::ShiftModifier) { on_gtscale_clicked(); }
         if(event->modifiers()&Qt::AltModifier) { on_wtscale_clicked(); }
@@ -555,6 +574,12 @@ void MainWindow::hideDialog()
     ui->pushReplace->setVisible(false);
     ui->pushDelete->setVisible(false);
     ui->pushDuplicate->setVisible(false);
+
+    ui->spinBoxWidth->disconnect();
+    ui->spinBoxHeight->disconnect();
+    ui->spinBoxDepth->disconnect();
+    ui->spinBoxRadius->disconnect();
+    ui->sliderDiscretization->disconnect();
 }
 
 void MainWindow::showDialog()

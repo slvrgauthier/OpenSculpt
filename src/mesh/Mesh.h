@@ -44,13 +44,13 @@ public:
     // ================== PUBLIC MEMBERS (high level) ==================
 public:
     // Add a face with triangles fan wich begins in vertices[0], vertices must be given in counterclockwise direction
-    void addFace(QVector<QVector3D> vertices);
+    bool addFace(QVector<QVector3D> vertices);
 
     // Cut an edge between two vertices in two parts equally
-    void cutEdge(QVector3D vertex1, QVector3D vertex2);
+    bool cutEdge(QVector3D vertex1, QVector3D vertex2);
 
     // Merge the two edges vertex1-to-vertex2 and vertex2-to-vertex3
-    void mergeEdge(QVector3D vertex1, QVector3D vertex2, QVector3D vertex3);
+    bool mergeEdge(QVector3D vertex1, QVector3D vertex2, QVector3D vertex3);
 
     // Get a list of vertices in area "areaSize" around "position"
     QVector<QVector3D> getVertices(QVector3D position, float areaSize);

@@ -146,6 +146,7 @@ void MeshProcessing::subdivide(Mesh *mesh) {
 }
 
 void MeshProcessing::decimate(Mesh *mesh) {
+    MeshProcessing::decimateAuto(mesh, INT_MAX);
     /*
     int size = mesh->getFaceCount() / 4;
 
@@ -241,29 +242,51 @@ bool MeshProcessing::subdivideAuto(Mesh *mesh, float maxEdgeLength) {
 
 bool MeshProcessing::decimateAuto(Mesh *mesh, float minEdgeLength) {
     bool result = false;
-/*    QVector3D p1, p2, p3;
+    QVector3D Ori, OA, OB;
+    float angle;
 
-    QVector<QVector3D> neighbours;
+    QVector<QVector3D> neighbours, seen;
 
-    for(int i=0 ; i < mesh->getEdgeCount() ; ++i) {
-        neighbours.clear();
-        p2 = mesh->getEdge(i)->vertex->coords;
-        neighbours = mesh->getNeighbours(p2, 1);
-        for(int j=0 ; j < neighbours.size()-1 ; ++j) {
-            for(int k=j+1 ; k < neighbours.size() ; ++k) {
-                p1 = neighbours[j];
-                p3 = neighbours[k];
-                if(p1.distanceToPoint(p2) < minEdgeLength && p2.distanceToPoint(p3) < minEdgeLength) {
-                    float det = p1.crossProduct(p2, p3).length();
-                    if(det > -1 && det < 1) {
-                        mesh->mergeEdge(p1, p2, p3);
-                        result = true;
+    for(int i=0 ; i < mesh->getVertexCount() ; ++i) {
+        Ori = mesh->getVertex(i)->coords;
+
+        if(!seen.contains(Ori)) {
+
+            neighbours.clear();
+            neighbours = mesh->getNeighbours(Ori, 1);
+
+            int j = 0;
+            while(j < neighbours.size()-1) {
+
+                int k = j+1;
+                while(k < neighbours.size()) {
+
+                    if(j != k && neighbours[j] != Ori && neighbours[k] != Ori) {
+                        OA = Ori - neighbours[j]; // j to origin
+                        OB = neighbours[k] - Ori; // origin to k
+
+                        if(OA.length() < minEdgeLength && OB.length() < minEdgeLength) {
+                            angle = QVector3D::dotProduct(OA, OB) / (OA.length() * OB.length()); // rad
+
+                            if(angle < M_PI / 8) { // 22.5 deg
+                                if(mesh->mergeEdge(neighbours[j], Ori, neighbours[k])) {
+                                    result = true;
+
+                                    for(int l=0 ; l < neighbours.size() ; ++l) {
+                                        seen.push_back(neighbours[l]); // including Ori
+                                    }
+                                    j = k = neighbours.size();
+                                }
+                            }
+                        }
                     }
+                    ++k;
                 }
+                ++j;
             }
         }
     }
-*/
+
     return result;
 }
 

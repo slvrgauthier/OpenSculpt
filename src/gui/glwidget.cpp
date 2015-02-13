@@ -17,7 +17,7 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
     m_brush.setSize(1.5); // between 0 and 10
     m_brush.setStrength(.05); // between 0 and 0.10
     auto_sub = false;
-    auto_dec = true;
+    auto_dec = false;
 
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateGL()));
     connect(&m_timer, SIGNAL(timeout()),this, SLOT(updateActiveMesh()));
@@ -141,10 +141,10 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
             offsetX += (distance * dx / 600.0);
             offsetY += (distance * dy / 600.0);
         }
-        else if(activeTool != NOTOOL && m_manager.getMesh(activeMesh) != NULL)
+        else if(m_manager.getMesh(activeMesh) != NULL)
         {
             if(auto_sub) { m_tool.subdivideAuto(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize()); }
-            //if(auto_dec) { m_tool.decimateAuto(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize()); }
+            if(auto_dec) { m_tool.decimateAuto(m_manager.getMesh(activeMesh), last_pos, m_brush.getSize()); }
 
             switch(activeTool) {
 
@@ -183,13 +183,13 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
                 break;
 
             default:
-                qDebug() << "The tool isn't defined";
+                //qDebug() << "The tool isn't defined";
                 break;
             }
         }
         else
         {
-            qDebug() << "NOTOOL or Mesh NULL";
+            //qDebug() << "NOTOOL or Mesh NULL";
         }
     }
 
@@ -240,7 +240,7 @@ void GLWidget::setBrushStrength(double strength) {
     m_brush.setStrength((float)strength / 1000);
 }
 
-void GLWidget::setAutoSub(int state) { auto_sub = (state == Qt::Checked); }
+void GLWidget::setAutoSub(int state) { auto_sub = (state == 1); auto_dec = (state == 2); }
 
 void GLWidget::updateActiveMesh() {
     if(activeMesh >= 0) {

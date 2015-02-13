@@ -471,8 +471,21 @@
        <layout class="QVBoxLayout" name="verticalLayout_10">
         <item>
          <widget class="QCheckBox" name="checkBoxautosub">
+          <property name="toolTip">
+           <string>Subdivision automatique</string>
+          </property>
           <property name="text">
            <string>Auto-Sub</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBoxautodec">
+          <property name="toolTip">
+           <string>Décimation automatique</string>
+          </property>
+          <property name="text">
+           <string>Auto-Dec</string>
           </property>
          </widget>
         </item>

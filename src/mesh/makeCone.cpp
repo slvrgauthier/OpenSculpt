@@ -10,9 +10,6 @@ void Mesh::makeCone(float height, float radiusUp, float radiusDown, int discreti
 
   float angle=360/(float)(8.*discretization);
 
-
-
-
   //FACE COTE
   float y = 0;
   float radiusDown_tmp,radiusUp_tmp;

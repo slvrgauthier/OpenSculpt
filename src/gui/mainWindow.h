@@ -35,6 +35,8 @@ private slots:
     void on_gtrotate_clicked();
     void on_gtscale_clicked();
 
+    void on_checkBoxautosub_clicked();
+    void on_checkBoxautodec_clicked();
 
     // Up toolBar
     void on_select_clicked();

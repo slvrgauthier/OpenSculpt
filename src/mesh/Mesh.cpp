@@ -51,7 +51,7 @@ Mesh::~Mesh() { this->clear(); }
     }
 }*/
 
-void Mesh::addFace(QVector<QVector3D> vertices) {
+bool Mesh::addFace(QVector<QVector3D> vertices) {
     int size = vertices.size();
 
     if(size >= 3) {
@@ -150,13 +150,15 @@ void Mesh::addFace(QVector<QVector3D> vertices) {
                 }
             }
         }
+        return true;
     }
     else {
         qDebug() << "A face needs at least three vertices";
+        return false;
     }
 }
 
-void Mesh::cutEdge(QVector3D vertex1, QVector3D vertex2) {
+bool Mesh::cutEdge(QVector3D vertex1, QVector3D vertex2) {
     if(vertex1 != vertex2) {
 
         HalfEdge *edge = NULL;
@@ -262,17 +264,21 @@ void Mesh::cutEdge(QVector3D vertex1, QVector3D vertex2) {
 
             // Fill old vertex
             tmp_edges[3]->vertex->outgoing = tmp_edges[2];
+
+            return true;
         }
         else {
-            qDebug() << "Cannot cut an edge wich does not exist";
+            //qDebug() << "Cannot cut an edge wich does not exist";
+            return false;
         }
     }
     else {
-        qDebug() << "Cannot cut an edge between clones of a vertex";
+        //qDebug() << "Cannot cut an edge between clones of a vertex";
+        return false;
     }
 }
 
-void Mesh::mergeEdge(QVector3D vertex1, QVector3D vertex2, QVector3D vertex3) {
+bool Mesh::mergeEdge(QVector3D vertex1, QVector3D vertex2, QVector3D vertex3) {
     if(vertex1 != vertex2 && vertex2 != vertex3 && vertex3 != vertex1) {
 
         HalfEdge *edge1 = NULL, *edge2 = NULL;
@@ -294,7 +300,7 @@ void Mesh::mergeEdge(QVector3D vertex1, QVector3D vertex2, QVector3D vertex3) {
             ++i;
         }
 
-        if(edge1 != NULL && edge2 != NULL && edge1->opposite != edge1) {
+        if(edge1 != NULL && edge2 != NULL && edge1->opposite != edge1 && edge1->next != edge2 && edge1->opposite->previous->opposite != edge2) {
             // Fill and Remove faces
             edge1->next->opposite->face->edge = edge1->next->opposite->next;
             edge1->opposite->previous->opposite->face->edge = edge1->opposite->previous->opposite->previous;
@@ -332,13 +338,17 @@ void Mesh::mergeEdge(QVector3D vertex1, QVector3D vertex2, QVector3D vertex3) {
             } while(tmp_edge != edge1->previous);
             removeEdge(edge1->opposite);
             removeEdge(edge1);
+
+            return true;
         }
         else {
-            qDebug() << "Cannot merge edges wich do not exist";
+            //qDebug() << "Cannot merge edges";
+            return false;
         }
     }
     else {
-        qDebug() << "Cannot merge edges between clones of vertex";
+        //qDebug() << "Cannot merge edges between clones of vertex";
+        return false;
     }
 }
 

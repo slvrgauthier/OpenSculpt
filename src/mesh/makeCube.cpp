@@ -81,5 +81,5 @@ void Mesh::makeCube(float width, float height, float depth, int discretization) 
         }
     }
 
-    this->TEST();
+    //this->TEST();
 }
