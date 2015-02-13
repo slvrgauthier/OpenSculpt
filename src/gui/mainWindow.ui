@@ -45,7 +45,7 @@
      <x>0</x>
      <y>0</y>
      <width>902</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -83,7 +83,7 @@
     <property name="title">
      <string>Aide</string>
     </property>
-    <addaction name="actionIndex"/>
+    <addaction name="actionManual"/>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -129,7 +129,7 @@
              <x>0</x>
              <y>0</y>
              <width>198</width>
-             <height>77</height>
+             <height>128</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="controleListModel">
@@ -871,15 +871,24 @@
    <property name="text">
     <string>Nouveau Projet</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
   </action>
   <action name="actionOpen">
    <property name="text">
     <string>Ouvrir</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionSave_as">
    <property name="text">
     <string>Enregistrer sous...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
   <action name="actionQuit">
@@ -936,6 +945,9 @@
    <property name="text">
     <string>Redo</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Y</string>
+   </property>
   </action>
   <action name="actionAbout">
    <property name="text">
@@ -961,30 +973,48 @@
    <property name="text">
     <string>Plein écran</string>
    </property>
+   <property name="shortcut">
+    <string>F11</string>
+   </property>
   </action>
   <action name="actionNewCube">
    <property name="text">
     <string>Créer un Cube</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+1</string>
    </property>
   </action>
   <action name="actionNewSphere">
    <property name="text">
     <string>Créer une Sphère</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+2</string>
+   </property>
   </action>
   <action name="actionUndo">
    <property name="text">
     <string>Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
    </property>
   </action>
   <action name="actionSubdivide">
    <property name="text">
     <string>Subdiviser</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionDecimate">
    <property name="text">
     <string>Decimer</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
   <action name="actionSmooth">
@@ -996,30 +1026,54 @@
    <property name="text">
     <string>Créer un Cylindre</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+3</string>
+   </property>
   </action>
   <action name="actionNewCone">
    <property name="text">
     <string>Créer un Cone</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+4</string>
    </property>
   </action>
   <action name="actionNewTore">
    <property name="text">
     <string>Créer un Tore</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+5</string>
+   </property>
   </action>
-  <action name="actionIndex">
+  <action name="actionManual">
    <property name="text">
-    <string>Index</string>
+    <string>Manuel</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
    </property>
   </action>
   <action name="actionInitView">
    <property name="text">
     <string>Réinitialiser la vue</string>
    </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Réinitialiser la vue	&lt;span style=&quot; font-weight:600;&quot;&gt;Ctrl+R&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
   </action>
   <action name="actionModFill">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Mode fils de fer</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>

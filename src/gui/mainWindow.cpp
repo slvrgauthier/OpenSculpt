@@ -14,9 +14,10 @@ MainWindow::MainWindow(QWidget *parent) :
     this->hideDialog();
     this->showMaximized();
 
-    connect(ui->spinBrushSize, SIGNAL(valueChanged(double)), ui->glwidget, SLOT(setBrushSize(double)));
+    connect(ui->spinBrushSize,     SIGNAL(valueChanged(double)), ui->glwidget, SLOT(setBrushSize(double)));
     connect(ui->spinBrushStrength, SIGNAL(valueChanged(double)), ui->glwidget, SLOT(setBrushStrength(double)));
-    connect(ui->checkBoxautosub, SIGNAL(stateChanged(int)), ui->glwidget, SLOT(setAutoSub(int)));
+    connect(ui->checkBoxautosub,   SIGNAL(stateChanged(int)),    ui->glwidget, SLOT(setAutoSub(int)));
+    connect(ui->actionModFill,     SIGNAL(triggered()),          ui->glwidget, SLOT(switchFillModes()));
 }
 
 MainWindow::~MainWindow()
@@ -124,12 +125,16 @@ void MainWindow::on_redo_clicked()
 
 void MainWindow::on_subdivide_clicked()
 {
-    MeshProcessing::subdivide(m_mesh);
+    if(m_mesh != NULL) {
+        MeshProcessing::subdivide(m_mesh);
+    }
 }
 
 void MainWindow::on_decimate_clicked()
 {
-    MeshProcessing::decimate(m_mesh);
+    if(m_mesh != NULL) {
+        MeshProcessing::decimate(m_mesh);
+    }
 }
 
 void MainWindow::on_init() {
@@ -260,11 +265,6 @@ void MainWindow::on_actionNewCube_triggered()
     on_initCube_clicked();
 }
 
-void MainWindow::on_actionOpen_triggered()
-{
-    QFileDialog::getOpenFileName(this,"Choix du ficher", "./");
-}
-
 void MainWindow::on_actionNewSphere_triggered()
 {
     on_initSphere_clicked();
@@ -285,19 +285,14 @@ void MainWindow::on_actionNewTore_triggered()
     on_initCone_clicked();
 }
 
-void MainWindow::on_actionInitView_triggered()
+void MainWindow::on_actionOpen_triggered()
 {
-    ui->glwidget->resetView();
-}
-
-void MainWindow::on_actionModFill_triggered()
-{
-    //a faire
+    QFileDialog::getOpenFileName(this,"Choix du ficher", "./");
 }
 
 void MainWindow::on_actionSave_as_triggered()
 {
-
+    QFileDialog::getOpenFileName(this,"Choix du ficher", "./");
 }
 
 // ===================================================
@@ -316,6 +311,11 @@ void MainWindow::on_actionFullscreen_triggered()
     }
 }
 
+void MainWindow::on_actionInitView_triggered()
+{
+    ui->glwidget->resetView();
+}
+
 // ===================================================
 // MENU HELP
 
@@ -324,10 +324,10 @@ void MainWindow::on_actionAbout_triggered()
    QMessageBox::information(this, "A propos", "Ce logiciel a été conçu dans un but pédagogique par : GAUTHIER Silvère, LAMEIRA Yannick, PELADAN Cécile");
 }
 
-void MainWindow::on_actionIndex_triggered()
+void MainWindow::on_actionManual_triggered()
 {
 
-    QMessageBox::about(0, "Lien", "<a href='https://github.com/slvrgauthier/OpenSculpt/blob/master/Documentation/Rapport.pdf'>Lien vers la documentation</a>");
+    QMessageBox::about(0, "Manuel", "<a href='https://github.com/slvrgauthier/OpenSculpt/blob/master/Documentation/Rapport.pdf'>Lien vers la documentation (''view raw'' pour télécharger).</a>");
 }
 
 // ===================================================
@@ -433,6 +433,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         if(!event->modifiers()) { on_ltmove_clicked(); }
         break;
 
+    case Qt::Key_N:
+        if(event->modifiers()&Qt::ControlModifier) { on_actionNewProject_triggered(); }
+        break;
+
+    case Qt::Key_O:
+        if(event->modifiers()&Qt::ControlModifier) { on_actionOpen_triggered(); }
+        break;
+
     case Qt::Key_P:
         if(!event->modifiers()) { on_ltpinch_clicked(); }
         break;
@@ -440,11 +448,13 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     case Qt::Key_R:
         if(event->modifiers()&Qt::ShiftModifier) { on_gtrotate_clicked(); }
         if(event->modifiers()&Qt::AltModifier) { on_wtrotate_clicked(); }
+        if(event->modifiers()&Qt::ControlModifier) { on_actionInitView_triggered(); }
         break;
 
     case Qt::Key_S:
-        if(event->modifiers()&Qt::ControlModifier) { on_subdivide_clicked(); }
-        if(event->modifiers()&Qt::ShiftModifier) { on_gtscale_clicked(); }
+        if(event->modifiers()&(Qt::ControlModifier|Qt::ShiftModifier)) { on_actionSave_as_triggered(); }
+        else if(event->modifiers()&Qt::ControlModifier) { on_subdivide_clicked(); }
+        else if(event->modifiers()&Qt::ShiftModifier) { on_gtscale_clicked(); }
         if(event->modifiers()&Qt::AltModifier) { on_wtscale_clicked(); }
         if(!event->modifiers()) { on_ltsmooth_clicked(); }
         break;
@@ -477,6 +487,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
     case Qt::Key_Delete:
         if(!event->modifiers()&&ui->pushDelete->isVisible()) { on_pushDelete_clicked(); }
+        break;
+
+    case Qt::Key_F1:
+        if(!event->modifiers()) { on_actionManual_triggered(); }
+        break;
+
+    case Qt::Key_F11:
+        if(!event->modifiers()) { on_actionFullscreen_triggered(); }
         break;
 
     default:

@@ -38,6 +38,7 @@ public slots:
     void setBrushSize(double size);
     void setBrushStrength(double strength);
     void setAutoSub(int state);
+    void switchFillModes();
 
 private slots:
     void updateActiveMesh();
@@ -63,7 +64,7 @@ private:
     qreal z_rot;
 
     // Render settings
-    bool mode_fill;
+    int mode_fill;
     bool auto_sub;
     bool auto_dec;
 };
