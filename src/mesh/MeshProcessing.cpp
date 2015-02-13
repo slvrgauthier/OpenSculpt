@@ -164,11 +164,24 @@ void MeshProcessing::decimate(Mesh *mesh) {
             edges.resize(6);
             for(int j=0 ; j < 6 ; ++j) { edges[j] = vertices[(j+1)%6] - vertices[j]; }
 
-            // RECODE : utiliser l'angle dièdre entre les faces
+            // Test des angles plans
             bool ok = (QVector3D::dotProduct(edges[5], edges[0]) / (edges[1].length() * edges[2].length()) > M_PI / 8
                     && QVector3D::dotProduct(edges[1], edges[2]) / (edges[1].length() * edges[2].length()) > M_PI / 8
                     && QVector3D::dotProduct(edges[3], edges[4]) / (edges[1].length() * edges[2].length()) > M_PI / 8);
 
+            QVector<QVector3D> normals;
+            normals.resize(3);
+
+            normals[0] = QVector3D::normal(vertices[1], vertices[0], vertices[2]).normalized();
+            normals[1] = QVector3D::normal(vertices[3], vertices[2], vertices[4]).normalized();
+            normals[2] = QVector3D::normal(vertices[5], vertices[4], vertices[0]).normalized();
+
+            // Test des angles dièdres
+            ok = ok && (QVector3D::dotProduct(normals[0], normals[2]) > M_PI / 8
+                    && QVector3D::dotProduct(normals[1], normals[0]) > M_PI / 8
+                    && QVector3D::dotProduct(normals[2], normals[1]) > M_PI / 8);
+
+            // Fusion des arêtes
             if(ok) {
                 seen.push_back(mesh->getFace(i));
                 seen.push_back(mesh->getFace(i)->edge->opposite->face);
