@@ -770,8 +770,8 @@
 				nécessiteraient une recherche approfondie pour améliorer les performances.
 				\item Contenu : notre logiciel ne propose que cinq outils et cinq maillages prédéfinis, un aspect qui pourrait facilement être enrichi 
 				avec plus de temps.
-				\item Maillage : il serait utile de mettre en place bon nombre de fonctions de vérifications de maillage, notamment les recoupements 
-				de triangles.
+				\item Maillage : il serait utile de mettre en place bon nombre de fonctions de vérification de maillage, notamment les recoupements de 
+				triangles.
 				\item Autre : les fonctions de subdivision et décimation mériteraient sûrement d'être améliorées, notamment la décimation globale qui ne
 				fait pas exactement l'inverse de la subdivision. De plus, les rotations ne s'effectue actuellement que par rapport au déplacement souris,
 				et ne prennent donc pas en compte l'angle de vue actuel.
@@ -792,12 +792,19 @@
 		\section{Diagramme de Classes}
 			Le diagramme est fournis page \pageref{fig:diagClass}.
 			
-		\section*{}
+		\section{Schémas explicatifs}
+			Les différents schémas explicatifs se trouvent page \pageref{fig:subdivide} à \pageref{fig:cube}.
+			
+		\section*{} %TODO : recaler les images à la fin
+			\newpage
 			\begin{figure}
 				\vspace{-3,5cm} \hspace{-4,5cm} \includegraphics[scale=0.6]{img/Gantt1.png}
-				\vspace{-3,5cm} \hspace{-4,5cm} \includegraphics[scale=0.6]{img/Gantt2.png}
+			\end{figure}
+			
+			\begin{figure}
+				\hspace{-5,25cm} \includegraphics[scale=0.5]{img/Gantt2.png}
 				\label{fig:gantt}
-				\vspace{-0,5cm} \caption{Diagrammes de Gantt prédictif et final}
+				\caption{Diagrammes de Gantt prédictif (en haut) et final (en bas)}
 			\end{figure}
 			
 			\begin{figure}
@@ -820,6 +827,12 @@
 				\hspace{-3cm}\includegraphics[scale=0.5]{img/subdivide.png}
 				\label{fig:subdivide}
 				\caption{Schéma de subdivision globale}
+			\end{figure}
+			
+			\begin{figure}
+				\hspace{-2cm}\includegraphics[scale=0.5]{img/cube.png}
+				\label{fig:cube}
+				\caption{Conception d'un cube avec la représentation par demi-arêtes}
 			\end{figure}
 
 \end{document}
