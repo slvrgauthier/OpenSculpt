@@ -84,18 +84,19 @@
 					\item \textbf{Modifications Globales :}
 					\begin{itemize}
 						\item \textbf{GTMove :} Déplacement d'un objet dans le repère scène.
-						\item \textbf{GTRotate :}Rotation d'un objet dans le repère scène.
-						\item \textbf{GTScale :}Mise à l'échelle d'un objet dans le repère scène.
+						\item \textbf{GTRotate :} Rotation d'un objet dans le repère scène.
+						\item \textbf{GTScale :} Mise à l'échelle d'un objet dans le repère scène.
 					\end{itemize}
 					\item \textbf{Modifications Locales :}
 					\begin{itemize}
-						\item \textbf{LTAdd :}Ajout de matière à la surface de l'objet.
-						\item \textbf{LTSmooth :}Lissage de la surface de l'objet.
-						\item \textbf{LTMove :}Déplacement d'une partie des points de la surface de l'objet.
-						\item \textbf{LTInflate :}Gonflement de la surface de l'objet.
-						\item \textbf{LTPinch :}Pincement de la surface de l'objet.
+						\item \textbf{LTAdd :} Ajout de matière à la surface de l'objet.
+						\item \textbf{LTSmooth :} Lissage de la surface de l'objet.
+						\item \textbf{LTMove :} Déplacement d'une partie des points de la surface de l'objet.
+						\item \textbf{LTInflate :} Gonflement de la surface de l'objet.
+						\item \textbf{LTPinch :} Pincement de la surface de l'objet.
 					\end{itemize}
 				\end{itemize}
+				Pour plus de détails sur leur fonctionnement, référez-vous à la partie \textbf{Développement} (cf page \pageref{tool-dev}).
 
 			\subsection{Les Algorithmes de maillage}
 				Les différents algorithmes de modification de maillages seront regroupés dans une classe statique spécifique. Y seront présentes les 
@@ -341,21 +342,21 @@
 				ensemble définissent la représentation des maillages par demi-arêtes :
 				\begin{verbatim}
 					typedef struct HalfEdge {
-						Vertex* vertex;
-						Face* face;
-						HalfEdge* next;
-						HalfEdge* opposite;
-						HalfEdge* previous;
+					    Vertex* vertex;
+					    Face* face;
+					    HalfEdge* next;
+					    HalfEdge* opposite;
+					    HalfEdge* previous;
 					} HalfEdge;
 
 					typedef struct Vertex {
-						QVector3D coords;
-						HalfEdge* outgoing;
-						int index;
+					    QVector3D coords;
+					    HalfEdge* outgoing;
+					    int index;
 					} Vertex;
 
 					typedef struct Face {
-						HalfEdge* edge;
+					    HalfEdge* edge;
 					} Face;
 				\end{verbatim}
 				Cette structure est certes relativement gourmande en stockage, mais très performante pour tous les algorithmes de transformations basés sur 
@@ -407,6 +408,12 @@
 					reforme les deux arêtes. Pour garder une certaine intégrité au sein du maillage, ce point intermédiaire est relié au troisième sommet 
 					de chacun des deux triangles séparés par l'arête initiale.\\
 					Un booléen est renvoyé pour attester du bon déroulement de celle-ci.
+					\begin{figure}[H]
+						\begin{center}
+							\includegraphics[scale=0.55]{img/cutEdge.png}
+							\caption{Principe de la méthode cutEdge}
+						\end{center}
+					\end{figure}
 					
 				\subsubsection{Fusion de deux arêtes}
 					Il est possible de fusionner deux arêtes en une seule grâce à la fonction :
@@ -417,6 +424,12 @@
 					arêtes. Le principe de ce processus est de ramener un éventail de son centre vers une de ses extrémités. Donc, toutes les arêtes de 
 					l'éventail de centre "vertex2" se redirigeront vers "vertex1". Il est conseillé d'utiliser cette fonction avec parcimonie, notamment en 
 					vérifiant les angles entre les arêtes, car aucune vérification de recoupement de faces n'est effectué.
+					\begin{figure}[H]
+						\begin{center}
+							\includegraphics[scale=0.55]{img/mergeEdge.png}
+							\caption{Principe de la méthode mergeEdge}
+						\end{center}
+					\end{figure}
 					
 				\subsubsection{Récupération de points}
 					Il est possible de récupérer une liste de points dans une certaine zone avec :
@@ -507,8 +520,8 @@
 					annexe (cf page \pageref{fig:subdivide}). Celle-ci étant intimement liée à la structure interne des maillages, il est nécessaire de la 
 					redéfinir si l'on décide de changer cette structure.\\
 					La seconde méthode est paramétrable. En effet, le paramètre "maxEdgeLength" permet de ne couper que les arêtes dépassant cette taille. 
-					Un booléen atteste de la modification ou non du maillage. Le processus utilisé est celui de la méthode "cutEdge" de la classe Mesh (cf 
-					page \pageref{mesh-dev}).
+					Un booléen atteste de la modification ou non du maillage. Le processus utilisé est celui de la méthode "cutEdge" de la classe 
+					\textbf{Mesh} (cf page \pageref{mesh-dev}).
 					
 				\subsubsection{Décimation}
 					Nous avons mis en place deux types de décimation :
@@ -522,7 +535,7 @@
 					faces déjà visitées sont enregistrées pendant le processus afin de ne pas faire plusieurs passes en une seule fois.\\
 					La seconde méthode est paramétrable. En effet, le paramètre "minEdgeLength" permet de ne fusionner que les arêtes plus courtes que cette 
 					taille. Un booléen atteste de la modification ou non du maillage.\\
-					Le processus utilisé pour les deux méthodes est celui de la méthode "mergeEdge" de la classe Mesh (cf page \pageref{mesh-dev}).
+					Le processus utilisé pour les deux méthodes est celui de la méthode "mergeEdge" de la classe \textbf{Mesh} (cf page \pageref{mesh-dev}).
 				
 			\subsection{Les méthodes de la classe MeshTool}
 				\label{tool-dev}
@@ -540,14 +553,41 @@
 						void ltpinch(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
 						void ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
 					\end{verbatim}
-					% TODO : explication brève de ce que représente les paramètres, comment ça marche
-					Les paramêtres des outils:
-					move correspond au déplacement du curseur sur l'objet,
-					mesh représente le maillage sélectionné,
-					last_position correspond au coordonnée 3D de la dernière position du curseur,
-					brushSize représente le rayon où l'outil va etre appliqué. Ce brush permet d'avoir les listes des sommets contenus dans ce disque, 
-					strength correspond à la force de l'application. Plus la force est fort, plus la modification par l'outil va etre significative, 
-					modifiers correspond à l'activation de la touche shift. Celle-ci permettra de creuser l'objet si on y appuye dessus.
+
+					Pour chaque outil, les paramètres diffèrent légèrement. En effet, nous pouvons retrouver le maillage de l'objet sélectionné "mesh",  un vecteur de déplacement "move" (dans le 
+					repère scène ou déplacement de souris), la position du curseur "last\_position", la taille de la zone d'action "brushSize", la force de 
+					l'outil "strenght" (force d'attraction de la matière : Plus la force est fort, plus la modification par l'outil va etre significative), ou encore des KeyboardModifiers afin d'augmenter les possibilités de nos outils. 
+					Mais comment fonctionnent ces outils ?\\\\
+					\textbf{Remarque :} un Brush, cité ci-dessous, correspond à la zone circulaire de centre "last\_position" (en réalité on utilise par la 
+					suite le point d'impact du curseur sur l'objet, donc des coordonnées dans le repère scène) et de rayon "brushSize". Ce brush permet de définir les sommets contenus dans cette zone où l'outil va être appliqué.
+					\begin{itemize}
+						\item \textbf{GTMove :} Translation par le vecteur "move" de chacun des points de l'objet.
+						\item \textbf{GTRotate :} Rotation selon les composantes du vecteur "move" de chacun des points de l'objet, en prenant comme origine 
+						du repère de rotation le centre de celui-ci.
+						\item \textbf{GTScale :} Homothétie de l'objet selon le déplacement en ordonnées du vecteur "move", en prenant comme origine le 
+						centre de l'objet.
+						\item \textbf{LTAdd :} Translation de tous les points contenus dans le Brush selon la normale à la face touchée par le curseur, 
+						pondérée par le paramètre "strenght". La touche Shift inverse la normale et permet donc de creuser.
+						\item \textbf{LTSmooth :} Translation de chaque point contenu dans le Brush dans la direction des coordonnées moyennes de ses 
+						voisins immédiats, pondérée par "strenght". La touche Shift augmente la force d'un facteur 20.
+						\item \textbf{LTMove :} Translation de tous les points contenus dans le Brush selon le vecteur "move" (défini dans le repère scène).
+						\item \textbf{LTInflate :} Translation de chaque point contenu dans le brush selon un vecteur défini par la normale de surface et la 
+						distance entre le point et le centre du Brush. Ce vecteur est une addition du vecteur normal et de la composante plane (sur le Brush)
+						du vecteur allant du centre du Brush vers le point. Ce qui a pour effet de créer un gonflement de la matière, puisque les directions
+						des translations forment une bulle. La touche Shift permet d'inverser la normale et donc de creuser.
+						\item \textbf{LTPinch :} Translation de chaque point contenu dans le brush selon un vecteur défini par la normale de surface et la 
+						distance entre le point et le centre du Brush. Ce vecteur est une soustraction entre le vecteur normal et la composante plane (sur le
+						Brush) du vecteur allant du centre du Brush vers le point. Ce qui a pour effet de créer un pincement de la matière, puisque les 
+						directions des translations forment l'inverse d'une bulle. La touche Shift permet d'inverser la normale et donc de creuser.
+					\end{itemize}
+					\textbf{Remarque :} Les outils LTSmooth, LTMove, LTInflate et LTPinch pondèrent leurs translations par un coefficient de distance entre 
+					le point translaté et le centre du Brush, de sorte que le déplacement décroisse avec la distance.
+					\begin{figure}[H]
+						\begin{center}
+							\includegraphics[scale=0.5]{img/tool-dev.png}
+							\caption{Translations par les outils de sculpture}
+						\end{center}
+					\end{figure}
 					
 				\subsubsection{Les outils spéciaux}
 					De nouveaux outils, nommés ici "spéciaux", ont été développés suite à la proposition de notre encadrant :
@@ -557,9 +597,9 @@
 					\end{verbatim}
 					Ces deux outils sont en fait une subdivision ou une décimation, mais uniquement locale. Nous pouvons les utiliser soit seul, soit 
 					conjointement à un des outils de sculpture. Ce sont en fait des processus paramétrés, d'où le "Auto" rappelant les méthodes de la classe 
-					MeshProcessing (cf page \pageref{processing-dev}). En réalité, le processus est similaire, sauf qu'ici le paramètre de longueur d'arête 
-					est calculé grâce à une moyenne des longueurs d'arêtes contenues dans la zone d'action. Les fonctions utilisées sont également "cutEdge" 
-					et "mergeEdge" de la classe Mesh (cf page \pageref{mesh-dev});
+					\textbf{MeshProcessing} (cf page \pageref{processing-dev}). En réalité, le processus est similaire, sauf qu'ici le paramètre de longueur 
+					d'arête est calculé grâce à une moyenne des longueurs d'arêtes contenues dans la zone d'action. Les fonctions utilisées sont également 
+					"cutEdge" et "mergeEdge" de la classe \textbf{Mesh} (cf page \pageref{mesh-dev});
 				
 			\subsection{Les méthodes de la classe MeshManager}
 				\label{manager-dev}
@@ -585,7 +625,7 @@
 					s'en occupe. Ainsi, la programmation s'en retrouve moins compliquée.
 		
 		\section{...}
-			% TODO : diagrammes, problèmes et solutions, précisions (TRES TRES PEU DE CODE, PAS TROP UTILE SUR L'INTERFACE)...etc
+			% TODO : diagrammes, problèmes et solutions, précisions (PEU DE CODE, PAS TROP UTILE SUR L'INTERFACE)...etc
 			\subsection{...}
 
 %==========================================================================================================================================================
@@ -601,12 +641,94 @@
 			d'installer QtCreator et d'avoir les librairies Glut pour OpenGL.
 			
 			\subsection{Ajout d'un maillage modèle}
-				Il est possible d'ajouter un maillage modèle afin d'enrichir les objets de base proposés à l'utilisateur.
-				%TODO : expliquer avec du code
+				Il est possible d'ajouter un maillage modèle afin d'enrichir les objets de base proposés à l'utilisateur.\\
+				Pour cela, il est nécessaire d'ajouter plusieurs choses :
+				\begin{itemize}
+					\item Une fonction de génération du maillage dans la classe \textbf{Mesh}
+					\item Un bouton ou une entrée de menu pour créer le modèle dans l'interface
+					\item Des widgets (s'ils n'existent pas encore) pour les paramètres de génération
+					\item Une fonction de mise à jour du maillage en temps réel
+				\end{itemize}
+				
+				\subsubsection{Fonction de génération}
+					Il est nécessaire d'ajouter cette fonction dans la classe \textbf{Mesh}. Nous conseillons, pour la clarté, de placer sa déclaration dans 
+					"Mesh.h", sous les méthodes existantes de type :
+					\begin{verbatim}
+						void makeCube(float width, float height, float depth, int discretization);
+					\end{verbatim}
+					Toujours pour la facilité d'appréhension du code, nous conseillons de créer un nouveau fichier "make\textit{Polygon}.cpp" contenant la 
+					définition de la fonction :
+					\begin{verbatim}
+						#include "Mesh.h"
+
+						void Mesh::makeCube(float width, float height, float depth, int discretization) {
+						    this->clear();
+							
+						    ...
+							
+						    this->TEST();
+						}
+					\end{verbatim}
+					Il faut donc absolument inclure "Mesh.h", et surtout ne pas oublier d'utiliser la fonction clear(), qui permet de régénérer le maillage à
+					chaque changement de paramètre. Une fonction TEST() est également disponible pour vérifier l'intégrité du maillage (à utiliser à la fin 
+					de la fonction make\textit{Polygon}). Dans le corps de cette méthode, il est conseillé d'utiliser la méthode addFace (cf page 
+					\pageref{mesh-dev}) pour chaque facette du maillage. Vous pourrez bien sûr prendre exemple des fonctions déjà implémentées.
+					
+				\subsubsection{Bouton, menu et widgets}
+					%TODO : Yannick
+					
+				\subsubsection{Fonction de mise à jour}
+					Il est nécessaire d'ajouter cette fonction dans la classe \textbf{MainWindow}. Nous conseillons de placer sa déclaration dans 
+					"MainWindow.h", sous les méthodes existantes de type :
+					\begin{verbatim}
+						void updateCube();
+					\end{verbatim}
+					Il suffit ensuite de placer sa définition dans "MainWindow.cpp", selon l'exemple des méthodes déjà implémentées. Cette fonction est 
+					obligatoire pour la génération (et régénération) du maillage.
 				
 			\subsection{Ajout d'un outil}
-				Il est possible d'ajouter un outil afin d'enrichir les actions de sculpture proposées à l'utilisateur.
-				%TODO : expliquer avec du code
+				Il est possible d'ajouter un outil afin d'enrichir les actions de sculpture proposées à l'utilisateur.\\
+				Pour cela, il est nécessaire d'ajouter plusieurs choses :
+				\begin{itemize}
+					\item Un type d'outil dans l'énumération \textbf{TOOL}
+					\item Une fonction d'action de l'outil dans la classe \textbf{MeshTool}
+					\item Un bouton pour utiliser l'outil dans l'interface
+					\item Une entrée dans la méthode "mouseMoveEvent" de la classe \textbf{GLWidget}
+				\end{itemize}
+				
+				\subsubsection{Type d'outil et fonction d'action}
+					Il est nécessaire d'ajouter le type de votre outil dans l'énumération "TOOL", déclarée dans le fichier "MeshTool.h". Pour la clarté, il 
+					est conseillé de respecter la convention de nom expliquée en commentaire au dessus de l'énumération.\\
+					Vous devez ensuite créer une méthode d'action. Nous vous conseillons de vous imprégner de la partie \textbf{Développement} (cf page 
+					\pageref{tool-dev}) pour choisir les paramètres adéquats. Il suffit de la déclarer dans le fichier "MeshTool.h", sous les méthodes 
+					existantes de type :
+					\begin{verbatim}
+						void gtmove(Mesh *mesh, QVector3D move);
+					\end{verbatim}
+					La déclaration se place dans le fichier "MeshTool.cpp". Il est encore une fois conseillé de bien comprendre la partie 
+					\textbf{Développement} (cf page \pageref{tool-dev}) afin de créer l'effet désiré. De même, les fonctions déjà présentes pourront servir 
+					d'exemple. Les fonctions du fichier "functions.h" sont également très utiles.
+					
+				\subsubsection{Bouton}
+					%TODO : Yannick
+					
+				\subsubsection{Une réaction à l'évènement souris}
+					La fonction "mouseMoveEvent" de la classe \textbf{GLWidget} s'occupe de gérer les outils à l'aide d'un switch. Vous devrez donc ajouter 
+					une entrée dans cette fonction afin de pouvoir utiliser votre outil. Seul le fichier "GLWidget.cpp" est utile ici :
+					\begin{verbatim}
+						void GLWidget::mouseMoveEvent(QMouseEvent *event) {
+						    ...
+						    switch(activeTool) {
+						        case GTSCALE:
+						            m_tool.gtscale(m_manager.getMesh(activeMesh), QVector3D(0, dy, 0));
+						            break;
+						    ...
+						    }
+						    ...
+						}
+					\end{verbatim}
+					Nous vous conseillons de vous imprégner de la partie \textbf{Développement} (cf page \pageref{tool-dev} et \pageref{glwidget-dev}) pour 
+					choisir les paramètres adéquats.
 				
 			\subsection{Pour aller plus loin...}
 				Si un développeur souhaite modifier plus profondément l'application, il faudra pour cela se référer à la partie \textbf{Développement} (cf 
