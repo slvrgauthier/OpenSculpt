@@ -84,18 +84,19 @@
 					\item \textbf{Modifications Globales :}
 					\begin{itemize}
 						\item \textbf{GTMove :} Déplacement d'un objet dans le repère scène.
-						\item \textbf{GTRotate :}Rotation d'un objet dans le repère scène.
-						\item \textbf{GTScale :}Mise à l'échelle d'un objet dans le repère scène.
+						\item \textbf{GTRotate :} Rotation d'un objet dans le repère scène.
+						\item \textbf{GTScale :} Mise à l'échelle d'un objet dans le repère scène.
 					\end{itemize}
 					\item \textbf{Modifications Locales :}
 					\begin{itemize}
-						\item \textbf{LTAdd :}Ajout de matière à la surface de l'objet.
-						\item \textbf{LTSmooth :}Lissage de la surface de l'objet.
-						\item \textbf{LTMove :}Déplacement d'une partie des points de la surface de l'objet.
-						\item \textbf{LTInflate :}Gonflement de la surface de l'objet.
-						\item \textbf{LTPinch :}Pincement de la surface de l'objet.
+						\item \textbf{LTAdd :} Ajout de matière à la surface de l'objet.
+						\item \textbf{LTSmooth :} Lissage de la surface de l'objet.
+						\item \textbf{LTMove :} Déplacement d'une partie des points de la surface de l'objet.
+						\item \textbf{LTInflate :} Gonflement de la surface de l'objet.
+						\item \textbf{LTPinch :} Pincement de la surface de l'objet.
 					\end{itemize}
 				\end{itemize}
+				Pour plus de détails sur leur fonctionnement, référez-vous à la partie \textbf{Développement} (cf page \pageref{tool-dev}).
 
 			\subsection{Les Algorithmes de maillage}
 				Les différents algorithmes de modification de maillages seront regroupés dans une classe statique spécifique. Y seront présentes les 
@@ -407,6 +408,12 @@
 					reforme les deux arêtes. Pour garder une certaine intégrité au sein du maillage, ce point intermédiaire est relié au troisième sommet 
 					de chacun des deux triangles séparés par l'arête initiale.\\
 					Un booléen est renvoyé pour attester du bon déroulement de celle-ci.
+					\begin{figure}[H]
+						\begin{center}
+							\includegraphics[scale=0.55]{img/cutEdge.png}
+							\caption{Principe de la méthode cutEdge}
+						\end{center}
+					\end{figure}
 					
 				\subsubsection{Fusion de deux arêtes}
 					Il est possible de fusionner deux arêtes en une seule grâce à la fonction :
@@ -417,6 +424,12 @@
 					arêtes. Le principe de ce processus est de ramener un éventail de son centre vers une de ses extrémités. Donc, toutes les arêtes de 
 					l'éventail de centre "vertex2" se redirigeront vers "vertex1". Il est conseillé d'utiliser cette fonction avec parcimonie, notamment en 
 					vérifiant les angles entre les arêtes, car aucune vérification de recoupement de faces n'est effectué.
+					\begin{figure}[H]
+						\begin{center}
+							\includegraphics[scale=0.55]{img/mergeEdge.png}
+							\caption{Principe de la méthode mergeEdge}
+						\end{center}
+					\end{figure}
 					
 				\subsubsection{Récupération de points}
 					Il est possible de récupérer une liste de points dans une certaine zone avec :
@@ -507,8 +520,8 @@
 					annexe (cf page \pageref{fig:subdivide}). Celle-ci étant intimement liée à la structure interne des maillages, il est nécessaire de la 
 					redéfinir si l'on décide de changer cette structure.\\
 					La seconde méthode est paramétrable. En effet, le paramètre "maxEdgeLength" permet de ne couper que les arêtes dépassant cette taille. 
-					Un booléen atteste de la modification ou non du maillage. Le processus utilisé est celui de la méthode "cutEdge" de la classe Mesh (cf 
-					page \pageref{mesh-dev}).
+					Un booléen atteste de la modification ou non du maillage. Le processus utilisé est celui de la méthode "cutEdge" de la classe 
+					\textbf{Mesh} (cf page \pageref{mesh-dev}).
 					
 				\subsubsection{Décimation}
 					Nous avons mis en place deux types de décimation :
@@ -522,7 +535,7 @@
 					faces déjà visitées sont enregistrées pendant le processus afin de ne pas faire plusieurs passes en une seule fois.\\
 					La seconde méthode est paramétrable. En effet, le paramètre "minEdgeLength" permet de ne fusionner que les arêtes plus courtes que cette 
 					taille. Un booléen atteste de la modification ou non du maillage.\\
-					Le processus utilisé pour les deux méthodes est celui de la méthode "mergeEdge" de la classe Mesh (cf page \pageref{mesh-dev}).
+					Le processus utilisé pour les deux méthodes est celui de la méthode "mergeEdge" de la classe \textbf{Mesh} (cf page \pageref{mesh-dev}).
 				
 			\subsection{Les méthodes de la classe MeshTool}
 				\label{tool-dev}
@@ -540,7 +553,40 @@
 						void ltpinch(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
 						void ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
 					\end{verbatim}
-					% TODO : explication brève de ce que représente les paramètres, comment ça marche
+					Pour chaque outil, les paramètres diffèrent légèrement. En effet, nous pouvons retrouver un vecteur de déplacement "move" (dans le 
+					repère scène ou déplacement de souris), la position du curseur "last\_position", la taille de la zone d'action "brushSize", la force de 
+					l'outil "strenght" (force d'attraction de la matière), ou encore des KeyboardModifiers afin d'augmenter les possibilités de nos outils. 
+					Mais comment fonctionnent ces outils ?\\\\
+					\textbf{Remarque :} un Brush, cité ci-dessous, correspond à la zone circulaire de centre "last\_position" (en réalité on utilise par la 
+					suite le point d'impact du curseur sur l'objet, donc des coordonnées dans le repère scène) et de rayon "brushSize".
+					\begin{itemize}
+						\item \textbf{GTMove :} Translation par le vecteur "move" de chacun des points de l'objet.
+						\item \textbf{GTRotate :} Rotation selon les composantes du vecteur "move" de chacun des points de l'objet, en prenant comme origine 
+						du repère de rotation le centre de celui-ci.
+						\item \textbf{GTScale :} Homothétie de l'objet selon le déplacement en ordonnées du vecteur "move", en prenant comme origine le 
+						centre de l'objet.
+						\item \textbf{LTAdd :} Translation de tous les points contenus dans le Brush selon la normale à la face touchée par le curseur, 
+						pondérée par le paramètre "strenght". La touche Shift inverse la normale et permet donc de creuser.
+						\item \textbf{LTSmooth :} Translation de chaque point contenu dans le Brush dans la direction des coordonnées moyennes de ses 
+						voisins immédiats, pondérée par "strenght". La touche Shift augmente la force d'un facteur 20.
+						\item \textbf{LTMove :} Translation de tous les points contenus dans le Brush selon le vecteur "move" (défini dans le repère scène).
+						\item \textbf{LTInflate :} Translation de chaque point contenu dans le brush selon un vecteur défini par la normale de surface et la 
+						distance entre le point et le centre du Brush. Ce vecteur est une addition du vecteur normal et de la composante plane (sur le Brush)
+						du vecteur allant du centre du Brush vers le point. Ce qui a pour effet de créer un gonflement de la matière, puisque les directions
+						des translations forment une bulle. La touche Shift permet d'inverser la normale et donc de creuser.
+						\item \textbf{LTPinch :} Translation de chaque point contenu dans le brush selon un vecteur défini par la normale de surface et la 
+						distance entre le point et le centre du Brush. Ce vecteur est une soustraction entre le vecteur normal et la composante plane (sur le
+						Brush) du vecteur allant du centre du Brush vers le point. Ce qui a pour effet de créer un pincement de la matière, puisque les 
+						directions des translations forment l'inverse d'une bulle. La touche Shift permet d'inverser la normale et donc de creuser.
+					\end{itemize}
+					\textbf{Remarque :} Les outils LTSmooth, LTMove, LTInflate et LTPinch pondèrent leurs translations par un coefficient de distance entre 
+					le point translaté et le centre du Brush, de sorte que le déplacement décroisse avec la distance.
+					\begin{figure}[H]
+						\begin{center}
+							\includegraphics[scale=0.5]{img/tool-dev.png}
+							\caption{Translations par les outils de sculpture}
+						\end{center}
+					\end{figure}
 					
 				\subsubsection{Les outils spéciaux}
 					De nouveaux outils, nommés ici "spéciaux", ont été développés suite à la proposition de notre encadrant :
@@ -550,9 +596,9 @@
 					\end{verbatim}
 					Ces deux outils sont en fait une subdivision ou une décimation, mais uniquement locale. Nous pouvons les utiliser soit seul, soit 
 					conjointement à un des outils de sculpture. Ce sont en fait des processus paramétrés, d'où le "Auto" rappelant les méthodes de la classe 
-					MeshProcessing (cf page \pageref{processing-dev}). En réalité, le processus est similaire, sauf qu'ici le paramètre de longueur d'arête 
-					est calculé grâce à une moyenne des longueurs d'arêtes contenues dans la zone d'action. Les fonctions utilisées sont également "cutEdge" 
-					et "mergeEdge" de la classe Mesh (cf page \pageref{mesh-dev});
+					\textbf{MeshProcessing} (cf page \pageref{processing-dev}). En réalité, le processus est similaire, sauf qu'ici le paramètre de longueur 
+					d'arête est calculé grâce à une moyenne des longueurs d'arêtes contenues dans la zone d'action. Les fonctions utilisées sont également 
+					"cutEdge" et "mergeEdge" de la classe \textbf{Mesh} (cf page \pageref{mesh-dev});
 				
 			\subsection{Les méthodes de la classe MeshManager}
 				\label{manager-dev}
