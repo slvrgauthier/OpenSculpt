@@ -342,21 +342,21 @@
 				ensemble définissent la représentation des maillages par demi-arêtes :
 				\begin{verbatim}
 					typedef struct HalfEdge {
-						Vertex* vertex;
-						Face* face;
-						HalfEdge* next;
-						HalfEdge* opposite;
-						HalfEdge* previous;
+					    Vertex* vertex;
+					    Face* face;
+					    HalfEdge* next;
+					    HalfEdge* opposite;
+					    HalfEdge* previous;
 					} HalfEdge;
 
 					typedef struct Vertex {
-						QVector3D coords;
-						HalfEdge* outgoing;
-						int index;
+					    QVector3D coords;
+					    HalfEdge* outgoing;
+					    int index;
 					} Vertex;
 
 					typedef struct Face {
-						HalfEdge* edge;
+					    HalfEdge* edge;
 					} Face;
 				\end{verbatim}
 				Cette structure est certes relativement gourmande en stockage, mais très performante pour tous les algorithmes de transformations basés sur 
@@ -624,7 +624,7 @@
 					s'en occupe. Ainsi, la programmation s'en retrouve moins compliquée.
 		
 		\section{...}
-			% TODO : diagrammes, problèmes et solutions, précisions (TRES TRES PEU DE CODE, PAS TROP UTILE SUR L'INTERFACE)...etc
+			% TODO : diagrammes, problèmes et solutions, précisions (PEU DE CODE, PAS TROP UTILE SUR L'INTERFACE)...etc
 			\subsection{...}
 
 %==========================================================================================================================================================
@@ -640,12 +640,94 @@
 			d'installer QtCreator et d'avoir les librairies Glut pour OpenGL.
 			
 			\subsection{Ajout d'un maillage modèle}
-				Il est possible d'ajouter un maillage modèle afin d'enrichir les objets de base proposés à l'utilisateur.
-				%TODO : expliquer avec du code
+				Il est possible d'ajouter un maillage modèle afin d'enrichir les objets de base proposés à l'utilisateur.\\
+				Pour cela, il est nécessaire d'ajouter plusieurs choses :
+				\begin{itemize}
+					\item Une fonction de génération du maillage dans la classe \textbf{Mesh}
+					\item Un bouton ou une entrée de menu pour créer le modèle dans l'interface
+					\item Des widgets (s'ils n'existent pas encore) pour les paramètres de génération
+					\item Une fonction de mise à jour du maillage en temps réel
+				\end{itemize}
+				
+				\subsubsection{Fonction de génération}
+					Il est nécessaire d'ajouter cette fonction dans la classe \textbf{Mesh}. Nous conseillons, pour la clarté, de placer sa déclaration dans 
+					"Mesh.h", sous les méthodes existantes de type :
+					\begin{verbatim}
+						void makeCube(float width, float height, float depth, int discretization);
+					\end{verbatim}
+					Toujours pour la facilité d'appréhension du code, nous conseillons de créer un nouveau fichier "make\textit{Polygon}.cpp" contenant la 
+					définition de la fonction :
+					\begin{verbatim}
+						#include "Mesh.h"
+
+						void Mesh::makeCube(float width, float height, float depth, int discretization) {
+						    this->clear();
+							
+						    ...
+							
+						    this->TEST();
+						}
+					\end{verbatim}
+					Il faut donc absolument inclure "Mesh.h", et surtout ne pas oublier d'utiliser la fonction clear(), qui permet de régénérer le maillage à
+					chaque changement de paramètre. Une fonction TEST() est également disponible pour vérifier l'intégrité du maillage (à utiliser à la fin 
+					de la fonction make\textit{Polygon}). Dans le corps de cette méthode, il est conseillé d'utiliser la méthode addFace (cf page 
+					\pageref{mesh-dev}) pour chaque facette du maillage. Vous pourrez bien sûr prendre exemple des fonctions déjà implémentées.
+					
+				\subsubsection{Bouton, menu et widgets}
+					%TODO : Yannick
+					
+				\subsubsection{Fonction de mise à jour}
+					Il est nécessaire d'ajouter cette fonction dans la classe \textbf{MainWindow}. Nous conseillons de placer sa déclaration dans 
+					"MainWindow.h", sous les méthodes existantes de type :
+					\begin{verbatim}
+						void updateCube();
+					\end{verbatim}
+					Il suffit ensuite de placer sa définition dans "MainWindow.cpp", selon l'exemple des méthodes déjà implémentées. Cette fonction est 
+					obligatoire pour la génération (et régénération) du maillage.
 				
 			\subsection{Ajout d'un outil}
-				Il est possible d'ajouter un outil afin d'enrichir les actions de sculpture proposées à l'utilisateur.
-				%TODO : expliquer avec du code
+				Il est possible d'ajouter un outil afin d'enrichir les actions de sculpture proposées à l'utilisateur.\\
+				Pour cela, il est nécessaire d'ajouter plusieurs choses :
+				\begin{itemize}
+					\item Un type d'outil dans l'énumération \textbf{TOOL}
+					\item Une fonction d'action de l'outil dans la classe \textbf{MeshTool}
+					\item Un bouton pour utiliser l'outil dans l'interface
+					\item Une entrée dans la méthode "mouseMoveEvent" de la classe \textbf{GLWidget}
+				\end{itemize}
+				
+				\subsubsection{Type d'outil et fonction d'action}
+					Il est nécessaire d'ajouter le type de votre outil dans l'énumération "TOOL", déclarée dans le fichier "MeshTool.h". Pour la clarté, il 
+					est conseillé de respecter la convention de nom expliquée en commentaire au dessus de l'énumération.\\
+					Vous devez ensuite créer une méthode d'action. Nous vous conseillons de vous imprégner de la partie \textbf{Développement} (cf page 
+					\pageref{tool-dev}) pour choisir les paramètres adéquats. Il suffit de la déclarer dans le fichier "MeshTool.h", sous les méthodes 
+					existantes de type :
+					\begin{verbatim}
+						void gtmove(Mesh *mesh, QVector3D move);
+					\end{verbatim}
+					La déclaration se place dans le fichier "MeshTool.cpp". Il est encore une fois conseillé de bien comprendre la partie 
+					\textbf{Développement} (cf page \pageref{tool-dev}) afin de créer l'effet désiré. De même, les fonctions déjà présentes pourront servir 
+					d'exemple. Les fonctions du fichier "functions.h" sont également très utiles.
+					
+				\subsubsection{Bouton}
+					%TODO : Yannick
+					
+				\subsubsection{Une réaction à l'évènement souris}
+					La fonction "mouseMoveEvent" de la classe \textbf{GLWidget} s'occupe de gérer les outils à l'aide d'un switch. Vous devrez donc ajouter 
+					une entrée dans cette fonction afin de pouvoir utiliser votre outil. Seul le fichier "GLWidget.cpp" est utile ici :
+					\begin{verbatim}
+						void GLWidget::mouseMoveEvent(QMouseEvent *event) {
+						    ...
+						    switch(activeTool) {
+						        case GTSCALE:
+						            m_tool.gtscale(m_manager.getMesh(activeMesh), QVector3D(0, dy, 0));
+						            break;
+						    ...
+						    }
+						    ...
+						}
+					\end{verbatim}
+					Nous vous conseillons de vous imprégner de la partie \textbf{Développement} (cf page \pageref{tool-dev} et \pageref{glwidget-dev}) pour 
+					choisir les paramètres adéquats.
 				
 			\subsection{Pour aller plus loin...}
 				Si un développeur souhaite modifier plus profondément l'application, il faudra pour cela se référer à la partie \textbf{Développement} (cf 
