@@ -387,7 +387,7 @@
 						void makeSphere(float radius, int discretization);
 						void makeTorus(float radiusH, float radiusV, int discretization);
 					\end{verbatim}
-					% TODO : explication brève de ce que représente les paramètres
+					% TODO : Cecile : explication brève de ce que représente les paramètres
 					
 				\subsubsection{Ajout d'une face}
 					Il est possible de créer une face d'un maillage grâce à la fonction suivante :
@@ -626,6 +626,8 @@
 		
 		\section{...}
 			% TODO : diagrammes, problèmes et solutions, précisions (PEU DE CODE, PAS TROP UTILE SUR L'INTERFACE)...etc
+			% TODO : Yannick : interface
+			% TODO : Cécile si t'as des trucs à dire hors API
 			\subsection{...}
 
 %==========================================================================================================================================================
@@ -634,7 +636,7 @@
 		possibilités du logiciel.
 		
 		\section{Utilisateur}
-			% TODO : image de l'interface avec explications, raccourcis clavier, menus...etc
+			% TODO : Yannick : image de l'interface avec explications, raccourcis clavier, menus...etc
 
 		\section{Développeur}
 			Toute personne avec des bases de programmation pourra étendre les fonctionnalités de celle-ci grâce à notre API. Les seuls prérequis seront 
@@ -740,10 +742,41 @@
 		améliorations auxquelles nous avons pensé lors de la phase de développement.
 		
 		\section{Fonctionnalités non implémentées}
-			%TODO : mode miroir, déplacement des lumières, matériaux
+			Nous avions, lors de la conception de ce projet, prévu nombre de fonctionnalités. Malheureusement, ce projet ayant une durée de 
+			développement limitée à quatre semaines, nous n'avons pas pu toutes les mettre en place.\\
+			Voici une liste non exhaustive de certaines fonctionnalités que nous voulions :
+			\begin{itemize}
+				\item Possibilité de créer et placer plusieurs lumières, ou déplacer l'existante, afin de créer une illumination personnalisée de notre 
+				scène.
+				\item Possibilité de créer ou utiliser différents matériaux ou shader pour nos objets.
+				\item Possibilité de peindre nos objets avec différentes couleurs (un color-picker aurait pu être présent), ainsi que leur appliquer 
+				une texture de notre choix.
+				\item Implémenter un "mode miroir" pour la sculpture. Ce mode permettrait à l'utilisateur de sculpter l'objet symétriquement, en 
+				n'agissant que sur un côté de celui-ci. Nous aurions voulu pouvoir implémenter une symétrie en abscisse, en ordonnées ou en profondeur, 
+				ainsi qu'une symétrie centrale permettant facilement de modeler des cercles parfaits.
+				\item Implémenter des outils d'union, différence et intersection d'objets entre eux.
+				\item Permettre de passer d'une représentation surfacique à une représentation volumique et inversément.
+				\item Permettre l'affichage d'une grille (deux ou trois dimensions), ainsi que les repères scène et objet.
+				%TODO : si on ne fait pas undo/redo et importer/exporter, le noter ici
+			\end{itemize}
 			
 		\section{Améliorations réalisables}
-			%TODO : optimisation, enrichir, meilleure décimation, rotation selon angle de vue actuel
+			Comme pour tout projet, la conception n'offre pas toujours une liste exhaustive des fonctionnalités futures, étant donné que nous pouvons 
+			toujours améliorer notre programme selon les possibilités offertes par le développement de celui-ci. Ainsi, nous avons quelques suggestions 
+			d'améliorations pour notre logiciel, dans le cadre d'une éventuelle future reprise de son développement :
+			\begin{itemize}
+				\item Optimisation : beaucoup de nos algorithmes pourraient être améliorés, notamment les comparaisons de points de par la surcouche de 
+				l'API qui se déroulent en O(n) et pourraient l'être en O(1) avec par exemple des fonctions de hachage. D'autres, plus coûteux, 
+				nécessiteraient une recherche approfondie pour améliorer les performances.
+				\item Contenu : notre logiciel ne propose que cinq outils et cinq maillages prédéfinis, un aspect qui pourrait facilement être enrichi 
+				avec plus de temps.
+				\item Maillage : il serait utile de mettre en place bon nombre de fonctions de vérifications de maillage, notamment les recoupements 
+				de triangles.
+				\item Autre : les fonctions de subdivision et décimation mériteraient sûrement d'être améliorées, notamment la décimation globale qui ne
+				fait pas exactement l'inverse de la subdivision. De plus, les rotations ne s'effectue actuellement que par rapport au déplacement souris,
+				et ne prennent donc pas en compte l'angle de vue actuel.
+				%TODO : si d'autres idées, ne pas hésiter à ajouter
+			\end{itemize}
 
 %==========================================================================================================================================================
 	\appendix
