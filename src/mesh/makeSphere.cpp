@@ -9,7 +9,7 @@ void Mesh::makeSphere(float radius, int discretization) {
   float Phi=M_PI/(float)(8.*discretization); // parrallele
 
  // Stocker tous les vertices.
-  QVector3D vertices[(8*discretization)][(8*discretization)-1];
+  /*QVector3D vertices[(8*discretization)][(8*discretization)-1];
   QVector3D verticesUp,verticesDown;
   for(int i=0;i<8.*discretization;i++){//meridien
     for(int k =0;k<=8*discretization;k++){//parallele
@@ -66,6 +66,6 @@ void Mesh::makeSphere(float radius, int discretization) {
     }
   }
   this->TEST();
-
+*/
 
 }
