@@ -1,5 +1,6 @@
 #include "Mesh.h"
 
+
 void Mesh::makeSphere(float radius, int discretization) {
   this->clear();
   QVector<QVector3D> face;
@@ -65,7 +66,6 @@ void Mesh::makeSphere(float radius, int discretization) {
     }
   }
   this->TEST();
-
 
 
 }
