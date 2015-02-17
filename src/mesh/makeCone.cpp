@@ -75,5 +75,5 @@ void Mesh::makeCone(float height, float radiusUp, float radiusDown, int discreti
     }
   }
 
-  this->TEST();
+  //this->TEST();
 }

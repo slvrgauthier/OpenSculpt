@@ -16,7 +16,6 @@
 	\begin{center}
 		\includegraphics[scale=0.25]{img/OpenSculpt.png}
 	\end{center}
-	
 }
 \author{\emph{GAUTHIER Silvère}\\\emph{LAMEIRA Yannick}\\\emph{PELADAN Cécile}}
 \date{\today}
@@ -634,8 +633,8 @@
 
 %==========================================================================================================================================================
 	\chapter{Manuel}
-		Ce chapitre détaille tout ce qui concerne l'utilisation de l'application, autant pour les utilisateurs que les développeurs souhaitant étendre les 
-		possibilités du logiciel.
+		%Ce chapitre détaille tout ce qui concerne l'utilisation de l'application, autant pour les utilisateurs que les développeurs souhaitant étendre les 
+		%possibilités du logiciel.
 		
 		\section{Utilisateur}
 
@@ -644,77 +643,91 @@
 			permettant de paramétrer nos objets (notamment à leur création). Une barre d'outils, dans la partie supérieure de la fenêtre, permet d'agir 
 			sur la scène (déplacement de caméra, ajout d'objets...etc) ou l'objet courant (subdivision ou décimation). Un panel dans la partie gauche permet 
 			de sélectionner un outil de sculpture, ainsi que de paramétrer notre Brush. Enfin, une sous-fenêtre au centre permet le rendu OpenGL de la scène.
-			\\Voici un aperçu de notre interface, voulue ergonomique et dynamique (tous les panels sont mobiles) : \\
-			\begin{center}
-				\includegraphics[scale=0.3]{img/interface.png}
-	                 \end{center}
-	                 
-	                 Gr\^ace \`a cette interface, nous pouvons cr\'eer une sc\`ene comportant plusieurs objets.
-	                 \\ Tout d'abord, pour commencer \`a int\'egrer un objet dans cette sc\`ene, deux choix s'offre \`a nous. Nous pouvons : 
-	                 	\begin{itemize}
-					\item soit cr\'eer \`a partir du menu situ\'e en haut en faisant "Fichier  Nouvel objet"
-				         \item soit en cliquant directement sur l'ic\^one de l'objet voulu, pr\'esent dans la barre d'outils. 
-				\end{itemize}
-			Une fois le mod\`ele choisi, une fen\^etre va appara\^itre dans le panel gauche. Cette une fen\^etre correspondra au param\`etre de notre mod\`ele que nous voulons cr\'eer.  Les param\`etre sont les suivants : 
+			\\Voici un aperçu de notre interface, voulue ergonomique et dynamique (tous les panels sont mobiles) :
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[scale=0.27]{img/interface.png}
+					\label{fig:interface}
+					\caption{Aperçu de l'interface graphique}
+				\end{center}
+			\end{figure}
+			Via cette interface, nous pouvons créer une scène comportant plusieurs objets. Tout d'abord, pour ajouter un objet à la scène, deux choix 
+			s'offrent à nous :
 			\begin{itemize}
-					\item nous avons les dimensions g\'eom\'etrique du mod\`ele.
-				         \item nous avons le nom souhait\'e de l'objet
-				         \item et nous avons sont niveau de discr\'etisation, qui permettra de subdiviser l'objet des la conception.
+				\item Soit à partir du menu : "Fichier" puis  "Nouvel objet".
+				\item Soit en cliquant directement sur l'icône de l'objet voulu, présent dans la barre d'outils.
 			\end{itemize}
-			Une fois l'objet valid\'e, celui-ci appara\^it dans la hi\'erarchie situ\'ee dans le panel de gauche ainsi que dans la sous-fenêtre au centre qui sera le rendu OpenGL de la scène. Nous remarquons que la figure s\'electionn\'ee \`a sa couleur de fond qui devient orange et que son nom dans la hi\'erarchie est surlign\'e. Il sera donc possible de passer d'un mod\`ele \`a un autre en cliquant sur le nom du mod\`ele souhait\'e. De plus il sera aussi possible d'acc\'eder aux param\`etres du mod\`ele surlign\'e en effectuant un double clic sur son nom. Nous aurons alors la possibilit\'e de modifier son nom ou de supprimer ce mod\`ele.\\
-			\\Maintenant que nous avons un mod\`ele cr\'e\'e, nous allons pouvoir interagir sur celui-ci ainsi que sur la sc\`ene \`a laquelle il appartient.
-			Pour cela, nous avons une barre d'outils dans la partie supérieure de la fenêtre. Celle-ci est compos\'ee de plusieurs boutons auxquels sont associ\'es des raccourcis.\\
-			Tout'abord, les boutons \`a gauche permettront d'agir sur la  sc\`ene. En effet nous aurons : 
+			Une fois l'objet créé (au centre de la scène), la boîte de dialogue permettant de le paramétrer apparaît dans le panel droit :
 			\begin{itemize}
-					\item un bouton qui permettra de d\'eselectionner les boutons s\'electionn\'es ayant comme raccourci " Esc".
-				         \item un bouton qui permettra de d\'eplacer la sc\`ene ayant comme raccourci "Alt+M ".
-				         \item un bouton qui permettra de tourner la sc\`ene ayant comme raccourci "Alt+R ".
-				         \item un bouton qui permettra de zoomer ou dezoomer la sc\`ene ayant comme raccourci " Alt+S".
+				\item Dimensions géométriques (largeur, hauteur, profondeur ou rayon)
+				\item Niveau de discrétisation (cf partie \textbf{Développement} page \pageref{mesh-dev})
+				\item Nom de l'objet
 			\end{itemize}
-			
-			Puis les boutons au centre permettront de subdiviser ou de d\'ecimer le mod\`ele, ayant chacun comme raccourci "Ctrl+S" et "Ctrl+D". 
-			Enfin, nous aurons les boutons permettant de cr\'eer l'objet correspondant au mod\`ele. choisi. Chaque mod\`ele. a un raccourci qui lui est propre : 
+			L'objet se régénère en temps réel à chaque modification de paramètre (excepté le nom). Une fois l'objet validé, celui-ci apparaît dans la liste 
+			située dans le panel droit. Nous remarquons que la figure sélectionnée est de couleur orange et que son nom dans la liste est surligné. Il sera 
+			donc possible de passer d'un objet à un autre en cliquant sur le nom de l'objet souhaité. De plus il sera aussi possible d'accéder à certains 
+			attributs d'un objet en effectuant un double clic ou un clic droit sur son nom. Nous aurons alors la possibilité de modifier son nom ou de le 
+			supprimer.\\\\ 
+			Maintenant que nous avons créé un objet, nous allons pouvoir interagir sur celui-ci ainsi que sur la scène à laquelle il appartient (par 
+			utilisation de la souris : déplacement du curseur en maintenant le clic gauche enfoncé). Pour cela, nous pouvons utiliser la barre d'outils de 
+			la partie supérieure de la fenêtre. Celle-ci est composée de plusieurs boutons auxquels sont associés des raccourcis clavier (représentés ici 
+			entre parenthèses et guillemets).\\
+			Tout d'abord, les boutons à gauche permettront d'agir sur la  scène. En effet nous aurons (de gauche à droite) : 
 			\begin{itemize}
-					\item pour le cube le raccourci  est " Ctlr+1".
-				         \item pour la sh\`ere le raccourci  est " Ctlr+2".
-				         \item pour le cylindre le raccourci  est " Ctlr+3".
-				         \item pour le c\^one le raccourci  est " Ctlr+4".
-				          \item pour le tore le raccourci  est " Ctlr+5".
+				\item Désélectionner les boutons sélectionnés ("Esc").
+				\item Déplacer la scène ("Alt+M") : déplace la scène dans la direction de la souris.
+				\item Tourner la scène ("Alt+R") : tourne la scène dans la direction de la souris. Le clic droit permet par défaut cette fonctionnalité sans 
+				la sélectionner.
+				\item Zoomer ou dézoomer dans la scène ("Alt+S") : avance la caméra dans la scène selon la hauteur du déplacement de la souris (vers le haut 
+				pour avancer, vers le bas pour reculer). La molette permet par défaut cette fonctionnalité sans la sélectionner.
 			\end{itemize}
-			
-			Nous pouvons manipuler les mod\`eles cr\'e\'es ainsi que leurs appliquer des transformations. 
-			Pour cela, nous avons le panel de droite qui nous permettra d'agir sur les objets de la scène. Celui-ci est compos\'e de plusieurs boutons auxquels sont associ\'es des raccourcis.\\
-			
-			Tout d'abord, nous avons les boutons situ\'es en bas du panel. En effet nous aurons :
+			Puis, les boutons au centre permettront d'annuler ("Ctrl+Z") ou refaire ("Ctrl+Y") une action et de subdiviser ("Ctrl+S") ou décimer ("Ctrl+D") 
+			l'objet actif dans son intégralité.
+			Enfin, nous aurons les boutons permettant de créer un objet prédéfini (de gauche à droite) :
 			\begin{itemize}
-					\item un bouton qui permettra de d\'eplacer notre mod\`ele dans notre sc\`ene ayant comme raccourci "Shift+M".
-					\item un bouton qui permettra de tourner notre mod\`ele dans notre sc\`ene ayant comme raccourci "Shift+R".
-					\item un bouton qui permettra de zoomer ou dezomer notre mod\`ele dans notre sc\`ene ayant comme raccourci "Shift+S".
+				\item Cube ("Ctrl+1")
+				\item Sphère ("Ctrl+2")
+				\item Cylindre ("Ctrl+3")
+				\item Cône ("Ctrl+4")
+				\item Tore ("Ctrl+5")
 			\end{itemize}
-			
-			Puis, nous avons les boutons en haut du panel qui permettront d'ex\'ecuter des transformations possibles sur notre objet. Nous aurons donc : 
+			Nous pouvons manipuler les objets créés ainsi que leur appliquer des transformations. Pour cela, le panel de gauche nous permettra de choisir un 
+			outil de sculpture ou de manipulation globale de l'objet, ceux-ci ne modifiant que l'objet actif (en orange).\\
+			Tout d'abord, nous avons les boutons situés en bas du panel, correspondant aux manipulations globales :
 			\begin{itemize}
-					\item un bouton qui permettra d'ajouter de la mati\`ere \`a notre mod\`ele ayant comme raccourci "A". 
-					\item un bouton qui permettra de lisser la surface notre mod\`ele ayant comme raccourci "S". 
-					\item un bouton qui permettra de d\'eplacer notre mod\`ele ayant comme raccourci "M". 
-				        \item un bouton qui permettra de faire un gonflement sur la surface notre mod\`ele ayant comme raccourci "I". 
-				        \item un bouton qui permettra de pincer la surface de notre mod\`ele ayant comme raccourci "P".
-				\end{itemize}
-				
-			Enfin, au centre, nous avons plusieurs param\`etres r\'eglables agissant sur notre objet. Nous aurons donc : 
-			\begin{itemize}
-					\item un  param\`etre permettant de faire une subdivision automatique.
-					\item un  param\`etre permettant de faire une d\'ecimation automatique.
-					\item un  param\`etre permettant de modifier le brush comportant une taille ainsi que d'une \'echelle. Ce brush sera visible dans la sous-fenêtre OpenGL, repr\'esent\'e par un cercle vert.
+				\item Déplacer l'objet dans la scène ("Shift+M") : déplace l'objet dans la direction de la souris.
+				\item Tourner l'objet ("Shift+R") : tourne l'objet dans la direction de la souris.
+				\item Mettre à l'échelle l'objet ("Shift+S") : met à l'échelle l'objet selon la hauteur du déplacement de la souris (vers le haut pour 
+				agrandir, vers le bas pour réduire).
 			\end{itemize}
-			
-			Il est aussi possible de modifier notre objet gr\^ace \`a notre barre de menu. En effet, si nous allons dans "Edition" il sera possible de subdiviser, de d\'ecimer ou de lisser notre objet. 
-			\\De plus il sera aussi possible de modifier notre affichage en allant dans l'onglet "Affichage". En effet, il sera possible de passer de r\'einitialiser la vue de la sous-fenêtre OpenGL ou de passer en "mode fils de fer" ( un raccourci "F" existe aussi pour passer en mode fils de fer).\\
-			\\Enfin, il sera possible \'a tout moment de cr\'eer un nouveau projet en allant dans "Fichier" .
-			
-			
-	% TODO : Yannick : image de l'interface avec explications, raccourcis clavier, menus...etc
-
+			Puis, nous avons les boutons en haut du panel, correspondant aux outils de sculpture :
+			\begin{itemize}
+				\item  Ajouter de la matière à l'objet ("A").
+				\item  Lisser la surface de l'objet ("S"). 
+				\item  Déplacer les polygones de l'objet ("M"). 
+				\item  Faire gonfler la surface de l'objet ("I"). 
+				\item  Pincer la surface de l'objet ("P").
+			\end{itemize}
+			Tous ces outils ont un rayon d'action appelé Brush, représenté par un cercle vert à l'écran. Il n'agissent donc uniquement sous le curseur, dans 
+			une zone circulaire paramétrable (cf ci-dessous).\\
+			Enfin, au centre, plusieurs paramètres réglables agissent sur notre objet : 
+			\begin{itemize}
+				\item Subdivision locale automatique : subdivise l'objet uniquement dans la zone d'action. Peut être cumulable avec un outil.
+				\item Décimation locale automatique : décime l'objet uniquement dans la zone d'action. Peut être cumulable avec un outil.
+				\item Modifier le brush (taille de la zone d'action et force d'attraction de l'outil).
+			\end{itemize}
+			Il est aussi possible d'agir grâce aux menus. Par exemple, le menu "Edition" permet de subdiviser, décimer ou lisser notre objet.\\
+			De plus, nous pouvons changer les options de rendu via l'onglet "Affichage". En effet, il est possible de réinitialiser la vue de la 
+			sous-fenêtre OpenGL ou d'activer ou désactiver le "mode fils de fer" (les raccourcis "F" et "W" permettent de passer du mode fils de fer 
+			au mode plein).
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[scale=0.8]{img/wire-fill.png}
+					\label{fig:wire-fill}
+					\caption{Utilisation des raccourcis "W" et "F"}
+				\end{center}
+			\end{figure}
+			Enfin, il est possible à tout moment de créer un nouveau projet ou enregistrer celui en cours grâce au menu "Fichier".
 
 		\section{Développeur}
 			Toute personne avec des bases de programmation pourra étendre les fonctionnalités de celle-ci grâce à notre API. Les seuls prérequis seront 

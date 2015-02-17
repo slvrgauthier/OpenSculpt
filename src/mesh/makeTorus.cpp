@@ -6,7 +6,7 @@ void Mesh::makeTorus(float radiusH, float radiusV, int discretization) {
   QVector<QVector3D> face;
 
   float angle = 360/(8*discretization);
-  /*QVector3D vertices[(8*discretization)][(8*discretization)];
+  QVector3D vertices[(8*discretization)][(8*discretization)];
 
   //construit les vertices
   for(int i=0;i<8.*discretization;i++){//meridien  8 meridien
@@ -31,6 +31,5 @@ void Mesh::makeTorus(float radiusH, float radiusV, int discretization) {
     }
   }
 
-*/
     this->TEST();
 }
