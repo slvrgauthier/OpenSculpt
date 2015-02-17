@@ -387,7 +387,9 @@
 						void makeSphere(float radius, int discretization);
 						void makeTorus(float radiusH, float radiusV, int discretization);
 					\end{verbatim}
-					% TODO : Cecile : explication brève de ce que représente les paramètres
+					Chaque maillage prédéfinis comporte des paramètres géométriques, (par exemple largeur, hauteur et profondeur pour le cube ou rayon pour 
+					la sphère) et un paramètre définissant le pas de discrétisation. Celui-ci permet de donner une résolution de base à l'objet, afin de 
+					l'affiner selon la formule géométrique de celui-ci (par exemple, les bords d'un cylindre seront plus lisses).
 					
 				\subsubsection{Ajout d'une face}
 					Il est possible de créer une face d'un maillage grâce à la fonction suivante :
