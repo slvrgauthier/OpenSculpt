@@ -775,18 +775,19 @@
 					d'outils, dans la partie supérieure de la fenêtre. De même pour l'entrée de menu ("Fichier" - "Nouvel Objet"). Il faut ensuite ajouter 
 					les fonctions adéquates dans les fichiers "mainWindow.h" et "mainWindow.cpp", en prenant pour exemple celles déjà présentes du type :
 					\begin{verbatim}
-						void on_initCube_clicked();
+						void on_initCube_clicked(); // Bouton
+						void on_actionNewCube_triggered(); // Menu
 					\end{verbatim}
-					La fonction on_init() doit être appelée au début de celle-ci, afin de réinitialiser les paramètres de création et divers autres détails.
-					S'il est nécessaire d'ajouter des widgets, il faudra prendre exemple sur ceux déjà présents (les doubleSpinBox de la boîte de dialogue du
-					panel droit). Dans ce cas, il sera également nécessaire d'ajouter des appels aux fonctions setVisible() et connect() / disconnect(), dans
-					les méthodes de la classe "mainWindow" suivantes :
+					La fonction \textit{on\_init()} doit être appelée au début de la première, afin de réinitialiser les paramètres de création et divers 
+					autres détails. S'il est nécessaire d'ajouter des widgets, il faudra prendre exemple sur ceux déjà présents (les \textit{doubleSpinBox} 
+					de la boîte de dialogue du panel droit). Dans ce cas, il sera également nécessaire d'ajouter des appels aux fonctions 
+					\textit{setVisible()} et \textit{connect()} / \textit{disconnect()}, dans les méthodes de la classe "mainWindow" suivantes :
 					\begin{verbatim}
 						void on_init();
 						void on_initVotrePolygone_clicked();
 						void hideDialog();
 					\end{verbatim}
-					Pour le raccourci clavier, il suffit d'ajouter une entrée dans le switch de la méthode \verbatim{void keyPressEvent(QKeyEvent *event);}
+					Pour le raccourci clavier, il suffit d'ajouter une entrée dans le switch de la méthode \textit{keyPressEvent(QKeyEvent *event)}.
 					
 				\subsubsection{Fonction de mise à jour}
 					Il est nécessaire d'ajouter cette fonction dans la classe \textbf{MainWindow}. Nous conseillons de placer sa déclaration dans 
@@ -823,21 +824,18 @@
 				\subsubsection{Bouton}
 					Pour que l'utilisateur s'y retrouve facilement (mais ce n'est pas obligatoire si l'on ne souhaite qu'un raccourci clavier par exemple), 
 					il est conseillé d'ajouter un bouton (via QtDesigner) dans le fichier "mainWindow.ui", formulaire de QtDesigner. Il suffit de recopier 
-					les valeurs des boutons déjà présents, en ne changeant que le nom et l'icône de celui-ci. Ces boutons se situent à droite de la barre 
-					d'outils, dans la partie supérieure de la fenêtre. De même pour l'entrée de menu ("Fichier" - "Nouvel Objet"). Il faut ensuite ajouter 
-					les fonctions adéquates dans les fichiers "mainWindow.h" et "mainWindow.cpp", en prenant pour exemple celles déjà présentes du type :
+					les valeurs des boutons déjà présents, en ne changeant que le nom et l'icône de celui-ci. Ces boutons se situent en haut du panel gauche.
+					Il faut ensuite ajouter les fonctions adéquates dans les fichiers "mainWindow.h" et "mainWindow.cpp", en prenant pour exemple celles 
+					déjà présentes du type :
 					\begin{verbatim}
-						void on_initCube_clicked();
+						void on_ltadd_clicked();
 					\end{verbatim}
-					La fonction on_init() doit être appelée au début de celle-ci, afin de réinitialiser les paramètres de création et divers autres détails.
-					S'il est nécessaire d'ajouter des widgets, il faudra prendre exemple sur ceux déjà présents (les doubleSpinBox de la boîte de dialogue du
-					panel droit). Dans ce cas, il sera également nécessaire d'ajouter des appels aux fonctions setVisible() et connect() / disconnect(), dans
-					les méthodes de la classe "mainWindow" suivantes :
+					Les fonctions \textit{disableTool()} et \textit{enableTool()} doivent être appelées, afin de ne sélectionner que l'outil voulu. Il sera 
+					également nécessaire d'ajouter un appel à la fonction \textit{setChecked()}, dans la méthode de la classe "mainWindow" suivante :
 					\begin{verbatim}
-						void on_init();
-						void on_initVotrePolygone_clicked();
-						void hideDialog();
+						void disableTool();
 					\end{verbatim}
+					Pour le raccourci clavier, il suffit d'ajouter une entrée dans le switch de la méthode \textit{keyPressEvent(QKeyEvent *event)}.
 					
 				\subsubsection{Une réaction à l'évènement souris}
 					La fonction "mouseMoveEvent" de la classe \textbf{GLWidget} s'occupe de gérer les outils à l'aide d'un switch. Vous devrez donc ajouter 
@@ -943,7 +941,7 @@
 			\end{figure}
 			
 			\begin{figure}
-					\hspace{-2,75cm}\includegraphics{img/diagClass.png}
+					\hspace{-5cm}\includegraphics{img/diagClass.png}
 				\label{fig:diagClass}
 				\caption{Diagramme de classes de notre API}
 			\end{figure}
@@ -955,7 +953,7 @@
 			\end{figure}
 			
 			\begin{figure}
-				\hspace{-2cm}\includegraphics[scale=0.5]{img/cube.png}
+				\hspace{-4cm}\includegraphics[scale=0.5]{img/cube.png}
 				\label{fig:cube}
 				\caption{Conception d'un cube avec la représentation par demi-arêtes}
 			\end{figure}
