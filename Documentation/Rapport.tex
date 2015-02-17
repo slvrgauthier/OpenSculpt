@@ -631,27 +631,26 @@
 			
 			\subsection{Diagramme de l'interface}
 				Notre interface contient un certains nombre de widgets divers et variés.
-				\newpage
 				\begin{figure}
 					\hspace{-4cm}\includegraphics[scale=0.50]{img/diagramInterface.png}
 					\label{fig:interface}
 					\caption{Diagramme des widgets de l'interface graphique}
 				\end{figure}
 				
-			        Comme nous pouvons le voir, l'ensemble des widgets est rassembl\'e dans la MainWindow. Nous avons donc : 
+			        Comme nous pouvons le voir, l'ensemble des widgets est rassemblé dans la MainWindow. Nous avons donc : 
 				\begin{itemize}
-					\item Le MenuBar est compos\'e de plusieurs widgets : 
-						 \begin{itemize}
-							\item Le MenuNewObject : permet de cr\'eer un nouvel objet.
-							\item Le MenuFile : permet d'acc\'eder \`a diff\'events param\`etres tels que ouverture de mod\`ele  ou la cr\'eation d'un nouveau projet  .
-							\item Le MenuEdition : permet d'acc\'eder \`a diff\'events param\`etres agissant sur l'objet .
-						        \item Le MenuView : permet d'acc\'eder \`a diff\'events param\`etres agissant sur le programme .
-						        \item Le MenuHelp : permet d'acc\'eder \`a diff\'events param\`etres aidant l'utilisateur .
-						 \end{itemize}
-					\item Le CentralWidget : permet d'afficher la fen\^etre OpenGL.
-					\item Le DockWidgetScene : permet d'interagir sur la sc\`ene via l'interface.
-					\item Le DockWidgetObjet : permet d'interagir sur la figure via l'interface.
-					\item Le InitFigure : permet d'initialiser les diff\'erents param\`etres d'initialisation de l'objet choisi.
+					\item Le MenuBar est composé de plusieurs widgets : 
+					\begin{itemize}
+						\item Le MenuNewObject : permet de créer un nouvel objet.
+						\item Le MenuFile : permet d'accéder à différents paramètres tels que ouverture ou la création d'un projet.
+						\item Le MenuEdition : permet d'accéder à différents paramètres agissant sur l'objet.
+						\item Le MenuView : permet d'accéder à différents paramètres agissant sur la fenêtre ou le rendu.
+						\item Le MenuHelp : permet d'accéder à différents paramètres aidant l'utilisateur.
+					\end{itemize}
+					\item Le CentralWidget : permet d'afficher la fenêtre OpenGL (le rendu donc).
+					\item Le DockWidgetScene : permet d'interagir sur la scène via l'interface.
+					\item Le DockWidgetObjet : permet d'interagir sur l'objet actif via l'interface.
+					\item Le InitFigure : permet de paramètrer les objets lors de leur création (ou modification).
 				\end{itemize}
 				
 %==========================================================================================================================================================
@@ -909,10 +908,10 @@
 			toujours améliorer notre programme selon les possibilités offertes par le développement de celui-ci. Ainsi, nous avons quelques suggestions 
 			d'améliorations pour notre logiciel, dans le cadre d'une éventuelle future reprise de son développement :
 			\begin{itemize}
-				\item Optimisation : beaucoup de nos algorithmes pourraient être améliorés, notamment les comparaisons de points de % il manque un truc ou pas
-				par la surcouche de l'API qui se déroulent en O(n) et pourraient l'être en O(1) avec par exemple des fonctions de hachage. D'autres, plus coûteux, 
+				\item Optimisation : beaucoup de nos algorithmes pourraient être améliorés, notamment les comparaisons de points de par la surcouche de 
+				l'API qui se déroulent en O(n) et pourraient l'être en O(1) avec par exemple des fonctions de hachage. D'autres, plus coûteux, 
 				nécessiteraient une recherche approfondie pour améliorer les performances.
-				\item Contenu : notre logiciel ne propose que cinq outils et cinq maillages prédéfinis. Un aspect qui pourrait facilement être enrichi 
+				\item Contenu : notre logiciel ne propose que cinq outils et cinq maillages prédéfinis, un aspect qui pourrait facilement être enrichi 
 				avec plus de temps.
 				\item Maillage : il serait utile de mettre en place bon nombre de fonctions de vérification de maillage, notamment les recoupements de 
 				triangles.
