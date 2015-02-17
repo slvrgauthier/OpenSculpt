@@ -108,7 +108,8 @@
 				appréhender. Cela concernera tant les dispositions que les icônes qui devront suivre une certaine logique.
 
 			\subsection{Les Options}
-				% TODO : détailler brièvement les options de rendu, d'interface...etc
+				Différentes options seront disponibles, telles que créer un nouveau projet, ouvrir, enregistrer, importer ou exporter un projet, annuler ou 
+				refaire une action utilisateur...etc. De même, certaines options de rendu telles que le mode fils de fer seront présentes.
 	
 		\section{Structure du programme}
 			Cette partie détaille succintement la structure globale du logiciel, ce qui couvre les aspects non maîtrisables par l'utilisateur.
@@ -627,8 +628,8 @@
 		
 		\section{...}
 			% TODO : diagrammes, problèmes et solutions, précisions (PEU DE CODE, PAS TROP UTILE SUR L'INTERFACE)...etc
-			% TODO : Yannick : interface
-			% TODO : Cécile si t'as des trucs à dire hors API
+			% Yannick : interface
+			% Cécile si t'as des trucs à dire hors API
 			\subsection{...}
 
 %==========================================================================================================================================================
@@ -768,7 +769,24 @@
 					\pageref{mesh-dev}) pour chaque facette du maillage. Vous pourrez bien sûr prendre exemple des fonctions déjà implémentées.
 					
 				\subsubsection{Bouton, menu et widgets}
-					%TODO : Yannick
+					Pour que l'utilisateur s'y retrouve facilement (mais ce n'est pas obligatoire si l'on ne souhaite qu'un raccourci clavier par exemple), 
+					il est conseillé d'ajouter un bouton (via QtDesigner) dans le fichier "mainWindow.ui", formulaire de QtDesigner. Il suffit de recopier 
+					les valeurs des boutons déjà présents, en ne changeant que le nom et l'icône de celui-ci. Ces boutons se situent à droite de la barre 
+					d'outils, dans la partie supérieure de la fenêtre. De même pour l'entrée de menu ("Fichier" - "Nouvel Objet"). Il faut ensuite ajouter 
+					les fonctions adéquates dans les fichiers "mainWindow.h" et "mainWindow.cpp", en prenant pour exemple celles déjà présentes du type :
+					\begin{verbatim}
+						void on_initCube_clicked();
+					\end{verbatim}
+					La fonction on_init() doit être appelée au début de celle-ci, afin de réinitialiser les paramètres de création et divers autres détails.
+					S'il est nécessaire d'ajouter des widgets, il faudra prendre exemple sur ceux déjà présents (les doubleSpinBox de la boîte de dialogue du
+					panel droit). Dans ce cas, il sera également nécessaire d'ajouter des appels aux fonctions setVisible() et connect() / disconnect(), dans
+					les méthodes de la classe "mainWindow" suivantes :
+					\begin{verbatim}
+						void on_init();
+						void on_initVotrePolygone_clicked();
+						void hideDialog();
+					\end{verbatim}
+					Pour le raccourci clavier, il suffit d'ajouter une entrée dans le switch de la méthode \verbatim{void keyPressEvent(QKeyEvent *event);}
 					
 				\subsubsection{Fonction de mise à jour}
 					Il est nécessaire d'ajouter cette fonction dans la classe \textbf{MainWindow}. Nous conseillons de placer sa déclaration dans 
@@ -803,7 +821,23 @@
 					d'exemple. Les fonctions du fichier "functions.h" sont également très utiles.
 					
 				\subsubsection{Bouton}
-					%TODO : Yannick
+					Pour que l'utilisateur s'y retrouve facilement (mais ce n'est pas obligatoire si l'on ne souhaite qu'un raccourci clavier par exemple), 
+					il est conseillé d'ajouter un bouton (via QtDesigner) dans le fichier "mainWindow.ui", formulaire de QtDesigner. Il suffit de recopier 
+					les valeurs des boutons déjà présents, en ne changeant que le nom et l'icône de celui-ci. Ces boutons se situent à droite de la barre 
+					d'outils, dans la partie supérieure de la fenêtre. De même pour l'entrée de menu ("Fichier" - "Nouvel Objet"). Il faut ensuite ajouter 
+					les fonctions adéquates dans les fichiers "mainWindow.h" et "mainWindow.cpp", en prenant pour exemple celles déjà présentes du type :
+					\begin{verbatim}
+						void on_initCube_clicked();
+					\end{verbatim}
+					La fonction on_init() doit être appelée au début de celle-ci, afin de réinitialiser les paramètres de création et divers autres détails.
+					S'il est nécessaire d'ajouter des widgets, il faudra prendre exemple sur ceux déjà présents (les doubleSpinBox de la boîte de dialogue du
+					panel droit). Dans ce cas, il sera également nécessaire d'ajouter des appels aux fonctions setVisible() et connect() / disconnect(), dans
+					les méthodes de la classe "mainWindow" suivantes :
+					\begin{verbatim}
+						void on_init();
+						void on_initVotrePolygone_clicked();
+						void hideDialog();
+					\end{verbatim}
 					
 				\subsubsection{Une réaction à l'évènement souris}
 					La fonction "mouseMoveEvent" de la classe \textbf{GLWidget} s'occupe de gérer les outils à l'aide d'un switch. Vous devrez donc ajouter 
@@ -848,7 +882,8 @@
 				\item Implémenter des outils d'union, différence et intersection d'objets entre eux.
 				\item Permettre de passer d'une représentation surfacique à une représentation volumique et inversément.
 				\item Permettre l'affichage d'une grille (deux ou trois dimensions), ainsi que les repères scène et objet.
-				%TODO : si on ne fait pas undo/redo et importer/exporter, le noter ici
+				\item Les fonctions "undo()" et "redo()".
+				\item La gestion des sauvegardes.
 			\end{itemize}
 			
 		\section{Améliorations réalisables}
@@ -866,7 +901,6 @@
 				\item Autre : les fonctions de subdivision et décimation mériteraient sûrement d'être améliorées, notamment la décimation globale qui ne
 				fait pas exactement l'inverse de la subdivision. De plus, les rotations ne s'effectue actuellement que par rapport au déplacement souris,
 				et ne prennent donc pas en compte l'angle de vue actuel.
-				%TODO : si d'autres idées, ne pas hésiter à ajouter
 			\end{itemize}
 
 %==========================================================================================================================================================
