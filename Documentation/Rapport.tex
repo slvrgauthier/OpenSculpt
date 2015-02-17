@@ -631,13 +631,29 @@
 			
 			\subsection{Diagramme de l'interface}
 				Notre interface contient un certains nombre de widgets divers et variés.
+				\newpage
 				\begin{figure}
-					\hspace{-4cm}\includegraphics[scale=0.5]{img/diagramInterface.png}
+					\hspace{-4cm}\includegraphics[scale=0.50]{img/diagramInterface.png}
 					\label{fig:interface}
 					\caption{Diagramme des widgets de l'interface graphique}
 				\end{figure}
-				% TODO : expliquer brièvement a quoi servent les widgets
-
+				
+			        Comme nous pouvons le voir, l'ensemble des widgets est rassembl\'e dans la MainWindow. Nous avons donc : 
+				\begin{itemize}
+					\item Le MenuBar est compos\'e de plusieurs widgets : 
+						 \begin{itemize}
+							\item Le MenuNewObject : permet de cr\'eer un nouvel objet.
+							\item Le MenuFile : permet d'acc\'eder \`a diff\'events param\`etres tels que ouverture de mod\`ele  ou la cr\'eation d'un nouveau projet  .
+							\item Le MenuEdition : permet d'acc\'eder \`a diff\'events param\`etres agissant sur l'objet .
+						        \item Le MenuView : permet d'acc\'eder \`a diff\'events param\`etres agissant sur le programme .
+						        \item Le MenuHelp : permet d'acc\'eder \`a diff\'events param\`etres aidant l'utilisateur .
+						 \end{itemize}
+					\item Le CentralWidget : permet d'afficher la fen\^etre OpenGL.
+					\item Le DockWidgetScene : permet d'interagir sur la sc\`ene via l'interface.
+					\item Le DockWidgetObjet : permet d'interagir sur la figure via l'interface.
+					\item Le InitFigure : permet d'initialiser les diff\'erents param\`etres d'initialisation de l'objet choisi.
+				\end{itemize}
+				
 %==========================================================================================================================================================
 	\chapter{Manuel}
 		
