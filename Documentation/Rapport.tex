@@ -365,7 +365,7 @@
 				telle que la subdivision. Nous avons d'ailleurs ajouté un entier dans la structure des points afin d'obtenir des accès immédiats lors du 
 				rendu.\\
 				\\
-				Pour utiliser cette structure tout en séparant bien les types d'interaction, nous avons créé un certain nombre de classes, dont chacune a un 
+				Pour utiliser cette structure tout en séparant bien les types d'intéraction, nous avons créé un certain nombre de classes, dont chacune a un 
 				rôle spécifique :
 				\begin{itemize}
 					\item \textbf{Mesh :} contient le maillage et toutes les méthodes de création de celui-ci (cf page \pageref{mesh-dev}).
@@ -450,7 +450,7 @@
 					\begin{verbatim}
 						QVector<QVector3D> getNeighbours(QVector3D vertex, int degree);
 					\end{verbatim}
-					Si le point passé en paramètres existe, alors la fonction renverra, grâce à un parcours récursifs basé sur les adjacences de faces, la 
+					Si le point passé en paramètre existe, alors la fonction renverra, grâce à un parcours récursif basé sur les adjacences de faces, la 
 					liste des points voisins de celui-ci. Le degré de voisinage permet d'obtenir des voisins plus éloignés, ce paramètre définissant le 
 					nombre de récursions à effectuer lors du parcours.
 					
@@ -488,7 +488,7 @@
 						int getFaceCount() const;
 					\end{verbatim}
 					Avec ces accesseurs, nous pouvons récupérer ou déplacer des points du maillage directement (y compris le centre de l'objet), ainsi que 
-					connaitres des informations utiles telles que le nombre total de points, demi-arêtes ou faces.
+					connaitre des informations utiles telles que le nombre total de points, demi-arêtes ou faces.
 				
 			\subsection{Les méthodes de la classe MeshRenderer}
 				\label{renderer-dev}
@@ -499,7 +499,7 @@
 					\end{verbatim}
 					Cette méthode transmet à la carte graphique (donc le GPU), les buffers nécessaires au rendu OpenGL de l'objet. Il existe trois buffers : 
 					les points, les normales et les indices. Nous avons choisi de passer par un buffer d'indices afin d'améliorer les performances (un 
-					entier pour chaque point de chaque triangle au lieu de répéter trois flottants pour chaque points et trois de plus pour chaque normale).
+					entier pour chaque point de chaque triangle au lieu de répéter trois flottants pour chaque point et trois de plus pour chaque normale).
 					
 				\subsubsection{Synchronisation des buffers}
 					Il est parfois nécessaire d'actualiser ou non les buffer objects :
@@ -519,7 +519,7 @@
 						static bool subdivideAuto(Mesh *mesh, float maxEdgeLength);
 					\end{verbatim}
 					Ces deux processus de subdivision permettent de raffiner le maillage dans son intégralité.\\
-					La première subdivision crée pour chaque face un triangle à l'aide des milieux de chaque arête de celle-ci. Un schéma est disponible en 
+					La première subdivision crée, pour chaque face, un triangle à l'aide des milieux de chaque arête de celle-ci. Un schéma est disponible en 
 					annexe (cf page \pageref{fig:subdivide}). Celle-ci étant intimement liée à la structure interne des maillages, il est nécessaire de la 
 					redéfinir si l'on décide de changer cette structure.\\
 					La seconde méthode est paramétrable. En effet, le paramètre "maxEdgeLength" permet de ne couper que les arêtes dépassant cette taille. 
@@ -614,7 +614,7 @@
 						void updateLastMesh();
 					\end{verbatim}
 					Cette classe permet facilement de faire appel à tous les objets itérativement, et offre également quelques options. En effet, le 
-					paramètre "activeMesh" permet le rendu du maillage actif d'un couleur différente des autres par exemple. De même, nous pouvons choisir 
+					paramètre "activeMesh" permet le rendu du maillage actif d'une couleur différente des autres par exemple. De même, nous pouvons choisir 
 					quel maillage nous avons besoin de mettre à jour.
 					
 				\subsubsection{Ajout et suppression}
@@ -624,7 +624,7 @@
 						void removeMesh(Mesh *mesh);
 						void clear();
 					\end{verbatim}
-					Ces fonctions d'ajout et suppression permettent de ne pas gérer nous même les suppressions d'objet de la mémoire, puisque le manager 
+					Ces fonctions d'ajout et de suppression permettent de ne pas gérer nous même les suppressions d'objet de la mémoire, puisque le manager 
 					s'en occupe. Ainsi, la programmation s'en retrouve moins compliquée.
 		
 		\section{Interface}
@@ -673,7 +673,7 @@
 			donc possible de passer d'un objet à un autre en cliquant sur le nom de l'objet souhaité. De plus il sera aussi possible d'accéder à certains 
 			attributs d'un objet en effectuant un double clic ou un clic droit sur son nom. Nous aurons alors la possibilité de modifier son nom ou de le 
 			supprimer.\\\\ 
-			Maintenant que nous avons créé un objet, nous allons pouvoir interagir sur celui-ci ainsi que sur la scène à laquelle il appartient (par 
+			Maintenant que nous avons créé un objet, nous allons pouvoir intéragir sur celui-ci ainsi que sur la scène à laquelle il appartient (par 
 			utilisation de la souris : déplacement du curseur en maintenant le clic gauche enfoncé). Pour cela, nous pouvons utiliser la barre d'outils de 
 			la partie supérieure de la fenêtre. Celle-ci est composée de plusieurs boutons auxquels sont associés des raccourcis clavier (représentés ici 
 			entre parenthèses et guillemets).\\
@@ -736,7 +736,7 @@
 
 		\section{Développeur}
 			Toute personne avec des bases de programmation pourra étendre les fonctionnalités de celle-ci grâce à notre API. Les seuls prérequis seront 
-			d'installer QtCreator et d'avoir les librairies Glut pour OpenGL.
+			d'installer QtCreator et d'avoir les librairies Glut pour OpenGL. Pour le système d'exploitation windows, ces librairies sont inclues dans les sources. Voir la note d'installation Windows.
 			
 			\subsection{Ajout d'un maillage modèle}
 				Il est possible d'ajouter un maillage modèle afin d'enrichir les objets de base proposés à l'utilisateur.\\
@@ -893,15 +893,15 @@
 			toujours améliorer notre programme selon les possibilités offertes par le développement de celui-ci. Ainsi, nous avons quelques suggestions 
 			d'améliorations pour notre logiciel, dans le cadre d'une éventuelle future reprise de son développement :
 			\begin{itemize}
-				\item Optimisation : beaucoup de nos algorithmes pourraient être améliorés, notamment les comparaisons de points de par la surcouche de 
-				l'API qui se déroulent en O(n) et pourraient l'être en O(1) avec par exemple des fonctions de hachage. D'autres, plus coûteux, 
+				\item Optimisation : beaucoup de nos algorithmes pourraient être améliorés, notamment les comparaisons de points de % il manque un truc ou pas
+				par la surcouche de l'API qui se déroulent en O(n) et pourraient l'être en O(1) avec par exemple des fonctions de hachage. D'autres, plus coûteux, 
 				nécessiteraient une recherche approfondie pour améliorer les performances.
-				\item Contenu : notre logiciel ne propose que cinq outils et cinq maillages prédéfinis, un aspect qui pourrait facilement être enrichi 
+				\item Contenu : notre logiciel ne propose que cinq outils et cinq maillages prédéfinis. Un aspect qui pourrait facilement être enrichi 
 				avec plus de temps.
 				\item Maillage : il serait utile de mettre en place bon nombre de fonctions de vérification de maillage, notamment les recoupements de 
 				triangles.
 				\item Autre : les fonctions de subdivision et décimation mériteraient sûrement d'être améliorées, notamment la décimation globale qui ne
-				fait pas exactement l'inverse de la subdivision. De plus, les rotations ne s'effectue actuellement que par rapport au déplacement souris,
+				fait pas exactement l'inverse de la subdivision. De plus, les rotations ne s'effectuent actuellement que par rapport au déplacement souris,
 				et ne prennent donc pas en compte l'angle de vue actuel.
 			\end{itemize}
 

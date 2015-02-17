@@ -1,0 +1,7 @@
+Installation des librairies Glut pour les Windows:
+
+Dans le dossier "GL Files":
+
+-Mettre les .dll à coté du fichier Makefile
+-Mettre le dossier "GL" de "include" dans Qt creator: C:\Qt\Qt5.4.0\5.4\mingw491_32\include
+-Mettre les .lib dans system32.
