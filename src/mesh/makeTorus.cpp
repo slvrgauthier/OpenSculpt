@@ -2,8 +2,9 @@
 
 void Mesh::makeTorus(float radiusH, float radiusV, int discretization) {
     this->clear();
-
+  int size = 8*discretization;
   QVector<QVector3D> face;
+  float x=0,y=0,z=0;
 
   float angle = 360/(8*discretization);
   QVector3D vertices[(8*discretization)][(8*discretization)];
@@ -11,9 +12,11 @@ void Mesh::makeTorus(float radiusH, float radiusV, int discretization) {
   //construit les vertices
   for(int i=0;i<8.*discretization;i++){//meridien  8 meridien
     for(int k =0;k<8*discretization;k++){//parallele  9 vertices sur chaque paralleleen plus des sommets
-        vertices[i][k].setX((radiusH + radiusV*cosd(angle*k))*cosd(angle*i));
-        vertices[i][k].setY((radiusH + radiusV*cosd(angle*k))*sind(angle*i));
-        vertices[i][k].setZ(radiusV*sind(angle*k));
+        x=(radiusH + radiusV*cosd(angle*k))*cosd(angle*i);
+        y=(radiusH + radiusV*cosd(angle*k))*sind(angle*i);
+        z=radiusV*sind(angle*k);
+
+        vertices.push_back(QVector3D(x,y,z));
       }
     }
 
@@ -23,10 +26,11 @@ void Mesh::makeTorus(float radiusH, float radiusV, int discretization) {
   for(int i=0;i<8.*discretization;i++){//tore
     for(int k=0;k<8*discretization;k++){//disque
         face.clear();
-        face.push_front(vertices[i][k]);
-        face.push_front(vertices[i][(k+1)%(8*discretization)]);
-        face.push_front(vertices[(i+1)%(8*discretization)][(k+1)%(8*discretization)]);
-        face.push_front(vertices[(i+1)%(8*discretization)][k]);
+        face.push_back(vertices.at(i*(size-1)+k));
+        face.push_back(vertices.at(i*(size-1)+(k+1)%size));
+        face.push_back(vertices.at(((i+1)%(size))*(size-1)+(k+1)%size));
+        face.push_back(vertices.at(((i+1)%(size))*(size-1)+k));
+
         this->addFace(face);
     }
   }
