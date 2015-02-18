@@ -59,7 +59,7 @@
 			
 			\subsection{Les Modèles}
 				\label{model-cdc}
-				Différents maillages prédéfinis, appelés ici modèles, seront mis à disposition de l'utilisateur.\\
+				Différents maillages prédéfinis, appelés ici modèles, sont mis à disposition de l'utilisateur.\\
 				Nous en prévoyons actuellement cinq, paramétrables par l'utilisateur :
 				\begin{itemize}
 					\item \textbf{Cube :} défini par une largeur, une hauteur et une profondeur.
@@ -68,15 +68,15 @@
 					\item \textbf{Cône :} défini par une hauteur et un rayon.
 					\item \textbf{Tore :} défini par un rayon horizontal et un rayon vertical.
 				\end{itemize}
-				Chaque modèle sera aussi paramétré par un pas de discrétisation.
+				Chaque modèle est aussi paramétré par un pas de discrétisation.
 				
 			\subsection{Le Rendu}
-				Le rendu s'effectuera dans une classe spécifique, et permet de synchroniser la structure interne des maillages avec les buffer objects. Il 
-				existera également différentes options de rendu telles que l'affichage solide ou en fils de fer, les couleurs, les lumières...etc.
+				Le rendu s'effectue dans une classe spécifique, et permet de synchroniser la structure interne des maillages avec les buffer objects. Il 
+				existe également différentes options de rendu telles que l'affichage solide ou en fils de fer, les couleurs, les lumières...etc.
 
 			\subsection{Les Outils de sculpture}
 				\label{tool-cdc}
-				Différents outils seront disponibles. Ils auront pour action de modifier le maillage dans la direction des normales de surface, et selon
+				Différents outils sont disponibles. Ils ont pour action de modifier le maillage dans la direction des normales de surface, et selon
 				un schéma de modification propre à chaque outil. Nous avons défini deux catégories d'outils : modifications globales et locales des objets
 				(une troisième est destinée au déplacement de la caméra dans la scène en trois dimensions).
 				\newpage
@@ -99,33 +99,33 @@
 				Pour plus de détails sur leur fonctionnement, référez-vous à la partie \textbf{Développement} (cf page \pageref{tool-dev}).
 
 			\subsection{Les Algorithmes de maillage}
-				Les différents algorithmes de modification de maillages seront regroupés dans une classe statique spécifique. Y seront présentes les 
+				Les différents algorithmes de modification de maillages sont regroupés dans une classe statique spécifique. Y sont présentes les 
 				fonctions de subdivision et de décimation globale, ainsi qu'une subdivision et une décimation automatique paramétrable avec une longueur 
 				(maximale ou minimale) d'arête.
 
 			\subsection{Interface}
-				L'interface de l'application devra être ergonomique et proposer de nombreux raccourcis clavier afin de permettre à l'utilisateur de 
-				travailler rapidement. Elle devra également être le plus intuitive possible, car un tel logiciel pourrait devenir très compliqué à 
-				appréhender. Cela concernera tant les dispositions que les icônes qui devront suivre une certaine logique.
+				L'interface de l'application doit être ergonomique et proposer de nombreux raccourcis clavier afin de permettre à l'utilisateur de 
+				travailler rapidement. Elle doit également être le plus intuitive possible, car un tel logiciel pourrait devenir très compliqué à 
+				appréhender. Cela concerne tant les dispositions que les icônes qui doivent suivre une certaine logique.
 
 			\subsection{Les Options}
-				Différentes options seront disponibles, telles que créer un nouveau projet, ouvrir, enregistrer, importer ou exporter un projet, annuler ou 
-				refaire une action utilisateur...etc. De même, certaines options de rendu telles que le mode fils de fer seront présentes.
+				Différentes options sont disponibles, telles que créer un nouveau projet, ouvrir, enregistrer, importer ou exporter un projet, annuler ou 
+				refaire une action utilisateur...etc. De même, certaines options de rendu telles que le mode fils de fer sont présentes.
 	
 		\section{Structure du programme}
 			Cette partie détaille succintement la structure globale du logiciel, ce qui couvre les aspects non maîtrisables par l'utilisateur.
 			
 			\subsection{L'API}
-				L'application devra contenir une surcouche, ayant pour objectif de rendre notre logiciel facilement extensible par d'autres développeurs, 
-				sans qu'ils aient besoin de connaître tous les détails de la structure interne de celui-ci.
+				L'application doit contenir une surcouche, ayant pour objectif de rendre notre logiciel facilement extensible par d'autres développeurs, 
+				sans qu'ils n'aient besoin de connaître tous les détails de la structure interne de celui-ci.
 				
-				La structure interne des maillages retenue ici est la structure par demi-arêtes. Nous auront donc, pour chaque maillage, des listes de 
-				points, faces et demi-arêtes.\\ Chaque point contiendra des coordonnées en trois dimensions, un indice de position dans la liste afin 
-				d'améliorer la vitesse d'accès, ainsi qu'un pointeur vers une demi-arête sortante.\\ Chaque face contiendra un pointeur vers une demi-arête 
-				intérieure, et éventuellement un vecteur normal.\\ Chaque demi-arête contiendra des pointeurs vers : une face, un point, les demi-arêtes 
+				La structure interne des maillages retenue ici est la structure par demi-arêtes. Nous avons donc, pour chaque maillage, des listes de 
+				points, faces et demi-arêtes.\\ Chaque point contient des coordonnées en trois dimensions, un indice de position dans la liste afin 
+				d'améliorer la vitesse d'accès, ainsi qu'un pointeur vers une demi-arête sortante.\\ Chaque face contient un pointeur vers une demi-arête 
+				intérieure, et éventuellement un vecteur normal.\\ Chaque demi-arête contient des pointeurs vers : une face, un point, les demi-arêtes 
 				suivantes et précédentes au sein de la même face, et la demi-arête opposé.
 				
-				Plusieurs méthodes publiques devront être présentes, telles que "ajouter une face", "couper une arête en deux", "fusionner deux arêtes"... 
+				Plusieurs méthodes publiques doivent être présentes, telles que "ajouter une face", "couper une arête en deux", "fusionner deux arêtes"... 
 				et cacher la structure interne (n'agir qu'à l'aide de coordonnées par exemple). Cela permettra dans le futur, si besoin, de changer la 
 				structure interne sans modifier le reste de l'application.
 		
@@ -136,16 +136,16 @@
 		
 		\section{Gestion de l'équipe}
 			Tous les membres se connaissant et étant supposés être capable de travailler en équipe, nous n'avons fait aucune élection préalable de chef de 
-			projet.\\ Mais le déroulement du projet nous a imposé ce choix, GAUTHIER Silvère assurera donc ce rôle, afin de garder une cohésion de groupe 
+			projet.\\ Mais le déroulement du projet nous a imposé ce choix, GAUTHIER Silvère assure donc ce rôle, afin de garder une cohésion de groupe 
 			et assurer la réalisation de nos objectifs.\\ Chaque membre peut tout de même participer activement au projet, autant lors de la conception que 
-			du développement. Toutes les décisions seront prises suivant la majorité lors de votes.\\\\
+			du développement. Toutes les décisions sont prises suivant la majorité lors de votes.\\\\
 			Pour ce qui est des réunions de projets, nous avons convenu avec nos tuteurs d'une réunion, allant d'environ trente minutes à une heure, toutes 
 			les semaines, afin de mettre au point l'avancement du projet. En parallèle, tous les membres de notre équipe se retrouvent une fois par semaine 
 			afin de discuter des points clés effectués ou à venir, donner lieu aux votes pour les prises de décisions, ou encore, lors de la phase de 
 			développement, travailler en collaboration afin d'optimiser notre travail.\\\\
 			Au niveau du travail collaboratif, nous avons mis en place un dépôt sur github (adresse à la page \pageref{url:github}), contenant tant la 
-			documentation que les sources de notre programme. Par ailleurs, nous mettrons sur ce dépôt uniquement les fichiers sources et les images, mais 
-			en aucun cas les fichiers temporaires ou les exécutables. Les seuls fichiers binaires disponibles seront les PDF de la documentation, pour un 
+			documentation que les sources de notre programme. Par ailleurs, nous mettons sur ce dépôt uniquement les fichiers sources et les images, mais 
+			en aucun cas les fichiers temporaires ou les exécutables. Les seuls fichiers binaires disponibles sont les PDF de la documentation, pour un 
 			soucis de facilité d'accès et de lecture.
 
 		\section{Découpage en tâches}
@@ -169,13 +169,13 @@
 				\item \textbf{Conception et implémentation des outils} : GAUTHIER Silvère, LAMEIRA Yannick, PELADAN Cécile.
 				\item \textbf{Tests et vérifications de l'application} : GAUTHIER Silvère, LAMEIRA Yannick, PELADAN Cécile.
 			\end{itemize}
-			Bien entendu, les membres pourront évidemment faire appel aux autres pour trouver une solution à un problème par exemple.\\
+			Bien entendu, les membres peuvent évidemment faire appel aux autres pour trouver une solution à un problème par exemple.\\
 			Le détail complet des tâches et assignations se situe dans la section Gestion du temps, page \pageref{GestionTps}.
 
 		\section{Gestion du temps}
 			\label{GestionTps}
 			Afin de clarifier notre gestion du temps, deux diagrammes de Gantt (prédictif et final) sont disponibles en annexe (cf page \pageref{fig:gantt}) 
-			et dans la documentation de notre projet.\\
+			et dans la documentation de notre projet.
 
 		\section{Choix technologiques}
 			Afin de pouvoir développer correctement notre logiciel, il a fallu définir tout ce que nous allions utiliser en terme de langages et 
@@ -196,7 +196,7 @@
 				utilisant OpenGL : Qt.\\
 
 			\subsection{Représentation du maillage}
-				Nous cherchons ici à comparer différentes techniques permettant de représenter un maillage, afin de choisir celle qui sera la plus adaptée à 
+				Nous cherchons ici à comparer différentes techniques permettant de représenter un maillage, afin de choisir celle qui est la plus adaptée à 
 				nos opérations. Voici un tableau récapitulatif de cette étude comparative :
 				\begin{table}[H]
 					\begin{small}
@@ -242,22 +242,22 @@
 				\end{table}
 				L'étude comparative montre qu'il serait judicieux d'utiliser conjointement des Vertex Buffer Objects (VBOs) afin d'optimiser les 
 				performances d'affichage et une classe personnalisée pour aisément gérer nos données par une surcouche de méthodes. La structure interne des 
-				maillages sera donc une structure de type demi-arêtes, afin de faciliter les opérations de voisinage.
+				maillages choisie est donc une structure de type demi-arêtes, afin de faciliter les opérations de voisinage.
 			
 		\section{Gestion des fichiers}
 			Nous avons beaucoup de fichiers à gérer dans ce projet, et nous devions établir des conventions ou des moyens afin de les gérer correctement.
 			
 			\subsection{Format des Fichiers}
-				Le code étant écrit en C++, nous utiliserons des fichiers d'en-tête au format H et des fichiers de définition au format CPP.\\
-				Toutes les images nécessaires au logiciel seront au format PNG afin de pouvoir utiliser la transparence et garder la pleine qualité d'image 
+				Le code étant écrit en C++, nous utilisons des fichiers d'en-tête au format H et des fichiers de définition au format CPP.\\
+				Toutes les images nécessaires au logiciel sont au format PNG afin de pouvoir utiliser la transparence et garder la pleine qualité d'image 
 				(contrairement à JPEG qui perd de l'information à la compression).\\
 			
 				\subsubsection{Sauvegarde}
-					Une façon judicieuse de sauvegarder nos données serait d'avoir un format spécial pour enregistrer un projet complet contenant une liste 
+					Une façon judicieuse de sauvegarder nos données est d'avoir un format spécial pour enregistrer un projet complet contenant une liste 
 					d'objets, ainsi qu'une possibilité d'exportation de chaque objet ou scène dans un format connu tel que STL ou OBJ.
 			
 			\subsection{Commentaires}
-				Si une méthode ou fonction (voir même un bloc) dépasse une certaine taille ou devient trop compliquée, un commentaire sera ajouté avant 
+				Si une méthode ou fonction (voir même un bloc) dépasse une certaine taille ou devient trop compliquée, un commentaire est ajouté avant 
 				celle-ci expliquant brièvement son processus :
 				\begin{verbatim}
 					/** Description :
@@ -265,7 +265,7 @@
 					*** Sortie : ...
 					**/
 				\end{verbatim}
-				Quelque commentaires précieux pour le travail collaboratif seront également présents :
+				Quelque commentaires précieux pour le travail collaboratif sont également présents :
 				\begin{table}[H]
 					\begin{small}
 						\hspace{-0,5cm}
@@ -322,10 +322,240 @@
 					\url{https://github.com/slvrgauthier/OpenSculpt}
 					\label{url:github}
 				\end{center}
-				Sur ce dépôt seront présents tous les fichiers sources nécessaires au développement du programme ainsi que les documentations au format 
+				Sur ce dépôt sont présents tous les fichiers sources nécessaires au développement du programme ainsi que les documentations au format 
 				\LaTeX, ODT et PDF (même si aucun fichier binaire ne devrait être présent, il est plus pratique de récupérer directement un tel fichier 
-				que de le compiler soit-même). De plus, y seront stockées toutes les données utilisées par le programme telles que les images et autres 
-				ressources. Seuls les fichiers temporaires, exécutables et fichiers de sauvegarde ne seront pas stockés.
+				que de le compiler soit-même). De plus, y sont stockées toutes les données utilisées par le programme telles que les images et autres 
+				ressources. Seuls les fichiers temporaires, exécutables et fichiers de sauvegarde ne sont pas stockés.
+
+%==========================================================================================================================================================
+	\chapter{Réalisation}
+		%TODO
+
+%==========================================================================================================================================================
+	\chapter{Manuel}
+		
+		\section{Utilisateur}
+
+			L'interface se décompose en quatre parties. Un panel à droite permet d'agir sur les objets de la scène : une liste des objets présents permet de 
+			sélectionner l'objet sur lequel travailler, ainsi que de supprimer ou renommer celui-ci. Le panel droit contient également une boîte de dialogue 
+			permettant de paramétrer nos objets (notamment à leur création). Une barre d'outils, dans la partie supérieure de la fenêtre, permet d'agir 
+			sur la scène (déplacement de caméra, ajout d'objets...etc) ou l'objet courant (subdivision ou décimation). Un panel dans la partie gauche permet 
+			de sélectionner un outil de sculpture, ainsi que de paramétrer notre Brush. Enfin, une sous-fenêtre au centre permet le rendu OpenGL de la scène.
+			\\Voici un aperçu de notre interface, voulue ergonomique et dynamique (tous les panels sont mobiles) :
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[scale=0.27]{img/interface.png}
+					\label{fig:interface}
+					\caption{Aperçu de l'interface graphique}
+				\end{center}
+			\end{figure}
+			Via cette interface, nous pouvons créer une scène comportant plusieurs objets. Tout d'abord, pour ajouter un objet à la scène, deux choix 
+			s'offrent à nous :
+			\begin{itemize}
+				\item Soit à partir du menu : "Fichier" puis  "Nouvel objet".
+				\item Soit en cliquant directement sur l'icône de l'objet voulu, présent dans la barre d'outils.
+			\end{itemize}
+			Une fois l'objet créé (au centre de la scène), la boîte de dialogue permettant de le paramétrer apparaît dans le panel droit :
+			\begin{itemize}
+				\item Dimensions géométriques (largeur, hauteur, profondeur ou rayon)
+				\item Niveau de discrétisation (cf partie \textbf{Développement} page \pageref{mesh-dev})
+				\item Nom de l'objet
+			\end{itemize}
+			L'objet se régénère en temps réel à chaque modification de paramètre (excepté le nom). Une fois l'objet validé, celui-ci apparaît dans la liste 
+			située dans le panel droit. Nous remarquons que la figure sélectionnée est de couleur orange et que son nom dans la liste est surligné. Il est 
+			donc possible de passer d'un objet à un autre en cliquant sur le nom de l'objet souhaité. De plus il est aussi possible d'accéder à certains 
+			attributs d'un objet en effectuant un double clic ou un clic droit sur son nom. Nous avons alors la possibilité de modifier son nom ou de le 
+			supprimer.\\\\ 
+			Maintenant que nous avons créé un objet, nous allons pouvoir intéragir sur celui-ci ainsi que sur la scène à laquelle il appartient (par 
+			utilisation de la souris : déplacement du curseur en maintenant le clic gauche enfoncé). Pour cela, nous pouvons utiliser la barre d'outils de 
+			la partie supérieure de la fenêtre. Celle-ci est composée de plusieurs boutons auxquels sont associés des raccourcis clavier (représentés ici 
+			entre parenthèses et guillemets).\\
+			Tout d'abord, les boutons à gauche permettent d'agir sur la  scène. En effet nous avons (de gauche à droite) : 
+			\begin{itemize}
+				\item Désélectionner les boutons sélectionnés ("Esc").
+				\item Déplacer la scène ("Alt+M") : déplace la scène dans la direction de la souris.
+				\item Tourner la scène ("Alt+R") : tourne la scène dans la direction de la souris. Le clic droit permet par défaut cette fonctionnalité sans 
+				la sélectionner.
+				\item Zoomer ou dézoomer dans la scène ("Alt+S") : avance la caméra dans la scène selon la hauteur du déplacement de la souris (vers le haut 
+				pour avancer, vers le bas pour reculer). La molette permet par défaut cette fonctionnalité sans la sélectionner.
+			\end{itemize}
+			Puis, les boutons au centre permettent d'annuler ("Ctrl+Z") ou refaire ("Ctrl+Y") une action et de subdiviser ("Ctrl+S") ou décimer ("Ctrl+D") 
+			l'objet actif dans son intégralité.
+			Enfin, nous avons les boutons permettant de créer un objet prédéfini (de gauche à droite) :
+			\begin{itemize}
+				\item Cube ("Ctrl+1")
+				\item Sphère ("Ctrl+2")
+				\item Cylindre ("Ctrl+3")
+				\item Cône ("Ctrl+4")
+				\item Tore ("Ctrl+5")
+			\end{itemize}
+			Nous pouvons manipuler les objets créés ainsi que leur appliquer des transformations. Pour cela, le panel de gauche nous permet de choisir un 
+			outil de sculpture ou de manipulation globale de l'objet, ceux-ci ne modifiant que l'objet actif (en orange).\\
+			Tout d'abord, nous avons les boutons situés en bas du panel, correspondant aux manipulations globales :
+			\begin{itemize}
+				\item Déplacer l'objet dans la scène ("Shift+M") : déplace l'objet dans la direction de la souris.
+				\item Tourner l'objet ("Shift+R") : tourne l'objet dans la direction de la souris.
+				\item Mettre à l'échelle l'objet ("Shift+S") : met à l'échelle l'objet selon la hauteur du déplacement de la souris (vers le haut pour 
+				agrandir, vers le bas pour réduire).
+			\end{itemize}
+			Puis, nous avons les boutons en haut du panel, correspondant aux outils de sculpture :
+			\begin{itemize}
+				\item  Ajouter de la matière à l'objet ("A").
+				\item  Lisser la surface de l'objet ("S"). 
+				\item  Déplacer les polygones de l'objet ("M"). 
+				\item  Faire gonfler la surface de l'objet ("I"). 
+				\item  Pincer la surface de l'objet ("P").
+			\end{itemize}
+			Tous ces outils ont un rayon d'action appelé Brush, représenté par un cercle vert à l'écran. Il n'agissent donc uniquement sous le curseur, dans 
+			une zone circulaire paramétrable (cf ci-dessous).\\
+			Enfin, au centre, plusieurs paramètres réglables agissent sur notre objet : 
+			\begin{itemize}
+				\item Subdivision locale automatique : subdivise l'objet uniquement dans la zone d'action. Peut être cumulable avec un outil.
+				\item Décimation locale automatique : décime l'objet uniquement dans la zone d'action. Peut être cumulable avec un outil.
+				\item Modifier le brush (taille de la zone d'action et force d'attraction de l'outil).
+			\end{itemize}
+			Il est aussi possible d'agir grâce aux menus. Par exemple, le menu "Edition" permet de subdiviser, décimer ou lisser notre objet.\\
+			De plus, nous pouvons changer les options de rendu via l'onglet "Affichage". En effet, il est possible de réinitialiser la vue de la 
+			sous-fenêtre OpenGL ou d'activer ou désactiver le "mode fils de fer" (les raccourcis "F" et "W" permettent de passer du mode fils de fer 
+			au mode plein).
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[scale=0.8]{img/wire-fill.png}
+					\label{fig:wire-fill}
+					\caption{Utilisation des raccourcis "W" et "F"}
+				\end{center}
+			\end{figure}
+			Enfin, il est possible à tout moment de créer un nouveau projet ou enregistrer celui en cours grâce au menu "Fichier".
+
+		\section{Développeur}
+			Toute personne avec des bases de programmation peut étendre les fonctionnalités de celle-ci grâce à notre API. Les seuls prérequis sont 
+			d'installer QtCreator et d'avoir les librairies Glut pour OpenGL. Pour le système d'exploitation windows, ces librairies sont inclues dans les 
+			sources. Voir la note d'installation Windows.
+			
+			\subsection{Ajout d'un maillage modèle}
+				Il est possible d'ajouter un maillage modèle afin d'enrichir les objets de base proposés à l'utilisateur.\\
+				Pour cela, il est nécessaire d'ajouter plusieurs choses :
+				\begin{itemize}
+					\item Une fonction de génération du maillage dans la classe \textbf{Mesh}
+					\item Un bouton ou une entrée de menu pour créer le modèle dans l'interface
+					\item Des widgets (s'ils n'existent pas encore) pour les paramètres de génération
+					\item Une fonction de mise à jour du maillage en temps réel
+				\end{itemize}
+				
+				\subsubsection{Fonction de génération}
+					Il est nécessaire d'ajouter cette fonction dans la classe \textbf{Mesh}. Nous conseillons, pour la clarté, de placer sa déclaration dans 
+					"Mesh.h", sous les méthodes existantes de type :
+					\begin{verbatim}
+						void makeCube(float width, float height, float depth, int discretization);
+					\end{verbatim}
+					Toujours pour la facilité d'appréhension du code, nous conseillons de créer un nouveau fichier "make\textit{Polygon}.cpp" contenant la 
+					définition de la fonction :
+					\begin{verbatim}
+						#include "Mesh.h"
+
+						void Mesh::makeCube(float width, float height, float depth, int discretization) {
+						    this->clear();
+							
+						    ...
+							
+						    this->TEST();
+						}
+					\end{verbatim}
+					Il faut donc absolument inclure "Mesh.h", et surtout ne pas oublier d'utiliser la fonction clear(), qui permet de régénérer le maillage à
+					chaque changement de paramètre. Une fonction TEST() est également disponible pour vérifier l'intégrité du maillage (à utiliser à la fin 
+					de la fonction make\textit{Polygon}). Dans le corps de cette méthode, il est conseillé d'utiliser la méthode addFace (cf page 
+					\pageref{mesh-dev}) pour chaque facette du maillage. Vous pouvez bien sûr prendre exemple des fonctions déjà implémentées.
+					
+				\subsubsection{Bouton, menu et widgets}
+					Pour que l'utilisateur s'y retrouve facilement (mais ce n'est pas obligatoire si l'on ne souhaite qu'un raccourci clavier par exemple), 
+					il est conseillé d'ajouter un bouton (via QtDesigner) dans le fichier "mainWindow.ui", formulaire de QtDesigner. Il suffit de recopier 
+					les valeurs des boutons déjà présents, en ne changeant que le nom et l'icône de celui-ci. Ces boutons se situent à droite de la barre 
+					d'outils, dans la partie supérieure de la fenêtre. De même pour l'entrée de menu ("Fichier" - "Nouvel Objet"). Il faut ensuite ajouter 
+					les fonctions adéquates dans les fichiers "mainWindow.h" et "mainWindow.cpp", en prenant pour exemple celles déjà présentes du type :
+					\begin{verbatim}
+						void on_initCube_clicked(); // Bouton
+						void on_actionNewCube_triggered(); // Menu
+					\end{verbatim}
+					La fonction \textit{on\_init()} doit être appelée au début de la première, afin de réinitialiser les paramètres de création et divers 
+					autres détails. S'il est nécessaire d'ajouter des widgets, il faut prendre exemple sur ceux déjà présents (les \textit{doubleSpinBox} 
+					de la boîte de dialogue du panel droit). Dans ce cas, il est également nécessaire d'ajouter des appels aux fonctions 
+					\textit{setVisible()} et \textit{connect()} / \textit{disconnect()}, dans les méthodes de la classe "mainWindow" suivantes :
+					\begin{verbatim}
+						void on_init();
+						void on_initVotrePolygone_clicked();
+						void hideDialog();
+					\end{verbatim}
+					Pour le raccourci clavier, il suffit d'ajouter une entrée dans le switch de la méthode \textit{keyPressEvent(QKeyEvent *event)}.
+					
+				\subsubsection{Fonction de mise à jour}
+					Il est nécessaire d'ajouter cette fonction dans la classe \textbf{MainWindow}. Nous conseillons de placer sa déclaration dans 
+					"MainWindow.h", sous les méthodes existantes de type :
+					\begin{verbatim}
+						void updateCube();
+					\end{verbatim}
+					Il suffit ensuite de placer sa définition dans "MainWindow.cpp", selon l'exemple des méthodes déjà implémentées. Cette fonction est 
+					obligatoire pour la génération (et régénération) du maillage.
+				
+			\subsection{Ajout d'un outil}
+				Il est possible d'ajouter un outil afin d'enrichir les actions de sculpture proposées à l'utilisateur.\\
+				Pour cela, il est nécessaire d'ajouter plusieurs choses :
+				\begin{itemize}
+					\item Un type d'outil dans l'énumération \textbf{TOOL}
+					\item Une fonction d'action de l'outil dans la classe \textbf{MeshTool}
+					\item Un bouton pour utiliser l'outil dans l'interface
+					\item Une entrée dans la méthode "mouseMoveEvent" de la classe \textbf{GLWidget}
+				\end{itemize}
+				
+				\subsubsection{Type d'outil et fonction d'action}
+					Il est nécessaire d'ajouter le type de votre outil dans l'énumération "TOOL", déclarée dans le fichier "MeshTool.h". Pour la clarté, il 
+					est conseillé de respecter la convention de nom expliquée en commentaire au dessus de l'énumération.\\
+					Vous devez ensuite créer une méthode d'action. Nous vous conseillons de vous imprégner de la partie \textbf{Développement} (cf page 
+					\pageref{tool-dev}) pour choisir les paramètres adéquats. Il suffit de la déclarer dans le fichier "MeshTool.h", sous les méthodes 
+					existantes de type :
+					\begin{verbatim}
+						void gtmove(Mesh *mesh, QVector3D move);
+					\end{verbatim}
+					La déclaration se place dans le fichier "MeshTool.cpp". Il est encore une fois conseillé de bien comprendre la partie 
+					\textbf{Développement} (cf page \pageref{tool-dev}) afin de créer l'effet désiré. De même, les fonctions déjà présentes peuvent servir 
+					d'exemple. Les fonctions du fichier "functions.h" sont également très utiles.
+					
+				\subsubsection{Bouton}
+					Pour que l'utilisateur s'y retrouve facilement (mais ce n'est pas obligatoire si l'on ne souhaite qu'un raccourci clavier par exemple), 
+					il est conseillé d'ajouter un bouton (via QtDesigner) dans le fichier "mainWindow.ui", formulaire de QtDesigner. Il suffit de recopier 
+					les valeurs des boutons déjà présents, en ne changeant que le nom et l'icône de celui-ci. Ces boutons se situent en haut du panel gauche.
+					Il faut ensuite ajouter les fonctions adéquates dans les fichiers "mainWindow.h" et "mainWindow.cpp", en prenant pour exemple celles 
+					déjà présentes du type :
+					\begin{verbatim}
+						void on_ltadd_clicked();
+					\end{verbatim}
+					Les fonctions \textit{disableTool()} et \textit{enableTool()} doivent être appelées, afin de ne sélectionner que l'outil voulu. Il est 
+					également nécessaire d'ajouter un appel à la fonction \textit{setChecked()}, dans la méthode de la classe "mainWindow" suivante :
+					\begin{verbatim}
+						void disableTool();
+					\end{verbatim}
+					Pour le raccourci clavier, il suffit d'ajouter une entrée dans le switch de la méthode \textit{keyPressEvent(QKeyEvent *event)}.
+					
+				\subsubsection{Une réaction à l'évènement souris}
+					La fonction "mouseMoveEvent" de la classe \textbf{GLWidget} s'occupe de gérer les outils à l'aide d'un switch. Vous devez donc ajouter 
+					une entrée dans cette fonction afin de pouvoir utiliser votre outil. Seul le fichier "GLWidget.cpp" est utile ici :
+					\begin{verbatim}
+						void GLWidget::mouseMoveEvent(QMouseEvent *event) {
+						    ...
+						    switch(activeTool) {
+						        case GTSCALE:
+						            m_tool.gtscale(m_manager.getMesh(activeMesh), QVector3D(0, dy, 0));
+						            break;
+						    ...
+						    }
+						    ...
+						}
+					\end{verbatim}
+					Nous vous conseillons de vous imprégner de la partie \textbf{Développement} (cf page \pageref{tool-dev}) pour 
+					choisir les paramètres adéquats.
+				
+			\subsection{Pour aller plus loin...}
+				Si un développeur souhaite modifier plus profondément l'application, il faut pour cela se référer à la partie \textbf{Développement} (cf 
+				page \pageref{dev}), notamment les explications détaillant l'\textbf{API} (cf page \pageref{api-dev}).
 
 %==========================================================================================================================================================
 	\chapter{Développement}
@@ -380,7 +610,7 @@
 				\label{mesh-dev}
 				\subsubsection{Génération des modèles prédéfinis}
 					Comme expliqué précédemment (cf page \pageref{model-cdc}), nous avons plusieurs maillages prédéfinis. Pour chacun d'entre eux, 
-					il existera une unique méthode, dans la classe Mesh, permettant de le générer :
+					il existe une unique méthode, dans la classe Mesh, permettant de le générer :
 					\begin{verbatim}
 						void makeCone(float height, float radiusUp, float radiusDown, int discretization);
 						void makeCube(float width, float height, float depth, int discretization);
@@ -398,7 +628,7 @@
 						bool addFace(QVector<QVector3D> vertices);
 					\end{verbatim}
 					En entrée, la méthode prend une liste de points, supposés ordonnés dans le sens direct. Ensuite, la méthode détecte les points déjà 
-					existants et crée les autres. Enfin, la face est créée sous forme d'un TRIANGLE\_FAN (éventail), dont la base sera le premier point 
+					existants et crée les autres. Enfin, la face est créée sous forme d'un TRIANGLE\_FAN (éventail), dont la base est le premier point 
 					de la liste. Il est alors possible de compléter l'éventail par ajout d'une copie du second point à la fin de la liste.\\
 					Un booléen est renvoyé pour attester du bon déroulement de celle-ci.
 					
@@ -450,7 +680,7 @@
 					\begin{verbatim}
 						QVector<QVector3D> getNeighbours(QVector3D vertex, int degree);
 					\end{verbatim}
-					Si le point passé en paramètre existe, alors la fonction renverra, grâce à un parcours récursif basé sur les adjacences de faces, la 
+					Si le point passé en paramètre existe, alors la fonction renvoie, grâce à un parcours récursif basé sur les adjacences de faces, la 
 					liste des points voisins de celui-ci. Le degré de voisinage permet d'obtenir des voisins plus éloignés, ce paramètre définissant le 
 					nombre de récursions à effectuer lors du parcours.
 					
@@ -544,7 +774,7 @@
 				\label{tool-dev}
 				\subsubsection{Les outils de sculpture}
 					Comme expliqué précédemment (cf page \pageref{tool-cdc}), nous avons plusieurs outils de sculpture présents. Pour chacun d'entre eux, 
-					il existera une unique méthode, dans la classe MeshTool, définissant son action :
+					il existe une unique méthode, dans la classe MeshTool, définissant son action :
 					\begin{verbatim}
 						void gtmove(Mesh *mesh, QVector3D move);
 						void gtrotate(Mesh *mesh, QVector3D move);
@@ -557,12 +787,14 @@
 						void ltsmooth(Mesh *mesh, QPoint last_position, float brushSize, float strength, Qt::KeyboardModifiers modifiers);
 					\end{verbatim}
 
-					Pour chaque outil, les paramètres diffèrent légèrement. En effet, nous pouvons retrouver le maillage de l'objet sélectionné "mesh",  un vecteur de déplacement "move" (dans le 
-					repère scène ou déplacement de souris), la position du curseur "last\_position", la taille de la zone d'action "brushSize", la force de 
-					l'outil "strenght" (force d'attraction de la matière : Plus la force est fort, plus la modification par l'outil va etre significative), ou encore des KeyboardModifiers afin d'augmenter les possibilités de nos outils. 
+					Pour chaque outil, les paramètres diffèrent légèrement. En effet, nous pouvons retrouver le maillage de l'objet sélectionné "mesh",  un 
+					vecteur de déplacement "move" (dans le repère scène ou déplacement de souris), la position du curseur "last\_position", la taille de la 
+					zone d'action "brushSize", la force de l'outil "strenght" (force d'attraction de la matière : plus la force est forte, plus la 
+					modification par l'outil va être significative), ou encore des KeyboardModifiers afin d'augmenter les possibilités de nos outils. 
 					Mais comment fonctionnent ces outils ?\\\\
 					\textbf{Remarque :} un Brush, cité ci-dessous, correspond à la zone circulaire de centre "last\_position" (en réalité on utilise par la 
-					suite le point d'impact du curseur sur l'objet, donc des coordonnées dans le repère scène) et de rayon "brushSize". Ce brush permet de définir les sommets contenus dans cette zone où l'outil va être appliqué.
+					suite le point d'impact du curseur sur l'objet, donc des coordonnées dans le repère scène) et de rayon "brushSize". Ce brush permet de 
+					définir la zone d'action des outils.
 					\begin{itemize}
 						\item \textbf{GTMove :} Translation par le vecteur "move" de chacun des points de l'objet.
 						\item \textbf{GTRotate :} Rotation selon les composantes du vecteur "move" de chacun des points de l'objet, en prenant comme origine 
@@ -636,8 +868,7 @@
 					\label{fig:interface}
 					\caption{Diagramme des widgets de l'interface graphique}
 				\end{figure}
-				
-			        Comme nous pouvons le voir, l'ensemble des widgets est rassemblé dans la MainWindow. Nous avons donc : 
+				Comme nous pouvons le voir, l'ensemble des widgets est rassemblé dans la MainWindow. Nous avons donc : 
 				\begin{itemize}
 					\item Le MenuBar est composé de plusieurs widgets : 
 					\begin{itemize}
@@ -653,231 +884,6 @@
 					\item Le InitFigure : permet de paramètrer les objets lors de leur création (ou modification).
 				\end{itemize}
 				
-%==========================================================================================================================================================
-	\chapter{Manuel}
-		
-		\section{Utilisateur}
-
-			L'interface se décompose en quatre parties. Un panel à droite permet d'agir sur les objets de la scène : une liste des objets présents permet de 
-			sélectionner l'objet sur lequel travailler, ainsi que de supprimer ou renommer celui-ci. Le panel droit contient également une boîte de dialogue 
-			permettant de paramétrer nos objets (notamment à leur création). Une barre d'outils, dans la partie supérieure de la fenêtre, permet d'agir 
-			sur la scène (déplacement de caméra, ajout d'objets...etc) ou l'objet courant (subdivision ou décimation). Un panel dans la partie gauche permet 
-			de sélectionner un outil de sculpture, ainsi que de paramétrer notre Brush. Enfin, une sous-fenêtre au centre permet le rendu OpenGL de la scène.
-			\\Voici un aperçu de notre interface, voulue ergonomique et dynamique (tous les panels sont mobiles) :
-			\begin{figure}[H]
-				\begin{center}
-					\includegraphics[scale=0.27]{img/interface.png}
-					\label{fig:interface}
-					\caption{Aperçu de l'interface graphique}
-				\end{center}
-			\end{figure}
-			Via cette interface, nous pouvons créer une scène comportant plusieurs objets. Tout d'abord, pour ajouter un objet à la scène, deux choix 
-			s'offrent à nous :
-			\begin{itemize}
-				\item Soit à partir du menu : "Fichier" puis  "Nouvel objet".
-				\item Soit en cliquant directement sur l'icône de l'objet voulu, présent dans la barre d'outils.
-			\end{itemize}
-			Une fois l'objet créé (au centre de la scène), la boîte de dialogue permettant de le paramétrer apparaît dans le panel droit :
-			\begin{itemize}
-				\item Dimensions géométriques (largeur, hauteur, profondeur ou rayon)
-				\item Niveau de discrétisation (cf partie \textbf{Développement} page \pageref{mesh-dev})
-				\item Nom de l'objet
-			\end{itemize}
-			L'objet se régénère en temps réel à chaque modification de paramètre (excepté le nom). Une fois l'objet validé, celui-ci apparaît dans la liste 
-			située dans le panel droit. Nous remarquons que la figure sélectionnée est de couleur orange et que son nom dans la liste est surligné. Il sera 
-			donc possible de passer d'un objet à un autre en cliquant sur le nom de l'objet souhaité. De plus il sera aussi possible d'accéder à certains 
-			attributs d'un objet en effectuant un double clic ou un clic droit sur son nom. Nous aurons alors la possibilité de modifier son nom ou de le 
-			supprimer.\\\\ 
-			Maintenant que nous avons créé un objet, nous allons pouvoir intéragir sur celui-ci ainsi que sur la scène à laquelle il appartient (par 
-			utilisation de la souris : déplacement du curseur en maintenant le clic gauche enfoncé). Pour cela, nous pouvons utiliser la barre d'outils de 
-			la partie supérieure de la fenêtre. Celle-ci est composée de plusieurs boutons auxquels sont associés des raccourcis clavier (représentés ici 
-			entre parenthèses et guillemets).\\
-			Tout d'abord, les boutons à gauche permettront d'agir sur la  scène. En effet nous aurons (de gauche à droite) : 
-			\begin{itemize}
-				\item Désélectionner les boutons sélectionnés ("Esc").
-				\item Déplacer la scène ("Alt+M") : déplace la scène dans la direction de la souris.
-				\item Tourner la scène ("Alt+R") : tourne la scène dans la direction de la souris. Le clic droit permet par défaut cette fonctionnalité sans 
-				la sélectionner.
-				\item Zoomer ou dézoomer dans la scène ("Alt+S") : avance la caméra dans la scène selon la hauteur du déplacement de la souris (vers le haut 
-				pour avancer, vers le bas pour reculer). La molette permet par défaut cette fonctionnalité sans la sélectionner.
-			\end{itemize}
-			Puis, les boutons au centre permettront d'annuler ("Ctrl+Z") ou refaire ("Ctrl+Y") une action et de subdiviser ("Ctrl+S") ou décimer ("Ctrl+D") 
-			l'objet actif dans son intégralité.
-			Enfin, nous aurons les boutons permettant de créer un objet prédéfini (de gauche à droite) :
-			\begin{itemize}
-				\item Cube ("Ctrl+1")
-				\item Sphère ("Ctrl+2")
-				\item Cylindre ("Ctrl+3")
-				\item Cône ("Ctrl+4")
-				\item Tore ("Ctrl+5")
-			\end{itemize}
-			Nous pouvons manipuler les objets créés ainsi que leur appliquer des transformations. Pour cela, le panel de gauche nous permettra de choisir un 
-			outil de sculpture ou de manipulation globale de l'objet, ceux-ci ne modifiant que l'objet actif (en orange).\\
-			Tout d'abord, nous avons les boutons situés en bas du panel, correspondant aux manipulations globales :
-			\begin{itemize}
-				\item Déplacer l'objet dans la scène ("Shift+M") : déplace l'objet dans la direction de la souris.
-				\item Tourner l'objet ("Shift+R") : tourne l'objet dans la direction de la souris.
-				\item Mettre à l'échelle l'objet ("Shift+S") : met à l'échelle l'objet selon la hauteur du déplacement de la souris (vers le haut pour 
-				agrandir, vers le bas pour réduire).
-			\end{itemize}
-			Puis, nous avons les boutons en haut du panel, correspondant aux outils de sculpture :
-			\begin{itemize}
-				\item  Ajouter de la matière à l'objet ("A").
-				\item  Lisser la surface de l'objet ("S"). 
-				\item  Déplacer les polygones de l'objet ("M"). 
-				\item  Faire gonfler la surface de l'objet ("I"). 
-				\item  Pincer la surface de l'objet ("P").
-			\end{itemize}
-			Tous ces outils ont un rayon d'action appelé Brush, représenté par un cercle vert à l'écran. Il n'agissent donc uniquement sous le curseur, dans 
-			une zone circulaire paramétrable (cf ci-dessous).\\
-			Enfin, au centre, plusieurs paramètres réglables agissent sur notre objet : 
-			\begin{itemize}
-				\item Subdivision locale automatique : subdivise l'objet uniquement dans la zone d'action. Peut être cumulable avec un outil.
-				\item Décimation locale automatique : décime l'objet uniquement dans la zone d'action. Peut être cumulable avec un outil.
-				\item Modifier le brush (taille de la zone d'action et force d'attraction de l'outil).
-			\end{itemize}
-			Il est aussi possible d'agir grâce aux menus. Par exemple, le menu "Edition" permet de subdiviser, décimer ou lisser notre objet.\\
-			De plus, nous pouvons changer les options de rendu via l'onglet "Affichage". En effet, il est possible de réinitialiser la vue de la 
-			sous-fenêtre OpenGL ou d'activer ou désactiver le "mode fils de fer" (les raccourcis "F" et "W" permettent de passer du mode fils de fer 
-			au mode plein).
-			\begin{figure}[H]
-				\begin{center}
-					\includegraphics[scale=0.8]{img/wire-fill.png}
-					\label{fig:wire-fill}
-					\caption{Utilisation des raccourcis "W" et "F"}
-				\end{center}
-			\end{figure}
-			Enfin, il est possible à tout moment de créer un nouveau projet ou enregistrer celui en cours grâce au menu "Fichier".
-
-		\section{Développeur}
-			Toute personne avec des bases de programmation pourra étendre les fonctionnalités de celle-ci grâce à notre API. Les seuls prérequis seront 
-			d'installer QtCreator et d'avoir les librairies Glut pour OpenGL. Pour le système d'exploitation windows, ces librairies sont inclues dans les sources. Voir la note d'installation Windows.
-			
-			\subsection{Ajout d'un maillage modèle}
-				Il est possible d'ajouter un maillage modèle afin d'enrichir les objets de base proposés à l'utilisateur.\\
-				Pour cela, il est nécessaire d'ajouter plusieurs choses :
-				\begin{itemize}
-					\item Une fonction de génération du maillage dans la classe \textbf{Mesh}
-					\item Un bouton ou une entrée de menu pour créer le modèle dans l'interface
-					\item Des widgets (s'ils n'existent pas encore) pour les paramètres de génération
-					\item Une fonction de mise à jour du maillage en temps réel
-				\end{itemize}
-				
-				\subsubsection{Fonction de génération}
-					Il est nécessaire d'ajouter cette fonction dans la classe \textbf{Mesh}. Nous conseillons, pour la clarté, de placer sa déclaration dans 
-					"Mesh.h", sous les méthodes existantes de type :
-					\begin{verbatim}
-						void makeCube(float width, float height, float depth, int discretization);
-					\end{verbatim}
-					Toujours pour la facilité d'appréhension du code, nous conseillons de créer un nouveau fichier "make\textit{Polygon}.cpp" contenant la 
-					définition de la fonction :
-					\begin{verbatim}
-						#include "Mesh.h"
-
-						void Mesh::makeCube(float width, float height, float depth, int discretization) {
-						    this->clear();
-							
-						    ...
-							
-						    this->TEST();
-						}
-					\end{verbatim}
-					Il faut donc absolument inclure "Mesh.h", et surtout ne pas oublier d'utiliser la fonction clear(), qui permet de régénérer le maillage à
-					chaque changement de paramètre. Une fonction TEST() est également disponible pour vérifier l'intégrité du maillage (à utiliser à la fin 
-					de la fonction make\textit{Polygon}). Dans le corps de cette méthode, il est conseillé d'utiliser la méthode addFace (cf page 
-					\pageref{mesh-dev}) pour chaque facette du maillage. Vous pourrez bien sûr prendre exemple des fonctions déjà implémentées.
-					
-				\subsubsection{Bouton, menu et widgets}
-					Pour que l'utilisateur s'y retrouve facilement (mais ce n'est pas obligatoire si l'on ne souhaite qu'un raccourci clavier par exemple), 
-					il est conseillé d'ajouter un bouton (via QtDesigner) dans le fichier "mainWindow.ui", formulaire de QtDesigner. Il suffit de recopier 
-					les valeurs des boutons déjà présents, en ne changeant que le nom et l'icône de celui-ci. Ces boutons se situent à droite de la barre 
-					d'outils, dans la partie supérieure de la fenêtre. De même pour l'entrée de menu ("Fichier" - "Nouvel Objet"). Il faut ensuite ajouter 
-					les fonctions adéquates dans les fichiers "mainWindow.h" et "mainWindow.cpp", en prenant pour exemple celles déjà présentes du type :
-					\begin{verbatim}
-						void on_initCube_clicked(); // Bouton
-						void on_actionNewCube_triggered(); // Menu
-					\end{verbatim}
-					La fonction \textit{on\_init()} doit être appelée au début de la première, afin de réinitialiser les paramètres de création et divers 
-					autres détails. S'il est nécessaire d'ajouter des widgets, il faudra prendre exemple sur ceux déjà présents (les \textit{doubleSpinBox} 
-					de la boîte de dialogue du panel droit). Dans ce cas, il sera également nécessaire d'ajouter des appels aux fonctions 
-					\textit{setVisible()} et \textit{connect()} / \textit{disconnect()}, dans les méthodes de la classe "mainWindow" suivantes :
-					\begin{verbatim}
-						void on_init();
-						void on_initVotrePolygone_clicked();
-						void hideDialog();
-					\end{verbatim}
-					Pour le raccourci clavier, il suffit d'ajouter une entrée dans le switch de la méthode \textit{keyPressEvent(QKeyEvent *event)}.
-					
-				\subsubsection{Fonction de mise à jour}
-					Il est nécessaire d'ajouter cette fonction dans la classe \textbf{MainWindow}. Nous conseillons de placer sa déclaration dans 
-					"MainWindow.h", sous les méthodes existantes de type :
-					\begin{verbatim}
-						void updateCube();
-					\end{verbatim}
-					Il suffit ensuite de placer sa définition dans "MainWindow.cpp", selon l'exemple des méthodes déjà implémentées. Cette fonction est 
-					obligatoire pour la génération (et régénération) du maillage.
-				
-			\subsection{Ajout d'un outil}
-				Il est possible d'ajouter un outil afin d'enrichir les actions de sculpture proposées à l'utilisateur.\\
-				Pour cela, il est nécessaire d'ajouter plusieurs choses :
-				\begin{itemize}
-					\item Un type d'outil dans l'énumération \textbf{TOOL}
-					\item Une fonction d'action de l'outil dans la classe \textbf{MeshTool}
-					\item Un bouton pour utiliser l'outil dans l'interface
-					\item Une entrée dans la méthode "mouseMoveEvent" de la classe \textbf{GLWidget}
-				\end{itemize}
-				
-				\subsubsection{Type d'outil et fonction d'action}
-					Il est nécessaire d'ajouter le type de votre outil dans l'énumération "TOOL", déclarée dans le fichier "MeshTool.h". Pour la clarté, il 
-					est conseillé de respecter la convention de nom expliquée en commentaire au dessus de l'énumération.\\
-					Vous devez ensuite créer une méthode d'action. Nous vous conseillons de vous imprégner de la partie \textbf{Développement} (cf page 
-					\pageref{tool-dev}) pour choisir les paramètres adéquats. Il suffit de la déclarer dans le fichier "MeshTool.h", sous les méthodes 
-					existantes de type :
-					\begin{verbatim}
-						void gtmove(Mesh *mesh, QVector3D move);
-					\end{verbatim}
-					La déclaration se place dans le fichier "MeshTool.cpp". Il est encore une fois conseillé de bien comprendre la partie 
-					\textbf{Développement} (cf page \pageref{tool-dev}) afin de créer l'effet désiré. De même, les fonctions déjà présentes pourront servir 
-					d'exemple. Les fonctions du fichier "functions.h" sont également très utiles.
-					
-				\subsubsection{Bouton}
-					Pour que l'utilisateur s'y retrouve facilement (mais ce n'est pas obligatoire si l'on ne souhaite qu'un raccourci clavier par exemple), 
-					il est conseillé d'ajouter un bouton (via QtDesigner) dans le fichier "mainWindow.ui", formulaire de QtDesigner. Il suffit de recopier 
-					les valeurs des boutons déjà présents, en ne changeant que le nom et l'icône de celui-ci. Ces boutons se situent en haut du panel gauche.
-					Il faut ensuite ajouter les fonctions adéquates dans les fichiers "mainWindow.h" et "mainWindow.cpp", en prenant pour exemple celles 
-					déjà présentes du type :
-					\begin{verbatim}
-						void on_ltadd_clicked();
-					\end{verbatim}
-					Les fonctions \textit{disableTool()} et \textit{enableTool()} doivent être appelées, afin de ne sélectionner que l'outil voulu. Il sera 
-					également nécessaire d'ajouter un appel à la fonction \textit{setChecked()}, dans la méthode de la classe "mainWindow" suivante :
-					\begin{verbatim}
-						void disableTool();
-					\end{verbatim}
-					Pour le raccourci clavier, il suffit d'ajouter une entrée dans le switch de la méthode \textit{keyPressEvent(QKeyEvent *event)}.
-					
-				\subsubsection{Une réaction à l'évènement souris}
-					La fonction "mouseMoveEvent" de la classe \textbf{GLWidget} s'occupe de gérer les outils à l'aide d'un switch. Vous devrez donc ajouter 
-					une entrée dans cette fonction afin de pouvoir utiliser votre outil. Seul le fichier "GLWidget.cpp" est utile ici :
-					\begin{verbatim}
-						void GLWidget::mouseMoveEvent(QMouseEvent *event) {
-						    ...
-						    switch(activeTool) {
-						        case GTSCALE:
-						            m_tool.gtscale(m_manager.getMesh(activeMesh), QVector3D(0, dy, 0));
-						            break;
-						    ...
-						    }
-						    ...
-						}
-					\end{verbatim}
-					Nous vous conseillons de vous imprégner de la partie \textbf{Développement} (cf page \pageref{tool-dev} et \pageref{glwidget-dev}) pour 
-					choisir les paramètres adéquats.
-				
-			\subsection{Pour aller plus loin...}
-				Si un développeur souhaite modifier plus profondément l'application, il faudra pour cela se référer à la partie \textbf{Développement} (cf 
-				page \pageref{dev}), notamment les explications détaillant l'\textbf{API} (cf page \pageref{api-dev}).
-
 %==========================================================================================================================================================
 	\chapter{Post-Mortem}
 		Cette section liste toutes les étapes de la conception que nous n'avons pas réalisées (selon notre ordre de priorités), ainsi que toutes les 
@@ -906,7 +912,7 @@
 		\section{Améliorations réalisables}
 			Comme pour tout projet, la conception n'offre pas toujours une liste exhaustive des fonctionnalités futures, étant donné que nous pouvons 
 			toujours améliorer notre programme selon les possibilités offertes par le développement de celui-ci. Ainsi, nous avons quelques suggestions 
-			d'améliorations pour notre logiciel, dans le cadre d'une éventuelle future reprise de son développement :
+			d'améliorations pour notre logiciel, dans le cadre d'une éventuelle reprise de son développement :
 			\begin{itemize}
 				\item Optimisation : beaucoup de nos algorithmes pourraient être améliorés, notamment les comparaisons de points de par la surcouche de 
 				l'API qui se déroulent en O(n) et pourraient l'être en O(1) avec par exemple des fonctions de hachage. D'autres, plus coûteux, 
@@ -952,7 +958,7 @@
 %==========================================================================================================================================================
 	\appendix
 	\chapter{}
-		Dans cette partie seront placés les éléments trop volumineux pour être inclus directement dans le texte, tels que les images ou graphiques.\\
+		Dans cette partie sont placés les éléments trop volumineux pour être inclus directement dans le texte, tels que les images ou graphiques.\\
 		
 		\section{Diagramme de Gantt}
 			Les diagrammes sont fournis page \pageref{fig:gantt}.
@@ -961,7 +967,7 @@
 			Le graphique est situé page \pageref{fig:analyse}.
 			
 		\section{Diagramme de Classes}
-			Le diagramme est fournis page \pageref{fig:diagClass}.
+			Le diagramme est fourni page \pageref{fig:diagClass}.
 			
 		\section{Schémas explicatifs}
 			Les différents schémas explicatifs se trouvent page \pageref{fig:subdivide} à \pageref{fig:cube}.
