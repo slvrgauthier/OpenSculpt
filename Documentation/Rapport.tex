@@ -921,6 +921,35 @@
 			\end{itemize}
 
 %==========================================================================================================================================================
+	\chapter{Conclusion}
+		Ce projet ne s'est pas déroulé exactement comme nous l'avions prévu. En effet, certaines difficultés nous ont fait perdre un temps considérable.\\
+		\\
+		La principale difficulté de ce sujet était de concevoir une API adaptée, et avec laquelle il serait facile de travailler. Comme nous pouvons le voir 
+		dans le diagramme de Gantt final (cf page \pageref{fig:gantt}), la conception et l'implémentation de notre API se sont faites en trois étapes.\\\\
+		La première consistait à créer un certain nombre de classes permettant un premier rendu d'un maillage, à travers l'interface de base.\\\\ La seconde,
+		plus  complexe, avait pour but d'implémenter une structure de maillage interne, à savoir la structure par demi-arêtes. Cette étape a été relativement
+		compliquée, puisque nous n'avions jamais utilisé cette structure, que nous devions l'adapter selon notre utilisation de celle-ci, et bien sûr, 
+		concevoir un premier maillage à base de demi-arêtes afin de pouvoir avancer dans le développement du reste du programme. Le problème majeur que nous 
+		avons rencontré à ce moment-là était le fait que toutes nos fonctions et nos maillages dépendaient directement de la structure. Il était alors très 
+		difficile (du moins cela demandait beaucoup d'expertise) de concevoir les maillages et autres fonctions complexes.\\\\ C'est suite à une réunion avec
+		nos encadrants que nous avons abouti à une première solution : concevoir une vraie API, avec une surcouche de fonctions faciles à appréhender. Pour 
+		cela, nous avons dû reconcevoir entièrement nos classes, afin de séparer distinctement les rôles de celles-ci. Ainsi, nous avons abouti à quatre 
+		classes (maillage, rendu, outils et algorithmes spécifiques tels que la subdivision par exemple). De même, nous avons implémenté un certain nombre de
+		fonctions de "façade" permettant alors de cacher la structure interne et permettre de développer le contenu sans expertise spécifique à celle-ci.
+		Cette étape a donc été le point clé du développement, puisque grâce à la nouvelle API, nous avons pu avancer facilement dans le projet avec une base 
+		solide. De plus, une API permet de facilement paralléliser le travail au sein de l'équipe de projet.\\
+		\\
+		Ce projet nous a donc permis de nous améliorer sur le plan de l'organisation. En effet, savoir correctement concevoir une interface de programmation,
+		prévoir les différentes utilisations possibles de celle-ci et adapter les classes en fonction d'elles permet de gagner un temps considérable lors de 
+		la phase de développement. Ainsi, ce projet nous a prouvé qu'il ne faut jamais négliger la phase de conception, et qu'il ne faut pas non plus avoir 
+		peur de changer, même entièrement, ce qui a déjà été développé si cela permet à terme une amélioration.\\
+		\\
+		Ce sujet a été pour nous une très bonne introduction pour le stage à venir, et malgré la quantité de travail que nous nous sommes imposée, nous nous 
+		en sommes finalement bien sortis dans l'ensemble. De plus, les encadrants nous ont réellement aidés en nous proposant des pistes qui nous ont amenés 
+		à réaliser nos objectifs.
+		%TODO : image d'un résultat final (objet sculpté)
+	
+%==========================================================================================================================================================
 	\appendix
 	\chapter{}
 		Dans cette partie seront placés les éléments trop volumineux pour être inclus directement dans le texte, tels que les images ou graphiques.\\
