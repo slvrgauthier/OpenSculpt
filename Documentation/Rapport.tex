@@ -329,9 +329,9 @@
 
 %==========================================================================================================================================================
 	\chapter{Réalisation}
-		A terme du temps imparti pour réaliser ce projet, nous pouvons dire que nous avons réalisé la plupart de nos objectifs initiaux. Ainsi, nous avons 
-		abouti à un programme plus ou moins complet, comportant nombre de fonctionnalités. Ce chapitre est une démonstration du résultat final que nous de 
-		notre travail.
+		Au terme du temps imparti pour réaliser ce projet, nous pouvons dire que nous avons réalisé la plupart de nos objectifs initiaux. Ainsi, nous avons 
+		abouti à un programme plus ou moins complet, comportant nombre de fonctionnalités. Ce chapitre est une démonstration du résultat final de notre 
+		travail.
 		
 		\section{L'interface}
 			Au niveau de l'interface, nous avons réussi à la développer selon trois critères majeurs : un aspect convivial, une ergonomie correcte et une 
@@ -341,36 +341,90 @@
 			\textbf{Manuel utilisateur}, page \pageref{man-user}, détaillant tous les éléments contenus dans celle-ci.
 			
 		\section{Les maillages prédéfinis}
-			Nous avons implémenté, comme prévu, cinq maillages prédéfinis. Chacun de ces maillages est basé sur une formule géométrique, et créé face par 
-			face grâce aux fonctions de notre API (cf page \pageref{api-dev}). Voici des images montrant ces maillages à leur création (respectivement cube, 
-			sphère, cylindre, cône et tore), avec pour chacun une présentation de l'objet plein et en fils de fer.
+			Nous avons implémenté, comme prévu, cinq maillages prédéfinis (cf page \pageref{model-cdc}). Chacun de ces maillages est basé sur une formule 
+			géométrique, et créé face par face grâce aux fonctions de notre API (cf page \pageref{api-dev}). Voici des images montrant ces maillages à 
+			leur création (respectivement cube, sphère, cylindre, cône et tore), avec pour chacun une présentation de l'objet plein et en fils de fer.
 			\begin{figure}[H]
 				\hspace{-2cm} \includegraphics[scale=0.27]{img/cube.png}
-				\label{fig:interface}
 				\caption{Aperçu d'un cube}
 			\end{figure}
 			\begin{figure}[H]
 				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/sphere.png}
-				\label{fig:interface}
 				\caption{Aperçu d'une sphère}
 			\end{figure}
 			\begin{figure}[H]
 				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/cylinder.png}
-				\label{fig:interface}
 				\caption{Aperçu d'un cylindre}
 			\end{figure}
 			\begin{figure}[H]
 				\hspace{-2cm} \includegraphics[scale=0.27]{img/cone.png}
-				\label{fig:interface}
 				\caption{Aperçu d'un cône}
 			\end{figure}
 			\begin{figure}[H]
 				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/torus.png}
-				\label{fig:interface}
 				\caption{Aperçu d'un tore}
 			\end{figure}
 			Il est possible d'ajouter de nouveaux maillages prédéfinis, pour cela, référez-vous à la partie \textbf{Manuel développeur}, page 
 			\pageref{man-dev}.
+			
+		\section{Les outils}
+			Nous avons implémentés tous les outils prévus dans le cahier des charges (cf page \pageref{tool-cdc}). Ainsi, nous avons différentes catégories 
+			d'outils, ceux déplaçant la caméra, ceux déplaçant les objets et les outils de sculpture. Voici des images montrant les résultats de 
+			l'utilisation de chacun de ces derniers sur le maillage d'un cube. Chaque image contient sur la face gauche de l'objet l'utilisation normale de 
+			l'outil et sur la droite l'utilisation de celui-ci en maintenant la touche "Shift" enfoncée.
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/add.png}
+				\caption{Aperçu d'un ajout de matière}
+			\end{figure}
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/smooth.png}
+				\caption{Aperçu d'un lissage}
+			\end{figure}
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/move.png}
+				\caption{Aperçu d'un déplacement de matière}
+			\end{figure}
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/inflate.png}
+				\caption{Aperçu d'un gonflement de matière}
+			\end{figure}
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/pinch.png}
+				\caption{Aperçu d'un pincement de matière}
+			\end{figure}
+		
+		\section{Les algorithmes}
+			Nous avons ici deux types d'algorithmes : subdivision et décimation. Pour chacun d'entre eux, il existe deux méthodes utilisées (cf page 
+			\pageref{processing-dev}), une pour l'algorithme appliqué sur l'objet dans son intégralité et une appliquée sur l'objet dans la zone d'action de 
+			l'outil. Voici donc des images présentant les résultats de ces algorithmes :
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/g-sub.png}
+				\caption{Aperçu d'une subdivision globale}
+			\end{figure}
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/l-sub.png}
+				\caption{Aperçu d'une subdivision locale}
+			\end{figure}
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/g-dec.png}
+				\caption{Aperçu d'une décimation globale}
+			\end{figure}
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/l-dec.png}
+				\caption{Aperçu d'une décimation locale}
+			\end{figure}
+			
+		\section{Sculptures}
+			Voici quelques sculptures que nous avons réalisées avec notre logiciel. Pour les créer, nous avons utilisé plus ou moins tous les outils mis à 
+			disposition.
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/result1.png}
+				\caption{Sculpture d'un ...}
+			\end{figure}
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/result2.png}
+				\caption{Sculpture d'un ...}
+			\end{figure}
 
 %==========================================================================================================================================================
 	\chapter{Manuel}
