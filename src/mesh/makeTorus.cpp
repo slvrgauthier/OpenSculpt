@@ -26,10 +26,10 @@ void Mesh::makeTorus(float radiusH, float radiusV, int discretization) {
   for(int i=0;i<size;i++){//tore
     for(int k=0;k<size;k++){//disque
         face.clear();
-        face.push_back(vertices.at(i*(size)+k));
-        face.push_back(vertices.at(i*(size)+(k+1)% size));
-        face.push_back(vertices.at(((i+1)%(size))*(size)+(k+1)%size));
         face.push_back(vertices.at(((i+1)%(size))*(size)+k));
+        face.push_back(vertices.at(((i+1)%(size))*(size)+(k+1)%size));
+        face.push_back(vertices.at(i*(size)+(k+1)% size));
+        face.push_back(vertices.at(i*(size)+k));
 
         this->addFace(face);
     }

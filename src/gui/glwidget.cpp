@@ -13,7 +13,7 @@ GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
 {
     activeTool = NOTOOL;
     activeMesh = -1;
-    mode_fill = 3;
+    mode_fill = 2;
     m_brush.setSize(1.5); // between 0 and 10
     m_brush.setStrength(.05); // between 0 and 0.10
     auto_sub = false;
@@ -74,12 +74,12 @@ void GLWidget::paintGL()
     gluPerspective(30.0f, 1.0*width()/height(), 0.1f, 100.0f);
 
     // Draw meshes
-    if(mode_fill & 2) {
+    if(mode_fill > 1) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         m_manager.paintGL(activeMesh);
     }
 
-    if(mode_fill & 1) {
+    if(mode_fill < 3) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         m_manager.paintGL((mode_fill)? -2 : -1);
     }
@@ -98,12 +98,12 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
     switch(event->key()) {
 
     case Qt::Key_F:
-        if(!event->modifiers()) { mode_fill = (mode_fill == 3)? 2 : 3; }
+        if(!event->modifiers()) { if(mode_fill < 3) ++mode_fill; glEnable(GL_CULL_FACE); }
         if(event->modifiers()&Qt::ControlModifier) { switchFillModes(); }
         break;
 
     case Qt::Key_W:
-        if(!event->modifiers()) { mode_fill = (mode_fill == 3)? 1 : 3;; }
+        if(!event->modifiers()) { if(mode_fill > 0) --mode_fill; if(mode_fill == 0) glDisable(GL_CULL_FACE);}
         break;
 
     default:
@@ -252,7 +252,8 @@ void GLWidget::updateActiveMesh() {
 }
 
 void GLWidget::switchFillModes() {
-    mode_fill = (mode_fill == 1)? 3 : 1;
+    mode_fill = (mode_fill == 2)? 1 : 2;
+    glEnable(GL_CULL_FACE);
 }
 
 void GLWidget::rotateBy(int x, int y, int z)

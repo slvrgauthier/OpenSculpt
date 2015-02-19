@@ -329,13 +329,55 @@
 
 %==========================================================================================================================================================
 	\chapter{Réalisation}
-		%TODO
+		A terme du temps imparti pour réaliser ce projet, nous pouvons dire que nous avons réalisé la plupart de nos objectifs initiaux. Ainsi, nous avons 
+		abouti à un programme plus ou moins complet, comportant nombre de fonctionnalités. Ce chapitre est une démonstration du résultat final que nous de 
+		notre travail.
+		
+		\section{L'interface}
+			Au niveau de l'interface, nous avons réussi à la développer selon trois critères majeurs : un aspect convivial, une ergonomie correcte et une 
+			modularité rendant possible la personnalisation. Pour cela, les boutons les plus utilisés ont été placés le plus proche possible de la zone de 
+			travail. De même, tous les panels contenant ces boutons, rangés logiquement par catégorie, sont mobiles, ce qui permet à l'utilisateur de les 
+			interchanger voir de les "sortir" en tant que nouvelle fenêtre. Pour plus de détails, veuillez vous référer à la partie 
+			\textbf{Manuel utilisateur}, page \pageref{man-user}, détaillant tous les éléments contenus dans celle-ci.
+			
+		\section{Les maillages prédéfinis}
+			Nous avons implémenté, comme prévu, cinq maillages prédéfinis. Chacun de ces maillages est basé sur une formule géométrique, et créé face par 
+			face grâce aux fonctions de notre API (cf page \pageref{api-dev}). Voici des images montrant ces maillages à leur création (respectivement cube, 
+			sphère, cylindre, cône et tore), avec pour chacun une présentation de l'objet plein et en fils de fer.
+			\begin{figure}[H]
+				\hspace{-2cm} \includegraphics[scale=0.27]{img/cube.png}
+				\label{fig:interface}
+				\caption{Aperçu d'un cube}
+			\end{figure}
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/sphere.png}
+				\label{fig:interface}
+				\caption{Aperçu d'une sphère}
+			\end{figure}
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/cylinder.png}
+				\label{fig:interface}
+				\caption{Aperçu d'un cylindre}
+			\end{figure}
+			\begin{figure}[H]
+				\hspace{-2cm} \includegraphics[scale=0.27]{img/cone.png}
+				\label{fig:interface}
+				\caption{Aperçu d'un cône}
+			\end{figure}
+			\begin{figure}[H]
+				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/torus.png}
+				\label{fig:interface}
+				\caption{Aperçu d'un tore}
+			\end{figure}
+			Il est possible d'ajouter de nouveaux maillages prédéfinis, pour cela, référez-vous à la partie \textbf{Manuel développeur}, page 
+			\pageref{man-dev}.
 
 %==========================================================================================================================================================
 	\chapter{Manuel}
 		
 		\section{Utilisateur}
 
+			\label{man-user}
 			L'interface se décompose en quatre parties. Un panel à droite permet d'agir sur les objets de la scène : une liste des objets présents permet de 
 			sélectionner l'objet sur lequel travailler, ainsi que de supprimer ou renommer celui-ci. Le panel droit contient également une boîte de dialogue 
 			permettant de paramétrer nos objets (notamment à leur création). Une barre d'outils, dans la partie supérieure de la fenêtre, permet d'agir 
@@ -428,6 +470,7 @@
 			Enfin, il est possible à tout moment de créer un nouveau projet ou enregistrer celui en cours grâce au menu "Fichier".
 
 		\section{Développeur}
+			\label{man-dev}
 			Toute personne avec des bases de programmation peut étendre les fonctionnalités de celle-ci grâce à notre API. Les seuls prérequis sont 
 			d'installer QtCreator et d'avoir les librairies Glut pour OpenGL. Pour le système d'exploitation windows, ces librairies sont inclues dans les 
 			sources. Voir la note d'installation Windows.
@@ -1007,7 +1050,7 @@
 			\end{figure}
 			
 			\begin{figure}
-				\hspace{-4cm}\includegraphics[scale=0.5]{img/cube.png}
+				\hspace{-4cm}\includegraphics[scale=0.5]{img/cube2.png}
 				\label{fig:cube}
 				\caption{Conception d'un cube avec la représentation par demi-arêtes}
 			\end{figure}
