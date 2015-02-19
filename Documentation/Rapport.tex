@@ -371,7 +371,7 @@
 			Nous avons implémentés tous les outils prévus dans le cahier des charges (cf page \pageref{tool-cdc}). Ainsi, nous avons différentes catégories 
 			d'outils, ceux déplaçant la caméra, ceux déplaçant les objets et les outils de sculpture. Voici des images montrant les résultats de 
 			l'utilisation de chacun de ces derniers sur le maillage d'un cube. Chaque image contient sur la face gauche de l'objet l'utilisation normale de 
-			l'outil et sur la droite l'utilisation de celui-ci en maintenant la touche "Shift" enfoncée.
+			l'outil et sur la droite l'utilisation de celui-ci en maintenant la touche "Shift" enfoncée (excepté pour l'outil de déplacement).
 			\begin{figure}[H]
 				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/add.png}
 				\caption{Aperçu d'un ajout de matière}
@@ -413,18 +413,19 @@
 				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/l-dec.png}
 				\caption{Aperçu d'une décimation locale}
 			\end{figure}
+			Pour plus de détails, notamment sur les choix de fonctionnement de nos algorithmes, référez-vous à la partie \textbf{Développement}, page 
+			\pageref{processing-dev}.
 			
 		\section{Sculptures}
-			Voici quelques sculptures que nous avons réalisées avec notre logiciel. Pour les créer, nous avons utilisé plus ou moins tous les outils mis à 
+			Voici une sculpture que nous avons réalisée avec notre logiciel. Pour la créer, nous avons utilisé plus ou moins tous les outils mis à 
 			disposition.
 			\begin{figure}[H]
-				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/result1.png}
-				\caption{Sculpture d'un ...}
+				\hspace{-2cm} \includegraphics[scale=0.27]{img/result1.png}
+				\caption{Sculpture d'un arbre}
 			\end{figure}
-			\begin{figure}[H]
-				\vspace{-0,5cm} \hspace{-2cm} \includegraphics[scale=0.27]{img/result2.png}
-				\caption{Sculpture d'un ...}
-			\end{figure}
+			Cet arbre est composé initialement d'une sphère (les feuilles) et de deux cylindres (tronc et branche). Les feuilles ont été modelées grâce à 
+			l'ajout de matière (mode normal et inversé pour les creux), le lissage et légèrement le gonflement, ainsi que le pincement pour rendre les bords 
+			plus nets. La branche a été tordue grâce à l'outil de déplacement de matière, et les détails du tronc grâce à l'ajout et le pincement de matière.
 
 %==========================================================================================================================================================
 	\chapter{Manuel}
