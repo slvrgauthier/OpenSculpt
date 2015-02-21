@@ -130,204 +130,6 @@
 				structure interne sans modifier le reste de l'application.
 		
 %==========================================================================================================================================================
-	\chapter{Gestion du projet}
-		Cette partie traite globalement de tout ce qui concerne l'organisation du projet, que ce soit au niveau de la conception, du développement, de 
-		l'équipe ou encore de la gestion des fichiers.
-		
-		\section{Gestion de l'équipe}
-			Tous les membres se connaissant et étant supposés être capable de travailler en équipe, nous n'avons fait aucune élection préalable de chef de 
-			projet.\\ Mais le déroulement du projet nous a imposé ce choix, GAUTHIER Silvère assure donc ce rôle, afin de garder une cohésion de groupe 
-			et assurer la réalisation de nos objectifs.\\ Chaque membre peut tout de même participer activement au projet, autant lors de la conception que 
-			du développement. Toutes les décisions sont prises suivant la majorité lors de votes.\\\\
-			Pour ce qui est des réunions de projets, nous avons convenu avec nos tuteurs d'une réunion, allant d'environ trente minutes à une heure, toutes 
-			les semaines, afin de mettre au point l'avancement du projet. En parallèle, tous les membres de notre équipe se retrouvent une fois par semaine 
-			afin de discuter des points clés effectués ou à venir, donner lieu aux votes pour les prises de décisions, ou encore, lors de la phase de 
-			développement, travailler en collaboration afin d'optimiser notre travail.\\\\
-			Au niveau du travail collaboratif, nous avons mis en place un dépôt sur github (adresse à la page \pageref{url:github}), contenant tant la 
-			documentation que les sources de notre programme. Par ailleurs, nous mettons sur ce dépôt uniquement les fichiers sources et les images, mais 
-			en aucun cas les fichiers temporaires ou les exécutables. Les seuls fichiers binaires disponibles sont les PDF de la documentation, pour un 
-			soucis de facilité d'accès et de lecture.
-
-		\section{Découpage en tâches}
-			Afin de préparer le développement du programme, il était nécessaire de séparer les fonctionnalités les unes des autres. Nous avons abouti à ce 
-			diagramme, qui résume notre choix de découpage :\\
-			\begin{figure}[H]
-				\begin{center}
-					\includegraphics[scale=0.5]{img/DiagrammeDecoupageProjet.png}
-				\end{center}
-				\label{fig:decoupage}
-				\caption{Diagramme des tâches du projet}
-			\end{figure}
-
-		\section{Assignation}
-			Le projet étant découpé en un certain nombre de modules, il ne restait plus qu'à assigner chaque tâche à un ou plusieurs membres de l'équipe. 
-			Nous nous sommes organisés comme ceci :
-			\begin{itemize}[label=$\bullet$]
-				\item \textbf{Conception, implémentation et vérifications de l'API} : GAUTHIER Silvère.
-				\item \textbf{Mise en place de l'interface} : LAMEIRA Yannick.
-				\item \textbf{Implémentation des maillages modèles} : PELADAN Cécile.
-				\item \textbf{Conception et implémentation des outils} : GAUTHIER Silvère, LAMEIRA Yannick, PELADAN Cécile.
-				\item \textbf{Tests et vérifications de l'application} : GAUTHIER Silvère, LAMEIRA Yannick, PELADAN Cécile.
-			\end{itemize}
-			Bien entendu, les membres peuvent évidemment faire appel aux autres pour trouver une solution à un problème par exemple.\\
-			Le détail complet des tâches et assignations se situe dans la section Gestion du temps, page \pageref{GestionTps}.
-
-		\section{Gestion du temps}
-			\label{GestionTps}
-			Afin de clarifier notre gestion du temps, deux diagrammes de Gantt (prédictif et final) sont disponibles en annexe (cf page \pageref{fig:gantt}) 
-			et dans la documentation de notre projet.
-
-		\section{Choix technologiques}
-			Afin de pouvoir développer correctement notre logiciel, il a fallu définir tout ce que nous allions utiliser en terme de langages et 
-			bibliothèques selon notre logique de conception.
-			
-			\subsection{Langages de programmation}
-				Pour des besoins de performances, nous avons comparé différents langages. Pour réduire le temps de recherche et de comparaison, nous nous 
-				sommes appuyé sur des tests déjà effectués par d'autre.\\ Des tests de performances concernant un large panel de langages, comparés dans 
-				quatre contextes différents, sont fournis en annexe, page \pageref{fig:analyse}.\\ Nous pouvons observer que globalement, le langage le plus 
-				rapide est ici C++. L'utilisation de ce langage étant très fréquente dans les applications en temps réel, de part sa réputation d'un des 
-				langages les plus performants, et tous les membres de notre équipe sachant l'utiliser, nous avons fait le choix de programmer le logiciel en 
-				C++.\\
-
-			\subsection{Bibliothèques}
-				Pour la gestion graphique de l'interface et de l'affichage de l'objet, nous avons cherché une bibliothèque relativement simple d'utilisation 
-				mais surtout performante afin de garder la fluidité gagnée avec le choix des langages de programmation.\\ Connaissant la bibliothèque 
-				OpenGL, qui est bas niveau et performante dans les affichages deux et trois dimensions, nous nous sommes tournés vers une bibliothèque 
-				utilisant OpenGL : Qt.\\
-
-			\subsection{Représentation du maillage}
-				Nous cherchons ici à comparer différentes techniques permettant de représenter un maillage, afin de choisir celle qui est la plus adaptée à 
-				nos opérations. Voici un tableau récapitulatif de cette étude comparative :
-				\begin{table}[H]
-					\begin{small}
-						\hspace{-2,5cm}
-						\begin{tabular}{| c | l | l |}
-							\hline
-							\textbf{Représentation} & \textbf{Avantages} & \textbf{Inconvénients}\\
-							\hline
-							 & - Hiérarchie des résolutions & - Visualisation surfacique difficile\\
-							Octree ou KDTree & - Rendu volumique possible & - Coût de stockage excessif\\
-							 & - Construction et parcours simples & - Recalculer à chaque modification\\
-							\hline
-							 & - Historique de construction & - Non unicité\\
-							Arbre CSG & - Approche fonctionnelle & - Opérations complexes\\
-							 &  & - Domaine insuffisant\\
-							\hline
-							G-maps & - Opérations de topologie simples & - Séparation topologie / plongement\\
-							 & - Plongements multiples & \\
-							\hline
-							Liste de triangles & - Opérations simples & - Stockage non optimisé\\
-							\hline
-							Sommets partagés & - Opérations simples & \\
-							 & - Stockage correct & \\
-							\hline
-							Bandes de triangles & - Stockage correct & - Chaque sommet est visité deux fois\\
-							 &  & - Opérations de déplacement délicates\\
-							\hline
-							Structure par faces & - Chaque face pointe sur ses sommets & - Pas d'accès direct aux arêtes\\
-							 & - Une face connaît les faces adjacentes & \\
-							\hline
-							Structure par demi-arêtes & - Parcours de maillage très pratiques & - Coût de stockage excessif\\
-							\hline
-							Vertex Array (VAO) & - Optimisé pour le rendu OpenGL & - Utilise le CPU et la RAM\\
-							 & - Simple d'utilisation & \\
-							\hline
-							Vertex Buffer Object (VBO) & - Optimisé pour le rendu OpenGL & \\
-							 & - Utilise le GPU et la VRAM & \\
-							\hline
-						\end{tabular}
-					\end{small}
-					\label{tab:maillage}
-					\caption{Tableau comparatif de méthodes de représentation de maillage 3D}
-				\end{table}
-				L'étude comparative montre qu'il serait judicieux d'utiliser conjointement des Vertex Buffer Objects (VBOs) afin d'optimiser les 
-				performances d'affichage et une classe personnalisée pour aisément gérer nos données par une surcouche de méthodes. La structure interne des 
-				maillages choisie est donc une structure de type demi-arêtes, afin de faciliter les opérations de voisinage.
-			
-		\section{Gestion des fichiers}
-			Nous avons beaucoup de fichiers à gérer dans ce projet, et nous devions établir des conventions ou des moyens afin de les gérer correctement.
-			
-			\subsection{Format des Fichiers}
-				Le code étant écrit en C++, nous utilisons des fichiers d'en-tête au format H et des fichiers de définition au format CPP.\\
-				Toutes les images nécessaires au logiciel sont au format PNG afin de pouvoir utiliser la transparence et garder la pleine qualité d'image 
-				(contrairement à JPEG qui perd de l'information à la compression).\\
-			
-				\subsubsection{Sauvegarde}
-					Une façon judicieuse de sauvegarder nos données est d'avoir un format spécial pour enregistrer un projet complet contenant une liste 
-					d'objets, ainsi qu'une possibilité d'exportation de chaque objet ou scène dans un format connu tel que STL ou OBJ.
-			
-			\subsection{Commentaires}
-				Si une méthode ou fonction (voir même un bloc) dépasse une certaine taille ou devient trop compliquée, un commentaire est ajouté avant 
-				celle-ci expliquant brièvement son processus :
-				\begin{verbatim}
-					/** Description :
-					*** Entrée : ...
-					*** Sortie : ...
-					**/
-				\end{verbatim}
-				Quelque commentaires précieux pour le travail collaboratif sont également présents :
-				\begin{table}[H]
-					\begin{small}
-						\hspace{-0,5cm}
-						\begin{tabular}{| c | c |}
-							\hline
-							\textbf{Marqueur spécifique} & \textbf{Signification}\\
-							\hline
-							TODO & A mettre à la place du code d'une fonctionnalité à implémenter\\
-							\hline
-							RECODE & A mettre au dessus du bloc d'une fonctionnalité à refaire ou à optimiser\\
-							\hline
-							FIXME & A mettre au dessus du bloc d'une fonctionnalité contenant un bug\\
-							\hline
-						\end{tabular}
-					\end{small}
-					\label{tab:commentaire}
-					\caption{Forme et usage des commentaires}
-				\end{table}
-
-			\subsection{Conventions de Nommage}
-				Pour la lisibilité et la bonne pratique du développement de l'application, il est nécessaire de suivre des règles établies au sein de 
-				l'équipe de projet, appelées conventions. Ainsi, nous avons choisi d'écrire le code en anglais uniquement, mis à part pour les commentaires 
-				utiles aux développeurs préférant le français. De même, au moins une ligne de commentaire est requise avant chaque déclaration de classe ou 
-				de fonction, afin d'en expliquer brièvement son fonctionnement (sauf dans le cas de méthodes simples avec des noms explicites).\\
-				Voici un tableau récapitulatif des conventions de nommages pour les noms de variables, classes et méthodes :
-				\begin{table}[H]
-					\begin{small}
-						\hspace{1,5cm}
-						\begin{tabular}{| c | c |}
-							\hline
-							\textbf{Type de variable} & \textbf{Format du nom}\\
-							\hline
-							Classe & Majuscule suivit de minuscules\\
-							\hline
-							Méthode & Minuscules (pour les mots composés,\\
-							et & chaque mots suivant est\\
-							Fonction & une majuscule suivit de minuscules)\\
-							\hline
-							Attribut de classe & Précédé par m\_\\
-							\hline
-							Variable globale & Précédé par g\_\\
-							\hline
-							Variable statique & Précédé par s\_\\
-							\hline
-						\end{tabular}
-					\end{small}
-					\label{tab:nommage}
-					\caption{Conventions de nommage}
-				\end{table}
-
-			\subsection{Gestion du code source}
-				Afin de faciliter le travail collaboratif, nous utilisons un dépôt utilisant le gestionnaire de version GIT, hébergé sur le site :
-				\begin{center}
-					\url{https://github.com/slvrgauthier/OpenSculpt}
-					\label{url:github}
-				\end{center}
-				Sur ce dépôt sont présents tous les fichiers sources nécessaires au développement du programme ainsi que les documentations au format 
-				\LaTeX, ODT et PDF (même si aucun fichier binaire ne devrait être présent, il est plus pratique de récupérer directement un tel fichier 
-				que de le compiler soit-même). De plus, y sont stockées toutes les données utilisées par le programme telles que les images et autres 
-				ressources. Seuls les fichiers temporaires, exécutables et fichiers de sauvegarde ne sont pas stockés.
-
-%==========================================================================================================================================================
 	\chapter{Réalisation}
 		Au terme du temps imparti pour réaliser ce projet, nous pouvons dire que nous avons réalisé la plupart de nos objectifs initiaux. Ainsi, nous avons 
 		abouti à un programme plus ou moins complet, comportant nombre de fonctionnalités. Ce chapitre est une démonstration du résultat final de notre 
@@ -982,6 +784,204 @@
 					\item Le InitFigure : permet de paramètrer les objets lors de leur création (ou modification).
 				\end{itemize}
 				
+%==========================================================================================================================================================
+	\chapter{Gestion du projet}
+		Cette partie traite globalement de tout ce qui concerne l'organisation du projet, que ce soit au niveau de la conception, du développement, de 
+		l'équipe ou encore de la gestion des fichiers.
+		
+		\section{Gestion de l'équipe}
+			Tous les membres se connaissant et étant supposés être capable de travailler en équipe, nous n'avons fait aucune élection préalable de chef de 
+			projet.\\ Mais le déroulement du projet nous a imposé ce choix, GAUTHIER Silvère assure donc ce rôle, afin de garder une cohésion de groupe 
+			et assurer la réalisation de nos objectifs.\\ Chaque membre peut tout de même participer activement au projet, autant lors de la conception que 
+			du développement. Toutes les décisions sont prises suivant la majorité lors de votes.\\\\
+			Pour ce qui est des réunions de projets, nous avons convenu avec nos tuteurs d'une réunion, allant d'environ trente minutes à une heure, toutes 
+			les semaines, afin de mettre au point l'avancement du projet. En parallèle, tous les membres de notre équipe se retrouvent une fois par semaine 
+			afin de discuter des points clés effectués ou à venir, donner lieu aux votes pour les prises de décisions, ou encore, lors de la phase de 
+			développement, travailler en collaboration afin d'optimiser notre travail.\\\\
+			Au niveau du travail collaboratif, nous avons mis en place un dépôt sur github (adresse à la page \pageref{url:github}), contenant tant la 
+			documentation que les sources de notre programme. Par ailleurs, nous mettons sur ce dépôt uniquement les fichiers sources et les images, mais 
+			en aucun cas les fichiers temporaires ou les exécutables. Les seuls fichiers binaires disponibles sont les PDF de la documentation, pour un 
+			soucis de facilité d'accès et de lecture.
+
+		\section{Découpage en tâches}
+			Afin de préparer le développement du programme, il était nécessaire de séparer les fonctionnalités les unes des autres. Nous avons abouti à ce 
+			diagramme, qui résume notre choix de découpage :\\
+			\begin{figure}[H]
+				\begin{center}
+					\includegraphics[scale=0.5]{img/DiagrammeDecoupageProjet.png}
+				\end{center}
+				\label{fig:decoupage}
+				\caption{Diagramme des tâches du projet}
+			\end{figure}
+
+		\section{Assignation}
+			Le projet étant découpé en un certain nombre de modules, il ne restait plus qu'à assigner chaque tâche à un ou plusieurs membres de l'équipe. 
+			Nous nous sommes organisés comme ceci :
+			\begin{itemize}[label=$\bullet$]
+				\item \textbf{Conception, implémentation et vérifications de l'API} : GAUTHIER Silvère.
+				\item \textbf{Mise en place de l'interface} : LAMEIRA Yannick.
+				\item \textbf{Implémentation des maillages modèles} : PELADAN Cécile.
+				\item \textbf{Conception et implémentation des outils} : GAUTHIER Silvère, LAMEIRA Yannick, PELADAN Cécile.
+				\item \textbf{Tests et vérifications de l'application} : GAUTHIER Silvère, LAMEIRA Yannick, PELADAN Cécile.
+			\end{itemize}
+			Bien entendu, les membres peuvent évidemment faire appel aux autres pour trouver une solution à un problème par exemple.\\
+			Le détail complet des tâches et assignations se situe dans la section Gestion du temps, page \pageref{GestionTps}.
+
+		\section{Gestion du temps}
+			\label{GestionTps}
+			Afin de clarifier notre gestion du temps, deux diagrammes de Gantt (prédictif et final) sont disponibles en annexe (cf page \pageref{fig:gantt}) 
+			et dans la documentation de notre projet.
+
+		\section{Choix technologiques}
+			Afin de pouvoir développer correctement notre logiciel, il a fallu définir tout ce que nous allions utiliser en terme de langages et 
+			bibliothèques selon notre logique de conception.
+			
+			\subsection{Langages de programmation}
+				Pour des besoins de performances, nous avons comparé différents langages. Pour réduire le temps de recherche et de comparaison, nous nous 
+				sommes appuyé sur des tests déjà effectués par d'autre.\\ Des tests de performances concernant un large panel de langages, comparés dans 
+				quatre contextes différents, sont fournis en annexe, page \pageref{fig:analyse}.\\ Nous pouvons observer que globalement, le langage le plus 
+				rapide est ici C++. L'utilisation de ce langage étant très fréquente dans les applications en temps réel, de part sa réputation d'un des 
+				langages les plus performants, et tous les membres de notre équipe sachant l'utiliser, nous avons fait le choix de programmer le logiciel en 
+				C++.\\
+
+			\subsection{Bibliothèques}
+				Pour la gestion graphique de l'interface et de l'affichage de l'objet, nous avons cherché une bibliothèque relativement simple d'utilisation 
+				mais surtout performante afin de garder la fluidité gagnée avec le choix des langages de programmation.\\ Connaissant la bibliothèque 
+				OpenGL, qui est bas niveau et performante dans les affichages deux et trois dimensions, nous nous sommes tournés vers une bibliothèque 
+				utilisant OpenGL : Qt.\\
+
+			\subsection{Représentation du maillage}
+				Nous cherchons ici à comparer différentes techniques permettant de représenter un maillage, afin de choisir celle qui est la plus adaptée à 
+				nos opérations. Voici un tableau récapitulatif de cette étude comparative :
+				\begin{table}[H]
+					\begin{small}
+						\hspace{-2,5cm}
+						\begin{tabular}{| c | l | l |}
+							\hline
+							\textbf{Représentation} & \textbf{Avantages} & \textbf{Inconvénients}\\
+							\hline
+							 & - Hiérarchie des résolutions & - Visualisation surfacique difficile\\
+							Octree ou KDTree & - Rendu volumique possible & - Coût de stockage excessif\\
+							 & - Construction et parcours simples & - Recalculer à chaque modification\\
+							\hline
+							 & - Historique de construction & - Non unicité\\
+							Arbre CSG & - Approche fonctionnelle & - Opérations complexes\\
+							 &  & - Domaine insuffisant\\
+							\hline
+							G-maps & - Opérations de topologie simples & - Séparation topologie / plongement\\
+							 & - Plongements multiples & \\
+							\hline
+							Liste de triangles & - Opérations simples & - Stockage non optimisé\\
+							\hline
+							Sommets partagés & - Opérations simples & \\
+							 & - Stockage correct & \\
+							\hline
+							Bandes de triangles & - Stockage correct & - Chaque sommet est visité deux fois\\
+							 &  & - Opérations de déplacement délicates\\
+							\hline
+							Structure par faces & - Chaque face pointe sur ses sommets & - Pas d'accès direct aux arêtes\\
+							 & - Une face connaît les faces adjacentes & \\
+							\hline
+							Structure par demi-arêtes & - Parcours de maillage très pratiques & - Coût de stockage excessif\\
+							\hline
+							Vertex Array (VAO) & - Optimisé pour le rendu OpenGL & - Utilise le CPU et la RAM\\
+							 & - Simple d'utilisation & \\
+							\hline
+							Vertex Buffer Object (VBO) & - Optimisé pour le rendu OpenGL & \\
+							 & - Utilise le GPU et la VRAM & \\
+							\hline
+						\end{tabular}
+					\end{small}
+					\label{tab:maillage}
+					\caption{Tableau comparatif de méthodes de représentation de maillage 3D}
+				\end{table}
+				L'étude comparative montre qu'il serait judicieux d'utiliser conjointement des Vertex Buffer Objects (VBOs) afin d'optimiser les 
+				performances d'affichage et une classe personnalisée pour aisément gérer nos données par une surcouche de méthodes. La structure interne des 
+				maillages choisie est donc une structure de type demi-arêtes, afin de faciliter les opérations de voisinage.
+			
+		\section{Gestion des fichiers}
+			Nous avons beaucoup de fichiers à gérer dans ce projet, et nous devions établir des conventions ou des moyens afin de les gérer correctement.
+			
+			\subsection{Format des Fichiers}
+				Le code étant écrit en C++, nous utilisons des fichiers d'en-tête au format H et des fichiers de définition au format CPP.\\
+				Toutes les images nécessaires au logiciel sont au format PNG afin de pouvoir utiliser la transparence et garder la pleine qualité d'image 
+				(contrairement à JPEG qui perd de l'information à la compression).\\
+			
+				\subsubsection{Sauvegarde}
+					Une façon judicieuse de sauvegarder nos données est d'avoir un format spécial pour enregistrer un projet complet contenant une liste 
+					d'objets, ainsi qu'une possibilité d'exportation de chaque objet ou scène dans un format connu tel que STL ou OBJ.
+			
+			\subsection{Commentaires}
+				Si une méthode ou fonction (voir même un bloc) dépasse une certaine taille ou devient trop compliquée, un commentaire est ajouté avant 
+				celle-ci expliquant brièvement son processus :
+				\begin{verbatim}
+					/** Description :
+					*** Entrée : ...
+					*** Sortie : ...
+					**/
+				\end{verbatim}
+				Quelque commentaires précieux pour le travail collaboratif sont également présents :
+				\begin{table}[H]
+					\begin{small}
+						\hspace{-0,5cm}
+						\begin{tabular}{| c | c |}
+							\hline
+							\textbf{Marqueur spécifique} & \textbf{Signification}\\
+							\hline
+							TODO & A mettre à la place du code d'une fonctionnalité à implémenter\\
+							\hline
+							RECODE & A mettre au dessus du bloc d'une fonctionnalité à refaire ou à optimiser\\
+							\hline
+							FIXME & A mettre au dessus du bloc d'une fonctionnalité contenant un bug\\
+							\hline
+						\end{tabular}
+					\end{small}
+					\label{tab:commentaire}
+					\caption{Forme et usage des commentaires}
+				\end{table}
+
+			\subsection{Conventions de Nommage}
+				Pour la lisibilité et la bonne pratique du développement de l'application, il est nécessaire de suivre des règles établies au sein de 
+				l'équipe de projet, appelées conventions. Ainsi, nous avons choisi d'écrire le code en anglais uniquement, mis à part pour les commentaires 
+				utiles aux développeurs préférant le français. De même, au moins une ligne de commentaire est requise avant chaque déclaration de classe ou 
+				de fonction, afin d'en expliquer brièvement son fonctionnement (sauf dans le cas de méthodes simples avec des noms explicites).\\
+				Voici un tableau récapitulatif des conventions de nommages pour les noms de variables, classes et méthodes :
+				\begin{table}[H]
+					\begin{small}
+						\hspace{1,5cm}
+						\begin{tabular}{| c | c |}
+							\hline
+							\textbf{Type de variable} & \textbf{Format du nom}\\
+							\hline
+							Classe & Majuscule suivit de minuscules\\
+							\hline
+							Méthode & Minuscules (pour les mots composés,\\
+							et & chaque mots suivant est\\
+							Fonction & une majuscule suivit de minuscules)\\
+							\hline
+							Attribut de classe & Précédé par m\_\\
+							\hline
+							Variable globale & Précédé par g\_\\
+							\hline
+							Variable statique & Précédé par s\_\\
+							\hline
+						\end{tabular}
+					\end{small}
+					\label{tab:nommage}
+					\caption{Conventions de nommage}
+				\end{table}
+
+			\subsection{Gestion du code source}
+				Afin de faciliter le travail collaboratif, nous utilisons un dépôt utilisant le gestionnaire de version GIT, hébergé sur le site :
+				\begin{center}
+					\url{https://github.com/slvrgauthier/OpenSculpt}
+					\label{url:github}
+				\end{center}
+				Sur ce dépôt sont présents tous les fichiers sources nécessaires au développement du programme ainsi que les documentations au format 
+				\LaTeX, ODT et PDF (même si aucun fichier binaire ne devrait être présent, il est plus pratique de récupérer directement un tel fichier 
+				que de le compiler soit-même). De plus, y sont stockées toutes les données utilisées par le programme telles que les images et autres 
+				ressources. Seuls les fichiers temporaires, exécutables et fichiers de sauvegarde ne sont pas stockés.
+
 %==========================================================================================================================================================
 	\chapter{Post-Mortem}
 		Cette section liste toutes les étapes de la conception que nous n'avons pas réalisées (selon notre ordre de priorités), ainsi que toutes les 
