@@ -71,10 +71,10 @@ void MeshTool::ltinflate(Mesh *mesh, QPoint last_position, float brushSize, floa
         QVector3D vector;
 
         for(int i=0 ; i < vertices.size() ; ++i) {
-          vector = vertices[i] - position; // Vecteur à projeter sur le plan du brush
-          vector -= QVector3D::dotProduct(normal, vector) * normal; // Projection
-          coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
-          mesh->moveVertex(vertices[i], (normal + vector) * coef * strength);
+            vector = vertices[i] - position; // Vecteur à projeter sur le plan du brush
+            vector -= QVector3D::dotProduct(normal, vector) * normal; // Projection
+            coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
+            mesh->moveVertex(vertices[i], (normal + vector) * coef * strength);
         }
     }
 }
@@ -110,10 +110,10 @@ void MeshTool::ltpinch(Mesh *mesh, QPoint last_position, float brushSize, float 
         QVector3D vector;
 
         for(int i=0 ; i < vertices.size() ; ++i) {
-          vector = vertices[i] - position; // Vecteur à projeter sur le plan du brush
-          vector -= QVector3D::dotProduct(normal, vector) * normal; // Projection
-          coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
-          mesh->moveVertex(vertices[i], (normal * strength - vector) * coef * strength);
+            vector = vertices[i] - position; // Vecteur à projeter sur le plan du brush
+            vector -= QVector3D::dotProduct(normal, vector) * normal; // Projection
+            coef = std::max(0.f, 1 - vertices[i].distanceToPoint(position) / brushSize);
+            mesh->moveVertex(vertices[i], (normal * strength - vector) * coef * strength);
         }
     }
 }
@@ -172,21 +172,26 @@ void MeshTool::subdivideAuto(Mesh *mesh, QPoint last_position, float brushSize) 
     if(!position.isNull()) {
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
+        QVector<QVector<QVector3D> > neighbours; neighbours.resize(vertices.size());
+
+        for(int i=0 ; i < vertices.size() ; ++i) {
+            neighbours[i] = mesh->getNeighbours(vertices[i], 1);
+        }
 
         // Longueur moyenne entre les points
         float maxEdgeLength = 0;
         for(int i=0 ; i < vertices.size()-1 ; ++i) {
-            for(int j=i+1 ; j < vertices.size() ; ++j) {
-                maxEdgeLength += vertices[i].distanceToPoint(vertices[j]);
+            for(int j=0 ; j < neighbours[i].size() ; ++j) {
+                maxEdgeLength += vertices[i].distanceToPoint(neighbours[i][j]);
             }
         }
-        maxEdgeLength /= vertices.size() * 4;
+        maxEdgeLength /= vertices.size() * 2*brushSize;
 
         // Subdivision automatique
-        for(int i=0 ; i < vertices.size()-1 ; ++i) {
-            for(int j=i+1 ; j < vertices.size() ; ++j) {
-                if(vertices[i].distanceToPoint(vertices[j]) > maxEdgeLength) {
-                    mesh->cutEdge(vertices[i], vertices[j]);
+        for(int i=0 ; i < vertices.size() ; ++i) {
+            for(int j=0 ; j < neighbours[i].size() ; ++j) {
+                if(vertices[i].distanceToPoint(neighbours[i][j]) > maxEdgeLength) {
+                    mesh->cutEdge(vertices[i], neighbours[i][j]);
                 }
             }
         }
@@ -201,30 +206,68 @@ void MeshTool::decimateAuto(Mesh *mesh, QPoint last_position, float brushSize) {
     if(!position.isNull()) {
 
         QVector<QVector3D> vertices = mesh->getVertices(position, brushSize);
+        QVector<QVector<QVector3D> > neighbours; neighbours.resize(vertices.size());
+
+        for(int i=0 ; i < vertices.size() ; ++i) {
+            neighbours[i] = mesh->getNeighbours(vertices[i], 1);
+        }
 
         // Longueur moyenne entre les points
         float minEdgeLength = 0;
         for(int i=0 ; i < vertices.size()-1 ; ++i) {
-            for(int j=i+1 ; j < vertices.size() ; ++j) {
-                minEdgeLength += vertices[i].distanceToPoint(vertices[j]);
+            for(int j=0 ; j < neighbours[i].size() ; ++j) {
+                minEdgeLength += vertices[i].distanceToPoint(neighbours[i][j]);
             }
         }
-        minEdgeLength /= vertices.size() * 4;
+        minEdgeLength /= vertices.size() * 2*brushSize;
 
         // Decimation automatique
         QVector3D OA, OB;
+        QVector<QVector3D> seen;
         float angle;
 
-        for(int i=0 ; i < vertices.size()-2 ; ++i) {
-            for(int j=i+1 ; j < vertices.size()-1 ; ++j) {
-                for(int k=j+1 ; k < vertices.size() ; ++k) {
-                    OA = vertices[j] - vertices[i];
-                    OB = vertices[k] - vertices[j];
-                    if(OA.length() < minEdgeLength && OB.length() < minEdgeLength) {
-                        angle = QVector3D::dotProduct(OA, OB) / (OA.length() * OB.length()); // rad
-                        if(angle < M_PI / 8) { // 22.5 deg
-                            mesh->mergeEdge(vertices[i], vertices[j], vertices[k]);
+        for(int i=0 ; i < vertices.size() ; ++i) {
+            if(!seen.contains(vertices[i])) {
+
+                // Tester si l'ensemble de faces est plutôt plat
+                bool ok = true;
+                OA = QVector3D::normal(neighbours[i][0], vertices[i], neighbours[i][1]).normalized();
+                for(int l=1 ; l < neighbours[i].size() ; ++l) {
+                    OB = QVector3D::normal(neighbours[i][l], vertices[i], neighbours[i][(l+1)%neighbours[i].size()]).normalized();
+                    angle = QVector3D::dotProduct(OA, OB);
+                    ok = ok && (angle < M_PI/8);
+                }
+
+                if(ok) {
+                    bool oa=false, ob=false;
+                    int j=0;
+                    while(j < neighbours[i].size()) {
+                        if(neighbours[i][j] != vertices[i]) {
+                            if(!oa) {
+                                OA = neighbours[i][j] - vertices[i];
+                                if(OA.length() < minEdgeLength) {
+                                    OA = neighbours[i][j];
+                                    oa = true;
+                                }
+                            }
+                            else if(!ob) {
+                                OB = vertices[i] - neighbours[i][j];
+                                if(OB.length() < minEdgeLength && QVector3D::dotProduct((OA-vertices[i]).normalized(), -OB.normalized()) < M_PI / 8) {
+                                    OB = neighbours[i][j];
+                                    ob = true;
+                                }
+                            }
+
+                            if(oa && ob) {
+                                if(mesh->mergeEdge(OA, vertices[i], OB)) {
+                                    j = neighbours[i].size();
+                                    for(int k=0 ; k < neighbours[i].size() ; ++k) {
+                                        seen.push_back(neighbours[i][k]);
+                                    }
+                                }
+                            }
                         }
+                        ++j;
                     }
                 }
             }

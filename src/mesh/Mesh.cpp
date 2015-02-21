@@ -279,7 +279,7 @@ bool Mesh::cutEdge(QVector3D vertex1, QVector3D vertex2) {
 }
 
 bool Mesh::mergeEdge(QVector3D vertex1, QVector3D vertex2, QVector3D vertex3) {
-    if(vertex1 != vertex2 && vertex2 != vertex3 && vertex3 != vertex1) {
+    if(vertex1 != vertex2 && vertex2 != vertex3 && vertex3 != vertex1 && !getNeighbours(vertex1, 1).contains(vertex3)) {
 
         HalfEdge *edge1 = NULL, *edge2 = NULL;
 
@@ -300,7 +300,7 @@ bool Mesh::mergeEdge(QVector3D vertex1, QVector3D vertex2, QVector3D vertex3) {
             ++i;
         }
 
-        if(edge1 != NULL && edge2 != NULL && edge1->opposite != edge1 && edge1->next != edge2 && edge1->opposite->previous->opposite != edge2) {
+        if(edge1 != NULL && edge2 != NULL && edge1->face != edge1->opposite->face) {
             // Fill and Remove faces
             edge1->next->opposite->face->edge = edge1->next->opposite->next;
             edge1->opposite->previous->opposite->face->edge = edge1->opposite->previous->opposite->previous;

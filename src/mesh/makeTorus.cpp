@@ -37,5 +37,5 @@ void Mesh::makeTorus(float radiusH, float radiusV, int discretization) {
         }
     }
 
-    this->TEST();
+    //this->TEST();
 }

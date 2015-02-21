@@ -70,6 +70,5 @@ void Mesh::makeSphere(float radius, int discretization) {
             }
         }
     }
-    this->TEST();
-
+    //this->TEST();
 }
